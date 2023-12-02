@@ -189,6 +189,7 @@
         "verificationFunction": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -201,6 +202,7 @@
         "conformingName": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -458,14 +460,21 @@
           "title": "Subtests"
         },
         "entryPoint": {
-          "minLength": 1,
-          "title": "Entrypoint",
-          "type": "string"
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entrypoint"
         }
       },
       "required": [
-        "name",
-        "entryPoint"
+        "name"
       ],
       "title": "CodeAbilityTest",
       "type": "object"
@@ -563,7 +572,7 @@
           "default": null,
           "title": "Studenttestcounter"
         },
-        "pythonTestVersion": {
+        "testVersion": {
           "anyOf": [
             {
               "minLength": 1,
@@ -574,7 +583,7 @@
             }
           ],
           "default": "v1",
-          "title": "Pythontestversion"
+          "title": "Testversion"
         }
       },
       "title": "CodeAbilityTestInfo",

@@ -1,6 +1,6 @@
 {
-    "created": 1701531519.3437285,
-    "duration": 0.8350872993469238,
+    "created": 1701533473.5477707,
+    "duration": 0.8678433895111084,
     "exitcode": 1,
     "root": "I:\\PYTHON\\catester",
     "environment": {},
@@ -94,15 +94,15 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.18195560001186095,
+                "duration": 0.1756028000090737,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.00042329999268986285,
+                "duration": 0.00040490001265425235,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.0003053999971598387,
+                "duration": 0.000415000002249144,
                 "outcome": "passed"
             }
         },
@@ -117,15 +117,15 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.00031099999614525586,
+                "duration": 0.0003242999955546111,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.0002418000076431781,
+                "duration": 0.0002325000095879659,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.00026130001060664654,
+                "duration": 0.0002776000037556514,
                 "outcome": "passed"
             }
         },
@@ -140,15 +140,15 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.00037059999885968864,
+                "duration": 0.0002806999982567504,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.0003169000119669363,
+                "duration": 0.00032080001255963,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.00026059999072458595,
+                "duration": 0.0002570000069681555,
                 "outcome": "passed"
             }
         },
@@ -163,11 +163,11 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.0004908000119030476,
+                "duration": 0.00031550000130664557,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.001139500003773719,
+                "duration": 0.00044779999007005244,
                 "outcome": "failed",
                 "crash": {
                     "path": "I:\\PYTHON\\catester\\catester\\tests\\test_me.py",
@@ -184,7 +184,7 @@
                 "longrepr": "namespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...plot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'var1': 0.30000000000000004, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\n    def test_variable(namespace_student, namespace_reference):\n        assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n>       assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\nE       AssertionError: Variable var4 not found in the namespace_reference\nE       assert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\ntests\\test_me.py:58: AssertionError"
             },
             "teardown": {
-                "duration": 0.0003702000103658065,
+                "duration": 0.0006397999968612567,
                 "outcome": "passed"
             }
         },
@@ -199,11 +199,11 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.00040550000267103314,
+                "duration": 0.0004096000047866255,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.0003853999951388687,
+                "duration": 0.0005471999902511016,
                 "outcome": "failed",
                 "crash": {
                     "path": "I:\\PYTHON\\catester\\catester\\tests\\test_me.py",
@@ -220,7 +220,7 @@
                 "longrepr": "namespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...plot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'var1': 0.30000000000000004, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\n    def test_variable(namespace_student, namespace_reference):\n        assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n        assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n    \n        val_student = namespace_student[name]\n        val_reference = namespace_reference[name]\n        type_student = type(val_student)\n        type_reference = type(val_reference)\n        #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n>       assert type_student == type_reference, f\"Variable {name} has incorrect type\"\nE       AssertionError: Variable var5 has incorrect type\nE       assert <class 'list'> == <class 'tuple'>\n\ntests\\test_me.py:65: AssertionError"
             },
             "teardown": {
-                "duration": 0.00027689999842550606,
+                "duration": 0.0003355999942868948,
                 "outcome": "passed"
             }
         },
@@ -235,15 +235,15 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.00029460000223480165,
+                "duration": 0.00030080000578891486,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.008324599999468774,
+                "duration": 0.007122399998479523,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.0002868000010494143,
+                "duration": 0.00028059999749530107,
                 "outcome": "passed"
             }
         },
@@ -258,15 +258,15 @@
                 "catester"
             ],
             "setup": {
-                "duration": 0.00030270000570453703,
+                "duration": 0.0003392999933566898,
                 "outcome": "passed"
             },
             "call": {
-                "duration": 0.0005181000014999881,
+                "duration": 0.0007989000005181879,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.0007016000017756596,
+                "duration": 0.0006997000018600374,
                 "outcome": "passed"
             }
         }

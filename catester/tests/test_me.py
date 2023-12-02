@@ -1,11 +1,9 @@
 import os
 import numpy as np
-import yaml
 import pytest
 from matplotlib import pyplot as plt
 from catester.helpers import execute_file, parse_yaml_file
 from pytest import approx
-
 
 yamlfile = "I:/PYTHON/catester/examples/ex1/test.yaml"
 dirabs = os.path.abspath(os.path.dirname(yamlfile))
