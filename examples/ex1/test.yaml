@@ -1,0 +1,38 @@
+testInfo:
+  studentDirectory: "student"
+  referenceDirectory: "reference"
+  testVersion: "v1.0"
+
+name: Python Test suite
+description: Checks variables
+type: "python"
+version: "1.0"
+failureMessage: Some or all tests failed
+successMessage: Congratulations! All tests passed
+storeGraphicsArtefacts: false
+
+properties:
+  relativeTolerance: 1.0E-22
+  absoluteTolerance: 0.1
+  qualification: verifyEqual
+  tests:
+    - name: Test 1
+      type: variable
+      entryPoint: "MyScript.py"
+      subTests:
+        - name: "var1"
+          #value: 0.3
+        - name: "var2"
+        - name: "var3"
+    - name: Test 2
+      type: variable
+      entryPoint: "MyScript.py"
+      subTests:
+        - name: "var4"
+        - name: "var5"
+    - name: Test 3
+      type: variable
+      entryPoint: "MyScript.py"
+      subTests:
+        - name: "x"
+        - name: "y"

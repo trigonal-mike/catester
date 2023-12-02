@@ -1,0 +1,16 @@
+entryPoint: "script.py"
+tests:
+  - name: Test-1
+    variables:
+      - name: "var1"
+        value: 0.3
+      - name: "var2"
+        value: "1"
+  - name: Test-2
+    variables:
+      - name: "var3"
+        value: "xxx"
+  - name: Test-3
+    variables:
+      - name: "var4"
+        value: 1j

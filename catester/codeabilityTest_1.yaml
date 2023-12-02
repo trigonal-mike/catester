@@ -1,0 +1,258 @@
+testInfo:
+  studentDir: "student"
+  referenceDir: "reference"
+  executionDir: "pwd"
+  outputDir: "output"
+  artefactDir: "artefacts"
+  storageDir: "storage"
+  testVersion: "v2.0.1"
+
+name: Python Test Suite
+description: Checks subtests and graphics
+type: python
+version: "1.0"
+failureMessage: Some or all tests failed
+successMessage: Congratulations! All tests passed
+storeGraphicsArtefacts: false
+
+properties:
+  # relativeTolerance: 1.0e-15
+  # absoluteTolerance: 0.0
+  # qualification: verifyEqual
+  # competency: M1
+  # verbosity: 2
+  tests:
+    - type: exist
+      name: existance of a file
+      file: myS*.m # myS\w+\.m  myScript1.m
+      tests:
+        - name: existance
+
+
+    - type: variable
+      name: basic
+      setUpCode: [
+        "run #command_1#", # run myScript1;", 
+        "[status,statusFailureMessage,statusSuccessMessage] = testHelper(var1);"
+        ]
+      inputAnswers: [3]
+      tearDownCode: ""
+      description: Checks basic variables
+      failureMessage: Have a look at the specific test results
+      successMessage: Basic variables perfectly solved
+      id: "2"
+      competency: M2
+      verbosity: 2     
+      relativeTolerance: 1.0E-12
+      absoluteTolerance: 0.0
+      qualification: verifyEqual
+      tests:
+        - name: var1
+          relativeTolerance: 1.0E-6
+        - name: var2
+          absoluteTolerance: 0.0
+        - name: var3
+        - name: var4
+        - name: var5
+        - name: var6
+          evalString: rand(5)
+        - name: var7
+          evalString: rand(1,100)
+        - name: status
+          value: true
+        - name: inp
+          value: 3
+        - name: inputQuestions
+          qualification: contains
+          pattern: [' "Please" ',' ":" + whitespacePattern(1) ']
+          options: 
+            and: true
+            IgnoreCase: true
+          # pattern: [' "Please" + regexpPattern(".+") + ":" + whitespacePattern(1) '] 
+
+    - type: error
+      name: error check
+      setUpCodeDependency: "2"
+      description: Checks errors
+      tests:
+        - name: errorMessage
+        - name: errorIdentifier 
+
+    - type: warning
+      name: warning check
+      setUpCodeDependency: "2"
+      description: Checks warnings
+      tests:
+        - name: warningMessage
+          qualification: startsWith 
+          pattern: '"Test"'
+        - name: warningIdentifier
+          qualification: startsWith
+          pattern: '"MyComponent:"'
+
+    - type: variable
+      name: disp content
+      setUpCodeDependency: "2"
+      description: Checks contents of disp
+      tests:
+        - name: dispContent
+          qualification: matches
+          pattern: ' "var2" + whitespacePattern + "=" + whitespacePattern + digitsPattern(1) + "." + digitsPattern(1) '
+
+    - type: variable
+      name: basic
+      setUpCodeDependency: "2"
+      #setUpCode: [run myScript1;]
+      #tearDownCode: ""
+      description: Checks basic variables
+      failureMessage: Have a look at the specific test results
+      successMessage: Basic variables perfectly solved
+      #id: "1"
+      competency: M2
+      verbosity: 2     
+      relativeTolerance: 1.0E-12
+      absoluteTolerance: 0.0
+      qualification: verifyEqual
+      tests:
+        - name: var1
+          relativeTolerance: 1.0E-6
+          evalString: "1:5" 
+        - name: var2
+          absoluteTolerance: 0.0
+          evalString: "pi+0.5"
+        - name: var3
+          value: "abc"
+
+    - type: variable
+      name: advanced
+      setUpCodeDependency: "2"
+      # setUpCode: [run myScript1]
+      # tearDownCode: [close all]
+      description: Check advanced subTests
+      failureMessage: Have a look at the specific test results
+      successMessage: This is great
+      # id: "2"
+      successDependency: "1"
+      tests:
+        - name: cell1
+        - name: "cell1{1}"
+          successDependency: cell1
+        # - name: struct1
+        - name: struct1.field1
+        - name: struct1.field2
+          successDependency: ["struct1.field1"]
+        - name: struct1.field3
+          successDependency: ["struct1.field2"]
+        - name: string1
+
+    - type: variable
+      name: map
+      setUpCodeDependency: "2"
+      # setUpCode: ["[a1,b1]=testFunc(pi)","[a2,b2]=testFunc(pi+1)"]
+      # tearDownCode: [close all]
+      description: Checks a containers.map
+      failureMessage: Have a look at the specific test results
+      successMessage: This is great
+      id: "3"
+      successDependency: ["1","2"]
+      tests:
+        - name: keySet
+        - name: valueSet
+        - name: map1
+
+    - type: graphics
+      name: graphics
+      setUpCodeDependency: "2"
+      description: Check all specified graphics elements
+      tests:
+        - name: figure.axes.line.xdata
+        - name: figure(1).axes(1).line(1).ydata
+        - name: figure(1).axes(1).line(1).linestyle
+        - name: figure(1).axes(1).xlabel.fontsize
+          value: 11
+        - name: figure(1).axes(1).xlabel.string
+          qualification: startsWith
+          pattern: ' "x" + lettersPattern(1) + "y" '
+        - name: figure(1).axes(1).ylabel.string
+          qualification: matches
+          pattern: y #'"y"'
+
+    - type: linting
+      name: linting
+      file: '#file_1#' #myScript1.m
+      description: Test of code issues with MATLAB checkcode
+      allowedOccuranceRange: [0,0] 
+      tests:
+        - name:  NOPTS
+          allowedOccuranceRange: [0,0]
+        - name:  IJCL
+          allowedOccuranceRange: [0,0]
+
+    - type: structural
+      name: structural
+      file: myScript1.m
+      description: "Check occurance of specific variables, keywords, or function calls in your code"
+      allowedOccuranceRange: [0,0]       
+      tests:
+        - name:  figure
+          allowedOccuranceRange: [1,1]
+        - name:  if
+        - name:  switch
+
+    - type: variable
+      name: strings
+      setUpCodeDependency: "2"
+      description: "Test of some qualifications for char, string"
+      qualification: matches
+      tests:
+        - name: char1
+          pattern: lettersPattern(4)
+        - name: char2
+          pattern: [lettersPattern(4),lettersPattern(3)]
+        - name: char3
+          qualification: count
+          pattern: lettersPattern(1)
+          countRequirement: 2
+          options:
+            IgnoreCase: true
+        - name: char4
+          qualification: regexp
+          pattern: "^a{1}.*z{1}$"
+          options:
+            IgnoreCase: true
+
+    - type: variable
+      name: verification
+      setUpCodeDependency: "2"
+      description: "Test of some verifications for double"
+      qualification: verification
+      tests:
+        - name: var1
+          verificationFunction: "@(x) [isvector(x), isnumeric(x), all(x==floor(x)), numel(x)==5]"
+        - name: var2
+          verificationFunction: "@(x) isscalar(x) && isnumeric(x) && isa(x,'double')"
+
+    - type: help
+      name: checks help 
+      setUpCode: "[helpText,helpCell] = CodeAbilityMatlabSupport.help('myScript1');"
+      description: "Test help content"
+      qualification: matches
+      tests:
+        - name: helpText
+          qualification: contains
+          pattern: lettersPattern(4) # part
+        - name: helpCell{1}
+          qualification: startsWith
+          pattern: student
+          options:
+            IgnoreCase: true
+        - name: helpCell{2}
+          qualification: contains
+          pattern: part
+          options:
+            IgnoreCase: true
+
+
+
+
+

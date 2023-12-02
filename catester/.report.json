@@ -1,0 +1,274 @@
+{
+    "created": 1701531519.3437285,
+    "duration": 0.8350872993469238,
+    "exitcode": 1,
+    "root": "I:\\PYTHON\\catester",
+    "environment": {},
+    "summary": {
+        "passed": 5,
+        "failed": 2,
+        "total": 7,
+        "collected": 7
+    },
+    "collectors": [
+        {
+            "nodeid": "",
+            "outcome": "passed",
+            "result": [
+                {
+                    "nodeid": "catester/__init__.py",
+                    "type": "Package"
+                },
+                {
+                    "nodeid": "catester/tests/__init__.py",
+                    "type": "Package"
+                }
+            ]
+        },
+        {
+            "nodeid": "catester/__init__.py",
+            "outcome": "passed",
+            "result": []
+        },
+        {
+            "nodeid": "catester/tests/test_me.py",
+            "outcome": "passed",
+            "result": [
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 1_var1",
+                    "type": "Function",
+                    "lineno": 55
+                },
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 1_var2",
+                    "type": "Function",
+                    "lineno": 55
+                },
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 1_var3",
+                    "type": "Function",
+                    "lineno": 55
+                },
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 2_var4",
+                    "type": "Function",
+                    "lineno": 55
+                },
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 2_var5",
+                    "type": "Function",
+                    "lineno": 55
+                },
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 3_x",
+                    "type": "Function",
+                    "lineno": 55
+                },
+                {
+                    "nodeid": "catester/tests/test_me.py::test_Test 3_y",
+                    "type": "Function",
+                    "lineno": 55
+                }
+            ]
+        },
+        {
+            "nodeid": "catester/tests/__init__.py",
+            "outcome": "passed",
+            "result": [
+                {
+                    "nodeid": "catester/tests/test_me.py",
+                    "type": "Module"
+                }
+            ]
+        }
+    ],
+    "tests": [
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 1_var1",
+            "lineno": 55,
+            "outcome": "passed",
+            "keywords": [
+                "test_Test 1_var1",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.18195560001186095,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.00042329999268986285,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0003053999971598387,
+                "outcome": "passed"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 1_var2",
+            "lineno": 55,
+            "outcome": "passed",
+            "keywords": [
+                "test_Test 1_var2",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.00031099999614525586,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.0002418000076431781,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.00026130001060664654,
+                "outcome": "passed"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 1_var3",
+            "lineno": 55,
+            "outcome": "passed",
+            "keywords": [
+                "test_Test 1_var3",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.00037059999885968864,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.0003169000119669363,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.00026059999072458595,
+                "outcome": "passed"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 2_var4",
+            "lineno": 55,
+            "outcome": "failed",
+            "keywords": [
+                "test_Test 2_var4",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.0004908000119030476,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.001139500003773719,
+                "outcome": "failed",
+                "crash": {
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_me.py",
+                    "lineno": 58,
+                    "message": "AssertionError: Variable var4 not found in the namespace_reference\nassert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}"
+                },
+                "traceback": [
+                    {
+                        "path": "tests\\test_me.py",
+                        "lineno": 58,
+                        "message": "AssertionError"
+                    }
+                ],
+                "longrepr": "namespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...plot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'var1': 0.30000000000000004, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\n    def test_variable(namespace_student, namespace_reference):\n        assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n>       assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\nE       AssertionError: Variable var4 not found in the namespace_reference\nE       assert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\ntests\\test_me.py:58: AssertionError"
+            },
+            "teardown": {
+                "duration": 0.0003702000103658065,
+                "outcome": "passed"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 2_var5",
+            "lineno": 55,
+            "outcome": "failed",
+            "keywords": [
+                "test_Test 2_var5",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.00040550000267103314,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.0003853999951388687,
+                "outcome": "failed",
+                "crash": {
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_me.py",
+                    "lineno": 65,
+                    "message": "AssertionError: Variable var5 has incorrect type\nassert <class 'list'> == <class 'tuple'>"
+                },
+                "traceback": [
+                    {
+                        "path": "tests\\test_me.py",
+                        "lineno": 65,
+                        "message": "AssertionError"
+                    }
+                ],
+                "longrepr": "namespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...plot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'var1': 0.30000000000000004, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\n    def test_variable(namespace_student, namespace_reference):\n        assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n        assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n    \n        val_student = namespace_student[name]\n        val_reference = namespace_reference[name]\n        type_student = type(val_student)\n        type_reference = type(val_reference)\n        #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n>       assert type_student == type_reference, f\"Variable {name} has incorrect type\"\nE       AssertionError: Variable var5 has incorrect type\nE       assert <class 'list'> == <class 'tuple'>\n\ntests\\test_me.py:65: AssertionError"
+            },
+            "teardown": {
+                "duration": 0.00027689999842550606,
+                "outcome": "passed"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 3_x",
+            "lineno": 55,
+            "outcome": "passed",
+            "keywords": [
+                "test_Test 3_x",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.00029460000223480165,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.008324599999468774,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0002868000010494143,
+                "outcome": "passed"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_me.py::test_Test 3_y",
+            "lineno": 55,
+            "outcome": "passed",
+            "keywords": [
+                "test_Test 3_y",
+                "test_me.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.00030270000570453703,
+                "outcome": "passed"
+            },
+            "call": {
+                "duration": 0.0005181000014999881,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0007016000017756596,
+                "outcome": "passed"
+            }
+        }
+    ]
+}
