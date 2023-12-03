@@ -33,7 +33,7 @@ properties:
         - name: "var7"
           value: "xyz"
         - name: "var8"
-          evalString: "round((1+2+3+0.000)*1)"
+          evalString: "round((1+2+3+0.001)*1)"
     - name: Test PythonTypes
       type: variable
       entryPoint: "PythonTypes.py"
@@ -53,6 +53,14 @@ properties:
         - name: "x13"
         - name: "x14"
         - name: "x15"
+    - name: Test DateTime
+      type: variable
+      entryPoint: "DateTime.py"
+      subTests:
+        - name: "var_date"
+        - name: "var_time"
+        - name: "var_datetime"
+        - name: "var_duration"
     - name: Test Matplot
       relativeTolerance: 1.0E-8
       absoluteTolerance: 0.00001

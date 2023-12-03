@@ -4,15 +4,21 @@ from helpers import parse_yaml_file, get_argument
 #plugin = JSONReport()
 
 def run_tests():
-    #yamlfile = get_argument(("-i", "--input"), "./codeabilityTest_1.yaml")
     yamlfile = get_argument(("-i", "--input"), "../examples/ex1/test.yaml")
+    reportfile = "test-report.json"
     config = parse_yaml_file(yamlfile)
-    print(config)
-    pytestconfig = f"--yamlfile={yamlfile}"
-    #retcode = pytest.main([pytestconfig])
-    #retcode = pytest.main([pytestconfig, "--no-summary", "--no-header" , "-q"])
-    #retcode = pytest.main(["--json-report", 'test/test_class.py'], plugins=[plugin])
-    retcode = pytest.main([pytestconfig, "--json-report-indent=4", "--json-report"])
+    #print(config)
+    retcode = pytest.main([
+        f"--yamlfile={yamlfile}",
+        #"--collect-only" ,
+        f"--json-report-file={reportfile}",
+        "--json-report-indent=4",
+        "--json-report",
+        #"--no-summary",
+        #"--no-header",
+        #"-v",
+        #"-q"
+    ])
     print(retcode)
 
 if __name__ == '__main__':
