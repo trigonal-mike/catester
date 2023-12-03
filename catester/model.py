@@ -57,7 +57,6 @@ class CodeAbilitySubTest(CodeAbilityBaseTemplate, CodeAbilityTestTemplate):
     #original: options = struct()
     options: Optional[Dict] = None
     verificationFunction: Optional[str] = Field(min_length=1, default=None)
-    conformingName: Optional[str] = Field(min_length=1, default=None)
 
 
 class CodeAbilityTest(CodeAbilityBaseTemplate, CodeAbilityBaseTestTemplate, CodeAbilityTestTemplate):

@@ -16,11 +16,11 @@ properties:
   absoluteTolerance: 0.000001
   qualification: verifyEqual
   tests:
-    - name: Test MyScript
+    - name: Test Basic
       relativeTolerance: 1.0E-1
       absoluteTolerance: 0.001
       type: variable
-      entryPoint: "MyScript.py"
+      entryPoint: "Basic.py"
       subTests:
         - name: "var1"
           relativeTolerance: 1.0E-05
@@ -30,6 +30,10 @@ properties:
         - name: "var4"
         - name: "var5"
         - name: "var6"
+        - name: "var7"
+          value: "xyz"
+        - name: "var8"
+          evalString: "round((1+2+3+0.000)*1)"
     - name: Test PythonTypes
       type: variable
       entryPoint: "PythonTypes.py"
@@ -63,3 +67,45 @@ properties:
       subTests:
         - name: "df"
         - name: "ser"
+    - name: Test Strings
+      type: variable
+      entryPoint: "Strings.py"
+      subTests:
+        - name: "var1"
+          qualification: matches
+          pattern: "_x1234567890"
+        - name: "var1"
+          qualification: contains
+          pattern: "_x1234567890"
+        - name: "var1"
+          qualification: startsWith
+          pattern: "_x123"
+        - name: "var1"
+          qualification: endsWith
+          pattern: "890"
+        - name: "var1"
+          qualification: count
+          pattern: "_"
+          countRequirement: 1
+        - name: "var1"
+          qualification: regexp
+          pattern: "^.*x.*$"
+        - name: "var2"
+          qualification: matches
+          pattern: "-"
+        - name: "var2"
+          qualification: contains
+          pattern: "-"
+        - name: "var2"
+          qualification: startsWith
+          pattern: "-"
+        - name: "var2"
+          qualification: endsWith
+          pattern: "-"
+        - name: "var2"
+          qualification: count
+          pattern: "-"
+          countRequirement: 1
+        - name: "var2"
+          qualification: regexp
+          pattern: "^.*y.*$"

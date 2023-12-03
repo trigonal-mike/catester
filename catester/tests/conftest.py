@@ -53,7 +53,7 @@ def namespace_student(request, monkeymodule, testsuite, testcase):
     entry_point = main["entryPoint"]
     file = os.path.join(dirabs, dir, entry_point)
 
-    #monkeymodule.setattr(plt, "show", lambda: None)
+    monkeymodule.setattr(plt, "show", lambda: None)
 
     namespace = {}
     execute_file(file, namespace)
@@ -70,8 +70,9 @@ def namespace_reference(request, monkeymodule, testsuite, testcase):
     entry_point = main["entryPoint"]
     file = os.path.join(dirabs, dir, entry_point)
 
-    #monkeymodule.setattr(plt, "show", lambda: None)
+    monkeymodule.setattr(plt, "show", lambda: None)
 
     namespace = {}
-    execute_file(file, namespace)
+    if os.path.exists(file):
+        execute_file(file, namespace)
     return namespace
