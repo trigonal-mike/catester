@@ -12,27 +12,54 @@ successMessage: Congratulations! All tests passed
 storeGraphicsArtefacts: false
 
 properties:
-  relativeTolerance: 1.0E-22
-  absoluteTolerance: 0.1
+  relativeTolerance: 1.0E-12
+  absoluteTolerance: 0.000001
   qualification: verifyEqual
   tests:
-    - name: Test 1
+    - name: Test MyScript
+      relativeTolerance: 1.0E-1
+      absoluteTolerance: 0.001
       type: variable
       entryPoint: "MyScript.py"
       subTests:
         - name: "var1"
+          relativeTolerance: 1.0E-05
           #value: 0.3
         - name: "var2"
         - name: "var3"
-    - name: Test 2
-      type: variable
-      entryPoint: "MyScript.py"
-      subTests:
         - name: "var4"
         - name: "var5"
-    - name: Test 3
+        - name: "var6"
+    - name: Test PythonTypes
       type: variable
-      entryPoint: "MyScript.py"
+      entryPoint: "PythonTypes.py"
+      subTests:
+        - name: "x1"
+        - name: "x2"
+        - name: "x3"
+        - name: "x4"
+        - name: "x5"
+        - name: "x6"
+        - name: "x7"
+        - name: "x8"
+        - name: "x9"
+        - name: "x10"
+        - name: "x11"
+        - name: "x12"
+        - name: "x13"
+        - name: "x14"
+        - name: "x15"
+    - name: Test Matplot
+      relativeTolerance: 1.0E-8
+      absoluteTolerance: 0.00001
+      type: variable
+      entryPoint: "Matplot.py"
       subTests:
         - name: "x"
         - name: "y"
+    - name: Test Pandas
+      type: variable
+      entryPoint: "Pandas.py"
+      subTests:
+        - name: "df"
+        - name: "ser"

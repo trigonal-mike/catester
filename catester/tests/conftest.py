@@ -1,55 +1,77 @@
 import os
+import pytest
 from catester.helpers import execute_file, parse_yaml_file
+from matplotlib import pyplot as plt
 
 def pytest_addoption(parser):
     parser.addoption("--yamlfile", default="", help="provide a valid yamlfile", )
 
-#yet not working, hmmm?
-"""
-def pytest_configure(config):
-    yamlfile = config.getoption('--yamlfile')
-    dirabs = os.path.abspath(os.path.dirname(yamlfile))
+def pytest_generate_tests(metafunc):
+    yamlfile = metafunc.config.getoption('--yamlfile')
     config = parse_yaml_file(yamlfile)
-    properties = config["properties"]
-    test_info = config["testInfo"]
+    testcases = []
+    for idx_main, test in enumerate(config["properties"]["tests"]):
+        for idx_sub, sub_test in enumerate(test["subTests"]):
+            testcases.append((idx_main, idx_sub))
+    metafunc.parametrize('testcases', testcases)
+
+@pytest.fixture
+def testsuite(request):
+    yamlfile = request.config.getoption('--yamlfile')
+    config = parse_yaml_file(yamlfile)
+    return config
+
+@pytest.fixture
+def testcase(testsuite, testcases):
+    properties = testsuite["properties"]
+    test_info = testsuite["testInfo"]
     student_dir = test_info["studentDirectory"]
     reference_dir = test_info["referenceDirectory"]
+    idx_main, idx_sub = testcases
+    tests = properties["tests"]
+    main = tests[idx_main]
+    sub_tests = main["subTests"]
+    sub = sub_tests[idx_sub]
+    return (main, sub)
 
-    for test in properties["tests"]:
-        entry_point = test["entryPoint"]
-        file_student = os.path.join(dirabs, student_dir, entry_point)
-        file_reference = os.path.join(dirabs, reference_dir, entry_point)
-        namespace_user = {}
-        namespace_reference = {}
-        execute_file(file_student, namespace_user)
-        execute_file(file_reference, namespace_reference)
 
-        for subtest in test["subTests"]:
-            var_name = subtest["name"]
-            var_value = None
-            var_type = None
-            if "value" in subtest:
-                var_value = subtest["value"] 
-                var_type = type(var_value)
+@pytest.fixture(scope='function')
+def monkeymodule():
+    from _pytest.monkeypatch import MonkeyPatch
+    mpatch = MonkeyPatch()
+    yield mpatch
+    mpatch.undo()
 
-            def create_test_fn(name, value, v_type):
-                def test_variable():
-                    # Check if variable exists in the namespace
-                    assert name in namespace_user, f"Variable {name} not found in the namespace_user"
-                    assert name in namespace_reference, f"Variable {name} not found in the namespace_user"
+@pytest.fixture(scope='function')
+def namespace_student(request, monkeymodule, testsuite, testcase):
+    yamlfile = request.config.getoption('--yamlfile')
+    dirabs = os.path.abspath(os.path.dirname(yamlfile))
+    test_info = testsuite["testInfo"]
+    dir = test_info["studentDirectory"]
 
-                    # Check if variable has the correct type
-                    #assert type(namespace_user[name]) == v_type, f"Variable {name} has incorrect type"
-                    #assert isinstance(namespace_user[name], v_type), f"Variable {name} has incorrect type"
-                    assert type(namespace_user[name]) == type(namespace_reference[name]), f"Variable {name} has incorrect type"
+    main, sub = testcase
+    entry_point = main["entryPoint"]
+    file = os.path.join(dirabs, dir, entry_point)
 
-                    # Check if variable value matches the expected value
-                    #assert namespace_user[name] == value, f"Variable {name} has incorrect value"
-                    assert namespace_user[name] == namespace_reference[name], f"Variable {name} has incorrect value"
+    #monkeymodule.setattr(plt, "show", lambda: None)
 
-                return test_variable
+    namespace = {}
+    execute_file(file, namespace)
+    return namespace
 
-            test_name = f"test_{test['name']}_{var_name}"
-            globals()[test_name] = create_test_fn(var_name, var_value, var_type)
-"""
+@pytest.fixture(scope='function')
+def namespace_reference(request, monkeymodule, testsuite, testcase):
+    yamlfile = request.config.getoption('--yamlfile')
+    dirabs = os.path.abspath(os.path.dirname(yamlfile))
+    test_info = testsuite["testInfo"]
+    dir = test_info["referenceDirectory"]
 
+    main, sub = testcase
+    entry_point = main["entryPoint"]
+    file = os.path.join(dirabs, dir, entry_point)
+
+    #monkeymodule.setattr(plt, "show", lambda: None)
+
+    namespace = {}
+    execute_file(file, namespace)
+    return namespace

@@ -1,14 +1,14 @@
 {
-    "created": 1701533473.5477707,
-    "duration": 0.8678433895111084,
+    "created": 1701626128.9314966,
+    "duration": 8.025617361068726,
     "exitcode": 1,
     "root": "I:\\PYTHON\\catester",
     "environment": {},
     "summary": {
-        "passed": 5,
-        "failed": 2,
-        "total": 7,
-        "collected": 7
+        "passed": 20,
+        "failed": 5,
+        "total": 25,
+        "collected": 25
     },
     "collectors": [
         {
@@ -31,43 +31,143 @@
             "result": []
         },
         {
-            "nodeid": "catester/tests/test_me.py",
+            "nodeid": "catester/tests/test_class.py::Test",
             "outcome": "passed",
             "result": [
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 1_var1",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases0]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
                 },
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 1_var2",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases1]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
                 },
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 1_var3",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases2]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
                 },
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 2_var4",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases3]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
                 },
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 2_var5",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases4]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
                 },
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 3_x",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases5]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
                 },
                 {
-                    "nodeid": "catester/tests/test_me.py::test_Test 3_y",
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases6]",
                     "type": "Function",
-                    "lineno": 55
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases7]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases8]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases9]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases10]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases11]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases12]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases13]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases14]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases15]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases16]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases17]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases18]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases19]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases20]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases21]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases22]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases23]",
+                    "type": "Function",
+                    "lineno": 19
+                },
+                {
+                    "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases24]",
+                    "type": "Function",
+                    "lineno": 19
+                }
+            ]
+        },
+        {
+            "nodeid": "catester/tests/test_class.py",
+            "outcome": "passed",
+            "result": [
+                {
+                    "nodeid": "catester/tests/test_class.py::Test",
+                    "type": "Class"
                 }
             ]
         },
@@ -76,7 +176,7 @@
             "outcome": "passed",
             "result": [
                 {
-                    "nodeid": "catester/tests/test_me.py",
+                    "nodeid": "catester/tests/test_class.py",
                     "type": "Module"
                 }
             ]
@@ -84,190 +184,743 @@
     ],
     "tests": [
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 1_var1",
-            "lineno": 55,
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases0]",
+            "lineno": 19,
             "outcome": "passed",
             "keywords": [
-                "test_Test 1_var1",
-                "test_me.py",
+                "test_entrypoint[testcases0]",
+                "testcases0",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.1756028000090737,
-                "outcome": "passed"
+                "duration": 0.01081500000145752,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4340>>\n"
             },
             "call": {
-                "duration": 0.00040490001265425235,
+                "duration": 0.0006386999993992504,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.000415000002249144,
-                "outcome": "passed"
+                "duration": 0.0006404999985534232,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4340>>\n"
             }
         },
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 1_var2",
-            "lineno": 55,
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases1]",
+            "lineno": 19,
             "outcome": "passed",
             "keywords": [
-                "test_Test 1_var2",
-                "test_me.py",
+                "test_entrypoint[testcases1]",
+                "testcases1",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.0003242999955546111,
-                "outcome": "passed"
+                "duration": 0.008728999997401843,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4760>>\n"
             },
             "call": {
-                "duration": 0.0002325000095879659,
+                "duration": 0.0002829999975801911,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.0002776000037556514,
-                "outcome": "passed"
+                "duration": 0.0005583999991358723,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4760>>\n"
             }
         },
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 1_var3",
-            "lineno": 55,
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases2]",
+            "lineno": 19,
             "outcome": "passed",
             "keywords": [
-                "test_Test 1_var3",
-                "test_me.py",
+                "test_entrypoint[testcases2]",
+                "testcases2",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.0002806999982567504,
-                "outcome": "passed"
+                "duration": 0.010271800001646625,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D45B0>>\n"
             },
             "call": {
-                "duration": 0.00032080001255963,
+                "duration": 0.00038560000029974617,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.0002570000069681555,
-                "outcome": "passed"
+                "duration": 0.0005352000007405877,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D45B0>>\n"
             }
         },
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 2_var4",
-            "lineno": 55,
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases3]",
+            "lineno": 19,
             "outcome": "failed",
             "keywords": [
-                "test_Test 2_var4",
-                "test_me.py",
+                "test_entrypoint[testcases3]",
+                "testcases3",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.00031550000130664557,
-                "outcome": "passed"
+                "duration": 0.00867870000001858,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4370>>\n"
             },
             "call": {
-                "duration": 0.00044779999007005244,
+                "duration": 0.0006073999975342304,
                 "outcome": "failed",
                 "crash": {
-                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_me.py",
-                    "lineno": 58,
-                    "message": "AssertionError: Variable var4 not found in the namespace_reference\nassert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}"
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+                    "lineno": 29,
+                    "message": "AssertionError: Variable var4 not found in the namespace_student\nassert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}"
                 },
                 "traceback": [
                     {
-                        "path": "tests\\test_me.py",
-                        "lineno": 58,
+                        "path": "tests\\test_class.py",
+                        "lineno": 29,
                         "message": "AssertionError"
                     }
                 ],
-                "longrepr": "namespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...plot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'var1': 0.30000000000000004, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\n    def test_variable(namespace_student, namespace_reference):\n        assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n>       assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\nE       AssertionError: Variable var4 not found in the namespace_reference\nE       assert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\ntests\\test_me.py:58: AssertionError"
+                "longrepr": "self = <catester.tests.test_class.Test object at 0x0000020D764D4370>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'conformingName': None, 'countRequirement': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = main[\"type\"]\n        if testtype == \"variable\":\n            name = sub[\"name\"]\n>           assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\nE           AssertionError: Variable var4 not found in the namespace_student\nE           assert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\n\ntests\\test_class.py:29: AssertionError"
             },
             "teardown": {
-                "duration": 0.0006397999968612567,
-                "outcome": "passed"
+                "duration": 0.0007554999974672683,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4370>>\n"
             }
         },
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 2_var5",
-            "lineno": 55,
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases4]",
+            "lineno": 19,
             "outcome": "failed",
             "keywords": [
-                "test_Test 2_var5",
-                "test_me.py",
+                "test_entrypoint[testcases4]",
+                "testcases4",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.0004096000047866255,
-                "outcome": "passed"
+                "duration": 0.008817000001727138,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4910>>\n"
             },
             "call": {
-                "duration": 0.0005471999902511016,
+                "duration": 0.0004202999989502132,
                 "outcome": "failed",
                 "crash": {
-                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_me.py",
-                    "lineno": 65,
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+                    "lineno": 37,
                     "message": "AssertionError: Variable var5 has incorrect type\nassert <class 'list'> == <class 'tuple'>"
                 },
                 "traceback": [
                     {
-                        "path": "tests\\test_me.py",
-                        "lineno": 65,
+                        "path": "tests\\test_class.py",
+                        "lineno": 37,
                         "message": "AssertionError"
                     }
                 ],
-                "longrepr": "namespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...plot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'var1': 0.30000000000000004, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...'matplotlib.pyplot' from 'I:\\\\PYTHON\\\\catester\\\\.venv\\\\lib\\\\site-packages\\\\matplotlib\\\\pyplot.py'>, 'va4': [1, 2], ...}\n\n    def test_variable(namespace_student, namespace_reference):\n        assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n        assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n    \n        val_student = namespace_student[name]\n        val_reference = namespace_reference[name]\n        type_student = type(val_student)\n        type_reference = type(val_reference)\n        #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n>       assert type_student == type_reference, f\"Variable {name} has incorrect type\"\nE       AssertionError: Variable var5 has incorrect type\nE       assert <class 'list'> == <class 'tuple'>\n\ntests\\test_me.py:65: AssertionError"
+                "longrepr": "self = <catester.tests.test_class.Test object at 0x0000020D764D4910>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'conformingName': None, 'countRequirement': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = main[\"type\"]\n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n            assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n            val_student = namespace_student[name]\n            val_reference = namespace_reference[name]\n            type_student = type(val_student)\n            type_reference = type(val_reference)\n            #strict type check vs isinstance\n            #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n>           assert type_student == type_reference, f\"Variable {name} has incorrect type\"\nE           AssertionError: Variable var5 has incorrect type\nE           assert <class 'list'> == <class 'tuple'>\n\ntests\\test_class.py:37: AssertionError"
             },
             "teardown": {
-                "duration": 0.0003355999942868948,
-                "outcome": "passed"
+                "duration": 0.0006843000010121614,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4910>>\n"
             }
         },
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 3_x",
-            "lineno": 55,
-            "outcome": "passed",
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases5]",
+            "lineno": 19,
+            "outcome": "failed",
             "keywords": [
-                "test_Test 3_x",
-                "test_me.py",
+                "test_entrypoint[testcases5]",
+                "testcases5",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.00030080000578891486,
-                "outcome": "passed"
+                "duration": 0.009852999999566237,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4670>>\n"
             },
             "call": {
-                "duration": 0.007122399998479523,
-                "outcome": "passed"
+                "duration": 0.0005013000009057578,
+                "outcome": "failed",
+                "crash": {
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+                    "lineno": 42,
+                    "message": "AssertionError: Variable var6 has incorrect value\nassert {1, 2, 3} == {1, 2}\n  Extra items in the left set:\n  3\n  Use -v to get more diff"
+                },
+                "traceback": [
+                    {
+                        "path": "tests\\test_class.py",
+                        "lineno": 42,
+                        "message": "AssertionError"
+                    }
+                ],
+                "longrepr": "self = <catester.tests.test_class.Test object at 0x0000020D764D4670>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'conformingName': None, 'countRequirement': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = main[\"type\"]\n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n            assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n            val_student = namespace_student[name]\n            val_reference = namespace_reference[name]\n            type_student = type(val_student)\n            type_reference = type(val_reference)\n            #strict type check vs isinstance\n            #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n            assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n            #check for equality for different types\n            failure_msg = f\"Variable {name} has incorrect value\"\n            if isinstance(val_student, (str, set, frozenset)):\n>               assert val_student == val_reference, failure_msg\nE               AssertionError: Variable var6 has incorrect value\nE               assert {1, 2, 3} == {1, 2}\nE                 Extra items in the left set:\nE                 3\nE                 Use -v to get more diff\n\ntests\\test_class.py:42: AssertionError"
             },
             "teardown": {
-                "duration": 0.00028059999749530107,
-                "outcome": "passed"
+                "duration": 0.000802400001703063,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4670>>\n"
             }
         },
         {
-            "nodeid": "catester/tests/test_me.py::test_Test 3_y",
-            "lineno": 55,
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases6]",
+            "lineno": 19,
             "outcome": "passed",
             "keywords": [
-                "test_Test 3_y",
-                "test_me.py",
+                "test_entrypoint[testcases6]",
+                "testcases6",
+                "Test",
+                "test_class.py",
                 "catester/tests/__init__.py",
                 "catester"
             ],
             "setup": {
-                "duration": 0.0003392999933566898,
-                "outcome": "passed"
+                "duration": 0.012846599998738384,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D48B0>>\n"
             },
             "call": {
-                "duration": 0.0007989000005181879,
+                "duration": 0.0006628000010096002,
                 "outcome": "passed"
             },
             "teardown": {
-                "duration": 0.0006997000018600374,
+                "duration": 0.0006673999996564817,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D48B0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases7]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases7]",
+                "testcases7",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.011680299998261034,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4A30>>\n"
+            },
+            "call": {
+                "duration": 0.0004257000000507105,
                 "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0006159000004117843,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4A30>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases8]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases8]",
+                "testcases8",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.011082199998782016,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4C10>>\n"
+            },
+            "call": {
+                "duration": 0.0003451000011409633,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0015901999977359083,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4C10>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases9]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases9]",
+                "testcases9",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.014528400002745911,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D49A0>>\n"
+            },
+            "call": {
+                "duration": 0.0007072000007610768,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0010755999974207953,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D49A0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases10]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases10]",
+                "testcases10",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.01024889999825973,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4880>>\n"
+            },
+            "call": {
+                "duration": 0.0004903000008198433,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0006321000000752974,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4880>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases11]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases11]",
+                "testcases11",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.01876020000054268,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4BB0>>\n"
+            },
+            "call": {
+                "duration": 0.00036949999775970355,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0006179000010888558,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4BB0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases12]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases12]",
+                "testcases12",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.017397499999788124,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4DF0>>\n"
+            },
+            "call": {
+                "duration": 0.0007889000007708091,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0010476000024937093,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4DF0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases13]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases13]",
+                "testcases13",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.00876079999943613,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4AF0>>\n"
+            },
+            "call": {
+                "duration": 0.0007446000017807819,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0010967999987769872,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4AF0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases14]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases14]",
+                "testcases14",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.009328899999673013,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D47F0>>\n"
+            },
+            "call": {
+                "duration": 0.00047930000073392875,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.001189800001156982,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D47F0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases15]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases15]",
+                "testcases15",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.014348600001540035,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4D90>>\n"
+            },
+            "call": {
+                "duration": 0.0003866000006382819,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0010704000014811754,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4D90>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases16]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases16]",
+                "testcases16",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.01431859999865992,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5030>>\n"
+            },
+            "call": {
+                "duration": 0.0005060000003140885,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.000846099999762373,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5030>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases17]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases17]",
+                "testcases17",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.012572399999044137,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4CD0>>\n"
+            },
+            "call": {
+                "duration": 0.0004990000015823171,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0008120999991660938,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4CD0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases18]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases18]",
+                "testcases18",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.008626300001196796,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4E50>>\n"
+            },
+            "call": {
+                "duration": 0.00040829999852576293,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0005754999983764719,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4E50>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases19]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases19]",
+                "testcases19",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.011730999998690095,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4FD0>>\n"
+            },
+            "call": {
+                "duration": 0.0006063000000722241,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.000683400001435075,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4FD0>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases20]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases20]",
+                "testcases20",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.01016430000163382,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5270>>\n"
+            },
+            "call": {
+                "duration": 0.000497599998197984,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0007044999983918387,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5270>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases21]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases21]",
+                "testcases21",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 5.055825499999628,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4F10>>\n"
+            },
+            "call": {
+                "duration": 0.008722800001123687,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0012948000003234483,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D4F10>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases22]",
+            "lineno": 19,
+            "outcome": "failed",
+            "keywords": [
+                "test_entrypoint[testcases22]",
+                "testcases22",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 1.9371524999987741,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5090>>\n"
+            },
+            "call": {
+                "duration": 0.0036389000015333295,
+                "outcome": "failed",
+                "crash": {
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+                    "lineno": 49,
+                    "message": "AssertionError: Variable y has incorrect value"
+                },
+                "traceback": [
+                    {
+                        "path": "tests\\test_class.py",
+                        "lineno": 49,
+                        "message": "AssertionError"
+                    }
+                ],
+                "longrepr": "self = <catester.tests.test_class.Test object at 0x0000020D764D5090>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 1e-05, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'conformingName': None, 'countRequirement': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = main[\"type\"]\n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n            assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n            val_student = namespace_student[name]\n            val_reference = namespace_reference[name]\n            type_student = type(val_student)\n            type_reference = type(val_reference)\n            #strict type check vs isinstance\n            #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n            assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n            #check for equality for different types\n            failure_msg = f\"Variable {name} has incorrect value\"\n            if isinstance(val_student, (str, set, frozenset)):\n                assert val_student == val_reference, failure_msg\n            elif isinstance(val_student, (DataFrame, Series)):\n                assert val_student.equals(val_reference), failure_msg\n            elif isinstance(val_student, np.ndarray):\n                try:\n>                   np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n\ntests\\test_class.py:47: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargs = (<function assert_allclose.<locals>.compare at 0x0000020D764B8820>, array([ 1.00000000e-04,  1.00938420e-01,  2.007488...76008,  0.13146699,  0.03083368, -0.07011396,\n       -0.17034683, -0.26884313, -0.36459873, -0.45663749, -0.54402111]))\nkwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol=1e-08, atol=1e-05', 'verbose': True}\n\n    @wraps(func)\n    def inner(*args, **kwds):\n        with self._recreate_cm():\n>           return func(*args, **kwds)\nE           AssertionError: \nE           Not equal to tolerance rtol=1e-08, atol=1e-05\nE           \nE           Mismatched elements: 100 / 100 (100%)\nE           Max absolute difference: 0.0001\nE           Max relative difference: 0.00972825\nE            x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\nE                   3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\nE                   7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\nE            y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\nE                   0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\nE                   0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nC:\\Users\\Michael\\AppData\\Local\\Programs\\Python\\Python310\\lib\\contextlib.py:79: AssertionError\n\nDuring handling of the above exception, another exception occurred:\n\nself = <catester.tests.test_class.Test object at 0x0000020D764D5090>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 1e-05, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'conformingName': None, 'countRequirement': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = main[\"type\"]\n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n            assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n            val_student = namespace_student[name]\n            val_reference = namespace_reference[name]\n            type_student = type(val_student)\n            type_reference = type(val_reference)\n            #strict type check vs isinstance\n            #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n            assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n            #check for equality for different types\n            failure_msg = f\"Variable {name} has incorrect value\"\n            if isinstance(val_student, (str, set, frozenset)):\n                assert val_student == val_reference, failure_msg\n            elif isinstance(val_student, (DataFrame, Series)):\n                assert val_student.equals(val_reference), failure_msg\n            elif isinstance(val_student, np.ndarray):\n                try:\n                    np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                except AssertionError as e:\n>                   raise AssertionError(failure_msg)\nE                   AssertionError: Variable y has incorrect value\n\ntests\\test_class.py:49: AssertionError"
+            },
+            "teardown": {
+                "duration": 0.0018494000032660551,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5090>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases23]",
+            "lineno": 19,
+            "outcome": "failed",
+            "keywords": [
+                "test_entrypoint[testcases23]",
+                "testcases23",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.02786019999985001,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5210>>\n   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n"
+            },
+            "call": {
+                "duration": 0.012072900000930531,
+                "outcome": "failed",
+                "crash": {
+                    "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+                    "lineno": 44,
+                    "message": "AssertionError: Variable df has incorrect value\nassert False\n +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\n +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals"
+                },
+                "traceback": [
+                    {
+                        "path": "tests\\test_class.py",
+                        "lineno": 44,
+                        "message": "AssertionError"
+                    }
+                ],
+                "longrepr": "self = <catester.tests.test_class.Test object at 0x0000020D764D5210>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'conformingName': None, 'countRequirement': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...:    Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...:    Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = main[\"type\"]\n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            assert name in namespace_student, f\"Variable {name} not found in the namespace_student\"\n            assert name in namespace_reference, f\"Variable {name} not found in the namespace_reference\"\n            val_student = namespace_student[name]\n            val_reference = namespace_reference[name]\n            type_student = type(val_student)\n            type_reference = type(val_reference)\n            #strict type check vs isinstance\n            #assert isinstance(val_student, type_reference), f\"Variable {name} has incorrect type\"\n            assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n            #check for equality for different types\n            failure_msg = f\"Variable {name} has incorrect value\"\n            if isinstance(val_student, (str, set, frozenset)):\n                assert val_student == val_reference, failure_msg\n            elif isinstance(val_student, (DataFrame, Series)):\n>               assert val_student.equals(val_reference), failure_msg\nE               AssertionError: Variable df has incorrect value\nE               assert False\nE                +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\nE                +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals\n\ntests\\test_class.py:44: AssertionError"
+            },
+            "teardown": {
+                "duration": 0.000780099999246886,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D5210>>\n"
+            }
+        },
+        {
+            "nodeid": "catester/tests/test_class.py::Test::test_entrypoint[testcases24]",
+            "lineno": 19,
+            "outcome": "passed",
+            "keywords": [
+                "test_entrypoint[testcases24]",
+                "testcases24",
+                "Test",
+                "test_class.py",
+                "catester/tests/__init__.py",
+                "catester"
+            ],
+            "setup": {
+                "duration": 0.027040699998906348,
+                "outcome": "passed",
+                "stdout": "setup_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D54B0>>\n   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n"
+            },
+            "call": {
+                "duration": 0.0006554999999934807,
+                "outcome": "passed"
+            },
+            "teardown": {
+                "duration": 0.0007928999984869733,
+                "outcome": "passed",
+                "stdout": "teardown_method\n<bound method Test.test_entrypoint of <catester.tests.test_class.Test object at 0x0000020D764D54B0>>\n"
             }
         }
     ]
