@@ -5,7 +5,7 @@ from helpers import parse_yaml_file, get_argument
 
 def run_tests():
     yamlfile = get_argument(("-i", "--input"), "../examples/ex1/test.yaml")
-    reportfile = "test-report.json"
+    reportfile = "output/test-report.json"
     config = parse_yaml_file(yamlfile)
     #print(config)
     retcode = pytest.main([

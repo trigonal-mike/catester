@@ -108,7 +108,7 @@ def get_json_schema():
     schema = CodeAbilityTestSuite.model_json_schema()
     pretty = json.dumps(schema, indent=2)
     print(pretty)
-    with open("schema.json", "w") as file:
+    with open("output/schema.json", "w") as file:
         file.write(pretty)
 
 
