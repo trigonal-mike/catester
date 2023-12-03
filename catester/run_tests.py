@@ -10,14 +10,14 @@ def run_tests():
     #print(config)
     retcode = pytest.main([
         f"--yamlfile={yamlfile}",
-        #"--collect-only" ,
         f"--json-report-file={reportfile}",
-        "--json-report-indent=4",
+        "--json-report-indent=2",
         "--json-report",
+        #"--collect-only",
         #"--no-summary",
         #"--no-header",
         #"-v",
-        #"-q"
+        #"-q",
     ])
     print(retcode)
 
