@@ -1,6 +1,6 @@
 {
-  "created": 1701680243.2271774,
-  "duration": 1.5372843742370605,
+  "created": 1701680538.8649952,
+  "duration": 1.5730257034301758,
   "exitcode": 1,
   "root": "I:\\PYTHON\\catester\\catester",
   "environment": {},
@@ -286,18 +286,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01319359999615699,
+        "duration": 0.013374000001931563,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694C40>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810AC0>>\n"
       },
       "call": {
-        "duration": 0.00040689999877940863,
+        "duration": 0.00039819999074097723,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0005435000057332218,
+        "duration": 0.0005388999998103827,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694C40>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810AC0>>\n"
       }
     },
     {
@@ -313,18 +313,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.014346299998578615,
+        "duration": 0.014239800002542324,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694B20>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338108B0>>\n"
       },
       "call": {
-        "duration": 0.0003727000002982095,
+        "duration": 0.00028759999258909374,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0006713999900966883,
+        "duration": 0.0005438000080175698,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694B20>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338108B0>>\n"
       }
     },
     {
@@ -340,18 +340,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01568359999509994,
+        "duration": 0.015485500000067987,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694CA0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810A30>>\n"
       },
       "call": {
-        "duration": 0.0006880000000819564,
+        "duration": 0.0005008000007364899,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008972000068752095,
+        "duration": 0.0007523999956902117,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694CA0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810A30>>\n"
       }
     },
     {
@@ -367,12 +367,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.011829600000055507,
+        "duration": 0.018074699997669086,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694DC0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810BB0>>\n"
       },
       "call": {
-        "duration": 0.0005766999965999275,
+        "duration": 0.0005343000084394589,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -386,12 +386,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694DC0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n>           assert name in namespace_student, f\"Variable {name} not found in student namespace\"\nE           AssertionError: Variable var4 not found in student namespace\nE           assert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\n\ntests\\test_class.py:40: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133810BB0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n>           assert name in namespace_student, f\"Variable {name} not found in student namespace\"\nE           AssertionError: Variable var4 not found in student namespace\nE           assert 'var4' in {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\n\ntests\\test_class.py:40: AssertionError"
       },
       "teardown": {
-        "duration": 0.0009310999885201454,
+        "duration": 0.000636500000837259,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694DC0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810BB0>>\n"
       }
     },
     {
@@ -407,12 +407,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012532699998700991,
+        "duration": 0.013702099997317418,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694D00>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810E50>>\n"
       },
       "call": {
-        "duration": 0.000608200003625825,
+        "duration": 0.0003909999941242859,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -426,12 +426,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694D00>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n>               assert type_student == type_reference, f\"Variable {name} has incorrect type\"\nE               AssertionError: Variable var5 has incorrect type\nE               assert <class 'list'> == <class 'tuple'>\n\ntests\\test_class.py:58: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133810E50>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n>               assert type_student == type_reference, f\"Variable {name} has incorrect type\"\nE               AssertionError: Variable var5 has incorrect type\nE               assert <class 'list'> == <class 'tuple'>\n\ntests\\test_class.py:58: AssertionError"
       },
       "teardown": {
-        "duration": 0.0006913999968674034,
+        "duration": 0.0009361999982502311,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694D00>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810E50>>\n"
       }
     },
     {
@@ -447,12 +447,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.011478400003397837,
+        "duration": 0.015111400003661402,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694D60>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810AF0>>\n"
       },
       "call": {
-        "duration": 0.0005169000069145113,
+        "duration": 0.00047229998745024204,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -466,12 +466,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694D60>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable var6 has incorrect value\nE                   assert {1, 2, 3} == {1, 2}\nE                     Extra items in the left set:\nE                     3\nE                     Use -v to get more diff\n\ntests\\test_class.py:61: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133810AF0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 0.001, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...eError'>, 'BaseException': <class 'BaseException'>, ...}, 'va4': [1, 2], 'var1': 0.30000000000000004, 'var2': '1', ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute... <class 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': 0.3, 'var2': '1', 'var3': True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable var6 has incorrect value\nE                   assert {1, 2, 3} == {1, 2}\nE                     Extra items in the left set:\nE                     3\nE                     Use -v to get more diff\n\ntests\\test_class.py:61: AssertionError"
       },
       "teardown": {
-        "duration": 0.0006715999916195869,
+        "duration": 0.0005834000039612874,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694D60>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810AF0>>\n"
       }
     },
     {
@@ -487,18 +487,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01246829998854082,
+        "duration": 0.013813400000799447,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694EE0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810C70>>\n"
       },
       "call": {
-        "duration": 0.00030080000578891486,
+        "duration": 0.0002849000011337921,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0007102999952621758,
+        "duration": 0.0005433999904198572,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694EE0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810C70>>\n"
       }
     },
     {
@@ -514,18 +514,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012464100000215694,
+        "duration": 0.01378619999741204,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695000>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810DF0>>\n"
       },
       "call": {
-        "duration": 0.0007027000101516023,
+        "duration": 0.00043909999658353627,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008704000065336004,
+        "duration": 0.0005673999985447153,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695000>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810DF0>>\n"
       }
     },
     {
@@ -541,18 +541,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.011821099993539974,
+        "duration": 0.016046899996581487,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694F40>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811090>>\n"
       },
       "call": {
-        "duration": 0.00027239999326411635,
+        "duration": 0.00029200001154094934,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0005564000020967796,
+        "duration": 0.0005596999981207773,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694F40>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811090>>\n"
       }
     },
     {
@@ -568,18 +568,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.020076000000699423,
+        "duration": 0.016750100010540336,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694FA0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810D30>>\n"
       },
       "call": {
-        "duration": 0.00034300000697840005,
+        "duration": 0.0003152999997837469,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.001442200009478256,
+        "duration": 0.0005634999979520217,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78694FA0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810D30>>\n"
       }
     },
     {
@@ -595,18 +595,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01275740000710357,
+        "duration": 0.017638800010900013,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695120>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810EB0>>\n"
       },
       "call": {
-        "duration": 0.0003572999994503334,
+        "duration": 0.00041090000013355166,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0005630999949062243,
+        "duration": 0.0006847999902674928,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695120>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810EB0>>\n"
       }
     },
     {
@@ -622,18 +622,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.018942599999718368,
+        "duration": 0.01818949999869801,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695240>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811030>>\n"
       },
       "call": {
-        "duration": 0.0004126999992877245,
+        "duration": 0.0008980999991763383,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.000603899999987334,
+        "duration": 0.0007913000008556992,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695240>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811030>>\n"
       }
     },
     {
@@ -649,18 +649,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.013034800009336323,
+        "duration": 0.01222629999392666,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695180>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338112D0>>\n"
       },
       "call": {
-        "duration": 0.0006652000010944903,
+        "duration": 0.0004074000025866553,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008847999997669831,
+        "duration": 0.0008011000027181581,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695180>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338112D0>>\n"
       }
     },
     {
@@ -676,18 +676,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012862100003985688,
+        "duration": 0.012797699993825518,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786951E0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810F70>>\n"
       },
       "call": {
-        "duration": 0.0004825000069104135,
+        "duration": 0.00044160000106785446,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.001196099998196587,
+        "duration": 0.0007011999987298623,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786951E0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133810F70>>\n"
       }
     },
     {
@@ -703,18 +703,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01264100000844337,
+        "duration": 0.01849390000279527,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695360>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338110F0>>\n"
       },
       "call": {
-        "duration": 0.00050230001215823,
+        "duration": 0.0007181999972090125,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0007288000051630661,
+        "duration": 0.0008204999903682619,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695360>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338110F0>>\n"
       }
     },
     {
@@ -730,18 +730,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01210400000854861,
+        "duration": 0.012272599997231737,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695480>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811270>>\n"
       },
       "call": {
-        "duration": 0.0004047999973408878,
+        "duration": 0.000345199994626455,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008541999995941296,
+        "duration": 0.0008860999951139092,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695480>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811270>>\n"
       }
     },
     {
@@ -757,18 +757,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01842670000041835,
+        "duration": 0.015293300006305799,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786953C0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811510>>\n"
       },
       "call": {
-        "duration": 0.0003490999952191487,
+        "duration": 0.0005122000002302229,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.001218299992615357,
+        "duration": 0.000995499998680316,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786953C0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811510>>\n"
       }
     },
     {
@@ -784,18 +784,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012443900006473996,
+        "duration": 0.012320800000452437,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695420>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811540>>\n"
       },
       "call": {
-        "duration": 0.0003077000001212582,
+        "duration": 0.0006231000006664544,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0006029000069247559,
+        "duration": 0.0008414000039920211,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695420>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811540>>\n"
       }
     },
     {
@@ -811,18 +811,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.018186399989644997,
+        "duration": 0.011524700006702915,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786955D0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811480>>\n"
       },
       "call": {
-        "duration": 0.0004673000075854361,
+        "duration": 0.00027910000062547624,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0007628000021213666,
+        "duration": 0.0007409999961964786,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786955D0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811480>>\n"
       }
     },
     {
@@ -838,18 +838,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012687199996435083,
+        "duration": 0.020361100003356114,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695660>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811240>>\n"
       },
       "call": {
-        "duration": 0.0004923999949824065,
+        "duration": 0.0008006999996723607,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0013306000037118793,
+        "duration": 0.0008059000101638958,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695660>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811240>>\n"
       }
     },
     {
@@ -865,18 +865,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012392000004183501,
+        "duration": 0.015408799998112954,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695510>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338116C0>>\n"
       },
       "call": {
-        "duration": 0.00046609999844804406,
+        "duration": 0.00041059999784920365,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0006203999946592376,
+        "duration": 0.0005645999917760491,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695510>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338116C0>>\n"
       }
     },
     {
@@ -892,18 +892,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01808530000562314,
+        "duration": 0.01316709999809973,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786953F0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338117E0>>\n"
       },
       "call": {
-        "duration": 0.00038329999370034784,
+        "duration": 0.0006082999898353592,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.000683599995682016,
+        "duration": 0.0007096000044839457,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786953F0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338117E0>>\n"
       }
     },
     {
@@ -919,18 +919,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01272560001234524,
+        "duration": 0.012829500003135763,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695870>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811720>>\n"
       },
       "call": {
-        "duration": 0.00041540000529494137,
+        "duration": 0.0005616000125883147,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008208000072045252,
+        "duration": 0.000600200000917539,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695870>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811720>>\n"
       }
     },
     {
@@ -946,24 +946,24 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012641599998460151,
+        "duration": 0.011515799997141585,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695900>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811780>>\n"
       },
       "call": {
-        "duration": 0.0005407999997260049,
+        "duration": 0.0005107000033603981,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0006326000002445653,
+        "duration": 0.0009372999920742586,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695900>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811780>>\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases24]",
       "lineno": 20,
-      "outcome": "passed",
+      "outcome": "failed",
       "keywords": [
         "test_entrypoint[testcases24]",
         "testcases24",
@@ -973,24 +973,37 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01841430000786204,
+        "duration": 0.01715640000475105,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786956C0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811930>>\n"
       },
       "call": {
-        "duration": 0.0004074000025866553,
-        "outcome": "passed"
+        "duration": 0.0006097000004956499,
+        "outcome": "failed",
+        "crash": {
+          "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+          "lineno": 70,
+          "message": "AssertionError: Variable var_time has incorrect value\nassert datetime.time...2, 18, 228174) == 10:02:18.229176\n  comparison failed\n  Obtained: 10:02:18.228174\n  Expected: 10:02:18.229176"
+        },
+        "traceback": [
+          {
+            "path": "tests\\test_class.py",
+            "lineno": 70,
+            "message": "AssertionError"
+          }
+        ],
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133811930>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 10, 2, 18, 228174), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 10, 2, 18, 229176), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n>                   assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_time has incorrect value\nE                   assert datetime.time...2, 18, 228174) == 10:02:18.229176\nE                     comparison failed\nE                     Obtained: 10:02:18.228174\nE                     Expected: 10:02:18.229176\n\ntests\\test_class.py:70: AssertionError"
       },
       "teardown": {
-        "duration": 0.0005553999944822863,
+        "duration": 0.0006646000110777095,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786956C0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811930>>\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases25]",
       "lineno": 20,
-      "outcome": "failed",
+      "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases25]",
         "testcases25",
@@ -1000,31 +1013,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012335700012044981,
+        "duration": 0.013489300006767735,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695810>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338119C0>>\n"
       },
       "call": {
-        "duration": 0.0006234999891603366,
-        "outcome": "failed",
-        "crash": {
-          "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-          "lineno": 70,
-          "message": "AssertionError: Variable var_datetime has incorrect value\nassert datetime.date...7, 22, 643544) == 2023-12-04 09:57:22.644553\n  comparison failed\n  Obtained: 2023-12-04 09:57:22.643544\n  Expected: 2023-12-04 09:57:22.644553"
-        },
-        "traceback": [
-          {
-            "path": "tests\\test_class.py",
-            "lineno": 70,
-            "message": "AssertionError"
-          }
-        ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695810>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 9, 57, 22, 643544), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 9, 57, 22, 644553), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n>                   assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_datetime has incorrect value\nE                   assert datetime.date...7, 22, 643544) == 2023-12-04 09:57:22.644553\nE                     comparison failed\nE                     Obtained: 2023-12-04 09:57:22.643544\nE                     Expected: 2023-12-04 09:57:22.644553\n\ntests\\test_class.py:70: AssertionError"
+        "duration": 0.0004192000051261857,
+        "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0006686999986413866,
+        "duration": 0.0005326999962562695,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695810>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338119C0>>\n"
       }
     },
     {
@@ -1040,12 +1040,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.013645300001371652,
+        "duration": 0.01432280000881292,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695A50>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811870>>\n"
       },
       "call": {
-        "duration": 0.0005739000043831766,
+        "duration": 0.0006120000034570694,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -1059,12 +1059,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695A50>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 9, 57, 22, 664562), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 9, 57, 22, 664562), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n>                   assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_duration has incorrect value\nE                   assert datetime.time...croseconds=10) == 5 days, 3:00:00\nE                     comparison failed\nE                     Obtained: 5 days, 3:00:00.000010\nE                     Expected: 5 days, 3:00:00\n\ntests\\test_class.py:70: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133811870>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 10, 2, 18, 265219), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...e.py'>, 'var_date': datetime.date(2023, 12, 4), 'var_datetime': datetime.datetime(2023, 12, 4, 10, 2, 18, 265219), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n>                   assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_duration has incorrect value\nE                   assert datetime.time...croseconds=10) == 5 days, 3:00:00\nE                     comparison failed\nE                     Obtained: 5 days, 3:00:00.000010\nE                     Expected: 5 days, 3:00:00\n\ntests\\test_class.py:70: AssertionError"
       },
       "teardown": {
-        "duration": 0.0005756000027759001,
+        "duration": 0.0005855000053998083,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695A50>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811870>>\n"
       }
     },
     {
@@ -1080,18 +1080,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.1860230999882333,
+        "duration": 0.18708020000485703,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695BD0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811C00>>\n"
       },
       "call": {
-        "duration": 0.005554499992285855,
+        "duration": 0.005802200001198798,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0007559999939985573,
+        "duration": 0.0007699999987380579,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695BD0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811C00>>\n"
       }
     },
     {
@@ -1107,12 +1107,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01541989999532234,
+        "duration": 0.01436130001093261,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786959F0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338116F0>>\n"
       },
       "call": {
-        "duration": 0.0022810000082245097,
+        "duration": 0.0016882999916560948,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -1126,12 +1126,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB786959F0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 1e-05, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n>                       np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n\ntests\\test_class.py:66: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nargs = (<function assert_allclose.<locals>.compare at 0x000001DB78674700>, array([ 1.00000000e-04,  1.00938420e-01,  2.007488...76008,  0.13146699,  0.03083368, -0.07011396,\n       -0.17034683, -0.26884313, -0.36459873, -0.45663749, -0.54402111]))\nkwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol=1e-08, atol=1e-05', 'verbose': True}\n\n    @wraps(func)\n    def inner(*args, **kwds):\n        with self._recreate_cm():\n>           return func(*args, **kwds)\nE           AssertionError: \nE           Not equal to tolerance rtol=1e-08, atol=1e-05\nE           \nE           Mismatched elements: 100 / 100 (100%)\nE           Max absolute difference: 0.0001\nE           Max relative difference: 0.00972825\nE            x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\nE                   3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\nE                   7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\nE            y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\nE                   0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\nE                   0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nC:\\Users\\Michael\\AppData\\Local\\Programs\\Python\\Python310\\lib\\contextlib.py:79: AssertionError\n\nDuring handling of the above exception, another exception occurred:\n\nself = <tests.test_class.CodeabilityTestSuite object at 0x000001DB786959F0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 1e-05, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n>                       raise AssertionError(failure_msg)\nE                       AssertionError: Variable y has incorrect value\n\ntests\\test_class.py:68: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x00000151338116F0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 1e-05, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n>                       np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n\ntests\\test_class.py:66: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nargs = (<function assert_allclose.<locals>.compare at 0x00000151337F4700>, array([ 1.00000000e-04,  1.00938420e-01,  2.007488...76008,  0.13146699,  0.03083368, -0.07011396,\n       -0.17034683, -0.26884313, -0.36459873, -0.45663749, -0.54402111]))\nkwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol=1e-08, atol=1e-05', 'verbose': True}\n\n    @wraps(func)\n    def inner(*args, **kwds):\n        with self._recreate_cm():\n>           return func(*args, **kwds)\nE           AssertionError: \nE           Not equal to tolerance rtol=1e-08, atol=1e-05\nE           \nE           Mismatched elements: 100 / 100 (100%)\nE           Max absolute difference: 0.0001\nE           Max relative difference: 0.00972825\nE            x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\nE                   3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\nE                   7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\nE            y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\nE                   0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\nE                   0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nC:\\Users\\Michael\\AppData\\Local\\Programs\\Python\\Python310\\lib\\contextlib.py:79: AssertionError\n\nDuring handling of the above exception, another exception occurred:\n\nself = <tests.test_class.CodeabilityTestSuite object at 0x00000151338116F0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': 1e-05, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...,  9.29292929,  9.39393939,  9.49494949,\n        9.5959596 ,  9.6969697 ,  9.7979798 ,  9.8989899 , 10.        ]), ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n>                       raise AssertionError(failure_msg)\nE                       AssertionError: Variable y has incorrect value\n\ntests\\test_class.py:68: AssertionError"
       },
       "teardown": {
-        "duration": 0.0007161000103224069,
+        "duration": 0.0006834999949205667,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786959F0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338116F0>>\n"
       }
     },
     {
@@ -1147,12 +1147,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.021129700005985796,
+        "duration": 0.023673899995628744,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695CC0>>\n   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811A50>>\n   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n"
       },
       "call": {
-        "duration": 0.011334299997542985,
+        "duration": 0.011982299998635426,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -1166,12 +1166,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695CC0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...:    Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...:    Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n>                   assert val_student.equals(val_reference), failure_msg\nE                   AssertionError: Variable df has incorrect value\nE                   assert False\nE                    +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\nE                    +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals\n\ntests\\test_class.py:63: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133811A50>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...:    Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True, ...}\nnamespace_reference = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...:    Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True, ...}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n>                   assert val_student.equals(val_reference), failure_msg\nE                   AssertionError: Variable df has incorrect value\nE                   assert False\nE                    +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\nE                    +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals\n\ntests\\test_class.py:63: AssertionError"
       },
       "teardown": {
-        "duration": 0.0010053000005427748,
+        "duration": 0.0008566000033169985,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695CC0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811A50>>\n"
       }
     },
     {
@@ -1187,18 +1187,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.02136919999611564,
+        "duration": 0.02556219999678433,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695BA0>>\n   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811CF0>>\n   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n"
       },
       "call": {
-        "duration": 0.0003524000057950616,
+        "duration": 0.0007812999974703416,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0005668999947374687,
+        "duration": 0.0007864000072004274,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695BA0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811CF0>>\n"
       }
     },
     {
@@ -1214,18 +1214,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012488799999118783,
+        "duration": 0.018791199996485375,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695A80>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811D80>>\n"
       },
       "call": {
-        "duration": 0.0004002999921794981,
+        "duration": 0.00030279999191407114,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0007469999982276931,
+        "duration": 0.0006335000070976093,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695A80>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811D80>>\n"
       }
     },
     {
@@ -1241,18 +1241,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01252099999692291,
+        "duration": 0.013593300012871623,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E10>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811C30>>\n"
       },
       "call": {
-        "duration": 0.0006204999954206869,
+        "duration": 0.0005614999972749501,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008182000019587576,
+        "duration": 0.0008162000012816861,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E10>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811C30>>\n"
       }
     },
     {
@@ -1268,18 +1268,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012497699994128197,
+        "duration": 0.020282800003769808,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695EA0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811AE0>>\n"
       },
       "call": {
-        "duration": 0.0003677000058814883,
+        "duration": 0.0003327000013086945,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008205000049201772,
+        "duration": 0.0006898999999975786,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695EA0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811AE0>>\n"
       }
     },
     {
@@ -1295,18 +1295,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012491499990574084,
+        "duration": 0.015781299996888265,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695D80>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811F30>>\n"
       },
       "call": {
-        "duration": 0.00028929999098181725,
+        "duration": 0.00030189999961294234,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0006446000043069944,
+        "duration": 0.0005844000115757808,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695D80>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811F30>>\n"
       }
     },
     {
@@ -1322,18 +1322,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.017299600003752857,
+        "duration": 0.020405000002938323,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E40>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811FC0>>\n"
       },
       "call": {
-        "duration": 0.00041039999632630497,
+        "duration": 0.0004887999966740608,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.000589100003708154,
+        "duration": 0.0012799000105587766,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E40>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811FC0>>\n"
       }
     },
     {
@@ -1349,18 +1349,18 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.017930800007889047,
+        "duration": 0.019719999996596016,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696050>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811EA0>>\n"
       },
       "call": {
-        "duration": 0.0006701999955112115,
+        "duration": 0.0009357000089948997,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0008728999964660034,
+        "duration": 0.0008934000070439652,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696050>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811EA0>>\n"
       }
     },
     {
@@ -1376,12 +1376,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012309400000958703,
+        "duration": 0.01629309999407269,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786960E0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811ED0>>\n"
       },
       "call": {
-        "duration": 0.0004820000031031668,
+        "duration": 0.0004917000042041764,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -1395,12 +1395,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB786960E0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n>               assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\nE               AssertionError: Variable var2 does not match specified pattern\nE               assert '_x1234567890' == '-'\nE                 - -\nE                 + _x1234567890\n\ntests\\test_class.py:73: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133811ED0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n>               assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\nE               AssertionError: Variable var2 does not match specified pattern\nE               assert '_x1234567890' == '-'\nE                 - -\nE                 + _x1234567890\n\ntests\\test_class.py:73: AssertionError"
       },
       "teardown": {
-        "duration": 0.0006636000034632161,
+        "duration": 0.0006656000041402876,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786960E0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133811ED0>>\n"
       }
     },
     {
@@ -1416,17 +1416,17 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.013334699993720278,
+        "duration": 0.017234800005098805,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E70>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812200>>\n"
       },
       "call": {
-        "duration": 0.0004157000075792894,
+        "duration": 0.00042050000047311187,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
           "lineno": 75,
-          "message": "AssertionError: Variable var2 does not contain specified pattern\nassert -1 > -1\n +  where -1 = <built-in method find of str object at 0x000001DB78667A70>('-')\n +    where <built-in method find of str object at 0x000001DB78667A70> = '_x1234567890'.find\n +      where '_x1234567890' = str('_x1234567890')"
+          "message": "AssertionError: Variable var2 does not contain specified pattern\nassert -1 > -1\n +  where -1 = <built-in method find of str object at 0x0000015133820230>('-')\n +    where <built-in method find of str object at 0x0000015133820230> = '_x1234567890'.find\n +      where '_x1234567890' = str('_x1234567890')"
         },
         "traceback": [
           {
@@ -1435,12 +1435,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E70>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n>               assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\nE               AssertionError: Variable var2 does not contain specified pattern\nE               assert -1 > -1\nE                +  where -1 = <built-in method find of str object at 0x000001DB78667A70>('-')\nE                +    where <built-in method find of str object at 0x000001DB78667A70> = '_x1234567890'.find\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:75: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133812200>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n>               assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\nE               AssertionError: Variable var2 does not contain specified pattern\nE               assert -1 > -1\nE                +  where -1 = <built-in method find of str object at 0x0000015133820230>('-')\nE                +    where <built-in method find of str object at 0x0000015133820230> = '_x1234567890'.find\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:75: AssertionError"
       },
       "teardown": {
-        "duration": 0.0005601000011665747,
+        "duration": 0.0006824000010965392,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78695E70>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812200>>\n"
       }
     },
     {
@@ -1456,17 +1456,17 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.01697009999770671,
+        "duration": 0.012338500004261732,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786960B0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338122F0>>\n"
       },
       "call": {
-        "duration": 0.0003887000057147816,
+        "duration": 0.0005715000006603077,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
           "lineno": 77,
-          "message": "AssertionError: Variable var2 does not start with specified pattern\nassert False\n +  where False = <built-in method startswith of str object at 0x000001DB78667A70>('-')\n +    where <built-in method startswith of str object at 0x000001DB78667A70> = '_x1234567890'.startswith\n +      where '_x1234567890' = str('_x1234567890')"
+          "message": "AssertionError: Variable var2 does not start with specified pattern\nassert False\n +  where False = <built-in method startswith of str object at 0x0000015133820230>('-')\n +    where <built-in method startswith of str object at 0x0000015133820230> = '_x1234567890'.startswith\n +      where '_x1234567890' = str('_x1234567890')"
         },
         "traceback": [
           {
@@ -1475,12 +1475,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB786960B0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n>               assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\nE               AssertionError: Variable var2 does not start with specified pattern\nE               assert False\nE                +  where False = <built-in method startswith of str object at 0x000001DB78667A70>('-')\nE                +    where <built-in method startswith of str object at 0x000001DB78667A70> = '_x1234567890'.startswith\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:77: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x00000151338122F0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n>               assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\nE               AssertionError: Variable var2 does not start with specified pattern\nE               assert False\nE                +  where False = <built-in method startswith of str object at 0x0000015133820230>('-')\nE                +    where <built-in method startswith of str object at 0x0000015133820230> = '_x1234567890'.startswith\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:77: AssertionError"
       },
       "teardown": {
-        "duration": 0.0009138000023085624,
+        "duration": 0.0006522000039694831,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786960B0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x00000151338122F0>>\n"
       }
     },
     {
@@ -1496,17 +1496,17 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.012230300009832717,
+        "duration": 0.014642600013758056,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696230>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812380>>\n"
       },
       "call": {
-        "duration": 0.0005681999900843948,
+        "duration": 0.00038670000503771007,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
           "lineno": 79,
-          "message": "AssertionError: Variable var2 does not end with specified pattern\nassert False\n +  where False = <built-in method endswith of str object at 0x000001DB78667A70>('-')\n +    where <built-in method endswith of str object at 0x000001DB78667A70> = '_x1234567890'.endswith\n +      where '_x1234567890' = str('_x1234567890')"
+          "message": "AssertionError: Variable var2 does not end with specified pattern\nassert False\n +  where False = <built-in method endswith of str object at 0x0000015133820230>('-')\n +    where <built-in method endswith of str object at 0x0000015133820230> = '_x1234567890'.endswith\n +      where '_x1234567890' = str('_x1234567890')"
         },
         "traceback": [
           {
@@ -1515,12 +1515,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696230>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\n            elif qualification == \"endsWith\":\n>               assert str(val_student).endswith(pattern), f\"Variable {name} does not end with specified pattern\"\nE               AssertionError: Variable var2 does not end with specified pattern\nE               assert False\nE                +  where False = <built-in method endswith of str object at 0x000001DB78667A70>('-')\nE                +    where <built-in method endswith of str object at 0x000001DB78667A70> = '_x1234567890'.endswith\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:79: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133812380>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\n            elif qualification == \"endsWith\":\n>               assert str(val_student).endswith(pattern), f\"Variable {name} does not end with specified pattern\"\nE               AssertionError: Variable var2 does not end with specified pattern\nE               assert False\nE                +  where False = <built-in method endswith of str object at 0x0000015133820230>('-')\nE                +    where <built-in method endswith of str object at 0x0000015133820230> = '_x1234567890'.endswith\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:79: AssertionError"
       },
       "teardown": {
-        "duration": 0.0006726999999955297,
+        "duration": 0.0005524000007426366,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696230>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812380>>\n"
       }
     },
     {
@@ -1536,17 +1536,17 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.013502100002369843,
+        "duration": 0.016693300000042655,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696410>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812110>>\n"
       },
       "call": {
-        "duration": 0.000457199988886714,
+        "duration": 0.0004258999979356304,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
           "lineno": 81,
-          "message": "AssertionError: Variable var2 does not contain specified pattern 1 times\nassert 0 == 1\n +  where 0 = <built-in method count of str object at 0x000001DB78667A70>('-')\n +    where <built-in method count of str object at 0x000001DB78667A70> = '_x1234567890'.count\n +      where '_x1234567890' = str('_x1234567890')"
+          "message": "AssertionError: Variable var2 does not contain specified pattern 1 times\nassert 0 == 1\n +  where 0 = <built-in method count of str object at 0x0000015133820230>('-')\n +    where <built-in method count of str object at 0x0000015133820230> = '_x1234567890'.count\n +      where '_x1234567890' = str('_x1234567890')"
         },
         "traceback": [
           {
@@ -1555,12 +1555,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696410>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': 1, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\n            elif qualification == \"endsWith\":\n                assert str(val_student).endswith(pattern), f\"Variable {name} does not end with specified pattern\"\n            elif qualification == \"count\":\n>               assert str(val_student).count(pattern) == countRequirement, f\"Variable {name} does not contain specified pattern {countRequirement} times\"\nE               AssertionError: Variable var2 does not contain specified pattern 1 times\nE               assert 0 == 1\nE                +  where 0 = <built-in method count of str object at 0x000001DB78667A70>('-')\nE                +    where <built-in method count of str object at 0x000001DB78667A70> = '_x1234567890'.count\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:81: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133812110>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': 1, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\n            elif qualification == \"endsWith\":\n                assert str(val_student).endswith(pattern), f\"Variable {name} does not end with specified pattern\"\n            elif qualification == \"count\":\n>               assert str(val_student).count(pattern) == countRequirement, f\"Variable {name} does not contain specified pattern {countRequirement} times\"\nE               AssertionError: Variable var2 does not contain specified pattern 1 times\nE               assert 0 == 1\nE                +  where 0 = <built-in method count of str object at 0x0000015133820230>('-')\nE                +    where <built-in method count of str object at 0x0000015133820230> = '_x1234567890'.count\nE                +      where '_x1234567890' = str('_x1234567890')\n\ntests\\test_class.py:81: AssertionError"
       },
       "teardown": {
-        "duration": 0.0005898000090382993,
+        "duration": 0.0008241000032285228,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB78696410>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812110>>\n"
       }
     },
     {
@@ -1576,12 +1576,12 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.013966800004709512,
+        "duration": 0.012095700003555976,
         "outcome": "passed",
-        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786961A0>>\n"
+        "stdout": "setup_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812320>>\n"
       },
       "call": {
-        "duration": 0.0004655999946407974,
+        "duration": 0.0007138999935705215,
         "outcome": "failed",
         "crash": {
           "path": "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
@@ -1595,12 +1595,12 @@
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x000001DB786961A0>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\n            elif qualification == \"endsWith\":\n                assert str(val_student).endswith(pattern), f\"Variable {name} does not end with specified pattern\"\n            elif qualification == \"count\":\n                assert str(val_student).count(pattern) == countRequirement, f\"Variable {name} does not contain specified pattern {countRequirement} times\"\n            elif qualification == \"regexp\":\n                re_pattern = re.compile(fr'{pattern}')\n                result = re.match(re_pattern, str(val_student))\n>               assert result is not None, f\"Variable {name} does not match specified regular expression\"\nE               AssertionError: Variable var2 does not match specified regular expression\nE               assert None is not None\n\ntests\\test_class.py:85: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000015133812320>\ntestsuite = {'description': 'Checks variables', 'failureMessage': 'Some or all tests failed', 'name': 'Python Test suite', 'proper...tency': None, 'qualification': <QualificationEnum.verifyEqual: 'verifyEqual'>, 'referenceCommandList': None, ...}, ...}\ntestcase = ({'absoluteTolerance': None, 'allowedOccuranceRange': None, 'competency': None, 'description': None, ...}, {'absoluteTolerance': None, 'allowedOccuranceRange': None, 'countRequirement': None, 'description': None, ...})\nnamespace_student = {'__builtins__': {'ArithmeticError': <class 'ArithmeticError'>, 'AssertionError': <class 'AssertionError'>, 'Attribute...lass 'AttributeError'>, 'BaseException': <class 'BaseException'>, ...}, 'var1': '_x1234567890', 'var2': '_x1234567890'}\nnamespace_reference = {}\n\n    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):\n        main, sub = testcase\n        ancestors = [sub, main, testsuite[\"properties\"]]\n    \n        relative_tolerance = self.get_inherited_property(\"relativeTolerance\", ancestors, None)\n        absolute_tolerance = self.get_inherited_property(\"absoluteTolerance\", ancestors, None)\n        allowed_occuranceRange = self.get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = self.get_inherited_property(\"qualification\", ancestors, None)\n        testtype = self.get_inherited_property(\"type\", ancestors, None)\n    \n        if testtype == \"variable\":\n            name = sub[\"name\"]\n            value = sub[\"value\"]\n            evalString = sub[\"evalString\"]\n            pattern = sub[\"pattern\"]\n            countRequirement = sub[\"countRequirement\"]\n            options = sub[\"options\"]\n            verificationFunction = sub[\"verificationFunction\"]\n    \n            assert name in namespace_student, f\"Variable {name} not found in student namespace\"\n            val_student = namespace_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in namespace_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = namespace_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                #strict type check vs isinstance(val_student, type_reference), hmmm?\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\n            elif qualification == \"endsWith\":\n                assert str(val_student).endswith(pattern), f\"Variable {name} does not end with specified pattern\"\n            elif qualification == \"count\":\n                assert str(val_student).count(pattern) == countRequirement, f\"Variable {name} does not contain specified pattern {countRequirement} times\"\n            elif qualification == \"regexp\":\n                re_pattern = re.compile(fr'{pattern}')\n                result = re.match(re_pattern, str(val_student))\n>               assert result is not None, f\"Variable {name} does not match specified regular expression\"\nE               AssertionError: Variable var2 does not match specified regular expression\nE               assert None is not None\n\ntests\\test_class.py:85: AssertionError"
       },
       "teardown": {
-        "duration": 0.0007956000044941902,
+        "duration": 0.0006566000083694234,
         "outcome": "passed",
-        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x000001DB786961A0>>\n"
+        "stdout": "teardown_method\n<bound method CodeabilityTestSuite.test_entrypoint of <tests.test_class.CodeabilityTestSuite object at 0x0000015133812320>>\n"
       }
     }
   ]
