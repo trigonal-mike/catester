@@ -3,12 +3,15 @@ import numpy as np
 from pandas import DataFrame, Series
 from pytest import approx
 
+
 class CodeabilityTestSuite:
     def setup_method(self, test_method):
+        #not implemented yet
         print("setup_method")
         print(test_method)
 
     def teardown_method(self, test_method):
+        #not implemented yet
         print("teardown_method")
         print(test_method)
 
@@ -80,8 +83,7 @@ class CodeabilityTestSuite:
             elif qualification == "count":
                 assert str(val_student).count(pattern) == countRequirement, f"Variable {name} does not contain specified pattern {countRequirement} times"
             elif qualification == "regexp":
-                re_pattern = re.compile(fr'{pattern}')
-                result = re.match(re_pattern, str(val_student))
+                result = re.match(re.compile(fr'{pattern}'), str(val_student))
                 assert result is not None, f"Variable {name} does not match specified regular expression"
             elif qualification == "verification":
                 pass
