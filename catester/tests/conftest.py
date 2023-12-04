@@ -38,7 +38,6 @@ def testcase(testsuite, testcases):
     sub = sub_tests[idx_sub]
     return (main, sub)
 
-
 @pytest.fixture(scope='function')
 def monkeymodule():
     from _pytest.monkeypatch import MonkeyPatch
