@@ -478,7 +478,7 @@
               "type": "null"
             }
           ],
-          "default": "I:\\PYTHON\\catester\\catester",
+          "default": "I:\\PYTHON\\catester",
           "title": "Executiondirectory"
         },
         "referenceDirectory": {

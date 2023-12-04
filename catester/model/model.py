@@ -1,8 +1,9 @@
-from enum import Enum
-from typing import List, Optional, Any, Dict
-from pydantic import BaseModel, Field
-import os
 import json
+import os
+import yaml
+from enum import Enum
+from typing import Any, Dict, List, Optional
+from pydantic import BaseModel, Field
 
 
 class QualificationEnum(str, Enum):
@@ -53,8 +54,6 @@ class CodeAbilitySubTest(CodeAbilityBaseTemplate, CodeAbilityTestTemplate):
     evalString: Optional[str] = Field(min_length=1, default=None)
     pattern: Optional[str] = Field(default=None)
     countRequirement: Optional[int] = Field(ge=0, default=None)
-    #is this correct? options = dict
-    #original: options = struct()
     options: Optional[Dict] = None
     verificationFunction: Optional[str] = Field(min_length=1, default=None)
 
@@ -68,6 +67,7 @@ class CodeAbilityTest(CodeAbilityBaseTemplate, CodeAbilityBaseTestTemplate, Code
     subTests: Optional[List[CodeAbilitySubTest]] = Field(default=None)
     #have to exec, need the main entrypoint
     #not just as simple as "python file.py"
+    #maybe put it anyway into setUpCode?
     entryPoint: Optional[str] = Field(min_length=1, default=None)
 
 
@@ -104,15 +104,24 @@ class CodeAbilityTestSuite(BaseModel):
     properties: CodeAbilityTestProperty
 
 
+def parse_yaml_file(file_path: str) -> dict:
+    with open(file_path, 'r') as stream:
+        config = yaml.safe_load(stream)    
+    return CodeAbilityTestSuite(**config).model_dump()
+
+
 def get_json_schema():
     schema = CodeAbilityTestSuite.model_json_schema()
     pretty = json.dumps(schema, indent=2)
     print(pretty)
-    with open("output/schema.json", "w") as file:
+
+    dir = os.path.abspath(os.path.dirname(__file__))
+    name = f"{CodeAbilityTestSuite.__name__}_schema.json"
+    schemafile = os.path.join(dir, "../output", name)
+    with open(schemafile, "w") as file:
         file.write(pretty)
 
 
 #if this file is called directly, print json schema and save to file
 if __name__ == '__main__':
     get_json_schema()
-

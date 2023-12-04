@@ -3,7 +3,7 @@ import numpy as np
 from pandas import DataFrame, Series
 from pytest import approx
 
-class Test:
+class CodeabilityTestSuite:
     def setup_method(self, test_method):
         print("setup_method")
         print(test_method)

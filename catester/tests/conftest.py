@@ -1,10 +1,14 @@
 import os
 import pytest
-from catester.helpers import execute_file, parse_yaml_file
 from matplotlib import pyplot as plt
+from model import parse_yaml_file
+
+def execute_file(filename, namespace):
+    with open(filename, 'r') as file:
+        exec(compile(file.read(), filename, 'exec'), namespace)
 
 def pytest_addoption(parser):
-    parser.addoption("--yamlfile", default="", help="provide a valid yamlfile", )
+    parser.addoption("--yamlfile", default="", help="please provide a valid yamlfile", )
 
 def pytest_generate_tests(metafunc):
     yamlfile = metafunc.config.getoption('--yamlfile')
