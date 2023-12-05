@@ -83,7 +83,7 @@ class CodeabilityTestSuite:
             elif qualification == "count":
                 assert str(val_student).count(pattern) == countRequirement, f"Variable {name} does not contain specified pattern {countRequirement} times"
             elif qualification == "regexp":
-                result = re.match(re.compile(fr'{pattern}'), str(val_student))
+                result = re.match(re.compile(fr"{pattern}"), str(val_student))
                 assert result is not None, f"Variable {name} does not match specified regular expression"
             elif qualification == "verification":
                 pass

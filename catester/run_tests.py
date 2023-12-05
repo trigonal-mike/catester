@@ -18,8 +18,8 @@ def run_tests():
     test_report_resolved = os.path.abspath(os.path.join(dir, test_report))
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input", default=test_yaml_resolved, help='test yaml input file')
-    parser.add_argument("-o", "--output", default=test_report_resolved, help='json report output file')
+    parser.add_argument("-i", "--input", default=test_yaml_resolved, help="test yaml input file")
+    parser.add_argument("-o", "--output", default=test_report_resolved, help="json report output file")
     args = parser.parse_args()
     yamlfile = args.input
     reportfile = args.output
@@ -48,5 +48,5 @@ def run_tests():
     ])
     print(retcode)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run_tests()

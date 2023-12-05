@@ -7,25 +7,25 @@ from pydantic import BaseModel, Field
 
 
 class QualificationEnum(str, Enum):
-    verifyEqual = 'verifyEqual'
-    matches = 'matches'
-    contains = 'contains'
-    startsWith = 'startsWith'
-    endsWith = 'endsWith'
-    count = 'count'
-    regexp = 'regexp'
-    verification = 'verification'
+    verifyEqual = "verifyEqual"
+    matches = "matches"
+    contains = "contains"
+    startsWith = "startsWith"
+    endsWith = "endsWith"
+    count = "count"
+    regexp = "regexp"
+    verification = "verification"
 
 
 class TypeEnum(str, Enum):
-    variable = 'variable'
-    graphics = 'graphics'
-    structural = 'structural'
-    linting = 'linting'
-    exist = 'exist'
-    error = 'error'
-    warning = 'warning'
-    help = 'help'
+    variable = "variable"
+    graphics = "graphics"
+    structural = "structural"
+    linting = "linting"
+    exist = "exist"
+    error = "error"
+    warning = "warning"
+    help = "help"
 
 
 class CodeAbilityTestTemplate(BaseModel):
@@ -105,7 +105,7 @@ class CodeAbilityTestSuite(BaseModel):
 
 
 def parse_yaml_file(file_path: str) -> dict:
-    with open(file_path, 'r') as stream:
+    with open(file_path, "r") as stream:
         config = yaml.safe_load(stream)    
     return CodeAbilityTestSuite(**config).model_dump()
 
@@ -123,5 +123,5 @@ def get_json_schema():
 
 
 #if this file is called directly, print json schema and save to file
-if __name__ == '__main__':
+if __name__ == "__main__":
     get_json_schema()
