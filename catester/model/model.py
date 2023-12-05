@@ -35,7 +35,7 @@ class CodeAbilityTestTemplate(BaseModel):
     successMessage: Optional[str] = Field(default=None)
     type: Optional[TypeEnum] = None
     successDependency: Optional[str | List[str]] = Field(default=None)
-    allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
+    #allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
 
 
 class CodeAbilityBaseTestTemplate(BaseModel):

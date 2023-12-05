@@ -72,23 +72,6 @@
           "default": null,
           "title": "Successdependency"
         },
-        "allowedOccuranceRange": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Allowedoccurancerange"
-        },
         "relativeTolerance": {
           "anyOf": [
             {
@@ -277,23 +260,6 @@
           ],
           "default": null,
           "title": "Successdependency"
-        },
-        "allowedOccuranceRange": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Allowedoccurancerange"
         },
         "verbosity": {
           "anyOf": [
