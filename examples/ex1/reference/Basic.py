@@ -5,3 +5,7 @@ var3 = True
 var4 = [1, 2]
 var5 = (1, 2)
 var6 = {1, 2}
+
+def add(x, y):
+  zz = 45
+  return ( zz + x + y)

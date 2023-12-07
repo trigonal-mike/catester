@@ -1,3 +1,5 @@
+import glob
+import os
 import re
 import numpy as np
 from pandas import DataFrame, Series
@@ -21,15 +23,17 @@ class CodeabilityTestSuite:
                 return ancestor[property]
         return default
 
-    def test_entrypoint(self, testsuite, testcase, namespace_student, namespace_reference):
+    def test_entrypoint(self, config, testcase, namespace_student, namespace_reference):
         main, sub = testcase
-        ancestors = [sub, main, testsuite["properties"]]
+        ancestors = [sub, main, config["testsuite"]["properties"]]
 
         relative_tolerance = self.get_inherited_property("relativeTolerance", ancestors, None)
         absolute_tolerance = self.get_inherited_property("absoluteTolerance", ancestors, None)
         allowed_occuranceRange = self.get_inherited_property("allowedOccuranceRange", ancestors, None)
         qualification = self.get_inherited_property("qualification", ancestors, None)
         testtype = self.get_inherited_property("type", ancestors, None)
+
+        file = main["file"]
 
         if testtype == "variable":
             name = sub["name"]
@@ -94,7 +98,12 @@ class CodeabilityTestSuite:
         elif testtype == "linting":
             pass
         elif testtype == "exist":
-            pass
+            test_info = config["testsuite"]["testInfo"]
+            dirabs = config["abs_path_to_yaml"]
+            dir_reference = os.path.join(dirabs, test_info["referenceDirectory"])
+            dir_student = os.path.join(dirabs, test_info["studentDirectory"])
+            assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
+            assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
         elif testtype == "error":
             pass
         elif testtype == "warning":

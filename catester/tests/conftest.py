@@ -14,22 +14,25 @@ def pytest_generate_tests(metafunc):
     yamlfile = metafunc.config.getoption("--yamlfile")
     config = parse_yaml_file(yamlfile)
     testcases = []
-    for idx_main, test in enumerate(config["properties"]["tests"]):
-        for idx_sub, sub_test in enumerate(test["subTests"]):
+    for idx_main, main_test in enumerate(config["properties"]["tests"]):
+        for idx_sub, sub_test in enumerate(main_test["tests"]):
             testcases.append((idx_main, idx_sub))
     metafunc.parametrize("testcases", testcases)
 
 @pytest.fixture(scope="module")
-def testsuite(request):
+def config(request):
     yamlfile = request.config.getoption("--yamlfile")
-    config = parse_yaml_file(yamlfile)
-    return config
+    dirabs = os.path.abspath(os.path.dirname(yamlfile))
+    dict = {}
+    dict["abs_path_to_yaml"] = dirabs
+    dict["testsuite"] = parse_yaml_file(yamlfile)
+    return dict
 
 @pytest.fixture(scope="function")
-def testcase(testsuite, testcases):
+def testcase(config, testcases):
     idx_main, idx_sub = testcases
-    main = testsuite["properties"]["tests"][idx_main]
-    sub = main["subTests"][idx_sub]
+    main = config["testsuite"]["properties"]["tests"][idx_main]
+    sub = main["tests"][idx_sub]
     return (main, sub)
 
 @pytest.fixture(scope="function")
@@ -40,36 +43,37 @@ def monkeymodule():
     mpatch.undo()
 
 @pytest.fixture(scope="function")
-def namespace_student(request, monkeymodule, testsuite, testcase):
-    yamlfile = request.config.getoption("--yamlfile")
-    dirabs = os.path.abspath(os.path.dirname(yamlfile))
-    test_info = testsuite["testInfo"]
+def namespace_student(monkeymodule, config, testcase):
+    dirabs = config["abs_path_to_yaml"]
+    test_info = config["testsuite"]["testInfo"]
     dir = test_info["studentDirectory"]
 
     main, sub = testcase
     entry_point = main["entryPoint"]
-    file = os.path.join(dirabs, dir, entry_point)
+    if entry_point is not None:
+        file = os.path.join(dirabs, dir, entry_point)
+        monkeymodule.setattr(plt, "show", lambda: None)
+        namespace = {}
+        if os.path.exists(file):
+            execute_file(file, namespace)
+        return namespace
 
-    monkeymodule.setattr(plt, "show", lambda: None)
-
-    namespace = {}
-    execute_file(file, namespace)
-    return namespace
+    return {}
 
 @pytest.fixture(scope="function")
-def namespace_reference(request, monkeymodule, testsuite, testcase):
-    yamlfile = request.config.getoption("--yamlfile")
-    dirabs = os.path.abspath(os.path.dirname(yamlfile))
-    test_info = testsuite["testInfo"]
+def namespace_reference(monkeymodule, config, testcase):
+    dirabs = config["abs_path_to_yaml"]
+    test_info = config["testsuite"]["testInfo"]
     dir = test_info["referenceDirectory"]
 
     main, sub = testcase
     entry_point = main["entryPoint"]
-    file = os.path.join(dirabs, dir, entry_point)
+    if entry_point is not None:
+        file = os.path.join(dirabs, dir, entry_point)
+        monkeymodule.setattr(plt, "show", lambda: None)
+        namespace = {}
+        if os.path.exists(file):
+            execute_file(file, namespace)
+        return namespace
 
-    monkeymodule.setattr(plt, "show", lambda: None)
-
-    namespace = {}
-    if os.path.exists(file):
-        execute_file(file, namespace)
-    return namespace
+    return {}

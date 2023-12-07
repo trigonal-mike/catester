@@ -1,6 +1,7 @@
 import argparse
 import os
 import pytest
+from pydantic import BaseModel, ConfigDict, ValidationError
 from model import parse_yaml_file
 #if not commented out => warning: PytestAssertRewriteWarning: Module already imported so cannot be rewritten: pytest_jsonreport
 #from pytest_jsonreport.plugin import JSONReport
@@ -30,7 +31,17 @@ def run_tests():
     try:
         config = parse_yaml_file(yamlfile)
         #print(config)
-    except Exception:
+    except ValidationError as e:
+        print("YAML File could not be validated")
+        print(e)
+        raise
+    except FileNotFoundError as e:
+        print("File not found")
+        print(e)
+        raise
+    except Exception as e:
+        print("Exception")
+        print(e)
         raise
     
     #pytest config options

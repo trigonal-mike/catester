@@ -21,7 +21,8 @@ properties:
       absoluteTolerance: 0.001
       type: variable
       entryPoint: "Basic.py"
-      subTests:
+      setUpCode: ["var9 = add(2, 3)"]
+      tests:
         - name: "var1"
           relativeTolerance: 1.0E-05
           #value: 0.3
@@ -34,10 +35,11 @@ properties:
           value: "xyz"
         - name: "var8"
           evalString: "round((1+2+3+0.001)*1)"
+        - name: "var9"
     - name: Test PythonTypes
       type: variable
       entryPoint: "PythonTypes.py"
-      subTests:
+      tests:
         - name: "x1"
         - name: "x2"
         - name: "x3"
@@ -56,7 +58,7 @@ properties:
     - name: Test DateTime
       type: variable
       entryPoint: "DateTime.py"
-      subTests:
+      tests:
         - name: "var_date"
         - name: "var_time"
         - name: "var_datetime"
@@ -66,19 +68,19 @@ properties:
       absoluteTolerance: 0.00001
       type: variable
       entryPoint: "Matplot.py"
-      subTests:
+      tests:
         - name: "x"
         - name: "y"
     - name: Test Pandas
       type: variable
       entryPoint: "Pandas.py"
-      subTests:
+      tests:
         - name: "df"
         - name: "ser"
     - name: Test Strings
       type: variable
       entryPoint: "Strings.py"
-      subTests:
+      tests:
         - name: "var1"
           qualification: matches
           pattern: "_x1234567890"

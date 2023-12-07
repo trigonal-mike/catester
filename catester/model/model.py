@@ -3,7 +3,7 @@ import os
 import yaml
 from enum import Enum
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class QualificationEnum(str, Enum):
@@ -50,6 +50,7 @@ class CodeAbilityBaseTemplate(BaseModel):
 
 
 class CodeAbilitySubTest(CodeAbilityBaseTemplate, CodeAbilityTestTemplate):
+    model_config = ConfigDict(extra='forbid')
     value: Optional[Any] = None
     evalString: Optional[str] = Field(min_length=1, default=None)
     pattern: Optional[str] = Field(default=None)
@@ -59,12 +60,13 @@ class CodeAbilitySubTest(CodeAbilityBaseTemplate, CodeAbilityTestTemplate):
 
 
 class CodeAbilityTest(CodeAbilityBaseTemplate, CodeAbilityBaseTestTemplate, CodeAbilityTestTemplate):
+    model_config = ConfigDict(extra='forbid')
     setUpCode: Optional[str | List[str]] = Field(default=None)
     tearDownCode: Optional[str | List[str]] = Field(default=None)
     setUpCodeDependency: Optional[str] = Field(default=None)
     id: Optional[str] = Field(default=None)
     file: Optional[str] = Field(default=None)
-    subTests: Optional[List[CodeAbilitySubTest]] = Field(default=None)
+    tests: Optional[List[CodeAbilitySubTest]] = Field(default=None)
     #have to exec, need the main entrypoint
     #not just as simple as "python file.py"
     #maybe put it anyway into setUpCode?
@@ -72,6 +74,7 @@ class CodeAbilityTest(CodeAbilityBaseTemplate, CodeAbilityBaseTestTemplate, Code
 
 
 class CodeAbilityTestProperty(CodeAbilityBaseTemplate, CodeAbilityBaseTestTemplate):
+    model_config = ConfigDict(extra='forbid')
     tests: List[CodeAbilityTest] = None
     #where are the following needed?
     studentFileList: Optional[List[str]] = Field(default=None)
@@ -81,6 +84,7 @@ class CodeAbilityTestProperty(CodeAbilityBaseTemplate, CodeAbilityBaseTestTempla
 
 
 class CodeAbilityTestInfo(BaseModel):
+    model_config = ConfigDict(extra='forbid')
     executionDirectory: Optional[str] = Field(min_length=1, default=os.getcwd())
     referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
     studentDirectory: Optional[str] = Field(min_length=1, default="student")
@@ -92,6 +96,7 @@ class CodeAbilityTestInfo(BaseModel):
 
 
 class CodeAbilityTestSuite(BaseModel):
+    model_config = ConfigDict(extra='forbid')
     #testInfo should be elsewhere?
     testInfo: CodeAbilityTestInfo
     type: Optional[str] = Field(min_length=1, default="python")
@@ -106,7 +111,7 @@ class CodeAbilityTestSuite(BaseModel):
 
 def parse_yaml_file(file_path: str) -> dict:
     with open(file_path, "r") as stream:
-        config = yaml.safe_load(stream)    
+        config = yaml.safe_load(stream)
     return CodeAbilityTestSuite(**config).model_dump()
 
 

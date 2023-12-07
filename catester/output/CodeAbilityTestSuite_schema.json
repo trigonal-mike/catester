@@ -1,6 +1,7 @@
 {
   "$defs": {
     "CodeAbilitySubTest": {
+      "additionalProperties": false,
       "properties": {
         "name": {
           "minLength": 1,
@@ -190,6 +191,7 @@
       "type": "object"
     },
     "CodeAbilityTest": {
+      "additionalProperties": false,
       "properties": {
         "name": {
           "minLength": 1,
@@ -397,7 +399,7 @@
           "default": null,
           "title": "File"
         },
-        "subTests": {
+        "tests": {
           "anyOf": [
             {
               "items": {
@@ -410,7 +412,7 @@
             }
           ],
           "default": null,
-          "title": "Subtests"
+          "title": "Tests"
         },
         "entryPoint": {
           "anyOf": [
@@ -433,6 +435,7 @@
       "type": "object"
     },
     "CodeAbilityTestInfo": {
+      "additionalProperties": false,
       "properties": {
         "executionDirectory": {
           "anyOf": [
@@ -543,6 +546,7 @@
       "type": "object"
     },
     "CodeAbilityTestProperty": {
+      "additionalProperties": false,
       "properties": {
         "verbosity": {
           "anyOf": [
@@ -709,6 +713,7 @@
       "type": "string"
     }
   },
+  "additionalProperties": false,
   "properties": {
     "testInfo": {
       "$ref": "#/$defs/CodeAbilityTestInfo"
