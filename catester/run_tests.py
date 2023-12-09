@@ -1,15 +1,15 @@
 import argparse
 import os
 import pytest
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import ValidationError
 from model import parse_yaml_file
-#if not commented out => warning: PytestAssertRewriteWarning: Module already imported so cannot be rewritten: pytest_jsonreport
+#if following line is not commented out => warning: PytestAssertRewriteWarning: Module already imported so cannot be rewritten: pytest_jsonreport
 #from pytest_jsonreport.plugin import JSONReport
 #plugin = JSONReport()
 
 def run_tests():
     #default yaml file for testing/debugging purposes
-    test_yaml = "../examples/ex1/test.yaml"
+    test_yaml = "../examples/ex1/test4.yaml"
     test_report = "./output/test-report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))
@@ -46,17 +46,21 @@ def run_tests():
     
     #pytest config options
     #https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
-    retcode = pytest.main([
-        f"--yamlfile={yamlfile}",
+    options = []
+    options.append(f"--yamlfile={yamlfile}")
+    options.extend([
         f"--json-report-file={reportfile}",
         "--json-report-indent=2",
         "--json-report",
+    ])
+    options.extend([
         #"--collect-only",
         #"--no-summary",
         #"--no-header",
         #"-v",
         #"-q",
     ])
+    retcode = pytest.main(options)
     print(retcode)
 
 if __name__ == "__main__":

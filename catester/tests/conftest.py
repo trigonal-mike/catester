@@ -1,15 +1,15 @@
 import os
 import pytest
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 from model import parse_yaml_file
-
-def execute_file(filename, namespace):
-    with open(filename, "r") as file:
-        exec(compile(file.read(), filename, "exec"), namespace)
 
 def pytest_addoption(parser):
     parser.addoption("--yamlfile", default="", help="please provide a valid yamlfile", )
 
+# all testcases will be parametrized here
+# List of Tuples [(0, 0), (0, 1), (0, 2), (1, 0), ...]
+# meaning the test function using the fixture "testcases"
+# is being called with each of the tuples (seperately)
 def pytest_generate_tests(metafunc):
     yamlfile = metafunc.config.getoption("--yamlfile")
     config = parse_yaml_file(yamlfile)
@@ -19,14 +19,31 @@ def pytest_generate_tests(metafunc):
             testcases.append((idx_main, idx_sub))
     metafunc.parametrize("testcases", testcases)
 
-@pytest.fixture(scope="module")
+# this fixture is called once for all tests
+@pytest.fixture(scope="class")
 def config(request):
     yamlfile = request.config.getoption("--yamlfile")
     dirabs = os.path.abspath(os.path.dirname(yamlfile))
     dict = {}
     dict["abs_path_to_yaml"] = dirabs
     dict["testsuite"] = parse_yaml_file(yamlfile)
-    return dict
+    yield dict
+    print("teardown")
+
+# this fixture is called for each test
+@pytest.fixture(scope="function")
+def monkeymodule():
+    from _pytest.monkeypatch import MonkeyPatch
+    mpatch = MonkeyPatch()
+    yield mpatch
+    mpatch.undo()
+
+
+
+"""
+def execute_file(filename, namespace):
+    with open(filename, "r") as file:
+        exec(compile(file.read(), filename, "exec"), namespace)
 
 @pytest.fixture(scope="function")
 def testcase(config, testcases):
@@ -34,13 +51,6 @@ def testcase(config, testcases):
     main = config["testsuite"]["properties"]["tests"][idx_main]
     sub = main["tests"][idx_sub]
     return (main, sub)
-
-@pytest.fixture(scope="function")
-def monkeymodule():
-    from _pytest.monkeypatch import MonkeyPatch
-    mpatch = MonkeyPatch()
-    yield mpatch
-    mpatch.undo()
 
 @pytest.fixture(scope="function")
 def namespace_student(monkeymodule, config, testcase):
@@ -77,3 +87,4 @@ def namespace_reference(monkeymodule, config, testcase):
         return namespace
 
     return {}
+"""

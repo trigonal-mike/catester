@@ -1,51 +1,113 @@
 import glob
 import os
 import re
+#import sys
+import pytest
 import numpy as np
 from pandas import DataFrame, Series
-from pytest import approx
+from matplotlib import pyplot as plt
 
+def execute_code(code, filename, namespace):
+    exec(compile(code, filename, "exec"), namespace)
+
+def execute_code_list(code_list, namespace):
+    for code in code_list:
+        execute_code(code, "", namespace)
+
+def execute_file(filename, namespace):
+    dir_old = os.getcwd()
+    dir = os.path.abspath(os.path.dirname(filename))
+    #sys.path.append(dir)
+    os.chdir(dir)
+    with open(filename, "r") as file:
+        execute_code(file.read(), filename, namespace)
+    os.chdir(dir_old)
+    #sys.path.remove(dir)
+
+def get_inherited_property(property, ancestors, default):
+    for ancestor in ancestors:
+        if property in ancestor and ancestor[property] is not None:
+            return ancestor[property]
+    return default
+
+def get_solution(mm, conf, id, main, where):
+    if not "solutions" in globals():
+        globals()["solutions"] = {}
+    if not id in globals()["solutions"]:
+        globals()["solutions"][id] = {}
+    if not where in globals()["solutions"][id]:
+        entry_point = main["entryPoint"]
+        setup_code = main["setUpCode"]
+        teardown_code = main["tearDownCode"]
+        setup_code_dependency = main["setUpCodeDependency"]
+        namespace = {}
+        if setup_code_dependency is not None:
+            try:
+                namespace = globals()["solutions"][setup_code_dependency][where]
+            except Exception as e:
+                print(f"Exception: setUpCodeDependency {setup_code_dependency} not found")
+                print(e)
+                raise
+        if setup_code is not None:
+            if isinstance(setup_code, str):
+                setup_code = [setup_code]            
+            execute_code_list(setup_code, namespace)
+        if entry_point is not None:
+            dirabs = conf["abs_path_to_yaml"]
+            test_info = conf["testsuite"]["testInfo"]
+            dir = test_info[f"{where}Directory"]
+            file = os.path.join(dirabs, dir, entry_point)
+            if os.path.exists(file):
+                #mm.setattr(plt, "show", lambda: None)
+                execute_file(file, namespace)
+        globals()["solutions"][id][where] = namespace
+    return globals()["solutions"][id][where]
 
 class CodeabilityTestSuite:
+    @classmethod
+    def setup_class(cls):
+        print("setup_class")
+
+    @classmethod
+    def teardown_class(cls):
+        print("teardown_class")
+
     def setup_method(self, test_method):
-        #not implemented yet
         print("setup_method")
-        print(test_method)
 
     def teardown_method(self, test_method):
-        #not implemented yet
         print("teardown_method")
-        print(test_method)
 
-    def get_inherited_property(self, property, ancestors, default):
-        for ancestor in ancestors:
-            if property in ancestor and ancestor[property] is not None:
-                return ancestor[property]
-        return default
+    def test_entrypoint(self, monkeymodule, config, testcases):
+        idx_main, idx_sub = testcases
+        main = config["testsuite"]["properties"]["tests"][idx_main]
+        sub = main["tests"][idx_sub]
+        id = main["id"] if main["id"] is not None else str(idx_main)
 
-    def test_entrypoint(self, config, testcase, namespace_student, namespace_reference):
-        main, sub = testcase
+        solution_student = get_solution(monkeymodule, config, id, main, "student")
+        solution_reference = get_solution(monkeymodule, config, id, main, "reference")
+        
         ancestors = [sub, main, config["testsuite"]["properties"]]
 
-        relative_tolerance = self.get_inherited_property("relativeTolerance", ancestors, None)
-        absolute_tolerance = self.get_inherited_property("absoluteTolerance", ancestors, None)
-        allowed_occuranceRange = self.get_inherited_property("allowedOccuranceRange", ancestors, None)
-        qualification = self.get_inherited_property("qualification", ancestors, None)
-        testtype = self.get_inherited_property("type", ancestors, None)
+        relative_tolerance = get_inherited_property("relativeTolerance", ancestors, 0)
+        absolute_tolerance = get_inherited_property("absoluteTolerance", ancestors, 0)
+        allowed_occuranceRange = get_inherited_property("allowedOccuranceRange", ancestors, None)
+        qualification = get_inherited_property("qualification", ancestors, None)
+        testtype = get_inherited_property("type", ancestors, None)
 
         file = main["file"]
 
-        if testtype == "variable":
-            name = sub["name"]
-            value = sub["value"]
-            evalString = sub["evalString"]
-            pattern = sub["pattern"]
-            countRequirement = sub["countRequirement"]
-            options = sub["options"]
-            verificationFunction = sub["verificationFunction"]
+        name = sub["name"]
+        value = sub["value"]
+        evalString = sub["evalString"]
+        pattern = sub["pattern"]
+        countRequirement = sub["countRequirement"]
+        options = sub["options"]
+        verificationFunction = sub["verificationFunction"]
 
-            assert name in namespace_student, f"Variable {name} not found in student namespace"
-            val_student = namespace_student[name]
+        if testtype == "variable":
+            assert name in solution_student, f"Variable {name} not found in student namespace"
+            val_student = solution_student[name]
 
             if qualification == "verifyEqual":
                 if value is not None:
@@ -56,12 +118,11 @@ class CodeabilityTestSuite:
                     except Exception as e:
                         raise AssertionError("Evaluation of 'evalString' not possible")
                 else:
-                    assert name in namespace_reference, f"Variable {name} not found in reference namespace"
-                    val_reference = namespace_reference[name]
+                    assert name in solution_reference, f"Variable {name} not found in reference namespace"
+                    val_reference = solution_reference[name]
                 
                 type_student = type(val_student)
                 type_reference = type(val_reference)
-                #strict type check vs isinstance(val_student, type_reference), hmmm?
                 assert type_student == type_reference, f"Variable {name} has incorrect type"
                 failure_msg = f"Variable {name} has incorrect value"
                 if isinstance(val_student, (str, set, frozenset)):
@@ -74,7 +135,7 @@ class CodeabilityTestSuite:
                     except AssertionError as e:
                         raise AssertionError(failure_msg)
                 else:
-                    assert val_student == approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
+                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
             elif qualification == "matches":
                 #is that ok?
                 assert str(val_student) == pattern, f"Variable {name} does not match specified pattern"
@@ -92,7 +153,16 @@ class CodeabilityTestSuite:
             elif qualification == "verification":
                 pass
         elif testtype == "graphics":
-            pass
+
+            figure_student = solution_student["plt"].gcf()
+            figure_reference = solution_reference["plt"].gcf()
+
+            #name = sub["name"]
+            #val_reference = eval(name, solution_reference)
+
+            print(figure_student)
+            print(figure_reference)
+            assert figure_student == figure_reference, "ERROR ::: "
         elif testtype == "structural":
             pass
         elif testtype == "linting":
