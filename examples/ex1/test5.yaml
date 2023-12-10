@@ -1,0 +1,25 @@
+testInfo:
+  studentDirectory: "student"
+  referenceDirectory: "reference"
+  artefactDirectory: "artefacts"
+
+name: Python Test suite
+storeGraphicsArtefacts: true
+
+properties:
+  tests:
+    - type: graphics
+      name: graphics
+      entryPoint: "Matplot.py"
+      qualification: verifyEqual
+      tests:
+        - name: figure(1).axes[0].lines[0]._linestyle
+        - name: figure(1).axes[0].lines[0].get_linestyle()
+        - name: figure(1).axes[0].get_xlabel()
+          qualification: startsWith
+          pattern: 'x'
+        - name: figure(1).axes[0].get_ylabel()
+          value: 'y'
+        #- name: figure(1).axes(1).xlabel.string
+        #  qualification: startsWith
+        #  pattern: ' "x" + lettersPattern(1) + "y" '

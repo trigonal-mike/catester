@@ -9,7 +9,7 @@ from model import parse_yaml_file
 
 def run_tests():
     #default yaml file for testing/debugging purposes
-    test_yaml = "../examples/ex1/test4.yaml"
+    test_yaml = "../examples/ex1/test5.yaml"
     test_report = "./output/test-report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))

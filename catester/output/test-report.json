@@ -1,14 +1,14 @@
 {
-  "created": 1702069434.0792513,
-  "duration": 4.723437309265137,
+  "created": 1702231353.6298,
+  "duration": 1.5942184925079346,
   "exitcode": 1,
-  "root": "I:\\PYTHON\\catester\\catester",
+  "root": "i:\\PYTHON\\catester\\catester",
   "environment": {},
   "summary": {
-    "passed": 8,
-    "failed": 1,
-    "total": 9,
-    "collected": 9
+    "failed": 2,
+    "passed": 2,
+    "total": 4,
+    "collected": 4
   },
   "collectors": [
     {
@@ -37,47 +37,22 @@
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases0]",
           "type": "Function",
-          "lineno": 80
+          "lineno": 138
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases1]",
           "type": "Function",
-          "lineno": 80
+          "lineno": 138
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases2]",
           "type": "Function",
-          "lineno": 80
+          "lineno": 138
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases3]",
           "type": "Function",
-          "lineno": 80
-        },
-        {
-          "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases4]",
-          "type": "Function",
-          "lineno": 80
-        },
-        {
-          "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases5]",
-          "type": "Function",
-          "lineno": 80
-        },
-        {
-          "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases6]",
-          "type": "Function",
-          "lineno": 80
-        },
-        {
-          "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases7]",
-          "type": "Function",
-          "lineno": 80
-        },
-        {
-          "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases8]",
-          "type": "Function",
-          "lineno": 80
+          "lineno": 138
         }
       ]
     },
@@ -105,8 +80,8 @@
   "tests": [
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases0]",
-      "lineno": 80,
-      "outcome": "passed",
+      "lineno": 138,
+      "outcome": "failed",
       "keywords": [
         "test_entrypoint[testcases0]",
         "testcases0",
@@ -116,24 +91,37 @@
         "catester"
       ],
       "setup": {
-        "duration": 3.021758900002169,
+        "duration": 0.003974499995820224,
         "outcome": "passed",
-        "stdout": "Backend TkAgg is interactive backend. Turning interactive mode on.\nsetup_class\nsetup_method\n"
+        "stdout": "setup_class\nsetup_method\n"
       },
       "call": {
-        "duration": 0.002753099994151853,
-        "outcome": "passed"
+        "duration": 0.710759199995664,
+        "outcome": "failed",
+        "crash": {
+          "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+          "lineno": 194,
+          "message": "AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\nassert '-.' == '--'\n  - --\n  + -."
+        },
+        "traceback": [
+          {
+            "path": "tests\\test_class.py",
+            "lineno": 194,
+            "message": "AssertionError"
+          }
+        ],
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x00000251CCC66740>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251CCC66E90>\nconfig = {'abs_path_to_yaml': 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (0, 0)\n\n    def test_entrypoint(self, monkeymodule, config, testcases):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main + 1)\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            # get reference value\n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip()\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ntests\\test_class.py:194: AssertionError"
       },
       "teardown": {
-        "duration": 0.0012724999978672713,
+        "duration": 0.0008028000011108816,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases1]",
-      "lineno": 80,
-      "outcome": "passed",
+      "lineno": 138,
+      "outcome": "failed",
       "keywords": [
         "test_entrypoint[testcases1]",
         "testcases1",
@@ -143,23 +131,36 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0014627000055043027,
+        "duration": 0.0005944000004092231,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
       "call": {
-        "duration": 0.0007789000010234304,
-        "outcome": "passed"
+        "duration": 0.00039339999784715474,
+        "outcome": "failed",
+        "crash": {
+          "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+          "lineno": 194,
+          "message": "AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\nassert '-.' == '--'\n  - --\n  + -."
+        },
+        "traceback": [
+          {
+            "path": "tests\\test_class.py",
+            "lineno": 194,
+            "message": "AssertionError"
+          }
+        ],
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x00000251CCC66590>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251CCDA4CA0>\nconfig = {'abs_path_to_yaml': 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (0, 1)\n\n    def test_entrypoint(self, monkeymodule, config, testcases):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main + 1)\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            # get reference value\n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip()\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ntests\\test_class.py:194: AssertionError"
       },
       "teardown": {
-        "duration": 0.0007363999975495972,
+        "duration": 0.0004174000059720129,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases2]",
-      "lineno": 80,
+      "lineno": 138,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases2]",
@@ -170,23 +171,23 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0012384000001475215,
+        "duration": 0.0005404999974416569,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
       "call": {
-        "duration": 0.0006378999969456345,
+        "duration": 0.0002378999924985692,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0009385000012116507,
+        "duration": 0.0003836999967461452,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases3]",
-      "lineno": 80,
+      "lineno": 138,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases3]",
@@ -197,164 +198,16 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0010856000008061528,
+        "duration": 0.0005215999990468845,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
       "call": {
-        "duration": 0.0008824999968055636,
+        "duration": 0.0002297000028192997,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0010264000011375174,
-        "outcome": "passed",
-        "stdout": "teardown_method\n"
-      }
-    },
-    {
-      "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases4]",
-      "lineno": 80,
-      "outcome": "passed",
-      "keywords": [
-        "test_entrypoint[testcases4]",
-        "testcases4",
-        "CodeabilityTestSuite",
-        "test_class.py",
-        "tests/__init__.py",
-        "catester"
-      ],
-      "setup": {
-        "duration": 0.0011500999971758574,
-        "outcome": "passed",
-        "stdout": "setup_method\n"
-      },
-      "call": {
-        "duration": 0.0004819999958272092,
-        "outcome": "passed"
-      },
-      "teardown": {
-        "duration": 0.0006351000047288835,
-        "outcome": "passed",
-        "stdout": "teardown_method\n"
-      }
-    },
-    {
-      "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases5]",
-      "lineno": 80,
-      "outcome": "passed",
-      "keywords": [
-        "test_entrypoint[testcases5]",
-        "testcases5",
-        "CodeabilityTestSuite",
-        "test_class.py",
-        "tests/__init__.py",
-        "catester"
-      ],
-      "setup": {
-        "duration": 0.0009923999969032593,
-        "outcome": "passed",
-        "stdout": "setup_method\n"
-      },
-      "call": {
-        "duration": 0.00045739999768557027,
-        "outcome": "passed"
-      },
-      "teardown": {
-        "duration": 0.0006312999976216815,
-        "outcome": "passed",
-        "stdout": "teardown_method\n"
-      }
-    },
-    {
-      "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases6]",
-      "lineno": 80,
-      "outcome": "passed",
-      "keywords": [
-        "test_entrypoint[testcases6]",
-        "testcases6",
-        "CodeabilityTestSuite",
-        "test_class.py",
-        "tests/__init__.py",
-        "catester"
-      ],
-      "setup": {
-        "duration": 0.0009869999994407408,
-        "outcome": "passed",
-        "stdout": "setup_method\n"
-      },
-      "call": {
-        "duration": 0.0005939999973634258,
-        "outcome": "passed"
-      },
-      "teardown": {
-        "duration": 0.0008737999960430898,
-        "outcome": "passed",
-        "stdout": "teardown_method\n"
-      }
-    },
-    {
-      "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases7]",
-      "lineno": 80,
-      "outcome": "passed",
-      "keywords": [
-        "test_entrypoint[testcases7]",
-        "testcases7",
-        "CodeabilityTestSuite",
-        "test_class.py",
-        "tests/__init__.py",
-        "catester"
-      ],
-      "setup": {
-        "duration": 0.0016442000051029027,
-        "outcome": "passed",
-        "stdout": "setup_method\n"
-      },
-      "call": {
-        "duration": 0.0007705000025453046,
-        "outcome": "passed"
-      },
-      "teardown": {
-        "duration": 0.0008959000042523257,
-        "outcome": "passed",
-        "stdout": "teardown_method\n"
-      }
-    },
-    {
-      "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases8]",
-      "lineno": 80,
-      "outcome": "failed",
-      "keywords": [
-        "test_entrypoint[testcases8]",
-        "testcases8",
-        "CodeabilityTestSuite",
-        "test_class.py",
-        "tests/__init__.py",
-        "catester"
-      ],
-      "setup": {
-        "duration": 0.0011367999977665022,
-        "outcome": "passed",
-        "stdout": "setup_method\n"
-      },
-      "call": {
-        "duration": 0.0013594000047305599,
-        "outcome": "failed",
-        "crash": {
-          "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-          "lineno": 145,
-          "message": "AssertionError: Variable __doc__ does not start with specified pattern\nassert False\n +  where False = <built-in method startswith of str object at 0x0000025FB90F27F0>('This')\n +    where <built-in method startswith of str object at 0x0000025FB90F27F0> = ' This is other.py\\nwith some comment in it\\nwhen placed on the top of the module\\nit becomes the __doc__ docstring property of globals()'.startswith\n +      where ' This is other.py\\nwith some comment in it\\nwhen placed on the top of the module\\nit becomes the __doc__ docstring property of globals()' = str(' This is other.py\\nwith some comment in it\\nwhen placed on the top of the module\\nit becomes the __doc__ docstring property of globals()')"
-        },
-        "traceback": [
-          {
-            "path": "tests\\test_class.py",
-            "lineno": 145,
-            "message": "AssertionError"
-          }
-        ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000025FB912A380>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025FB912AE00>\nconfig = {'abs_path_to_yaml': 'I:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (2, 5)\n\n    def test_entrypoint(self, monkeymodule, config, testcases):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main)\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        if testtype == \"variable\":\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == \"matches\":\n                #is that ok?\n                assert str(val_student) == pattern, f\"Variable {name} does not match specified pattern\"\n            elif qualification == \"contains\":\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain specified pattern\"\n            elif qualification == \"startsWith\":\n>               assert str(val_student).startswith(pattern), f\"Variable {name} does not start with specified pattern\"\nE               AssertionError: Variable __doc__ does not start with specified pattern\nE               assert False\nE                +  where False = <built-in method startswith of str object at 0x0000025FB90F27F0>('This')\nE                +    where <built-in method startswith of str object at 0x0000025FB90F27F0> = ' This is other.py\\nwith some comment in it\\nwhen placed on the top of the module\\nit becomes the __doc__ docstring property of globals()'.startswith\nE                +      where ' This is other.py\\nwith some comment in it\\nwhen placed on the top of the module\\nit becomes the __doc__ docstring property of globals()' = str(' This is other.py\\nwith some comment in it\\nwhen placed on the top of the module\\nit becomes the __doc__ docstring property of globals()')\n\ntests\\test_class.py:145: AssertionError"
-      },
-      "teardown": {
-        "duration": 0.0014961999986553565,
+        "duration": 0.0005210999952396378,
         "outcome": "passed",
         "stdout": "teardown_method\nteardown\nteardown_class\n"
       }

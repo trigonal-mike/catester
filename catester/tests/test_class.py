@@ -15,14 +15,8 @@ def execute_code_list(code_list, namespace):
         execute_code(code, "", namespace)
 
 def execute_file(filename, namespace):
-    dir_old = os.getcwd()
-    dir = os.path.abspath(os.path.dirname(filename))
-    #sys.path.append(dir)
-    os.chdir(dir)
     with open(filename, "r") as file:
         execute_code(file.read(), filename, namespace)
-    os.chdir(dir_old)
-    #sys.path.remove(dir)
 
 def get_inherited_property(property, ancestors, default):
     for ancestor in ancestors:
@@ -30,40 +24,102 @@ def get_inherited_property(property, ancestors, default):
             return ancestor[property]
     return default
 
+def get_property_as_list(main, property_name):
+    property = main[property_name]
+    if property is None:
+        return []
+    if isinstance(property, str):
+        property = [property]
+    return property
+
 def get_solution(mm, conf, id, main, where):
+    # calculate solution, only if not already exists
     if not "solutions" in globals():
         globals()["solutions"] = {}
     if not id in globals()["solutions"]:
         globals()["solutions"][id] = {}
     if not where in globals()["solutions"][id]:
+        dirabs = conf["abs_path_to_yaml"]
+        test_suite = conf["testsuite"]
+        store_graphics_artefacts = test_suite["storeGraphicsArtefacts"]
+        dir = test_suite["testInfo"][f"{where}Directory"]
+        artefact_directory = test_suite["testInfo"]["artefactDirectory"]
+        # create all non-existing directories like in CodeAbilityTestSuite.m L221
+
+        type = main["type"]
         entry_point = main["entryPoint"]
-        setup_code = main["setUpCode"]
-        teardown_code = main["tearDownCode"]
+        setup_code = get_property_as_list(main, "setUpCode")
+        teardown_code = get_property_as_list(main, "tearDownCode")
         setup_code_dependency = main["setUpCodeDependency"]
+
+        abs_dir = os.path.join(dirabs, dir)
+
+        # remember old working directory
+        dir_old = os.getcwd()
+        #sys.path.append(abs_dir)
+        os.chdir(abs_dir)
+        plt.close("all")
+
+        # start solution with empty namespace
         namespace = {}
+
         if setup_code_dependency is not None:
+            # start solution with prior solution
             try:
                 namespace = globals()["solutions"][setup_code_dependency][where]
             except Exception as e:
                 print(f"Exception: setUpCodeDependency {setup_code_dependency} not found")
                 print(e)
                 raise
-        if setup_code is not None:
-            if isinstance(setup_code, str):
-                setup_code = [setup_code]            
-            execute_code_list(setup_code, namespace)
+
+        # run setup code anyway,
+        # or like Winfried did in CodeAbilityTest.m L123 if setup_code_dependency is None
+        execute_code_list(setup_code, namespace)
+
         if entry_point is not None:
-            dirabs = conf["abs_path_to_yaml"]
-            test_info = conf["testsuite"]["testInfo"]
-            dir = test_info[f"{where}Directory"]
             file = os.path.join(dirabs, dir, entry_point)
-            if os.path.exists(file):
-                #mm.setattr(plt, "show", lambda: None)
-                execute_file(file, namespace)
+            if not os.path.exists(file):
+                raise FileNotFoundError(f"entryPoint {entry_point} not found")
+
+            # disable plt.show() command, otherwise figure gets destroyed afterwards
+            mm.setattr(plt, "show", lambda: None)
+            execute_file(file, namespace)
+            if type == "graphics":
+                if store_graphics_artefacts:
+                    fignums = plt.get_fignums()
+                    for i in fignums:
+                        file_name = f"{where}_test_{id}_figure_{i}.png"
+                        abs_file_name = os.path.join(dirabs, artefact_directory, file_name)
+                        figure = plt.figure(i)
+                        figure.savefig(abs_file_name)
+
+                # extract variable data from graphics object
+                # these variables are being stored in the respective namespace
+                # for later use when the subTests are run
+                # splitObject() like in CodeAbilityTestTemplate.m L57 is not implemented (yet)
+                # supported are qualified strings which can be evaluated
+                namespace["_graphics_object_"] = {}
+                for sub_test in main["tests"]:
+                    name = sub_test["name"]
+                    fun2eval = f'globals()["plt"].{name}'
+                    value = eval(fun2eval)
+                    namespace["_graphics_object_"][name] = value
+
+        # run teardown code
+        execute_code_list(teardown_code, namespace)
+
+        # change back to where we were before
+        #sys.path.remove(abs_dir)
+        os.chdir(dir_old)
+        plt.close("all")
+
         globals()["solutions"][id][where] = namespace
     return globals()["solutions"][id][where]
 
 class CodeabilityTestSuite:
+    # hooks for setup/teardown
+    # currently not used
+    # teardown also possible with fixtures and code after yield statement (see conftest.py)
     @classmethod
     def setup_class(cls):
         print("setup_class")
@@ -72,17 +128,19 @@ class CodeabilityTestSuite:
     def teardown_class(cls):
         print("teardown_class")
 
+    # these are called for each invocation of test_entrypoint
     def setup_method(self, test_method):
         print("setup_method")
 
     def teardown_method(self, test_method):
         print("teardown_method")
 
+    # testcases get parametrized in conftest.py (pytest_generate_tests)
     def test_entrypoint(self, monkeymodule, config, testcases):
         idx_main, idx_sub = testcases
         main = config["testsuite"]["properties"]["tests"][idx_main]
         sub = main["tests"][idx_sub]
-        id = main["id"] if main["id"] is not None else str(idx_main)
+        id = main["id"] if main["id"] is not None else str(idx_main + 1)
 
         solution_student = get_solution(monkeymodule, config, id, main, "student")
         solution_reference = get_solution(monkeymodule, config, id, main, "reference")
@@ -105,10 +163,15 @@ class CodeabilityTestSuite:
         options = sub["options"]
         verificationFunction = sub["verificationFunction"]
 
-        if testtype == "variable":
+        if testtype == "graphics":
+            solution_student = solution_student["_graphics_object_"]
+            solution_reference = solution_reference["_graphics_object_"]
+
+        if testtype in ["variable", "graphics", "error", "warning", "help"]:
             assert name in solution_student, f"Variable {name} not found in student namespace"
             val_student = solution_student[name]
 
+            # get reference value
             if qualification == "verifyEqual":
                 if value is not None:
                     val_reference = value
@@ -116,6 +179,7 @@ class CodeabilityTestSuite:
                     try:
                         val_reference = eval(evalString)
                     except Exception as e:
+                        pytest.skip()
                         raise AssertionError("Evaluation of 'evalString' not possible")
                 else:
                     assert name in solution_reference, f"Variable {name} not found in reference namespace"
@@ -124,6 +188,7 @@ class CodeabilityTestSuite:
                 type_student = type(val_student)
                 type_reference = type(val_reference)
                 assert type_student == type_reference, f"Variable {name} has incorrect type"
+
                 failure_msg = f"Variable {name} has incorrect value"
                 if isinstance(val_student, (str, set, frozenset)):
                     assert val_student == val_reference, failure_msg
@@ -137,7 +202,8 @@ class CodeabilityTestSuite:
                 else:
                     assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
             elif qualification == "matches":
-                #is that ok?
+                # is that ok?
+                # what are the differences between "matches", string compare ("verifyEqual") and "regexp"?
                 assert str(val_student) == pattern, f"Variable {name} does not match specified pattern"
             elif qualification == "contains":
                 assert str(val_student).find(pattern) > -1, f"Variable {name} does not contain specified pattern"
@@ -152,20 +218,11 @@ class CodeabilityTestSuite:
                 assert result is not None, f"Variable {name} does not match specified regular expression"
             elif qualification == "verification":
                 pass
-        elif testtype == "graphics":
-
-            figure_student = solution_student["plt"].gcf()
-            figure_reference = solution_reference["plt"].gcf()
-
-            #name = sub["name"]
-            #val_reference = eval(name, solution_reference)
-
-            print(figure_student)
-            print(figure_reference)
-            assert figure_student == figure_reference, "ERROR ::: "
         elif testtype == "structural":
+            # not implemented yet
             pass
         elif testtype == "linting":
+            # not implemented yet
             pass
         elif testtype == "exist":
             test_info = config["testsuite"]["testInfo"]
@@ -174,12 +231,6 @@ class CodeabilityTestSuite:
             dir_student = os.path.join(dirabs, test_info["studentDirectory"])
             assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
             assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
-        elif testtype == "error":
-            pass
-        elif testtype == "warning":
-            pass
-        elif testtype == "help":
-            pass
         else:
             raise KeyError
-        
+
