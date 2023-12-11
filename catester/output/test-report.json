@@ -1,6 +1,6 @@
 {
-  "created": 1702231353.6298,
-  "duration": 1.5942184925079346,
+  "created": 1702300189.8580196,
+  "duration": 1.6836984157562256,
   "exitcode": 1,
   "root": "i:\\PYTHON\\catester\\catester",
   "environment": {},
@@ -37,22 +37,22 @@
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases0]",
           "type": "Function",
-          "lineno": 138
+          "lineno": 144
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases1]",
           "type": "Function",
-          "lineno": 138
+          "lineno": 144
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases2]",
           "type": "Function",
-          "lineno": 138
+          "lineno": 144
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases3]",
           "type": "Function",
-          "lineno": 138
+          "lineno": 144
         }
       ]
     },
@@ -80,7 +80,7 @@
   "tests": [
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases0]",
-      "lineno": 138,
+      "lineno": 144,
       "outcome": "failed",
       "keywords": [
         "test_entrypoint[testcases0]",
@@ -91,36 +91,47 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.003974499995820224,
+        "duration": 0.004317099985200912,
         "outcome": "passed",
         "stdout": "setup_class\nsetup_method\n"
       },
+      "metadata": {
+        "main_name": "graphics",
+        "sub_name": "figure(1).axes[0].lines[0]._linestyle",
+        "relative_tolerance": 0,
+        "absolute_tolerance": 0,
+        "allowed_occuranceRange": null,
+        "qualification": "verifyEqual",
+        "testtype": "graphics",
+        "failure_message": "Some or all tests failed",
+        "success_message": "Congratulations! All tests passed"
+      },
       "call": {
-        "duration": 0.710759199995664,
+        "duration": 0.7497840999858454,
         "outcome": "failed",
         "crash": {
           "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-          "lineno": 194,
+          "lineno": 216,
           "message": "AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\nassert '-.' == '--'\n  - --\n  + -."
         },
         "traceback": [
           {
             "path": "tests\\test_class.py",
-            "lineno": 194,
+            "lineno": 216,
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x00000251CCC66740>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251CCC66E90>\nconfig = {'abs_path_to_yaml': 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (0, 0)\n\n    def test_entrypoint(self, monkeymodule, config, testcases):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main + 1)\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            # get reference value\n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip()\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ntests\\test_class.py:194: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000026BDE41A9B0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026BDE41B100>\nconfig = {'abs_path_to_yaml': 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (0, 0), json_metadata = {'absolute_tolerance': 0, 'allowed_occuranceRange': None, 'failure_message': 'Some or all tests failed', 'main_name': 'graphics', ...}\n\n    def test_entrypoint(self, monkeymodule, config, testcases, json_metadata):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main + 1)\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n        ancestors1 = [sub, main, config[\"testsuite\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n        failure_message = get_inherited_property(\"failureMessage\", ancestors1, None)\n        success_message = get_inherited_property(\"successMessage\", ancestors1, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        main_name = main[\"name\"]\n    \n        #json_metadata['sub'] = sub\n        json_metadata['main_name'] = main_name\n        json_metadata['sub_name'] = name\n        json_metadata['relative_tolerance'] = relative_tolerance\n        json_metadata['absolute_tolerance'] = absolute_tolerance\n        json_metadata['allowed_occuranceRange'] = allowed_occuranceRange\n        json_metadata['qualification'] = qualification\n        json_metadata['testtype'] = testtype\n        json_metadata['failure_message'] = failure_message\n        json_metadata['success_message'] = success_message\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            # get reference value\n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip()\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ntests\\test_class.py:216: AssertionError"
       },
       "teardown": {
-        "duration": 0.0008028000011108816,
+        "duration": 0.0007866000232752413,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases1]",
-      "lineno": 138,
+      "lineno": 144,
       "outcome": "failed",
       "keywords": [
         "test_entrypoint[testcases1]",
@@ -131,36 +142,47 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0005944000004092231,
+        "duration": 0.0006326000147964805,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
+      "metadata": {
+        "main_name": "graphics",
+        "sub_name": "figure(1).axes[0].lines[0].get_linestyle()",
+        "relative_tolerance": 0,
+        "absolute_tolerance": 0,
+        "allowed_occuranceRange": null,
+        "qualification": "verifyEqual",
+        "testtype": "graphics",
+        "failure_message": "Some or all tests failed",
+        "success_message": "Congratulations! All tests passed"
+      },
       "call": {
-        "duration": 0.00039339999784715474,
+        "duration": 0.0003934999986086041,
         "outcome": "failed",
         "crash": {
           "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-          "lineno": 194,
+          "lineno": 216,
           "message": "AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\nassert '-.' == '--'\n  - --\n  + -."
         },
         "traceback": [
           {
             "path": "tests\\test_class.py",
-            "lineno": 194,
+            "lineno": 216,
             "message": "AssertionError"
           }
         ],
-        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x00000251CCC66590>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000251CCDA4CA0>\nconfig = {'abs_path_to_yaml': 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (0, 1)\n\n    def test_entrypoint(self, monkeymodule, config, testcases):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main + 1)\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            # get reference value\n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip()\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ntests\\test_class.py:194: AssertionError"
+        "longrepr": "self = <tests.test_class.CodeabilityTestSuite object at 0x0000026BDE41A800>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026BE23097E0>\nconfig = {'abs_path_to_yaml': 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1', 'testsuite': {'description': 'Checks subtests and graphics...ties': {'absoluteTolerance': None, 'competency': None, 'qualification': None, 'referenceCommandList': None, ...}, ...}}\ntestcases = (0, 1), json_metadata = {'absolute_tolerance': 0, 'allowed_occuranceRange': None, 'failure_message': 'Some or all tests failed', 'main_name': 'graphics', ...}\n\n    def test_entrypoint(self, monkeymodule, config, testcases, json_metadata):\n        idx_main, idx_sub = testcases\n        main = config[\"testsuite\"][\"properties\"][\"tests\"][idx_main]\n        sub = main[\"tests\"][idx_sub]\n        id = main[\"id\"] if main[\"id\"] is not None else str(idx_main + 1)\n    \n        ancestors = [sub, main, config[\"testsuite\"][\"properties\"]]\n        ancestors1 = [sub, main, config[\"testsuite\"]]\n    \n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors, None)\n        qualification = get_inherited_property(\"qualification\", ancestors, None)\n        testtype = get_inherited_property(\"type\", ancestors, None)\n        failure_message = get_inherited_property(\"failureMessage\", ancestors1, None)\n        success_message = get_inherited_property(\"successMessage\", ancestors1, None)\n    \n        file = main[\"file\"]\n    \n        name = sub[\"name\"]\n        value = sub[\"value\"]\n        evalString = sub[\"evalString\"]\n        pattern = sub[\"pattern\"]\n        countRequirement = sub[\"countRequirement\"]\n        options = sub[\"options\"]\n        verificationFunction = sub[\"verificationFunction\"]\n    \n        main_name = main[\"name\"]\n    \n        #json_metadata['sub'] = sub\n        json_metadata['main_name'] = main_name\n        json_metadata['sub_name'] = name\n        json_metadata['relative_tolerance'] = relative_tolerance\n        json_metadata['absolute_tolerance'] = absolute_tolerance\n        json_metadata['allowed_occuranceRange'] = allowed_occuranceRange\n        json_metadata['qualification'] = qualification\n        json_metadata['testtype'] = testtype\n        json_metadata['failure_message'] = failure_message\n        json_metadata['success_message'] = success_message\n    \n        solution_student = get_solution(monkeymodule, config, id, main, \"student\")\n        solution_reference = get_solution(monkeymodule, config, id, main, \"reference\")\n    \n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            assert name in solution_student, f\"Variable {name} not found in student namespace\"\n            val_student = solution_student[name]\n    \n            # get reference value\n            if qualification == \"verifyEqual\":\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip()\n                        raise AssertionError(\"Evaluation of 'evalString' not possible\")\n                else:\n                    assert name in solution_reference, f\"Variable {name} not found in reference namespace\"\n                    val_reference = solution_reference[name]\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ntests\\test_class.py:216: AssertionError"
       },
       "teardown": {
-        "duration": 0.0004174000059720129,
+        "duration": 0.00042379999649710953,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases2]",
-      "lineno": 138,
+      "lineno": 144,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases2]",
@@ -171,23 +193,34 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0005404999974416569,
+        "duration": 0.0005952999927103519,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
+      "metadata": {
+        "main_name": "graphics",
+        "sub_name": "figure(1).axes[0].get_xlabel()",
+        "relative_tolerance": 0,
+        "absolute_tolerance": 0,
+        "allowed_occuranceRange": null,
+        "qualification": "startsWith",
+        "testtype": "graphics",
+        "failure_message": "Some or all tests failed",
+        "success_message": "Congratulations! All tests passed"
+      },
       "call": {
-        "duration": 0.0002378999924985692,
+        "duration": 0.0002474999928381294,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0003836999967461452,
+        "duration": 0.0004141000099480152,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityTestSuite::test_entrypoint[testcases3]",
-      "lineno": 138,
+      "lineno": 144,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases3]",
@@ -198,19 +231,80 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0005215999990468845,
+        "duration": 0.0005608999927062541,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
+      "metadata": {
+        "main_name": "graphics",
+        "sub_name": "figure(1).axes[0].get_ylabel()",
+        "relative_tolerance": 0,
+        "absolute_tolerance": 0,
+        "allowed_occuranceRange": null,
+        "qualification": "verifyEqual",
+        "testtype": "graphics",
+        "failure_message": "Some or all tests failed",
+        "success_message": "Congratulations! All tests passed"
+      },
       "call": {
-        "duration": 0.0002297000028192997,
+        "duration": 0.00023300002794712782,
         "outcome": "passed"
       },
       "teardown": {
-        "duration": 0.0005210999952396378,
+        "duration": 0.000522699992870912,
         "outcome": "passed",
         "stdout": "teardown_method\nteardown\nteardown_class\n"
       }
+    }
+  ],
+  "_duration": 1.6836984157562256,
+  "_metadata": {
+    "Python": "3.10.11",
+    "Platform": "Windows-10-10.0.19045-SP0",
+    "Packages": {
+      "pytest": "7.4.3",
+      "pluggy": "1.3.0"
+    },
+    "Plugins": {
+      "json-report": "1.5.0",
+      "metadata": "3.0.0"
+    },
+    "yamlfile": "i:\\PYTHON\\catester\\examples\\ex1\\test5.yaml"
+  },
+  "_timestamp": "2023-12-11 14:09:49.858020",
+  "_type": "python",
+  "_version": "1.0",
+  "_name": "Python Test suite",
+  "_status": "COMPLETED",
+  "_result": "ExitCode.TESTS_FAILED",
+  "_tests": [
+    {
+      "name": "graphics",
+      "variable": "figure(1).axes[0].lines[0]._linestyle",
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "details": "Some or all tests failed"
+    },
+    {
+      "name": "graphics",
+      "variable": "figure(1).axes[0].lines[0].get_linestyle()",
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "details": "Some or all tests failed"
+    },
+    {
+      "name": "graphics",
+      "variable": "figure(1).axes[0].get_xlabel()",
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "details": "Congratulations! All tests passed"
+    },
+    {
+      "name": "graphics",
+      "variable": "figure(1).axes[0].get_ylabel()",
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "details": "Congratulations! All tests passed"
     }
   ]
 }

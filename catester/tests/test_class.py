@@ -79,31 +79,37 @@ def get_solution(mm, conf, id, main, where):
         if entry_point is not None:
             file = os.path.join(dirabs, dir, entry_point)
             if not os.path.exists(file):
-                raise FileNotFoundError(f"entryPoint {entry_point} not found")
+                #pytest.
+                #pytest.warns("xxxxxxxxxxxxxxx")
+                if where == "student":
+                    raise FileNotFoundError(f"entryPoint {entry_point} not found")
+                #else:
+                    #pytest.warns("xxxxxxxxxxxxxxxxxxxxxx")
 
-            # disable plt.show() command, otherwise figure gets destroyed afterwards
-            mm.setattr(plt, "show", lambda: None)
-            execute_file(file, namespace)
-            if type == "graphics":
-                if store_graphics_artefacts:
-                    fignums = plt.get_fignums()
-                    for i in fignums:
-                        file_name = f"{where}_test_{id}_figure_{i}.png"
-                        abs_file_name = os.path.join(dirabs, artefact_directory, file_name)
-                        figure = plt.figure(i)
-                        figure.savefig(abs_file_name)
+            else:
+                # disable plt.show() command, otherwise figure gets destroyed afterwards
+                mm.setattr(plt, "show", lambda: None)
+                execute_file(file, namespace)
+                if type == "graphics":
+                    if store_graphics_artefacts:
+                        fignums = plt.get_fignums()
+                        for i in fignums:
+                            file_name = f"{where}_test_{id}_figure_{i}.png"
+                            abs_file_name = os.path.join(dirabs, artefact_directory, file_name)
+                            figure = plt.figure(i)
+                            figure.savefig(abs_file_name)
 
-                # extract variable data from graphics object
-                # these variables are being stored in the respective namespace
-                # for later use when the subTests are run
-                # splitObject() like in CodeAbilityTestTemplate.m L57 is not implemented (yet)
-                # supported are qualified strings which can be evaluated
-                namespace["_graphics_object_"] = {}
-                for sub_test in main["tests"]:
-                    name = sub_test["name"]
-                    fun2eval = f'globals()["plt"].{name}'
-                    value = eval(fun2eval)
-                    namespace["_graphics_object_"][name] = value
+                    # extract variable data from graphics object
+                    # these variables are being stored in the respective namespace
+                    # for later use when the subTests are run
+                    # splitObject() like in CodeAbilityTestTemplate.m L57 is not implemented (yet)
+                    # supported are qualified strings which can be evaluated
+                    namespace["_graphics_object_"] = {}
+                    for sub_test in main["tests"]:
+                        name = sub_test["name"]
+                        fun2eval = f'globals()["plt"].{name}'
+                        value = eval(fun2eval)
+                        namespace["_graphics_object_"][name] = value
 
         # run teardown code
         execute_code_list(teardown_code, namespace)
@@ -136,22 +142,22 @@ class CodeabilityTestSuite:
         print("teardown_method")
 
     # testcases get parametrized in conftest.py (pytest_generate_tests)
-    def test_entrypoint(self, monkeymodule, config, testcases):
+    def test_entrypoint(self, monkeymodule, config, testcases, json_metadata):
         idx_main, idx_sub = testcases
         main = config["testsuite"]["properties"]["tests"][idx_main]
         sub = main["tests"][idx_sub]
         id = main["id"] if main["id"] is not None else str(idx_main + 1)
 
-        solution_student = get_solution(monkeymodule, config, id, main, "student")
-        solution_reference = get_solution(monkeymodule, config, id, main, "reference")
-        
         ancestors = [sub, main, config["testsuite"]["properties"]]
+        ancestors1 = [sub, main, config["testsuite"]]
 
         relative_tolerance = get_inherited_property("relativeTolerance", ancestors, 0)
         absolute_tolerance = get_inherited_property("absoluteTolerance", ancestors, 0)
         allowed_occuranceRange = get_inherited_property("allowedOccuranceRange", ancestors, None)
         qualification = get_inherited_property("qualification", ancestors, None)
         testtype = get_inherited_property("type", ancestors, None)
+        failure_message = get_inherited_property("failureMessage", ancestors1, None)
+        success_message = get_inherited_property("successMessage", ancestors1, None)
 
         file = main["file"]
 
@@ -162,6 +168,22 @@ class CodeabilityTestSuite:
         countRequirement = sub["countRequirement"]
         options = sub["options"]
         verificationFunction = sub["verificationFunction"]
+
+        main_name = main["name"]
+
+        #json_metadata['sub'] = sub
+        json_metadata['main_name'] = main_name
+        json_metadata['sub_name'] = name
+        json_metadata['relative_tolerance'] = relative_tolerance
+        json_metadata['absolute_tolerance'] = absolute_tolerance
+        json_metadata['allowed_occuranceRange'] = allowed_occuranceRange
+        json_metadata['qualification'] = qualification
+        json_metadata['testtype'] = testtype
+        json_metadata['failure_message'] = failure_message
+        json_metadata['success_message'] = success_message
+
+        solution_student = get_solution(monkeymodule, config, id, main, "student")
+        solution_reference = get_solution(monkeymodule, config, id, main, "reference")
 
         if testtype == "graphics":
             solution_student = solution_student["_graphics_object_"]

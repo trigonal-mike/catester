@@ -3,6 +3,7 @@ import os
 import pytest
 from pydantic import ValidationError
 from model import parse_yaml_file
+import subprocess
 #if following line is not commented out => warning: PytestAssertRewriteWarning: Module already imported so cannot be rewritten: pytest_jsonreport
 #from pytest_jsonreport.plugin import JSONReport
 #plugin = JSONReport()
@@ -52,14 +53,26 @@ def run_tests():
         f"--json-report-file={reportfile}",
         "--json-report-indent=2",
         "--json-report",
+        # this is not working: (but when run as subprocess then it works!)
+        #"--metadata xxxxx yyyyyy",
+        #"--json-report-omit=collectors",
     ])
+    #collectors, log, traceback, streams, warnings, keywords
     options.extend([
         #"--collect-only",
-        #"--no-summary",
-        #"--no-header",
+        "--no-summary",
+        "--no-header",
+        "--verbose",
         #"-v",
-        #"-q",
+        "-q",
     ])
+
+    # run as a subprocess
+    #command = f"pytest --yamlfile={yamlfile} --verbose --json-report --json-report-file={reportfile} --json-report-indent=2 --json-report-omit collectors log traceback streams warnings keywords"
+    #command = f"pytest --metadata xxxxx yyyyyy --yamlfile={yamlfile} --verbose --json-report --json-report-file={reportfile} --json-report-indent=2"
+    #retcode = subprocess.run(command, shell=True)
+    #print(retcode.returncode)
+
     retcode = pytest.main(options)
     print(retcode)
 

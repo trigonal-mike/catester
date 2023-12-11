@@ -1,0 +1,28 @@
+{
+  "timestamp": "2023-11-10 11:39:34.972332",
+  "type": "Python",
+  "version": "v2.0.1",
+  "name": "unknown",
+  "status": "COMPLETED",
+  "result": "FAILED",
+  "tests": [
+    {
+      "name": "Checks basic variables",
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "details": "Have a look at the specific test results"
+    },
+    {
+      "name": "Checks advanced variables",
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "details": "This is great"
+    },
+    {
+      "name": "Check of graphics Variables",
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "details": "Have a look at the specific test results"
+    }
+  ]
+}

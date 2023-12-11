@@ -21,7 +21,6 @@ properties:
       absoluteTolerance: 0.001
       type: variable
       entryPoint: "Basic.py"
-      setUpCode: ["var9 = add(2, 3)"]
       tests:
         - name: "var1"
           relativeTolerance: 1.0E-05
@@ -35,7 +34,6 @@ properties:
           value: "xyz"
         - name: "var8"
           evalString: "round((1+2+3+0.001)*1)"
-        - name: "var9"
     - name: Test PythonTypes
       type: variable
       entryPoint: "PythonTypes.py"
