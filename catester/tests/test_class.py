@@ -1,6 +1,7 @@
 import glob
 import os
 import re
+import time
 #import sys
 import pytest
 import numpy as np
@@ -63,6 +64,12 @@ def get_solution(mm, conf, id, main, where):
         plt.close("all")
         random.seed(1)
 
+        #mm.setattr(random, "seed", lambda *x: None)
+        #mm.setattr(os, "getcwd", lambda: "xxx")
+        #mm.setattr(time, "sleep", lambda x: None)
+        #mm.setattr(time, "time", lambda: 999)
+        mm.setattr(plt, "show", lambda *x: None)
+
         # start solution with empty namespace
         namespace = {}
 
@@ -91,7 +98,6 @@ def get_solution(mm, conf, id, main, where):
 
             else:
                 # disable plt.show() command, otherwise figure gets destroyed afterwards
-                mm.setattr(plt, "show", lambda: None)
                 execute_file(file, namespace)
                 if type == "graphics":
                     if store_graphics_artefacts:
@@ -185,8 +191,8 @@ class CodeabilityTestSuite:
         json_metadata['failure_message'] = failure_message
         json_metadata['success_message'] = success_message
 
-        solution_student = get_solution(monkeymodule, config, id, main, "student")
         solution_reference = get_solution(monkeymodule, config, id, main, "reference")
+        solution_student = get_solution(monkeymodule, config, id, main, "student")
 
         if testtype == "graphics":
             solution_student = solution_student["_graphics_object_"]

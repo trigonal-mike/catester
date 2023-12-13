@@ -19,7 +19,7 @@ properties:
           qualification: startsWith
           pattern: 'x'
         - name: figure(2).axes[0].get_ylabel()
-          value: 'hy'
+          value: 'y'
         #- name: figure(1).axes(1).xlabel.string
         #  qualification: startsWith
         #  pattern: ' "x" + lettersPattern(1) + "y" '

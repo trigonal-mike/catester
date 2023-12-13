@@ -12,3 +12,6 @@ properties:
       tests:
         - name: "var1"
         - name: "var2"
+        - name: "var3"
+        - name: "var4"
+        - name: "var5"
