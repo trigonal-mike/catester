@@ -8,6 +8,8 @@ var6 = {1, 2, 3}
 var7 = "xyz"
 var8 = 6
 
+var9 = [1, 2]
+
 def add(x, y):
   zz = 44
   return ( zz + x + y)

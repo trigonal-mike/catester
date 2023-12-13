@@ -10,7 +10,7 @@ import subprocess
 
 def run_tests():
     #default yaml file for testing/debugging purposes
-    test_yaml = "../examples/ex1/test5.yaml"
+    test_yaml = "../examples/ex1/test2.yaml"
     test_report = "./output/test-report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))
@@ -19,6 +19,7 @@ def run_tests():
     test_yaml_resolved = os.path.abspath(os.path.join(dir, test_yaml))
     test_report_resolved = os.path.abspath(os.path.join(dir, test_report))
 
+    # get command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input", default=test_yaml_resolved, help="test yaml input file")
     parser.add_argument("-o", "--output", default=test_report_resolved, help="json report output file")
@@ -60,11 +61,11 @@ def run_tests():
     #collectors, log, traceback, streams, warnings, keywords
     options.extend([
         #"--collect-only",
-        "--no-summary",
-        "--no-header",
-        "--verbose",
+        #"--no-summary",
+        #"--no-header",
+        #"--verbose",
         #"-v",
-        "-q",
+        #"-q",
     ])
 
     # run as a subprocess

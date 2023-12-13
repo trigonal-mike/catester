@@ -1,5 +1,4 @@
 import os
-import time
 import datetime
 import pytest
 from model import parse_yaml_file
@@ -39,7 +38,6 @@ def monkeymodule():
     yield mpatch
     mpatch.undo()
 
-
 def pytest_metadata(metadata, config):
     yamlfile = config.getoption("--yamlfile")
 
@@ -50,6 +48,12 @@ def pytest_metadata(metadata, config):
     xxx["metadata"] = metadata
 
     globals()["_xxx_"] = xxx
+    pass
+
+def pytest_json_runtest_stage(report):
+    pass
+
+def pytest_json_runtest_metadata(item, call):
     pass
 
 def pytest_json_modifyreport(json_report):

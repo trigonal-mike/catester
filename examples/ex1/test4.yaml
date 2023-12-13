@@ -10,6 +10,7 @@ properties:
       name: other 1
       entryPoint: "Other.py"
       qualification: verifyEqual
+      #tearDownCode: ["del add"]
       id: "0"
       tests:
         - name: "a"
@@ -22,9 +23,9 @@ properties:
       id: "1"
       tests:
         - name: "x"
-          value: 5
+          #value: 5
         - name: "y"
-          value: 8
+          #value: 8
     - type: variable
       name: other 3
       setUpCodeDependency: "1"
@@ -36,15 +37,15 @@ properties:
       id: "2"
       tests:
         - name: "x"
-          value: 5
+          value: 55
         - name: "y"
-          value: 8
+          #value: 8
         - name: "z1"
-          value: 13
+          #value: 13
         - name: "z2"
-          value: 13
+          #value: 13
         - name: "z3"
-          value: 13
+          #value: 13
         - name: "__doc__"
           qualification: startsWith
           pattern: "This"
