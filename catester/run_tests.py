@@ -10,7 +10,7 @@ import subprocess
 
 def run_tests():
     #default yaml file for testing/debugging purposes
-    test_yaml = "../examples/ex1/test2.yaml"
+    test_yaml = "../examples/ex1/test6.yaml"
     test_report = "./output/test-report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))

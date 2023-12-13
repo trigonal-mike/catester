@@ -1,0 +1,15 @@
+testInfo:
+  studentDirectory: "student"
+  referenceDirectory: "reference"
+  artefactDirectory: "artefacts"
+
+properties:
+  qualification: verifyEqual
+  tests:
+    - name: Test Basic
+      type: variable
+      entryPoint: "Basic.py"
+      tests:
+        - name: "var1"
+        - name: "var2"
+        - name: "var3"

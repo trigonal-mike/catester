@@ -190,8 +190,9 @@ class CodeabilityTestSuite:
             solution_reference = solution_reference["_graphics_object_"]
 
         if testtype in ["variable", "graphics", "error", "warning", "help"]:
-            #assert name in solution_student, f"Variable {name} not found in student namespace"
-            val_student = solution_student[eval(name, solution_student)]
+            assert name in solution_student, f"Variable {name} not found in student namespace"
+            val_student = solution_student[name]
+            #val_student = solution_student[eval(name, solution_student)]
 
             # get reference value
             if qualification == "verifyEqual":
