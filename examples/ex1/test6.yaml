@@ -8,8 +8,7 @@ properties:
   tests:
     - name: Test Basic
       type: variable
-      entryPoint: "Basic.py"
+      entryPoint: "Random.py"
       tests:
         - name: "var1"
         - name: "var2"
-        - name: "var3"

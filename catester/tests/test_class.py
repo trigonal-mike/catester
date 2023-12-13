@@ -6,6 +6,8 @@ import pytest
 import numpy as np
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
+import random
+
 
 def execute_code(code, filename, namespace):
     exec(compile(code, filename, "exec"), namespace)
@@ -59,6 +61,7 @@ def get_solution(mm, conf, id, main, where):
         #sys.path.append(abs_dir)
         os.chdir(abs_dir)
         plt.close("all")
+        random.seed(1)
 
         # start solution with empty namespace
         namespace = {}
