@@ -1,8 +1,3 @@
-testInfo:
-  studentDirectory: "student"
-  referenceDirectory: "reference"
-  artefactDirectory: "artefacts"
-
 name: Python Test suite
 storeGraphicsArtefacts: true
 

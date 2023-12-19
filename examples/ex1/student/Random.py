@@ -14,3 +14,5 @@ var4 = os.getcwd()
 
 time.sleep(1.5)
 var5 = time.time()
+
+var6 = [1, 23, 44]

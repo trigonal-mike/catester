@@ -29,6 +29,7 @@ class TypeEnum(str, Enum):
 
 
 class CodeAbilityTestTemplate(BaseModel):
+    evalName: Optional[str] = Field(min_length=1, default=None)
     name: str = Field(min_length=1)
     description: Optional[str] = Field(default=None)
     failureMessage: Optional[str] = Field(default=None)
@@ -83,22 +84,8 @@ class CodeAbilityTestProperty(CodeAbilityBaseTemplate, CodeAbilityBaseTestTempla
     referenceCommandList: Optional[List[str]] = Field(default=None)
 
 
-class CodeAbilityTestInfo(BaseModel):
-    model_config = ConfigDict(extra='forbid')
-    executionDirectory: Optional[str] = Field(min_length=1, default=os.getcwd())
-    referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
-    studentDirectory: Optional[str] = Field(min_length=1, default="student")
-    testDirectory: Optional[str] = Field(min_length=1, default="testprograms")
-    outputDirectory: Optional[str] = Field(min_length=1, default="output")
-    artefactDirectory: Optional[str] = Field(min_length=1, default="artefacts")
-    studentTestCounter: Optional[int] = Field(ge=0, default=None)
-    testVersion: Optional[str] = Field(min_length=1, default="v1")
-
-
 class CodeAbilityTestSuite(BaseModel):
     model_config = ConfigDict(extra='forbid')
-    #testInfo should be elsewhere?
-    testInfo: CodeAbilityTestInfo
     type: Optional[str] = Field(min_length=1, default="python")
     name: Optional[str] = Field(min_length=1, default="Python Test Suite")
     description: Optional[str] = Field(min_length=1, default="Checks subtests and graphics")
@@ -109,13 +96,37 @@ class CodeAbilityTestSuite(BaseModel):
     properties: CodeAbilityTestProperty
 
 
-def parse_yaml_file(file_path: str) -> dict:
+class CodeAbilityTestInfo(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    executionDirectory: Optional[str] = Field(min_length=1, default=os.getcwd())
+    referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
+    studentDirectory: Optional[str] = Field(min_length=1, default="student")
+    testDirectory: Optional[str] = Field(min_length=1, default="testprograms")
+    outputDirectory: Optional[str] = Field(min_length=1, default="output")
+    artefactDirectory: Optional[str] = Field(min_length=1, default="artefacts")
+    studentTestCounter: Optional[int] = Field(ge=0, default=None)
+    testVersion: Optional[str] = Field(min_length=1, default="v1")
+    studentTestCounter: Optional[int] = Field(ge=0, default=None)
+
+
+class CodeAbilitySpecification(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    testInfo: CodeAbilityTestInfo
+
+
+def parse_spec_file(file_path: str) -> dict:
+    with open(file_path, "r") as stream:
+        config = yaml.safe_load(stream)
+    return CodeAbilitySpecification(**config).model_dump()
+
+
+def parse_test_file(file_path: str) -> dict:
     with open(file_path, "r") as stream:
         config = yaml.safe_load(stream)
     return CodeAbilityTestSuite(**config).model_dump()
 
 
-def get_json_schema():
+def get_spec_schema():
     schema = CodeAbilityTestSuite.model_json_schema()
     pretty = json.dumps(schema, indent=2)
     print(pretty)
@@ -127,6 +138,19 @@ def get_json_schema():
         file.write(pretty)
 
 
+def get_test_schema():
+    schema = CodeAbilitySpecification.model_json_schema()
+    pretty = json.dumps(schema, indent=2)
+    print(pretty)
+
+    dir = os.path.abspath(os.path.dirname(__file__))
+    name = f"{CodeAbilitySpecification.__name__}_schema.json"
+    schemafile = os.path.join(dir, "../output", name)
+    with open(schemafile, "w") as file:
+        file.write(pretty)
+
+
 #if this file is called directly, print json schema and save to file
 if __name__ == "__main__":
-    get_json_schema()
+    get_spec_schema()
+    get_test_schema()

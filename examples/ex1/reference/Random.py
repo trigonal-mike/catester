@@ -9,3 +9,5 @@ var3 = random.randint(1, 100)
 
 var4 = os.getcwd()
 var5 = time.time()
+
+var6 = [1, 23, 44]

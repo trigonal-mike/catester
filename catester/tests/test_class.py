@@ -43,10 +43,11 @@ def get_solution(mm, conf, id, main, where):
         globals()["solutions"][id] = {}
     if not where in globals()["solutions"][id]:
         dirabs = conf["abs_path_to_yaml"]
+        test_info = conf["specification"]["testInfo"]
         test_suite = conf["testsuite"]
         store_graphics_artefacts = test_suite["storeGraphicsArtefacts"]
-        dir = test_suite["testInfo"][f"{where}Directory"]
-        artefact_directory = test_suite["testInfo"]["artefactDirectory"]
+        dir = test_info[f"{where}Directory"]
+        artefact_directory = test_info["artefactDirectory"]
         # create all non-existing directories like in CodeAbilityTestSuite.m L221
 
         type = main["type"]
@@ -171,6 +172,7 @@ class CodeabilityTestSuite:
         file = main["file"]
 
         name = sub["name"]
+        evalName = sub["evalName"]
         value = sub["value"]
         evalString = sub["evalString"]
         pattern = sub["pattern"]
@@ -200,8 +202,10 @@ class CodeabilityTestSuite:
 
         if testtype in ["variable", "graphics", "error", "warning", "help"]:
             assert name in solution_student, f"Variable {name} not found in student namespace"
-            val_student = solution_student[name]
-            #val_student = solution_student[eval(name, solution_student)]
+            if evalName is not None:
+                val_student = eval(evalName, solution_student)
+            else:
+                val_student = solution_student[name]
 
             # get reference value
             if qualification == "verifyEqual":
@@ -215,7 +219,10 @@ class CodeabilityTestSuite:
                         raise AssertionError("Evaluation of 'evalString' not possible")
                 else:
                     assert name in solution_reference, f"Variable {name} not found in reference namespace"
-                    val_reference = solution_reference[name]
+                    if evalName is not None:
+                        val_reference = eval(evalName, solution_reference)
+                    else:
+                        val_reference = solution_reference[name]
                 
                 type_student = type(val_student)
                 type_reference = type(val_reference)

@@ -1,18 +1,19 @@
 import os
 import datetime
 import pytest
-from model import parse_yaml_file
+from model import parse_spec_file, parse_test_file
 
 def pytest_addoption(parser):
-    parser.addoption("--yamlfile", default="", help="please provide a valid yamlfile", )
+    parser.addoption("--specyamlfile", default="", help="please provide a valid specification yamlfile", )
+    parser.addoption("--testyamlfile", default="", help="please provide a valid test yamlfile", )
 
 # all testcases will be parametrized here
 # List of Tuples [(0, 0), (0, 1), (0, 2), (1, 0), ...]
 # meaning the test function using the fixture "testcases"
 # is being called with each of the tuples (seperately)
 def pytest_generate_tests(metafunc):
-    yamlfile = metafunc.config.getoption("--yamlfile")
-    config = parse_yaml_file(yamlfile)
+    testyamlfile = metafunc.config.getoption("--testyamlfile")
+    config = parse_test_file(testyamlfile)
     testcases = []
     for idx_main, main_test in enumerate(config["properties"]["tests"]):
         for idx_sub, sub_test in enumerate(main_test["tests"]):
@@ -22,11 +23,13 @@ def pytest_generate_tests(metafunc):
 # this fixture is called once for all tests
 @pytest.fixture(scope="class")
 def config(request):
-    yamlfile = request.config.getoption("--yamlfile")
-    dirabs = os.path.abspath(os.path.dirname(yamlfile))
+    specyamlfile = request.config.getoption("--specyamlfile")
+    testyamlfile = request.config.getoption("--testyamlfile")
+    dirabs = os.path.abspath(os.path.dirname(specyamlfile))
     dict = {}
     dict["abs_path_to_yaml"] = dirabs
-    dict["testsuite"] = parse_yaml_file(yamlfile)
+    dict["specification"] = parse_spec_file(specyamlfile)
+    dict["testsuite"] = parse_test_file(testyamlfile)
     yield dict
     print("teardown")
 
@@ -39,12 +42,15 @@ def monkeymodule():
     mpatch.undo()
 
 def pytest_metadata(metadata, config):
-    yamlfile = config.getoption("--yamlfile")
+    specyamlfile = config.getoption("--specyamlfile")
+    testyamlfile = config.getoption("--testyamlfile")
 
-    metadata["yamlfile"] = yamlfile
+    metadata["specyamlfile"] = specyamlfile
+    metadata["testyamlfile"] = testyamlfile
 
     xxx = dict()
-    xxx["testsuite"] = parse_yaml_file(yamlfile)
+    xxx["testinfo"] = parse_spec_file(specyamlfile)
+    xxx["testsuite"] = parse_test_file(testyamlfile)
     xxx["metadata"] = metadata
 
     globals()["_xxx_"] = xxx

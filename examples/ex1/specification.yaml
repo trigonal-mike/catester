@@ -1,5 +1,5 @@
 testInfo:
   studentDirectory: "student"
   referenceDirectory: "reference"
-  artefactDirectory: "artefacts111"
+  artefactDirectory: "artefacts"
   studentTestCounter: 2

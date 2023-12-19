@@ -1,0 +1,126 @@
+{
+  "$defs": {
+    "CodeAbilityTestInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "executionDirectory": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "I:\\PYTHON\\catester",
+          "title": "Executiondirectory"
+        },
+        "referenceDirectory": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "reference",
+          "title": "Referencedirectory"
+        },
+        "studentDirectory": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "student",
+          "title": "Studentdirectory"
+        },
+        "testDirectory": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "testprograms",
+          "title": "Testdirectory"
+        },
+        "outputDirectory": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "output",
+          "title": "Outputdirectory"
+        },
+        "artefactDirectory": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "artefacts",
+          "title": "Artefactdirectory"
+        },
+        "studentTestCounter": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Studenttestcounter"
+        },
+        "testVersion": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "v1",
+          "title": "Testversion"
+        }
+      },
+      "title": "CodeAbilityTestInfo",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "testInfo": {
+      "$ref": "#/$defs/CodeAbilityTestInfo"
+    }
+  },
+  "required": [
+    "testInfo"
+  ],
+  "title": "CodeAbilitySpecification",
+  "type": "object"
+}
