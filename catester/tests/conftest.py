@@ -1,28 +1,30 @@
 import os
 import datetime
 import pytest
-from model import parse_spec_file, parse_test_file
+from model import DIRECTORIES, parse_spec_file, parse_test_file, CodeAbilityTestSuite
 
 def pytest_addoption(parser):
     parser.addoption("--specyamlfile", default="", help="please provide a valid specification yamlfile", )
     parser.addoption("--testyamlfile", default="", help="please provide a valid test yamlfile", )
 
-# all testcases will be parametrized here
-# List of Tuples [(0, 0), (0, 1), (0, 2), (1, 0), ...]
-# meaning the test function using the fixture "testcases"
-# is being called with each of the tuples (seperately)
 def pytest_generate_tests(metafunc):
+    """
+    all testcases are parametrized here\n
+    List of Tuples [(0, 0), (0, 1), (0, 2), (1, 0), ...]\n
+    meaning the test function using the fixture "testcases"\n
+    is being called with each of the tuples (seperately)
+    """
     testyamlfile = metafunc.config.getoption("--testyamlfile")
     config = parse_test_file(testyamlfile)
     testcases = []
-    for idx_main, main_test in enumerate(config["properties"]["tests"]):
-        for idx_sub, sub_test in enumerate(main_test["tests"]):
+    for idx_main, main_test in enumerate(config.properties.tests):
+        for idx_sub, sub_test in enumerate(main_test.tests):
             testcases.append((idx_main, idx_sub))
     metafunc.parametrize("testcases", testcases)
 
-# this fixture is called once for all tests
 @pytest.fixture(scope="class")
 def config(request):
+    """ this fixture is called once for all tests """
     specyamlfile = request.config.getoption("--specyamlfile")
     testyamlfile = request.config.getoption("--testyamlfile")
     dirabs = os.path.abspath(os.path.dirname(specyamlfile))
@@ -30,6 +32,13 @@ def config(request):
     dict["abs_path_to_yaml"] = dirabs
     dict["specification"] = parse_spec_file(specyamlfile)
     dict["testsuite"] = parse_test_file(testyamlfile)
+    for directory in DIRECTORIES:
+        _dir = getattr(dict["specification"].testInfo, directory)
+        if not os.path.isabs(_dir):
+            _dir = os.path.join(dirabs, _dir)
+            setattr(dict["specification"].testInfo, directory, _dir)
+        if not os.path.exists(_dir):
+            os.makedirs(_dir)
     yield dict
     print("teardown")
 
@@ -49,7 +58,7 @@ def pytest_metadata(metadata, config):
     metadata["testyamlfile"] = testyamlfile
 
     xxx = dict()
-    xxx["testinfo"] = parse_spec_file(specyamlfile)
+    xxx["specification"] = parse_spec_file(specyamlfile)
     xxx["testsuite"] = parse_test_file(testyamlfile)
     xxx["metadata"] = metadata
 
@@ -65,10 +74,8 @@ def pytest_json_runtest_metadata(item, call):
 def pytest_json_modifyreport(json_report):
     xxx = globals()["_xxx_"]
     metadata = xxx["metadata"]
+    testsuite: CodeAbilityTestSuite = xxx["testsuite"]
 
-    type = xxx["testsuite"]["type"]
-    version = xxx["testsuite"]["version"]
-    name = xxx["testsuite"]["name"]
     #json_report['name'] = config()["testsuite"]["name"]
     #json_report['xxxxxx'] = 'xxxxxxxxxxxxxx'
     #x = len(globals()["solutions"])
@@ -90,7 +97,6 @@ def pytest_json_modifyreport(json_report):
     #ts = time.gmtime(float(json_report['created']))
     #timestamp = time.strftime("%Y-%m-%d %H:%M:%S.", ts)
 
-
     dobj = datetime.datetime.fromtimestamp(json_report['created'])
     timestamp = dobj.strftime("%Y-%m-%d %H:%M:%S.%f")
     #timestamp = dobj.isoformat()
@@ -100,9 +106,9 @@ def pytest_json_modifyreport(json_report):
 
     json_report['_metadata'] = metadata
     json_report['_timestamp'] = timestamp
-    json_report['_type'] = type
-    json_report['_version'] = version
-    json_report['_name'] = name
+    json_report['_type'] = testsuite.type
+    json_report['_version'] = testsuite.version
+    json_report['_name'] = testsuite.name
     json_report['_status'] = "COMPLETED"
     json_report['_result'] = str(json_report['exitcode'])
     json_report['_tests'] = converted_tests

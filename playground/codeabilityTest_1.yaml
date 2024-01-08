@@ -1,19 +1,7 @@
-testInfo:
-  studentDir: "student"
-  referenceDir: "reference"
-  executionDir: "pwd"
-  outputDir: "output"
-  artefactDir: "artefacts"
-  storageDir: "storage"
-  testVersion: "v2.0.1"
-
 name: Python Test Suite
 description: Checks subtests and graphics
 type: python
 version: "1.0"
-failureMessage: Some or all tests failed
-successMessage: Congratulations! All tests passed
-storeGraphicsArtefacts: false
 
 properties:
   # relativeTolerance: 1.0e-15
@@ -21,6 +9,11 @@ properties:
   # qualification: verifyEqual
   # competency: M1
   # verbosity: 2
+  failureMessage: Some or all tests failed
+  successMessage: Congratulations! All tests passed
+  storeGraphicsArtefacts: false
+  type: graphics
+  
   tests:
     - type: exist
       name: existance of a file
@@ -48,6 +41,7 @@ properties:
       qualification: verifyEqual
       tests:
         - name: var1
+          verbosity: 1
           relativeTolerance: 1.0E-6
         - name: var2
           absoluteTolerance: 0.0

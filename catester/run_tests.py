@@ -1,6 +1,7 @@
 import argparse
 import os
 import pytest
+from pathlib import Path
 from pydantic import ValidationError
 from model import parse_spec_file, parse_test_file
 import subprocess
@@ -8,37 +9,48 @@ import subprocess
 #from pytest_jsonreport.plugin import JSONReport
 #plugin = JSONReport()
 
+def get_output_directory(spec_yamlfile: str):
+    dirabs = os.path.abspath(os.path.dirname(spec_yamlfile))
+    specification = parse_spec_file(spec_yamlfile)
+    output_dir = specification.testInfo.outputDirectory
+    if not os.path.isabs(output_dir):
+        output_dir = os.path.join(dirabs, output_dir)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    return output_dir
+
 def run_tests():
     #default yaml file for testing/debugging purposes
     spec_yaml = "../examples/ex1/specification.yaml"
-    test_yaml = "../examples/ex1/test6.yaml"
-    test_report = "./output/test-report.json"
+    test_yaml = "../examples/ex1/test3.yaml"
+    test_report = "report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))
     os.chdir(dir)
 
     spec_yaml_resolved = os.path.abspath(os.path.join(dir, spec_yaml))
     test_yaml_resolved = os.path.abspath(os.path.join(dir, test_yaml))
-    test_report_resolved = os.path.abspath(os.path.join(dir, test_report))
 
     # get command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--specification", default=spec_yaml_resolved, help="specification yaml input file")
     parser.add_argument("-t", "--test", default=test_yaml_resolved, help="test yaml input file")
-    parser.add_argument("-o", "--output", default=test_report_resolved, help="json report output file")
+    parser.add_argument("-o", "--output", default=test_report, help="json report output file")
     args = parser.parse_args()
     spec_yamlfile = args.specification
     test_yamlfile = args.test
-    reportfile = args.output
+
+    test_yaml_fn = Path(test_yamlfile).stem
+    reportfile = f"{test_yaml_fn}-{args.output}"
 
     #try parsing yaml-file:
     #it gets parsed in pytest as well
     #but do it here, to not start pytest with an unparseable yaml-file
     try:
-        spec_config = parse_spec_file(spec_yamlfile)
-        test_config = parse_test_file(test_yamlfile)
-        #print(spec_config)
-        #print(test_config)
+        specification = parse_spec_file(spec_yamlfile)
+        testsuite = parse_test_file(test_yamlfile)
+        #print(specification)
+        #print(testsuite)
     except ValidationError as e:
         print("YAML File could not be validated")
         print(e)
@@ -52,6 +64,8 @@ def run_tests():
         print(e)
         raise
     
+    output_dir = get_output_directory(spec_yamlfile)
+    reportfile = os.path.join(output_dir, reportfile)
     #pytest config options
     #https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
     options = []

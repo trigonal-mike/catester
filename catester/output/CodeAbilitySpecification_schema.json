@@ -3,7 +3,7 @@
     "CodeAbilityTestInfo": {
       "additionalProperties": false,
       "properties": {
-        "executionDirectory": {
+        "studentDirectory": {
           "anyOf": [
             {
               "minLength": 1,
@@ -13,8 +13,8 @@
               "type": "null"
             }
           ],
-          "default": "I:\\PYTHON\\catester",
-          "title": "Executiondirectory"
+          "default": "student",
+          "title": "Studentdirectory"
         },
         "referenceDirectory": {
           "anyOf": [
@@ -28,19 +28,6 @@
           ],
           "default": "reference",
           "title": "Referencedirectory"
-        },
-        "studentDirectory": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "student",
-          "title": "Studentdirectory"
         },
         "testDirectory": {
           "anyOf": [

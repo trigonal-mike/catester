@@ -1,8 +1,9 @@
 properties:
   qualification: verifyEqual
   tests:
-    - name: Test Basic
+    - name: Test Basic 1
       type: variable
+      id: "1"
       entryPoint: "Random.py"
       tests:
         - name: "var1"
@@ -10,5 +11,13 @@ properties:
         - name: "var3"
         - name: "var4"
         - name: "var5"
-        - name: var6
-          evalName: var6[1]
+        - name: "var6[1]"
+        - name: "var7[0][1]"
+        - name: "var7[0][2]"
+        - name: "var8"
+    - name: Test Basic 2
+      type: variable
+      entryPoint: "Random.py"
+      successDependency: "1"
+      tests:
+        - name: "var9"

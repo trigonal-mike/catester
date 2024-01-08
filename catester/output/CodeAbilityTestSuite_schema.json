@@ -1,77 +1,18 @@
 {
   "$defs": {
-    "CodeAbilitySubTest": {
+    "CodeAbilityTest": {
       "additionalProperties": false,
       "properties": {
-        "name": {
-          "minLength": 1,
-          "title": "Name",
-          "type": "string"
-        },
-        "description": {
+        "qualification": {
           "anyOf": [
             {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
-        },
-        "failureMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Failuremessage"
-        },
-        "successMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successmessage"
-        },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TypeEnum"
+              "$ref": "#/$defs/QualificationEnum"
             },
             {
               "type": "null"
             }
           ],
           "default": null
-        },
-        "successDependency": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successdependency"
         },
         "relativeTolerance": {
           "anyOf": [
@@ -99,16 +40,102 @@
           "default": null,
           "title": "Absolutetolerance"
         },
-        "qualification": {
+        "failureMessage": {
           "anyOf": [
             {
-              "$ref": "#/$defs/QualificationEnum"
+              "type": "string"
             },
             {
               "type": "null"
             }
           ],
-          "default": null
+          "default": null,
+          "title": "Failuremessage"
+        },
+        "successMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Successmessage"
+        },
+        "verbosity": {
+          "anyOf": [
+            {
+              "maximum": 3,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verbosity"
+        },
+        "allowedOccuranceRange": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowedoccurancerange"
+        },
+        "countRequirement": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Countrequirement"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
         },
         "value": {
           "anyOf": [
@@ -132,163 +159,27 @@
           ],
           "default": null,
           "title": "Evalstring"
-        },
-        "pattern": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pattern"
-        },
-        "countRequirement": {
-          "anyOf": [
-            {
-              "minimum": 0,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Countrequirement"
-        },
-        "options": {
-          "anyOf": [
-            {
-              "type": "object"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Options"
-        },
-        "verificationFunction": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Verificationfunction"
         }
       },
       "required": [
         "name"
       ],
-      "title": "CodeAbilitySubTest",
+      "title": "CodeAbilityTest",
       "type": "object"
     },
-    "CodeAbilityTest": {
+    "CodeAbilityTestCollection": {
       "additionalProperties": false,
       "properties": {
-        "name": {
-          "minLength": 1,
-          "title": "Name",
-          "type": "string"
-        },
-        "description": {
+        "qualification": {
           "anyOf": [
             {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
-        },
-        "failureMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Failuremessage"
-        },
-        "successMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successmessage"
-        },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TypeEnum"
+              "$ref": "#/$defs/QualificationEnum"
             },
             {
               "type": "null"
             }
           ],
           "default": null
-        },
-        "successDependency": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successdependency"
-        },
-        "verbosity": {
-          "anyOf": [
-            {
-              "maximum": 3,
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Verbosity"
-        },
-        "competency": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Competency"
         },
         "relativeTolerance": {
           "anyOf": [
@@ -316,16 +207,156 @@
           "default": null,
           "title": "Absolutetolerance"
         },
-        "qualification": {
+        "failureMessage": {
           "anyOf": [
             {
-              "$ref": "#/$defs/QualificationEnum"
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failuremessage"
+        },
+        "successMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Successmessage"
+        },
+        "verbosity": {
+          "anyOf": [
+            {
+              "maximum": 3,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verbosity"
+        },
+        "allowedOccuranceRange": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowedoccurancerange"
+        },
+        "countRequirement": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Countrequirement"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "storeGraphicsArtefacts": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": false,
+          "title": "Storegraphicsartefacts"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "successDependency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Successdependency"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TypeEnum"
             },
             {
               "type": "null"
             }
           ],
           "default": null
+        },
+        "entryPoint": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entrypoint"
         },
         "setUpCode": {
           "anyOf": [
@@ -403,7 +434,7 @@
           "anyOf": [
             {
               "items": {
-                "$ref": "#/$defs/CodeAbilitySubTest"
+                "$ref": "#/$defs/CodeAbilityTest"
               },
               "type": "array"
             },
@@ -413,56 +444,27 @@
           ],
           "default": null,
           "title": "Tests"
-        },
-        "entryPoint": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Entrypoint"
         }
       },
       "required": [
         "name"
       ],
-      "title": "CodeAbilityTest",
+      "title": "CodeAbilityTestCollection",
       "type": "object"
     },
     "CodeAbilityTestProperty": {
       "additionalProperties": false,
       "properties": {
-        "verbosity": {
+        "qualification": {
           "anyOf": [
             {
-              "maximum": 3,
-              "minimum": 1,
-              "type": "integer"
+              "$ref": "#/$defs/QualificationEnum"
             },
             {
               "type": "null"
             }
           ],
-          "default": null,
-          "title": "Verbosity"
-        },
-        "competency": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Competency"
+          "default": null
         },
         "relativeTolerance": {
           "anyOf": [
@@ -490,84 +492,105 @@
           "default": null,
           "title": "Absolutetolerance"
         },
-        "qualification": {
+        "failureMessage": {
           "anyOf": [
             {
-              "$ref": "#/$defs/QualificationEnum"
+              "type": "string"
             },
             {
               "type": "null"
             }
           ],
-          "default": null
+          "default": null,
+          "title": "Failuremessage"
+        },
+        "successMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Successmessage"
+        },
+        "verbosity": {
+          "anyOf": [
+            {
+              "maximum": 3,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verbosity"
+        },
+        "allowedOccuranceRange": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowedoccurancerange"
+        },
+        "countRequirement": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Countrequirement"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "storeGraphicsArtefacts": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": false,
+          "title": "Storegraphicsartefacts"
         },
         "tests": {
           "default": null,
           "items": {
-            "$ref": "#/$defs/CodeAbilityTest"
+            "$ref": "#/$defs/CodeAbilityTestCollection"
           },
           "title": "Tests",
           "type": "array"
-        },
-        "studentFileList": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Studentfilelist"
-        },
-        "studentCommandList": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Studentcommandlist"
-        },
-        "referenceFileList": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Referencefilelist"
-        },
-        "referenceCommandList": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Referencecommandlist"
         }
       },
       "title": "CodeAbilityTestProperty",
@@ -655,44 +678,6 @@
       ],
       "default": "1.0",
       "title": "Version"
-    },
-    "failureMessage": {
-      "anyOf": [
-        {
-          "minLength": 1,
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": "Some or all tests failed",
-      "title": "Failuremessage"
-    },
-    "successMessage": {
-      "anyOf": [
-        {
-          "minLength": 1,
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": "Congratulations! All tests passed",
-      "title": "Successmessage"
-    },
-    "storeGraphicsArtefacts": {
-      "anyOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": false,
-      "title": "Storegraphicsartefacts"
     },
     "properties": {
       "$ref": "#/$defs/CodeAbilityTestProperty"

@@ -3,7 +3,7 @@ name: Python Test suite
 properties:
   tests:
     - type: variable
-      name: graphics
+      name: variable 1
       setUpCode: ["a = 1"]
       entryPoint: "Matplot.py"
       qualification: verifyEqual
@@ -16,18 +16,14 @@ properties:
         - name: "y"
           relativeTolerance: 1.0E-12
           absoluteTolerance: 0.0001
-    - type: graphics
-      name: graphics
+    - type: variable
+      name: variable 2
       setUpCodeDependency: "0"
       setUpCode: ["import random", "b = random.randint(0, 10)"]
       entryPoint: "Matplot.py"
       tests:
         - name: "a"
-          type: variable
           qualification: verifyEqual
         - name: "b"
-          type: variable
           qualification: verifyEqual
           absoluteTolerance: 0.1
-        - name: "x"
-        - name: "y"

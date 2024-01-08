@@ -2,11 +2,11 @@ name: Python Test suite
 description: Checks variables
 type: "python"
 version: "1.0"
-failureMessage: Some or all tests failed
-successMessage: Congratulations! All tests passed
-storeGraphicsArtefacts: false
 
 properties:
+  failureMessage: Some or all tests failed
+  successMessage: Congratulations! All tests passed
+  storeGraphicsArtefacts: false
   qualification: verifyEqual
   tests:
     - name: Test Basic
