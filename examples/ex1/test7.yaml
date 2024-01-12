@@ -1,0 +1,18 @@
+properties:
+  qualification: verifyEqual
+  successMessage: Tests passed
+  failureMessage: Tests failed
+  tests:
+    - name: Test Basic 1
+      type: variable
+      id: "1"
+      entryPoint: "Test7.py"
+      tests:
+        - name: "var1"
+        - name: "var2"
+    - name: Test Basic 2
+      type: variable
+      entryPoint: "Test7.py"
+      successDependency: "1"
+      tests:
+        - name: "var3"

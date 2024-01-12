@@ -3,7 +3,6 @@ import os
 import re
 import sys
 import time
-#import sys
 import pytest
 import numpy as np
 from pandas import DataFrame, Series
@@ -12,6 +11,8 @@ import random
 from enum import Enum
 
 from model import CodeAbilitySpecification, CodeAbilityTestSuite, CodeAbilityTestCollection, CodeAbilityTest
+from .conftest import testsuite_key
+from .conftest import specification_key
 
 
 class Solution(str, Enum):
@@ -38,12 +39,6 @@ def get_inherited_property(property, ancestors, default):
                 return x
     return default
 
-def get_inherited_property1(property, ancestors, default):
-    for ancestor in ancestors:
-        if property in ancestor and ancestor[property] is not None:
-            return ancestor[property]
-    return default
-
 def get_property_as_list(property_name):
     if property_name is None:
         return []
@@ -51,14 +46,13 @@ def get_property_as_list(property_name):
         return [property_name]
     return property_name
 
-def get_solution(mm, conf, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):
-    """ calculate solution if not yet exists """ 
+def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):
+    """Calculate solution if not yet exists""" 
     if not "solutions" in globals():
         globals()["solutions"] = {}
     if not id in globals()["solutions"]:
         globals()["solutions"][id] = {}
     if not where in globals()["solutions"][id]:
-        specification: CodeAbilitySpecification = conf["specification"]
         test_info = specification.testInfo
         test_directory = test_info.testDirectory
         artefact_directory = test_info.artefactDirectory
@@ -103,7 +97,6 @@ def get_solution(mm, conf, id, main: CodeAbilityTestCollection, where: Solution,
                 if where == Solution.student:
                     raise FileNotFoundError(f"entryPoint {entry_point} not found")
             else:
-                # disable plt.show() command, otherwise figure gets destroyed afterwards
                 execute_file(file, namespace)
                 if type == "graphics":
                     if store_graphics:
@@ -138,6 +131,7 @@ def get_solution(mm, conf, id, main: CodeAbilityTestCollection, where: Solution,
     return globals()["solutions"][id][where]
 
 class CodeabilityPythonTest:
+    """this class gets tested"""
     # hooks for setup/teardown
     # currently not used
     # teardown also possible with fixtures and code after yield statement (see conftest.py)
@@ -157,15 +151,24 @@ class CodeabilityPythonTest:
         print("teardown_method")
 
     # testcases get parametrized in conftest.py (pytest_generate_tests)
-    def test_entrypoint(self, monkeymodule, config, testcases, json_metadata):
+    def test_entrypoint(self, request, record_property, monkeymodule, testcases, json_metadata):
         idx_main, idx_sub = testcases
 
-        testsuite: CodeAbilityTestSuite = config["testsuite"]
-        specification: CodeAbilitySpecification = config["specification"]
-        abs_path_to_yaml: str = config["abs_path_to_yaml"]
+        record_property("testcases", testcases)
+        record_property("idx_main", idx_main)
+        record_property("idx_sub", idx_sub)
+        testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]
+        specification: CodeAbilitySpecification = request.config.stash[specification_key]
 
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
+
+        record_property("main", main.entryPoint)
+        #record_property("sub", sub)
+
+        dir_reference = specification.testInfo.referenceDirectory
+        dir_student = specification.testInfo.studentDirectory
+
 
         ancestors_sub = [sub, main, testsuite.properties]
         ancestors_main = [main, testsuite.properties]
@@ -207,8 +210,11 @@ class CodeabilityPythonTest:
         json_metadata['store_graphics_artefacts'] = store_graphics_artefacts
         json_metadata['competency'] = competency
 
-        solution_reference = get_solution(monkeymodule, config, id, main, Solution.reference, store_graphics_artefacts)
-        solution_student = get_solution(monkeymodule, config, id, main, Solution.student, store_graphics_artefacts)
+        #tests = xxxx.config.stash[tests]
+        #pytest.skip("Dependency not satisfied")
+
+        solution_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
+        solution_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
 
         # if test is graphics => get saved graphics object as solution
         if testtype == "graphics":
@@ -284,8 +290,6 @@ class CodeabilityPythonTest:
             # not implemented yet
             pass
         elif testtype == "exist":
-            dir_reference = os.path.join(abs_path_to_yaml, specification.testInfo.referenceDirectory)
-            dir_student = os.path.join(abs_path_to_yaml, specification.testInfo.studentDirectory)
             assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
             assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
         else:

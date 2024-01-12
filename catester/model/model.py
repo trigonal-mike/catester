@@ -5,9 +5,13 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, ConfigDict, Field
 
-
-DIRECTORIES = ["studentDirectory", "referenceDirectory", "testDirectory", "outputDirectory", "artefactDirectory"]
-
+DIRECTORIES = [
+    "studentDirectory",
+    "referenceDirectory",
+    "testDirectory",
+    "outputDirectory",
+    "artefactDirectory",
+]
 
 class QualificationEnum(str, Enum):
     verifyEqual = "verifyEqual"
@@ -62,9 +66,9 @@ class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
 
 
 class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon, CodeAbilityTestCommon):
+    type: Optional[TypeEnum] = None
     name: str = Field(min_length=1)
     description: Optional[str] = Field(default=None)
-    type: Optional[TypeEnum] = None
     successDependency: Optional[str | List[str]] = Field(default=None)
     entryPoint: Optional[str] = Field(min_length=1, default=None)
     setUpCode: Optional[str | List[str]] = Field(default=None)
@@ -111,7 +115,7 @@ def parse_spec_file(file_path: str):
     return CodeAbilitySpecification(**config)#.model_dump()
 
 
-def parse_test_file(file_path: str) -> dict:
+def parse_test_file(file_path: str):
     with open(file_path, "r") as stream:
         config = yaml.safe_load(stream)
     return CodeAbilityTestSuite(**config)#.model_dump()

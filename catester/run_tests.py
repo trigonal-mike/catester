@@ -22,7 +22,7 @@ def get_output_directory(spec_yamlfile: str):
 def run_tests():
     #default yaml file for testing/debugging purposes
     spec_yaml = "../examples/ex1/specification.yaml"
-    test_yaml = "../examples/ex1/test3.yaml"
+    test_yaml = "../examples/ex1/test7.yaml"
     test_report = "report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))
@@ -45,7 +45,7 @@ def run_tests():
 
     #try parsing yaml-file:
     #it gets parsed in pytest as well
-    #but do it here, to not start pytest with an unparseable yaml-file
+    #but do it here, to not start pytest with an unparseable/invalid yaml-file
     try:
         specification = parse_spec_file(spec_yamlfile)
         testsuite = parse_test_file(test_yamlfile)

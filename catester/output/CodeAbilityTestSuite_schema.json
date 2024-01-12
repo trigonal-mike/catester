@@ -40,6 +40,23 @@
           "default": null,
           "title": "Absolutetolerance"
         },
+        "allowedOccuranceRange": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowedoccurancerange"
+        },
         "failureMessage": {
           "anyOf": [
             {
@@ -78,64 +95,10 @@
           "default": null,
           "title": "Verbosity"
         },
-        "allowedOccuranceRange": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Allowedoccurancerange"
-        },
-        "countRequirement": {
-          "anyOf": [
-            {
-              "minimum": 0,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Countrequirement"
-        },
-        "pattern": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pattern"
-        },
         "name": {
           "minLength": 1,
           "title": "Name",
           "type": "string"
-        },
-        "description": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Description"
         },
         "value": {
           "anyOf": [
@@ -159,6 +122,31 @@
           ],
           "default": null,
           "title": "Evalstring"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "countRequirement": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Countrequirement"
         }
       },
       "required": [
@@ -207,6 +195,23 @@
           "default": null,
           "title": "Absolutetolerance"
         },
+        "allowedOccuranceRange": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowedoccurancerange"
+        },
         "failureMessage": {
           "anyOf": [
             {
@@ -245,48 +250,6 @@
           "default": null,
           "title": "Verbosity"
         },
-        "allowedOccuranceRange": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Allowedoccurancerange"
-        },
-        "countRequirement": {
-          "anyOf": [
-            {
-              "minimum": 0,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Countrequirement"
-        },
-        "pattern": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pattern"
-        },
         "storeGraphicsArtefacts": {
           "anyOf": [
             {
@@ -296,8 +259,32 @@
               "type": "null"
             }
           ],
-          "default": false,
+          "default": null,
           "title": "Storegraphicsartefacts"
+        },
+        "competency": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Competency"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TypeEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "name": {
           "minLength": 1,
@@ -333,17 +320,6 @@
           ],
           "default": null,
           "title": "Successdependency"
-        },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TypeEnum"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
         },
         "entryPoint": {
           "anyOf": [
@@ -492,6 +468,23 @@
           "default": null,
           "title": "Absolutetolerance"
         },
+        "allowedOccuranceRange": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "integer"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allowedoccurancerange"
+        },
         "failureMessage": {
           "anyOf": [
             {
@@ -530,48 +523,6 @@
           "default": null,
           "title": "Verbosity"
         },
-        "allowedOccuranceRange": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "integer"
-              },
-              "maxItems": 2,
-              "minItems": 2,
-              "type": "array"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Allowedoccurancerange"
-        },
-        "countRequirement": {
-          "anyOf": [
-            {
-              "minimum": 0,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Countrequirement"
-        },
-        "pattern": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Pattern"
-        },
         "storeGraphicsArtefacts": {
           "anyOf": [
             {
@@ -581,8 +532,21 @@
               "type": "null"
             }
           ],
-          "default": false,
+          "default": null,
           "title": "Storegraphicsartefacts"
+        },
+        "competency": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Competency"
         },
         "tests": {
           "default": null,
