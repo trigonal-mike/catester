@@ -14,11 +14,9 @@ from model import CodeAbilitySpecification, CodeAbilityTestSuite, CodeAbilityTes
 from .conftest import testsuite_key
 from .conftest import specification_key
 
-
 class Solution(str, Enum):
     student = "student"
     reference = "reference"
-
 
 def execute_code(code, filename, namespace):
     exec(compile(code, filename, "exec"), namespace)
@@ -47,7 +45,8 @@ def get_property_as_list(property_name):
     return property_name
 
 def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):
-    """Calculate solution if not yet exists""" 
+    """Calculate solution if not yet exists"""
+    exec_time = 0
     if not "solutions" in globals():
         globals()["solutions"] = {}
     if not id in globals()["solutions"]:
@@ -97,7 +96,16 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
                 if where == Solution.student:
                     raise FileNotFoundError(f"entryPoint {entry_point} not found")
             else:
-                execute_file(file, namespace)
+                start_time = time.time()
+                #otherwise time gets converted to zero, hmmm?
+                time.sleep(0.00000001)
+                try:
+                    execute_file(file, namespace)
+                except Exception as e:
+                    print(f"Exception: execute_file {file} failed")
+                    print(e)
+                    raise
+                exec_time = time.time() - start_time
                 if type == "graphics":
                     if store_graphics:
                         fignums = plt.get_fignums()
@@ -128,7 +136,7 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         sys.path.remove(test_directory)
 
         globals()["solutions"][id][where] = namespace
-    return globals()["solutions"][id][where]
+    return globals()["solutions"][id][where], exec_time
 
 class CodeabilityPythonTest:
     """this class gets tested"""
@@ -137,38 +145,32 @@ class CodeabilityPythonTest:
     # teardown also possible with fixtures and code after yield statement (see conftest.py)
     @classmethod
     def setup_class(cls):
-        print("setup_class")
+        pass
+        #print("setup_class")
 
     @classmethod
     def teardown_class(cls):
-        print("teardown_class")
+        pass
+        #print("teardown_class")
 
     # these are called for each invocation of test_entrypoint
     def setup_method(self, test_method):
-        print("setup_method")
+        pass
+        #print("setup_method")
 
     def teardown_method(self, test_method):
-        print("teardown_method")
+        pass
+        #print("teardown_method")
 
     # testcases get parametrized in conftest.py (pytest_generate_tests)
-    def test_entrypoint(self, request, record_property, monkeymodule, testcases, json_metadata):
+    def test_entrypoint(self, request, record_property, monkeymodule, testcases):
         idx_main, idx_sub = testcases
-
-        record_property("testcases", testcases)
-        record_property("idx_main", idx_main)
-        record_property("idx_sub", idx_sub)
         testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]
         specification: CodeAbilitySpecification = request.config.stash[specification_key]
-
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
-
-        record_property("main", main.entryPoint)
-        #record_property("sub", sub)
-
         dir_reference = specification.testInfo.referenceDirectory
         dir_student = specification.testInfo.studentDirectory
-
 
         ancestors_sub = [sub, main, testsuite.properties]
         ancestors_main = [main, testsuite.properties]
@@ -177,12 +179,13 @@ class CodeabilityPythonTest:
         relative_tolerance = get_inherited_property("relativeTolerance", ancestors_sub, 0)
         absolute_tolerance = get_inherited_property("absoluteTolerance", ancestors_sub, 0)
         allowed_occuranceRange = get_inherited_property("allowedOccuranceRange", ancestors_sub, None)
-        failure_message = get_inherited_property("failureMessage", ancestors_sub, None)
-        success_message = get_inherited_property("successMessage", ancestors_sub, None)
-        verbosity = get_inherited_property("verbosity", ancestors_sub, None)
-        
         store_graphics_artefacts = get_inherited_property("storeGraphicsArtefacts", ancestors_main, False)
-        competency = get_inherited_property("competency", ancestors_main, None)
+
+        #not needed here:
+        #failure_message = get_inherited_property("failureMessage", ancestors_sub, None)
+        #success_message = get_inherited_property("successMessage", ancestors_sub, None)
+        #verbosity = get_inherited_property("verbosity", ancestors_sub, None)
+        #competency = get_inherited_property("competency", ancestors_main, None)
 
         testtype = main.type
         file = main.file
@@ -195,34 +198,13 @@ class CodeabilityPythonTest:
         countRequirement = sub.countRequirement
         #options = sub.options
         #verificationFunction = sub.verificationFunction
-        #json_metadata['sub'] = sub
-        json_metadata['main_name'] = main.name
-        json_metadata['main_description'] = main.description
-        json_metadata['sub_name'] = name
-        json_metadata['testtype'] = testtype
-        json_metadata['qualification'] = qualification
-        json_metadata['relative_tolerance'] = relative_tolerance
-        json_metadata['absolute_tolerance'] = absolute_tolerance
-        json_metadata['allowed_occuranceRange'] = allowed_occuranceRange
-        json_metadata['failure_message'] = failure_message
-        json_metadata['success_message'] = success_message
-        json_metadata['verbosity'] = verbosity
-        json_metadata['store_graphics_artefacts'] = store_graphics_artefacts
-        json_metadata['competency'] = competency
 
         #tests = xxxx.config.stash[tests]
         #pytest.skip("Dependency not satisfied")
 
         # Get student solution, measure execution time
-        start_time = time.time()
-        solution_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
-        exec_time_reference = time.time() - start_time
-
-        start_time = time.time()
-        #time.sleep(0.00000001)
-        solution_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
-        exec_time_student = time.time() - start_time
-
+        solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
+        solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
         record_property("exec_time_reference", exec_time_reference)
         record_property("exec_time_student", exec_time_student)
 

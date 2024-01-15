@@ -3,6 +3,7 @@ import os
 import datetime
 import pytest
 from enum import Enum
+from pathlib import Path
 from model import DIRECTORIES
 from model import parse_spec_file, parse_test_file
 from model import CodeAbilityTestSuite, CodeAbilitySpecification
@@ -22,6 +23,7 @@ class TestResult(str, Enum):
     skipped = "SKIPPED"
     timedout = "TIMEDOUT"
 
+reportfile_key = pytest.StashKey[str]()
 metadata_key = pytest.StashKey[dict]()
 report_key = pytest.StashKey[dict]()
 testcases_key = pytest.StashKey[list]()
@@ -38,6 +40,11 @@ def pytest_addoption(parser):
         "--testyamlfile",
         default="",
         help="please provide a test yamlfile",
+    )
+    parser.addoption(
+        "--reportfile",
+        default="report.json",
+        help="please provide a json report filename",
     )
 
 def pytest_metadata(metadata, config):
@@ -59,8 +66,11 @@ def pytest_configure(config: pytest.Config) -> None:
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S.%f")
     #timestamp = now.isoformat()
 
-    # parse specification yaml-file, set paths to absolute, create directories
     specyamlfile = config.getoption("--specyamlfile")
+    testyamlfile = config.getoption("--testyamlfile")
+    reportfile = config.getoption("--reportfile")
+
+    # parse specification yaml-file, set paths to absolute, create directories
     specification = parse_spec_file(specyamlfile)
     root = os.path.abspath(os.path.dirname(specyamlfile))
     for directory in DIRECTORIES:
@@ -71,8 +81,12 @@ def pytest_configure(config: pytest.Config) -> None:
         if not os.path.exists(_dir):
             os.makedirs(_dir)
 
+    if not os.path.isabs(reportfile):
+        test_yaml_fn = Path(testyamlfile).stem
+        reportfile = f"{test_yaml_fn}-{reportfile}"
+        reportfile = os.path.join(specification.testInfo.outputDirectory, reportfile)
+
     # parse testsuite yaml-file, populate testcases, generate report-skeleton
-    testyamlfile = config.getoption("--testyamlfile")
     testsuite = parse_test_file(testyamlfile)
     testcases = []
     main_tests = []
@@ -131,6 +145,7 @@ def pytest_configure(config: pytest.Config) -> None:
         },
         "tests": main_tests,
     }
+    config.stash[reportfile_key] = reportfile
     config.stash[report_key] = report
     config.stash[testcases_key] = testcases
     config.stash[testsuite_key] = testsuite
@@ -139,12 +154,12 @@ def pytest_configure(config: pytest.Config) -> None:
 def pytest_generate_tests(metafunc):
     metafunc.parametrize("testcases", metafunc.config.stash[testcases_key])
 
-def get_item(haystack: list[tuple[str, object]], needle):
+def get_item(haystack: list[tuple[str, object]], needle, default):
     for x, y in enumerate(haystack):
         s, o = y
         if s == needle:
             return o
-    return None
+    return default
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
@@ -156,8 +171,8 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test = report["tests"][idx_main]["tests"][idx_sub]
         test["result"] = _report.outcome.upper()
         test["status"] = TestStatus.completed
-        test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference")
-        test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student")
+        test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
+        test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
@@ -188,6 +203,7 @@ def pytest_json_modifyreport(json_report):
 def pytest_sessionfinish(session):
     json_report = session.config._json_report.report
     indent = session.config.option.json_report_indent
+    reportfile = session.config.stash[reportfile_key]
     environment = session.config.stash[metadata_key]
     report = session.config.stash[report_key]
     total = report["summary"]["total"]
@@ -257,7 +273,7 @@ def pytest_sessionfinish(session):
     report['exit_code'] = str(json_report['exitcode'])
     report['json_report'] = json_report
 
-    with open("xxx.json", 'w', encoding='utf-8') as file:
+    with open(reportfile, 'w', encoding='utf-8') as file:
         json.dump(report,file,default=str,indent=indent)
 
     print('\nexited with', json_report['exitcode'])

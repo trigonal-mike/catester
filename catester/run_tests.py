@@ -39,9 +39,10 @@ def run_tests():
     args = parser.parse_args()
     spec_yamlfile = args.specification
     test_yamlfile = args.test
+    report_jsonfile = args.output
 
     test_yaml_fn = Path(test_yamlfile).stem
-    reportfile = f"{test_yaml_fn}-{args.output}"
+    reportfile = f"{test_yaml_fn}-{report_jsonfile}"
 
     #try parsing yaml-file:
     #it gets parsed in pytest as well
@@ -71,8 +72,9 @@ def run_tests():
     options = []
     options.append(f"--specyamlfile={spec_yamlfile}")
     options.append(f"--testyamlfile={test_yamlfile}")
+    options.append(f"--reportfile={report_jsonfile}")
     options.extend([
-        f"--json-report-file={reportfile}",
+        f"--json-report-file={None}",
         "--json-report-indent=2",
         "--json-report",
         # this is not working: (but when run as subprocess then it works!)
