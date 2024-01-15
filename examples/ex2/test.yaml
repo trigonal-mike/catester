@@ -5,8 +5,8 @@ properties:
   tests:
     - name: Test Basic 1
       type: variable
-      id: "1"
-      entryPoint: "Test7.py"
+      id: "0"
+      entryPoint: "Test.py"
       tests:
         - name: "var1"
         - name: "var2"
@@ -14,13 +14,14 @@ properties:
     - name: Test Basic 2
       type: variable
       entryPoint: "crash.py"
-      successDependency: "1"
+      successDependency: "0"
       tests:
         - name: "var1"
           value: 1
     - name: Test Basic 2
       type: variable
       entryPoint: "timeout.py"
+      successDependency: ["0", "1"]
       tests:
         - name: "var1"
           value: 1

@@ -13,6 +13,8 @@ from enum import Enum
 from model import CodeAbilitySpecification, CodeAbilityTestSuite, CodeAbilityTestCollection, CodeAbilityTest
 from .conftest import testsuite_key
 from .conftest import specification_key
+from .conftest import report_key
+from .conftest import TestResult
 
 class Solution(str, Enum):
     student = "student"
@@ -44,6 +46,18 @@ def get_property_as_list(property_name):
         return [property_name]
     return property_name
 
+def check_success_dependency(report, success_dependencies):
+    success_dependencies = get_property_as_list(success_dependencies)
+    for dependency in success_dependencies:
+        #todo: search for id first, then check as idx => check also if idx not out of bounds
+        main_idx = int(dependency)
+        total = report["tests"][main_idx]["summary"]["total"]
+        for sub_idx in range(total):
+            result = report["tests"][main_idx]["tests"][sub_idx]["result"]
+            if result != TestResult.passed:
+                return False
+    return True
+
 def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):
     """Calculate solution if not yet exists"""
     exec_time = 0
@@ -61,7 +75,6 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         entry_point = main.entryPoint
         setup_code = get_property_as_list(main.setUpCode)
         teardown_code = get_property_as_list(main.tearDownCode)
-        success_dependency = get_property_as_list(main.successDependency)
         setup_code_dependency = main.setUpCodeDependency
 
         """ remember old working directory """ 
@@ -165,12 +178,34 @@ class CodeabilityPythonTest:
     # testcases get parametrized in conftest.py (pytest_generate_tests)
     def test_entrypoint(self, request, record_property, monkeymodule, testcases):
         idx_main, idx_sub = testcases
+
+        report: CodeAbilityTestSuite = request.config.stash[report_key]
         testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]
         specification: CodeAbilitySpecification = request.config.stash[specification_key]
+
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
+
+        if not check_success_dependency(report, main.successDependency):
+            #raise TimeoutError(f"Dependency {main.successDependency} not satisfied")
+            #raise LookupError(f"Dependency {main.successDependency} not satisfied")
+            #raise RuntimeWarning(f"Dependency {main.successDependency} not satisfied")
+            pytest.skip(f"Dependency {main.successDependency} not satisfied")
+
         dir_reference = specification.testInfo.referenceDirectory
         dir_student = specification.testInfo.studentDirectory
+
+        testtype = main.type
+        file = main.file
+        id = main.id if main.id is not None else str(idx_main + 1)
+
+        name = sub.name
+        value = sub.value
+        evalString = sub.evalString
+        pattern = sub.pattern
+        countRequirement = sub.countRequirement
+        #options = sub.options
+        #verificationFunction = sub.verificationFunction
 
         ancestors_sub = [sub, main, testsuite.properties]
         ancestors_main = [main, testsuite.properties]
@@ -187,25 +222,10 @@ class CodeabilityPythonTest:
         #verbosity = get_inherited_property("verbosity", ancestors_sub, None)
         #competency = get_inherited_property("competency", ancestors_main, None)
 
-        testtype = main.type
-        file = main.file
-        id = main.id if main.id is not None else str(idx_main + 1)
-
-        name = sub.name
-        value = sub.value
-        evalString = sub.evalString
-        pattern = sub.pattern
-        countRequirement = sub.countRequirement
-        #options = sub.options
-        #verificationFunction = sub.verificationFunction
-
-        #tests = xxxx.config.stash[tests]
-        #pytest.skip("Dependency not satisfied")
-
         # Get student solution, measure execution time
         solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
-        solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
         record_property("exec_time_reference", exec_time_reference)
+        solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
         record_property("exec_time_student", exec_time_student)
 
         # if test is graphics => get saved graphics object as solution
