@@ -30,7 +30,7 @@ testcases_key = pytest.StashKey[list]()
 testsuite_key = pytest.StashKey[CodeAbilityTestSuite]()
 specification_key = pytest.StashKey[CodeAbilitySpecification]()
 
-def pytest_addoption(parser):
+def pytest_addoption(parser: pytest.Parser):
     parser.addoption(
         "--specyamlfile",
         default="",
@@ -80,10 +80,7 @@ def pytest_configure(config: pytest.Config) -> None:
             setattr(specification.testInfo, directory, _dir)
         if not os.path.exists(_dir):
             os.makedirs(_dir)
-
     if not os.path.isabs(reportfile):
-        test_yaml_fn = Path(testyamlfile).stem
-        reportfile = f"{test_yaml_fn}-{reportfile}"
         reportfile = os.path.join(specification.testInfo.outputDirectory, reportfile)
 
     # parse testsuite yaml-file, populate testcases, generate report-skeleton
@@ -288,6 +285,7 @@ def pytest_sessionfinish(session):
     """
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
+    terminalreporter.line("...something else...")
     pass
     #reports = terminalreporter.getreports('')
     #content = os.linesep.join(text for report in reports for secname, text in report.sections)

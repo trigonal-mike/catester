@@ -1,7 +1,6 @@
 import argparse
 import os
 import pytest
-from pathlib import Path
 from pydantic import ValidationError
 from model import parse_spec_file, parse_test_file
 import subprocess
@@ -9,20 +8,10 @@ import subprocess
 #from pytest_jsonreport.plugin import JSONReport
 #plugin = JSONReport()
 
-def get_output_directory(spec_yamlfile: str):
-    dirabs = os.path.abspath(os.path.dirname(spec_yamlfile))
-    specification = parse_spec_file(spec_yamlfile)
-    output_dir = specification.testInfo.outputDirectory
-    if not os.path.isabs(output_dir):
-        output_dir = os.path.join(dirabs, output_dir)
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    return output_dir
-
 def run_tests():
-    #default yaml file for testing/debugging purposes
-    spec_yaml = "../examples/ex1/specification.yaml"
-    test_yaml = "../examples/ex1/test7.yaml"
+    #default filenames for testing/debugging purposes
+    spec_yaml = "../examples/ex2/specification.yaml"
+    test_yaml = "../examples/ex2/test.yaml"
     test_report = "report.json"
 
     dir = os.path.abspath(os.path.dirname(__file__))
@@ -40,9 +29,6 @@ def run_tests():
     spec_yamlfile = args.specification
     test_yamlfile = args.test
     report_jsonfile = args.output
-
-    test_yaml_fn = Path(test_yamlfile).stem
-    reportfile = f"{test_yaml_fn}-{report_jsonfile}"
 
     #try parsing yaml-file:
     #it gets parsed in pytest as well
@@ -65,8 +51,6 @@ def run_tests():
         print(e)
         raise
     
-    output_dir = get_output_directory(spec_yamlfile)
-    reportfile = os.path.join(output_dir, reportfile)
     #pytest config options
     #https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
     options = []
@@ -77,11 +61,7 @@ def run_tests():
         f"--json-report-file={None}",
         "--json-report-indent=2",
         "--json-report",
-        # this is not working: (but when run as subprocess then it works!)
-        #"--metadata xxxxx yyyyyy",
-        #"--json-report-omit=collectors",
     ])
-    #collectors, log, traceback, streams, warnings, keywords
     options.extend([
         #"--collect-only",
         #"--no-summary",
@@ -92,8 +72,7 @@ def run_tests():
     ])
 
     # run as a subprocess
-    #command = f"pytest --yamlfile={yamlfile} --verbose --json-report --json-report-file={reportfile} --json-report-indent=2 --json-report-omit collectors log traceback streams warnings keywords"
-    #command = f"pytest --metadata xxxxx yyyyyy --yamlfile={yamlfile} --verbose --json-report --json-report-file={reportfile} --json-report-indent=2"
+    #command = f"pytest --metadata xxxxx yyyyyy --specyamlfile={spec_yamlfile} --testyamlfile={test_yamlfile} --reportfile={report_jsonfile} --verbose --json-report --json-report-file={reportfile} --json-report-indent=2"
     #retcode = subprocess.run(command, shell=True)
     #print(retcode.returncode)
 

@@ -13,7 +13,14 @@ properties:
         - name: "var3"
     - name: Test Basic 2
       type: variable
-      entryPoint: "Test7.py"
+      entryPoint: "crash.py"
       successDependency: "1"
       tests:
-        - name: "var4"
+        - name: "var1"
+          value: 1
+    - name: Test Basic 2
+      type: variable
+      entryPoint: "timeout.py"
+      tests:
+        - name: "var1"
+          value: 1

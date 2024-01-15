@@ -1,0 +1,421 @@
+{
+  "timestamp": "2024-01-15 15:54:44.108598",
+  "type": "python",
+  "version": "1.0",
+  "name": "Python Test Suite",
+  "description": "Checks subtests and graphics",
+  "status": "COMPLETED",
+  "result": "FAILED",
+  "resultMessage": "Tests failed",
+  "details": null,
+  "duration": 6.0975141525268555,
+  "executionDurationReference": 0.012506961822509766,
+  "executionDurationStudent": 5.036437749862671,
+  "environment": {
+    "Python": "3.10.11",
+    "Platform": "Windows-10-10.0.19045-SP0",
+    "Packages": {
+      "pytest": "7.4.3",
+      "pluggy": "1.3.0"
+    },
+    "Plugins": {
+      "json-report": "1.5.0",
+      "metadata": "3.0.0"
+    }
+  },
+  "properties": null,
+  "debug": null,
+  "summary": {
+    "total": 3,
+    "success": 1,
+    "failed": 2,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "type": "variable",
+      "name": "Test Basic 1",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "resultMessage": "Tests failed (main)",
+      "details": null,
+      "executionDurationReference": 0.012506961822509766,
+      "executionDurationStudent": 0.0162656307220459,
+      "summary": {
+        "total": 3,
+        "success": 2,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": "Tests failed (sub)",
+          "details": null
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": "Tests passed (sub)",
+          "details": null
+        },
+        {
+          "name": "var3",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": "Tests passed (sub)",
+          "details": null
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test Basic 2",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "resultMessage": "Tests failed (main)",
+      "details": null,
+      "executionDurationReference": 0.0,
+      "executionDurationStudent": 0.0,
+      "summary": {
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": "Tests failed (sub)",
+          "details": null
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test Basic 2",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "resultMessage": "Tests passed (main)",
+      "details": null,
+      "executionDurationReference": 0.0,
+      "executionDurationStudent": 5.020172119140625,
+      "summary": {
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": "Tests passed (sub)",
+          "details": null
+        }
+      ]
+    }
+  ],
+  "exit_code": "ExitCode.TESTS_FAILED",
+  "json_report": {
+    "created": 1705330490.2224996,
+    "duration": 6.0975141525268555,
+    "exitcode": 1,
+    "root": "i:\\PYTHON\\catester\\catester",
+    "environment": {},
+    "summary": {
+      "failed": 2,
+      "passed": 3,
+      "total": 5,
+      "collected": 5
+    },
+    "collectors": [
+      {
+        "nodeid": "",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "model/__init__.py",
+            "type": "Package"
+          },
+          {
+            "nodeid": "tests/__init__.py",
+            "type": "Package"
+          }
+        ]
+      },
+      {
+        "nodeid": "model/__init__.py",
+        "outcome": "passed",
+        "result": []
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
+            "type": "Function",
+            "lineno": 165
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
+            "type": "Function",
+            "lineno": 165
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
+            "type": "Function",
+            "lineno": 165
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
+            "type": "Function",
+            "lineno": 165
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
+            "type": "Function",
+            "lineno": 165
+          }
+        ]
+      },
+      {
+        "nodeid": "tests/test_class.py",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest",
+            "type": "Class"
+          }
+        ]
+      },
+      {
+        "nodeid": "tests/__init__.py",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "tests/test_class.py",
+            "type": "Module"
+          }
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
+        "lineno": 165,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases0]",
+          "testcases0",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0010483000078238547,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.02169669995782897,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 251,
+            "message": "AssertionError: Variable var1 has incorrect value\nassert '1123' == '123'\n  - 123\n  + 1123\n  ? +"
+          },
+          "traceback": [
+            {
+              "path": "tests\\test_class.py",
+              "lineno": 251,
+              "message": "AssertionError"
+            }
+          ],
+          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x0000026288A83910>, request = <FixtureRequest for <Function test_entrypoint[testcases0]>>\nrecord_property = <function record_property.<locals>.append_property at 0x0000026288A9C4C0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026288A83EB0>, testcases = (0, 0)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n        testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]\n        specification: CodeAbilitySpecification = request.config.stash[specification_key]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        ancestors_sub = [sub, main, testsuite.properties]\n        ancestors_main = [main, testsuite.properties]\n    \n        qualification = get_inherited_property(\"qualification\", ancestors_sub, None)\n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors_sub, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors_sub, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors_sub, None)\n        store_graphics_artefacts = get_inherited_property(\"storeGraphicsArtefacts\", ancestors_main, False)\n    \n        #not needed here:\n        #failure_message = get_inherited_property(\"failureMessage\", ancestors_sub, None)\n        #success_message = get_inherited_property(\"successMessage\", ancestors_sub, None)\n        #verbosity = get_inherited_property(\"verbosity\", ancestors_sub, None)\n        #competency = get_inherited_property(\"competency\", ancestors_main, None)\n    \n        testtype = main.type\n        file = main.file\n        id = main.id if main.id is not None else str(idx_main + 1)\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        #options = sub.options\n        #verificationFunction = sub.verificationFunction\n    \n        #tests = xxxx.config.stash[tests]\n        #pytest.skip(\"Dependency not satisfied\")\n    \n        # Get student solution, measure execution time\n        solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)\n        solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)\n        record_property(\"exec_time_reference\", exec_time_reference)\n        record_property(\"exec_time_student\", exec_time_student)\n    \n        # if test is graphics => get saved graphics object as solution\n        if testtype == \"graphics\":\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\"variable\", \"graphics\", \"error\", \"warning\", \"help\"]:\n            # student value\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                # value not found, try eval\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == \"verifyEqual\":\n                # reference value\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable var1 has incorrect value\nE                   assert '1123' == '123'\nE                     - 123\nE                     + 1123\nE                     ? +\n\ntests\\test_class.py:251: AssertionError"
+        },
+        "user_properties": [
+          {
+            "exec_time_reference": 0.012506961822509766
+          },
+          {
+            "exec_time_student": 0.0162656307220459
+          }
+        ],
+        "teardown": {
+          "duration": 0.0003825000021606684,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
+        "lineno": 165,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases1]",
+          "testcases1",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0004773000255227089,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0002495000371709466,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_reference": 0
+          },
+          {
+            "exec_time_student": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00027709995629265904,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
+        "lineno": 165,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases2]",
+          "testcases2",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0004488999838940799,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00023509998572990298,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_reference": 0
+          },
+          {
+            "exec_time_student": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00027269998099654913,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
+        "lineno": 165,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases3]",
+          "testcases3",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0004582999972626567,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.016546999977435917,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 22,
+            "message": "  File \"i:\\PYTHON\\catester\\examples\\ex1\\student\\crash.py\", line 1\n    jskf\u00c3\u00b6\n         ^\nSyntaxError: invalid character '\u00b6' (U+00B6)"
+          },
+          "traceback": [
+            {
+              "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              "lineno": 207,
+              "message": ""
+            },
+            {
+              "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              "lineno": 103,
+              "message": "in get_solution"
+            },
+            {
+              "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              "lineno": 30,
+              "message": "in execute_file"
+            },
+            {
+              "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              "lineno": 22,
+              "message": "SyntaxError"
+            }
+          ],
+          "stdout": "Exception: execute_file i:\\PYTHON\\catester\\examples\\ex1\\student\\crash.py failed\ninvalid character '\u00b6' (U+00B6) (crash.py, line 1)\n",
+          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x0000026288A83A90>, request = <FixtureRequest for <Function test_entrypoint[testcases3]>>\nrecord_property = <function record_property.<locals>.append_property at 0x0000026288A9C670>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000026288ACB7F0>, testcases = (1, 0)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n        testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]\n        specification: CodeAbilitySpecification = request.config.stash[specification_key]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        ancestors_sub = [sub, main, testsuite.properties]\n        ancestors_main = [main, testsuite.properties]\n    \n        qualification = get_inherited_property(\"qualification\", ancestors_sub, None)\n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors_sub, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors_sub, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors_sub, None)\n        store_graphics_artefacts = get_inherited_property(\"storeGraphicsArtefacts\", ancestors_main, False)\n    \n        #not needed here:\n        #failure_message = get_inherited_property(\"failureMessage\", ancestors_sub, None)\n        #success_message = get_inherited_property(\"successMessage\", ancestors_sub, None)\n        #verbosity = get_inherited_property(\"verbosity\", ancestors_sub, None)\n        #competency = get_inherited_property(\"competency\", ancestors_main, None)\n    \n        testtype = main.type\n        file = main.file\n        id = main.id if main.id is not None else str(idx_main + 1)\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        #options = sub.options\n        #verificationFunction = sub.verificationFunction\n    \n        #tests = xxxx.config.stash[tests]\n        #pytest.skip(\"Dependency not satisfied\")\n    \n        # Get student solution, measure execution time\n        solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)\n>       solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:207: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:103: in get_solution\n    execute_file(file, namespace)\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:30: in execute_file\n    execute_code(file.read(), filename, namespace)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncode = 'jskf\u00c3\u00b6', filename = 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1\\\\student\\\\crash.py', namespace = {}\n\n    def execute_code(code, filename, namespace):\n>       exec(compile(code, filename, \"exec\"), namespace)\nE         File \"i:\\PYTHON\\catester\\examples\\ex1\\student\\crash.py\", line 1\nE           jskf\u00c3\u00b6\nE                ^\nE       SyntaxError: invalid character '\u00b6' (U+00B6)\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:22: SyntaxError"
+        },
+        "teardown": {
+          "duration": 0.00040610000723972917,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
+        "lineno": 165,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases4]",
+          "testcases4",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0005610000225715339,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 5.0199485999764875,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_reference": 0
+          },
+          {
+            "exec_time_student": 5.020172119140625
+          }
+        ],
+        "teardown": {
+          "duration": 0.0011705000069923699,
+          "outcome": "passed"
+        }
+      }
+    ]
+  }
+}

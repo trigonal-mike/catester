@@ -1,0 +1,8 @@
+testInfo:
+  studentDirectory: "student"
+  referenceDirectory: "reference"
+  testDirectory: "testprograms"
+  outputDirectory: "output"
+  artefactDirectory: "artefacts"
+  studentTestCounter: 2
+  testVersion: "v1"
