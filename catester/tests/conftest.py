@@ -84,6 +84,8 @@ def pytest_configure(config: pytest.Config) -> None:
                 "name": sub.name,
                 "status": TestStatus.scheduled,
                 "result": None,
+                "resultMessage": None,
+                "details": None,
             })
         main_tests.append({
             "type": main.type,
@@ -93,6 +95,10 @@ def pytest_configure(config: pytest.Config) -> None:
             "teardown": main.tearDownCode,
             "status": TestStatus.scheduled,
             "result": None,
+            "resultMessage": None,
+            "details": None,
+            "executionDurationReference": None,
+            "executionDurationStudent": None,
             "summary": {
                 "total": len(main.tests),
                 "success": 0,
@@ -103,13 +109,20 @@ def pytest_configure(config: pytest.Config) -> None:
         })
     report = {
         "timestamp": timestamp,
-        "duration": None,
         "type": testsuite.type,
         "version": testsuite.version,
         "name": testsuite.name,
         "description": testsuite.description,
         "status": TestStatus.scheduled,
         "result": None,
+        "resultMessage": None,
+        "details": None,
+        "duration": None,
+        "executionDurationReference": None,
+        "executionDurationStudent": None,
+        "environment": None,
+        "properties": None,
+        "debug": None,
         "summary": {
             "total": len(testsuite.properties.tests),
             "success": 0,
@@ -145,24 +158,12 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test["status"] = TestStatus.completed
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference")
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student")
-    _report.session = item.session
-    _report.testcase = item.callspec.params["testcases"]
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
-    #if report.when == 'call':
-    #    oc = {}
-    #    oc[f"{report.testcase[0]}-{report.testcase[1]}"] = report.passed
-    #    #report.session.config.stash[outcomes].update(oc)
 
 def pytest_report_teststatus(report: pytest.TestReport, config):
     pass
-    #line = f'{report.nodeid}:\t"{report.when}"'
-    #report.sections.append(('My custom section', line))
-    #if report.when == 'call' and report.passed:
-    #    short_outcome = "#"
-    #    long_outcome = "TEST PASSED"
-    #    return report.outcome, short_outcome, long_outcome
 
 def pytest_runtest_setup(item: pytest.Item) -> None:
     pass
@@ -187,15 +188,14 @@ def pytest_json_modifyreport(json_report):
 def pytest_sessionfinish(session):
     json_report = session.config._json_report.report
     indent = session.config.option.json_report_indent
-    metadata = session.config.stash[metadata_key]
+    environment = session.config.stash[metadata_key]
     report = session.config.stash[report_key]
-    report["environment"] = metadata
-    report["duration"] = json_report['duration']
-
     total = report["summary"]["total"]
     success = 0
     failed = 0
     skipped = 0
+    time_r = 0.0
+    time_s = 0.0
     for idx_main, main in enumerate(report["tests"]):
         sub_total = main["summary"]["total"]
         sub_success = 0
@@ -210,29 +210,32 @@ def pytest_sessionfinish(session):
             del sub["executionDurationStudent"]
             if sub["result"] == TestResult.passed:
                 sub_success = sub_success + 1
-                sub["details"] = "Tests passed"
+                sub["resultMessage"] = "Tests passed (sub)"
             elif sub["result"] == TestResult.failed:
                 sub_failed = sub_failed + 1
-                sub["details"] = "Tests failed"
+                sub["resultMessage"] = "Tests failed (sub)"
             elif sub["result"] == TestResult.skipped:
                 sub_skipped = sub_skipped + 1
-                sub["details"] = "Tests skipped"
+                sub["resultMessage"] = "Tests skipped (sub)"
+        time_r = time_r + sub_time_r
+        time_s = time_s + sub_time_s
         main["executionDurationReference"] = sub_time_r
         main["executionDurationStudent"] = sub_time_s
         main["summary"]["success"] = sub_success
         main["summary"]["failed"] = sub_failed
         main["summary"]["skipped"] = sub_skipped
+        main["status"] = TestStatus.completed
         if sub_success == sub_total:
             main["result"] = TestResult.passed
-            main["details"] = "Tests passed"
+            main["resultMessage"] = "Tests passed (main)"
             success = success + 1
         elif sub_skipped > 0:
             main["result"] = TestResult.skipped
-            main["details"] = "Tests skipped"
+            main["resultMessage"] = "Tests skipped (main)"
             skipped = skipped + 1
         else:
             main["result"] = TestResult.failed
-            main["details"] = "Tests failed"
+            main["resultMessage"] = "Tests failed (main)"
             failed = failed + 1
     report["summary"]["success"] = success
     report["summary"]["skipped"] = skipped
@@ -240,13 +243,17 @@ def pytest_sessionfinish(session):
     report["status"] = TestStatus.completed
     if success == total:
         report["result"] = TestResult.passed
-        report["details"] = "Tests passed"
+        report["resultMessage"] = "Tests passed"
     elif skipped == total:
         report["result"] = TestResult.skipped
-        report["details"] = "Tests skipped"
+        report["resultMessage"] = "Tests skipped"
     else:
         report["result"] = TestResult.failed
-        report["details"] = "Tests failed"
+        report["resultMessage"] = "Tests failed"
+    report["environment"] = environment
+    report["executionDurationReference"] = time_r
+    report["executionDurationStudent"] = time_s
+    report["duration"] = json_report['duration']
     report['exit_code'] = str(json_report['exitcode'])
     report['json_report'] = json_report
 
