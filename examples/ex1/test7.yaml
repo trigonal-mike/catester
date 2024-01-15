@@ -10,9 +10,10 @@ properties:
       tests:
         - name: "var1"
         - name: "var2"
+        - name: "var3"
     - name: Test Basic 2
       type: variable
       entryPoint: "Test7.py"
       successDependency: "1"
       tests:
-        - name: "var3"
+        - name: "var4"

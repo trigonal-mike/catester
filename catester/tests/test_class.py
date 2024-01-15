@@ -213,8 +213,18 @@ class CodeabilityPythonTest:
         #tests = xxxx.config.stash[tests]
         #pytest.skip("Dependency not satisfied")
 
+        # Get student solution, measure execution time
+        start_time = time.time()
         solution_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
+        exec_time_reference = time.time() - start_time
+
+        start_time = time.time()
+        #time.sleep(0.00000001)
         solution_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
+        exec_time_student = time.time() - start_time
+
+        record_property("exec_time_reference", exec_time_reference)
+        record_property("exec_time_student", exec_time_student)
 
         # if test is graphics => get saved graphics object as solution
         if testtype == "graphics":

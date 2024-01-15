@@ -55,6 +55,10 @@ def pytest_configure(config: pytest.Config) -> None:
     The report is initialized here as well
     """
 
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y-%m-%d %H:%M:%S.%f")
+    #timestamp = now.isoformat()
+
     # parse specification yaml-file, set paths to absolute, create directories
     specyamlfile = config.getoption("--specyamlfile")
     specification = parse_spec_file(specyamlfile)
@@ -98,6 +102,8 @@ def pytest_configure(config: pytest.Config) -> None:
             "tests": sub_tests,
         })
     report = {
+        "timestamp": timestamp,
+        "duration": None,
         "type": testsuite.type,
         "version": testsuite.version,
         "name": testsuite.name,
@@ -120,6 +126,13 @@ def pytest_configure(config: pytest.Config) -> None:
 def pytest_generate_tests(metafunc):
     metafunc.parametrize("testcases", metafunc.config.stash[testcases_key])
 
+def get_item(haystack: list[tuple[str, object]], needle):
+    for x, y in enumerate(haystack):
+        s, o = y
+        if s == needle:
+            return o
+    return None
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
     out = yield
@@ -130,6 +143,8 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test = report["tests"][idx_main]["tests"][idx_sub]
         test["result"] = _report.outcome.upper()
         test["status"] = TestStatus.completed
+        test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference")
+        test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student")
     _report.session = item.session
     _report.testcase = item.callspec.params["testcases"]
 
@@ -149,6 +164,106 @@ def pytest_report_teststatus(report: pytest.TestReport, config):
     #    long_outcome = "TEST PASSED"
     #    return report.outcome, short_outcome, long_outcome
 
+def pytest_runtest_setup(item: pytest.Item) -> None:
+    pass
+
+def pytest_runtest_call(item: pytest.Item) -> None:
+    pass
+
+def pytest_runtest_teardown(item: pytest.Item, nextitem: pytest.Item) -> None:
+    pass
+
+# Following 3 hooks form JSON-Report
+# https://pypi.org/project/pytest-json-report/
+def pytest_json_runtest_stage(report):
+    pass
+
+def pytest_json_runtest_metadata(item, call):
+    pass
+
+def pytest_json_modifyreport(json_report):
+    pass
+
+def pytest_sessionfinish(session):
+    json_report = session.config._json_report.report
+    indent = session.config.option.json_report_indent
+    metadata = session.config.stash[metadata_key]
+    report = session.config.stash[report_key]
+    report["environment"] = metadata
+    report["duration"] = json_report['duration']
+
+    total = report["summary"]["total"]
+    success = 0
+    failed = 0
+    skipped = 0
+    for idx_main, main in enumerate(report["tests"]):
+        sub_total = main["summary"]["total"]
+        sub_success = 0
+        sub_failed = 0
+        sub_skipped = 0
+        sub_time_r = 0.0
+        sub_time_s = 0.0
+        for idx_sub, sub in enumerate(main["tests"]):
+            sub_time_r = sub_time_r + sub["executionDurationReference"]
+            sub_time_s = sub_time_s + sub["executionDurationStudent"]
+            del sub["executionDurationReference"]
+            del sub["executionDurationStudent"]
+            if sub["result"] == TestResult.passed:
+                sub_success = sub_success + 1
+                sub["details"] = "Tests passed"
+            elif sub["result"] == TestResult.failed:
+                sub_failed = sub_failed + 1
+                sub["details"] = "Tests failed"
+            elif sub["result"] == TestResult.skipped:
+                sub_skipped = sub_skipped + 1
+                sub["details"] = "Tests skipped"
+        main["executionDurationReference"] = sub_time_r
+        main["executionDurationStudent"] = sub_time_s
+        main["summary"]["success"] = sub_success
+        main["summary"]["failed"] = sub_failed
+        main["summary"]["skipped"] = sub_skipped
+        if sub_success == sub_total:
+            main["result"] = TestResult.passed
+            main["details"] = "Tests passed"
+            success = success + 1
+        elif sub_skipped > 0:
+            main["result"] = TestResult.skipped
+            main["details"] = "Tests skipped"
+            skipped = skipped + 1
+        else:
+            main["result"] = TestResult.failed
+            main["details"] = "Tests failed"
+            failed = failed + 1
+    report["summary"]["success"] = success
+    report["summary"]["skipped"] = skipped
+    report["summary"]["failed"] = failed
+    report["status"] = TestStatus.completed
+    if success == total:
+        report["result"] = TestResult.passed
+        report["details"] = "Tests passed"
+    elif skipped == total:
+        report["result"] = TestResult.skipped
+        report["details"] = "Tests skipped"
+    else:
+        report["result"] = TestResult.failed
+        report["details"] = "Tests failed"
+    report['exit_code'] = str(json_report['exitcode'])
+    report['json_report'] = json_report
+
+    with open("xxx.json", 'w', encoding='utf-8') as file:
+        json.dump(report,file,default=str,indent=indent)
+
+    print('\nexited with', json_report['exitcode'])
+    """exit codes:
+    https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.ExitCode
+    OK = 0, Tests passed.
+    TESTS_FAILED = 1, Tests failed.
+    INTERRUPTED = 2, pytest was interrupted.
+    INTERNAL_ERROR = 3, An internal error got in the way.
+    USAGE_ERROR = 4, pytest was misused.
+    NO_TESTS_COLLECTED = 5, pytest could not find tests.
+    """
+
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
     pass
     #reports = terminalreporter.getreports('')
@@ -165,154 +280,3 @@ def monkeymodule():
     mpatch = MonkeyPatch()
     yield mpatch
     mpatch.undo()
-
-def pytest_runtest_setup(item: pytest.Item) -> None:
-    pass
-
-def pytest_runtest_call(item: pytest.Item) -> None:
-    pass
-
-def pytest_runtest_teardown(item, nextitem) -> None:
-    pass
-
-def pytest_json_runtest_stage(report):
-    """This hook is for changing setup, call and teardown fields of the report,
-    see: https://pypi.org/project/pytest-json-report/"""
-    pass
-    #return {'oooooooooo': report.outcome}
-    #if report.when != 'call':
-    #    return {'oooooooooo': report.outcome}
-
-def pytest_json_runtest_metadata(item, call):
-    return
-    if call.when == 'call':
-       sss = item.config.stash[some_str_key]
-       sss1 = sss + "."
-       item.config.stash[some_str_key] = sss1
-
-    return {'zzz': {"ddd": 123}}
-    if call.when != 'call':
-        return {}
-    return {'xxx': call.start, 'stop': call.stop}
-    #pass
-
-def pytest_json_modifyreport(json_report):
-    converted_main = []
-    for test in json_report['tests']:
-        converted = dict()
-        converted["name"] = test["metadata"]["main_name"]
-        converted["variable"] = test["metadata"]["sub_name"]
-        converted["status"] = "COMPLETED"
-        converted["result"] = str(test["outcome"]).upper()
-        if test["outcome"] == "passed":
-            converted["details"] = test["metadata"]["success_message"]
-        elif test["outcome"] == "failed":
-            converted["details"] = test["metadata"]["failure_message"]
-        converted_main.append(converted)
-
-    #ts = time.gmtime(float(json_report['created']))
-    #timestamp = time.strftime("%Y-%m-%d %H:%M:%S.", ts)
-
-    dobj = datetime.datetime.fromtimestamp(json_report['created'])
-    timestamp = dobj.strftime("%Y-%m-%d %H:%M:%S.%f")
-    #timestamp = dobj.isoformat()
-
-    json_report['_duration'] = json_report['duration']
-    json_report['_timestamp'] = timestamp
-    json_report['_status'] = "COMPLETED"
-    json_report['_result'] = str(json_report['exitcode'])
-    json_report['_tests'] = converted_main
-
-    # delete other entries:
-    #del json_report['created']
-    #del json_report['duration']
-    #del json_report['exitcode']
-    #del json_report['root']
-    #del json_report['environment']
-    #del json_report['summary']
-    #del json_report['collectors']
-    #del json_report['tests']
-
-
-def pytest_sessionfinish(session):
-    json_report = session.config._json_report.report
-
-    metadata = session.config.stash[metadata_key]
-    report = session.config.stash[report_key]
-    report["environment"] = metadata
-
-    total = report["summary"]["total"]
-    success = 0
-    failed = 0
-    skipped = 0
-    for idx_main, main in enumerate(report["tests"]):
-        sub_total = main["summary"]["total"]
-        sub_success = 0
-        sub_failed = 0
-        sub_skipped = 0
-        for idx_sub, sub in enumerate(main["tests"]):
-            if sub["result"] == TestResult.passed:
-                sub_success = sub_success + 1
-            elif sub["result"] == TestResult.failed:
-                sub_failed = sub_failed + 1
-            elif sub["result"] == TestResult.skipped:
-                sub_skipped = sub_skipped + 1
-
-        main["summary"]["success"] = sub_success
-        main["summary"]["failed"] = sub_failed
-        main["summary"]["skipped"] = sub_skipped
-        if sub_success == sub_total:
-            main["result"] = TestResult.passed
-            success = success + 1
-        elif sub_skipped > 0:
-            main["result"] = TestResult.skipped
-            skipped = skipped + 1
-        else:
-            main["result"] = TestResult.failed
-            failed = failed + 1
-
-    report["summary"]["success"] = success
-    report["summary"]["skipped"] = skipped
-    report["summary"]["failed"] = failed
-    report["status"] = TestStatus.completed
-    if success == total:
-        report["result"] = TestResult.passed
-    elif skipped == total:
-        report["result"] = TestResult.skipped
-    else:
-        report["result"] = TestResult.failed
-
-    json_report['_report'] = report
-
-    with open("xxx.json", 'w', encoding='utf-8') as file:
-        json.dump(
-            json_report,
-            file,
-            default=str,
-            indent=session.config.option.json_report_indent,
-        )
-
-    print('\nexited with', json_report['exitcode'])
-
-
-"""
-exit codes:
-https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.ExitCode
-OK = 0
-Tests passed.
-
-TESTS_FAILED = 1
-Tests failed.
-
-INTERRUPTED = 2
-pytest was interrupted.
-
-INTERNAL_ERROR = 3
-An internal error got in the way.
-
-USAGE_ERROR = 4
-pytest was misused.
-
-NO_TESTS_COLLECTED = 5
-pytest could not find tests.
-"""

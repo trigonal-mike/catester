@@ -1,6 +1,6 @@
 {
-  "created": 1704728551.6740117,
-  "duration": 1.5899367332458496,
+  "created": 1705316030.6111813,
+  "duration": 1.7128217220306396,
   "exitcode": 0,
   "root": "i:\\PYTHON\\catester\\catester",
   "environment": {},
@@ -36,37 +36,37 @@
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases5]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         },
         {
           "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases6]",
           "type": "Function",
-          "lineno": 159
+          "lineno": 153
         }
       ]
     },
@@ -94,7 +94,7 @@
   "tests": [
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases0]",
@@ -105,7 +105,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.005210799998167204,
+        "duration": 0.0014871000312268734,
         "outcome": "passed",
         "stdout": "setup_class\nsetup_method\n"
       },
@@ -121,22 +121,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.4860573000005388,
+        "duration": 0.5230959999607876,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            0,
+            0
+          ]
+        },
+        {
+          "idx_main": 0
+        },
+        {
+          "idx_sub": 0
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.30092787742614746
+        },
+        {
+          "exec_time_student": 0.22229385375976562
+        }
+      ],
       "teardown": {
-        "duration": 0.0009730000019771978,
+        "duration": 0.0005963000003248453,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases1]",
@@ -147,7 +170,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0008746000021346845,
+        "duration": 0.0006794999935664237,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
@@ -163,22 +186,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.005220899998676032,
+        "duration": 0.004185400030110031,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            0,
+            1
+          ]
+        },
+        {
+          "idx_main": 0
+        },
+        {
+          "idx_sub": 1
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.0
+        },
+        {
+          "exec_time_student": 0.0
+        }
+      ],
       "teardown": {
-        "duration": 0.0004764000004797708,
+        "duration": 0.0004706000327132642,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases2]",
@@ -189,7 +235,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0006085999993956648,
+        "duration": 0.0007156999781727791,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
@@ -205,22 +251,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.00038249999852268957,
+        "duration": 0.0004385999636724591,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            0,
+            2
+          ]
+        },
+        {
+          "idx_main": 0
+        },
+        {
+          "idx_sub": 2
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.0
+        },
+        {
+          "exec_time_student": 0.0
+        }
+      ],
       "teardown": {
-        "duration": 0.0003894000001309905,
+        "duration": 0.0004208999453112483,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases3]",
@@ -231,7 +300,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0005734000005759299,
+        "duration": 0.0006509999511763453,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
@@ -247,22 +316,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.0005722999994759448,
+        "duration": 0.0003963999915868044,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            0,
+            3
+          ]
+        },
+        {
+          "idx_main": 0
+        },
+        {
+          "idx_sub": 3
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.0
+        },
+        {
+          "exec_time_student": 0.0
+        }
+      ],
       "teardown": {
-        "duration": 0.00038779999886173755,
+        "duration": 0.0004031999851576984,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases4]",
@@ -273,7 +365,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0005631999993056525,
+        "duration": 0.000624599982984364,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
@@ -289,22 +381,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.00037309999970602803,
+        "duration": 0.0005366000114008784,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            0,
+            4
+          ]
+        },
+        {
+          "idx_main": 0
+        },
+        {
+          "idx_sub": 4
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.0
+        },
+        {
+          "exec_time_student": 0.0
+        }
+      ],
       "teardown": {
-        "duration": 0.00038669999776175246,
+        "duration": 0.00039519998244941235,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases5]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases5]",
@@ -315,7 +430,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.000562299999728566,
+        "duration": 0.0006340999971143901,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
@@ -331,22 +446,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.3912242999977025,
+        "duration": 0.41560670000035316,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            1,
+            0
+          ]
+        },
+        {
+          "idx_main": 1
+        },
+        {
+          "idx_sub": 0
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.21200037002563477
+        },
+        {
+          "exec_time_student": 0.20308613777160645
+        }
+      ],
       "teardown": {
-        "duration": 0.0007839999998395797,
+        "duration": 0.0008381000370718539,
         "outcome": "passed",
         "stdout": "teardown_method\n"
       }
     },
     {
       "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases6]",
-      "lineno": 159,
+      "lineno": 153,
       "outcome": "passed",
       "keywords": [
         "test_entrypoint[testcases6]",
@@ -357,7 +495,7 @@
         "catester"
       ],
       "setup": {
-        "duration": 0.0007575000017823186,
+        "duration": 0.0009295000345446169,
         "outcome": "passed",
         "stdout": "setup_method\n"
       },
@@ -373,39 +511,45 @@
         "failure_message": null,
         "success_message": null,
         "verbosity": null,
-        "store_graphics_artefacts": true,
+        "store_graphics_artefacts": false,
         "competency": null
       },
       "call": {
-        "duration": 0.00029240000003483146,
+        "duration": 0.00031269999453797936,
         "outcome": "passed"
       },
+      "user_properties": [
+        {
+          "testcases": [
+            1,
+            1
+          ]
+        },
+        {
+          "idx_main": 1
+        },
+        {
+          "idx_sub": 1
+        },
+        {
+          "main": "Matplot.py"
+        },
+        {
+          "exec_time_reference": 0.0
+        },
+        {
+          "exec_time_student": 0.0
+        }
+      ],
       "teardown": {
-        "duration": 0.0005724000002373941,
+        "duration": 0.0005076999659650028,
         "outcome": "passed",
-        "stdout": "teardown_method\nteardown\nteardown_class\n"
+        "stdout": "teardown_method\nteardown_class\n"
       }
     }
   ],
-  "_duration": 1.5899367332458496,
-  "_metadata": {
-    "Python": "3.10.11",
-    "Platform": "Windows-10-10.0.19045-SP0",
-    "Packages": {
-      "pytest": "7.4.3",
-      "pluggy": "1.3.0"
-    },
-    "Plugins": {
-      "json-report": "1.5.0",
-      "metadata": "3.0.0"
-    },
-    "specyamlfile": "i:\\PYTHON\\catester\\examples\\ex1\\specification.yaml",
-    "testyamlfile": "i:\\PYTHON\\catester\\examples\\ex1\\test3.yaml"
-  },
-  "_timestamp": "2024-01-08 16:42:31.674012",
-  "_type": "python",
-  "_version": "1.0",
-  "_name": "Python Test suite",
+  "_duration": 1.7128217220306396,
+  "_timestamp": "2024-01-15 11:53:50.611181",
   "_status": "COMPLETED",
   "_result": "0",
   "_tests": [
