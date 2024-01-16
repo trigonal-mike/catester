@@ -10,7 +10,9 @@ from matplotlib import pyplot as plt
 import random
 from enum import Enum
 
-from model import CodeAbilitySpecification, CodeAbilityTestSuite, CodeAbilityTestCollection, CodeAbilityTest
+from model import CodeAbilitySpecification, CodeAbilityTestSuite
+from model import CodeAbilityTestCollection, CodeAbilityTest
+from model import TypeEnum, QualificationEnum
 from .conftest import testsuite_key
 from .conftest import specification_key
 from .conftest import report_key
@@ -233,35 +235,39 @@ class CodeabilityPythonTest:
         store_graphics_artefacts = get_inherited_property("storeGraphicsArtefacts", ancestors_main, False)
 
         #not needed here:
-        #failure_message = get_inherited_property("failureMessage", ancestors_sub, None)
-        #success_message = get_inherited_property("successMessage", ancestors_sub, None)
         #verbosity = get_inherited_property("verbosity", ancestors_sub, None)
         #competency = get_inherited_property("competency", ancestors_main, None)
 
-        # Get student solution, measure execution time
+        """ Get solutions, measure execution time """
         solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
         record_property("exec_time_reference", exec_time_reference)
         solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
         record_property("exec_time_student", exec_time_student)
 
-        # if test is graphics => get saved graphics object as solution
-        if testtype == "graphics":
+        """ if test is graphics => get saved graphics object as solution """
+        if testtype == TypeEnum.graphics:
             solution_student = solution_student["_graphics_object_"]
             solution_reference = solution_reference["_graphics_object_"]
 
-        if testtype in ["variable", "graphics", "error", "warning", "help"]:
-            # student value
+        if testtype in [
+            TypeEnum.variable,
+            TypeEnum.graphics,
+            TypeEnum.error,
+            TypeEnum.warning,
+            TypeEnum.help,
+        ]:
+            """ get the student value """
             if name in solution_student:
                 val_student = solution_student[name]
             else:
-                # value not found, try eval
+                """ value not found, try eval """
                 try:
                     val_student = eval(name, solution_student)
                 except Exception as e:
                     raise AssertionError(f"Variable {name} not found in student namespace")
 
-            if qualification == "verifyEqual":
-                # reference value
+            if qualification == QualificationEnum.verifyEqual:
+                """ get the reference value """
                 if value is not None:
                     val_reference = value
                 elif evalString is not None:
@@ -278,10 +284,12 @@ class CodeabilityPythonTest:
                         except Exception as e:
                             raise AssertionError(f"Variable {name} not found in reference namespace")
                 
+                """ assert variable-type """
                 type_student = type(val_student)
                 type_reference = type(val_reference)
                 assert type_student == type_reference, f"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}"
 
+                """ assert variable-value """
                 failure_msg = f"Variable {name} has incorrect value"
                 if isinstance(val_student, (str, set, frozenset)):
                     assert val_student == val_reference, failure_msg
@@ -295,29 +303,29 @@ class CodeabilityPythonTest:
                 else:
                     """attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' """
                     assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
-            elif qualification == "matches":
+            elif qualification == QualificationEnum.matches:
                 assert str(val_student) == pattern, f"Variable {name} does not match the specified pattern {pattern}"
-            elif qualification == "contains":
+            elif qualification == QualificationEnum.c:
                 assert str(val_student).find(pattern) > -1, f"Variable {name} does not contain the specified pattern {pattern}"
-            elif qualification == "startsWith":
+            elif qualification == QualificationEnum.startsWith:
                 assert str(val_student).startswith(pattern), f"Variable {name} does not start with the specified pattern {pattern}"
-            elif qualification == "endsWith":
+            elif qualification == QualificationEnum.endsWith:
                 assert str(val_student).endswith(pattern), f"Variable {name} does not end with the specified pattern {pattern}"
-            elif qualification == "count":
+            elif qualification == QualificationEnum.count:
                 assert str(val_student).count(pattern) == countRequirement, f"Variable {name} does not contain the specified pattern {pattern} {countRequirement}-times"
-            elif qualification == "regexp":
+            elif qualification == QualificationEnum.regexp:
                 result = re.match(re.compile(fr"{pattern}"), str(val_student))
                 assert result is not None, f"Variable {name} does not match the compiled regular expression from the specified pattern {pattern}"
-            elif qualification == "verification":
+            elif qualification == QualificationEnum.verification:
                 # not implemented yet
                 pass
-        elif testtype == "structural":
+        elif testtype == TypeEnum.structural:
             # not implemented yet
             pass
-        elif testtype == "linting":
+        elif testtype == TypeEnum.linting:
             # not implemented yet
             pass
-        elif testtype == "exist":
+        elif testtype == TypeEnum.exist:
             assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
             assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
         else:

@@ -64,11 +64,11 @@ def run_tests():
     ])
     options.extend([
         #"--collect-only",
-        #"--no-summary",
+        "--no-summary",
         #"--no-header",
-        #"--verbose",
+        "--verbose",
         #"-v",
-        #"-q",
+        "-q",
     ])
 
     # run as a subprocess
