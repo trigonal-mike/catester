@@ -203,6 +203,8 @@ def pytest_sessionfinish(session):
     reportfile = session.config.stash[reportfile_key]
     environment = session.config.stash[metadata_key]
     report = session.config.stash[report_key]
+    testsuite: CodeAbilityTestSuite = session.config.stash[testsuite_key]
+
     total = report["summary"]["total"]
     success = 0
     failed = 0
@@ -210,6 +212,7 @@ def pytest_sessionfinish(session):
     time_r = 0.0
     time_s = 0.0
     for idx_main, main in enumerate(report["tests"]):
+        test_main = testsuite.properties.tests[idx_main]
         sub_total = main["summary"]["total"]
         sub_success = 0
         sub_failed = 0
@@ -217,19 +220,23 @@ def pytest_sessionfinish(session):
         sub_time_r = 0.0
         sub_time_s = 0.0
         for idx_sub, sub in enumerate(main["tests"]):
+            test_sub = test_main.tests[idx_sub]
             sub_time_r = sub_time_r + sub["executionDurationReference"]
             sub_time_s = sub_time_s + sub["executionDurationStudent"]
             del sub["executionDurationReference"]
             del sub["executionDurationStudent"]
             if sub["result"] == TestResult.passed:
                 sub_success = sub_success + 1
-                sub["resultMessage"] = "Tests passed (sub)"
+                result_message = test_sub.successMessage
             elif sub["result"] == TestResult.failed:
                 sub_failed = sub_failed + 1
-                sub["resultMessage"] = "Tests failed (sub)"
+                result_message = test_sub.failureMessage
             elif sub["result"] == TestResult.skipped:
                 sub_skipped = sub_skipped + 1
-                sub["resultMessage"] = "Tests skipped (sub)"
+                result_message = "Test skipped"
+            else:
+                result_message = "...unknown..."
+            sub["resultMessage"] = result_message
         time_r = time_r + sub_time_r
         time_s = time_s + sub_time_s
         main["executionDurationReference"] = sub_time_r
@@ -239,30 +246,32 @@ def pytest_sessionfinish(session):
         main["summary"]["skipped"] = sub_skipped
         main["status"] = TestStatus.completed
         if sub_success == sub_total:
-            main["result"] = TestResult.passed
-            main["resultMessage"] = "Tests passed (main)"
             success = success + 1
+            main["result"] = TestResult.passed
+            result_message = test_main.successMessage
         elif sub_skipped > 0:
-            main["result"] = TestResult.skipped
-            main["resultMessage"] = "Tests skipped (main)"
             skipped = skipped + 1
+            main["result"] = TestResult.skipped
+            result_message = "Tests skipped"
         else:
-            main["result"] = TestResult.failed
-            main["resultMessage"] = "Tests failed (main)"
             failed = failed + 1
+            main["result"] = TestResult.failed
+            result_message = test_main.failureMessage
+        main["resultMessage"] = result_message
     report["summary"]["success"] = success
     report["summary"]["skipped"] = skipped
     report["summary"]["failed"] = failed
     report["status"] = TestStatus.completed
     if success == total:
         report["result"] = TestResult.passed
-        report["resultMessage"] = "Tests passed"
+        result_message = testsuite.properties.successMessage
     elif skipped == total:
         report["result"] = TestResult.skipped
-        report["resultMessage"] = "Tests skipped"
+        result_message = "Tests skipped"
     else:
         report["result"] = TestResult.failed
-        report["resultMessage"] = "Tests failed"
+        result_message = testsuite.properties.failureMessage
+    report["resultMessage"] = result_message
     report["environment"] = environment
     report["executionDurationReference"] = time_r
     report["executionDurationStudent"] = time_s
@@ -285,6 +294,8 @@ def pytest_sessionfinish(session):
     """
 
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
+    terminalreporter.ensure_newline()
+    terminalreporter.section('My custom section', sep='#', blue=True, bold=True)
     terminalreporter.line("...something else...")
     pass
     #reports = terminalreporter.getreports('')

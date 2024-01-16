@@ -1,27 +1,44 @@
 properties:
   qualification: verifyEqual
-  successMessage: Tests passed
-  failureMessage: Tests failed
+  successMessage: All Tests passed
+  failureMessage: Some or all Tests failed
   tests:
+    - name: Test Basic 0
+      type: variable
+      entryPoint: "Test.py"
+      successMessage: Test Basic 0 Tests passed
+      failureMessage: Test Basic 0 Tests failed
+      tests:
+        - name: "var3"
+          successMessage: var3 Test passed
+          failureMessage: var3 Test failed
     - name: Test Basic 1
       type: variable
-      id: "0"
+      id: "1"
       entryPoint: "Test.py"
+      successMessage: Test Basic 1 Tests passed
+      failureMessage: Test Basic 1 Tests failed
       tests:
         - name: "var1"
+          successMessage: var1 Test passed
+          failureMessage: var1 Test failed
         - name: "var2"
+          successMessage: var2 Test passed
+          failureMessage: var2 Test failed
         - name: "var3"
+          successMessage: var3 Test passed
+          failureMessage: var3 Test failed
     - name: Test Basic 2
       type: variable
       entryPoint: "crash.py"
-      successDependency: "0"
+      successDependency: "1"
       tests:
         - name: "var1"
           value: 1
     - name: Test Basic 2
       type: variable
       entryPoint: "timeout.py"
-      successDependency: ["0", "1"]
+      successDependency: ["1", "2"]
       tests:
         - name: "var1"
           value: 1

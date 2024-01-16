@@ -77,11 +77,19 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         teardown_code = get_property_as_list(main.tearDownCode)
         setup_code_dependency = main.setUpCodeDependency
 
-        """ remember old working directory """ 
+        """ remember old working directory """
         dir_old = os.getcwd()
+
+        """ add test-directory to paths """
         sys.path.append(test_directory)
+
+        """ change into solution-directory student | reference """
         os.chdir(_dir)
+
+        """ close all open figures """
         plt.close("all")
+
+        """ seed the random generator """
         random.seed(1)
 
         """ Override/Disable certain methods """ 
@@ -91,11 +99,11 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         #mm.setattr(time, "time", lambda: 999)
         mm.setattr(plt, "show", lambda *x: None)
 
-        """ start solution with empty namespace """ 
+        """ start solution with empty namespace """
         namespace = {}
 
         if setup_code_dependency is not None:
-            """ start solution with prior solution """ 
+            """ start solution with prior solution """
             try:
                 namespace = globals()["solutions"][setup_code_dependency][where]
             except Exception as e:
@@ -104,11 +112,14 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
                 raise
 
         if entry_point is not None:
+            """ try execute the solution """
             file = os.path.join(_dir, entry_point)
             if not os.path.exists(file):
                 if where == Solution.student:
+                    """ only raise if student entry point is not found """
                     raise FileNotFoundError(f"entryPoint {entry_point} not found")
             else:
+                """ measure execution time """
                 start_time = time.time()
                 #otherwise time gets converted to zero, hmmm?
                 time.sleep(0.00000001)
@@ -138,21 +149,26 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
                         value = eval(fun2eval)
                         namespace["_graphics_object_"][name] = value
 
-        # run setup-code
+        """ run setup-code """
         execute_code_list(setup_code, namespace)
-        # run teardown-code
+
+        """ run teardown-code """
         execute_code_list(teardown_code, namespace)
 
-        # change back to where we were before
+        """ close all open figures """
         plt.close("all")
+
+        """ change back to where we were before """
         os.chdir(dir_old)
+
+        """ remove test-directory from paths """
         sys.path.remove(test_directory)
 
         globals()["solutions"][id][where] = namespace
     return globals()["solutions"][id][where], exec_time
 
 class CodeabilityPythonTest:
-    """this class gets tested"""
+    """ this class gets tested """
     # hooks for setup/teardown
     # currently not used
     # teardown also possible with fixtures and code after yield statement (see conftest.py)
@@ -179,7 +195,7 @@ class CodeabilityPythonTest:
     def test_entrypoint(self, request, record_property, monkeymodule, testcases):
         idx_main, idx_sub = testcases
 
-        report: CodeAbilityTestSuite = request.config.stash[report_key]
+        report: any = request.config.stash[report_key]
         testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]
         specification: CodeAbilitySpecification = request.config.stash[specification_key]
 
@@ -277,7 +293,7 @@ class CodeabilityPythonTest:
                     except AssertionError as e:
                         raise AssertionError(failure_msg)
                 else:
-                    """attention: pytest.approx() does not support nested data structures"""
+                    """attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' """
                     assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
             elif qualification == "matches":
                 assert str(val_student) == pattern, f"Variable {name} does not match the specified pattern {pattern}"
