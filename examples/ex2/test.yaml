@@ -3,19 +3,16 @@ properties:
   successMessage: All Tests passed
   failureMessage: Some or all Tests failed
   tests:
-    - name: Test Basic 0
+    - name: Test timeout
       type: variable
-      entryPoint: "Test.py"
-      successMessage: Test Basic 0 Tests passed
-      failureMessage: Test Basic 0 Tests failed
+      entryPoint: "timeout.py"
       tests:
-        - name: "var3"
-          successMessage: var3 Test passed
-          failureMessage: var3 Test failed
-    - name: Test Basic 1
+        - name: "var1"
+          value: 1
+    - name: Test variables
       type: variable
-      id: "1"
       entryPoint: "Test.py"
+      #successDependency: "0"
       successMessage: Test Basic 1 Tests passed
       failureMessage: Test Basic 1 Tests failed
       tests:
@@ -28,17 +25,10 @@ properties:
         - name: "var3"
           successMessage: var3 Test passed
           failureMessage: var3 Test failed
-    - name: Test Basic 2
+    - name: Test crash
       type: variable
       entryPoint: "crash.py"
-      successDependency: "1"
-      tests:
-        - name: "var1"
-          value: 1
-    - name: Test Basic 2
-      type: variable
-      entryPoint: "timeout.py"
-      successDependency: ["1", "2"]
+      successDependency: ["0", "1"]
       tests:
         - name: "var1"
           value: 1

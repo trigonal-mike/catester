@@ -170,6 +170,9 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test["status"] = TestStatus.completed
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
+        longrepr_old = _report.longrepr
+        _report.longrepr = f"Test ({idx_main},{idx_sub}) failed"
+        test["longrepr"] = longrepr_old
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
@@ -186,6 +189,9 @@ def pytest_runtest_call(item: pytest.Item) -> None:
 def pytest_runtest_teardown(item: pytest.Item, nextitem: pytest.Item) -> None:
     pass
 
+def pytest_keyboard_interrupt(excinfo: pytest.ExceptionInfo) -> None:
+    pass
+
 # Following 3 hooks form JSON-Report
 # https://pypi.org/project/pytest-json-report/
 def pytest_json_runtest_stage(report):
@@ -199,6 +205,9 @@ def pytest_json_modifyreport(json_report):
 
 def pytest_sessionfinish(session):
     json_report = session.config._json_report.report
+    duration = json_report['duration']
+    exit_code = json_report['exitcode']
+
     indent = session.config.option.json_report_indent
     reportfile = session.config.stash[reportfile_key]
     environment = session.config.stash[metadata_key]
@@ -221,10 +230,11 @@ def pytest_sessionfinish(session):
         sub_time_s = 0.0
         for idx_sub, sub in enumerate(main["tests"]):
             test_sub = test_main.tests[idx_sub]
-            sub_time_r = sub_time_r + sub["executionDurationReference"]
-            sub_time_s = sub_time_s + sub["executionDurationStudent"]
-            del sub["executionDurationReference"]
-            del sub["executionDurationStudent"]
+            if "executionDurationReference" in sub and "executionDurationStudent" in sub:
+                sub_time_r = sub_time_r + sub["executionDurationReference"]
+                sub_time_s = sub_time_s + sub["executionDurationStudent"]
+                del sub["executionDurationReference"]
+                del sub["executionDurationStudent"]
             if sub["result"] == TestResult.passed:
                 sub_success = sub_success + 1
                 result_message = test_sub.successMessage
@@ -261,7 +271,12 @@ def pytest_sessionfinish(session):
     report["summary"]["success"] = success
     report["summary"]["skipped"] = skipped
     report["summary"]["failed"] = failed
-    report["status"] = TestStatus.completed
+
+    if exit_code == pytest.ExitCode.INTERRUPTED:
+        report["status"] = TestStatus.cancelled
+    else:
+        report["status"] = TestStatus.completed
+
     if success == total:
         report["result"] = TestResult.passed
         result_message = testsuite.properties.successMessage
@@ -271,18 +286,19 @@ def pytest_sessionfinish(session):
     else:
         report["result"] = TestResult.failed
         result_message = testsuite.properties.failureMessage
+
     report["resultMessage"] = result_message
     report["environment"] = environment
     report["executionDurationReference"] = time_r
     report["executionDurationStudent"] = time_s
-    report["duration"] = json_report['duration']
-    report['exit_code'] = str(json_report['exitcode'])
-    report['json_report'] = json_report
+    report["duration"] = duration
+    report['exit_code'] = str(exit_code)
+    report['_json_report_output_'] = json_report
 
     with open(reportfile, 'w', encoding='utf-8') as file:
-        json.dump(report,file,default=str,indent=indent)
+        json.dump(report, file, default=str, indent=indent)
 
-    print('\nexited with', json_report['exitcode'])
+    #print('\nexited with', json_report['exitcode'])
     """exit codes:
     https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.ExitCode
     OK = 0, Tests passed.

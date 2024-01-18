@@ -4,10 +4,10 @@ import re
 import sys
 import time
 import pytest
+import random
 import numpy as np
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
-import random
 from enum import Enum
 
 from model import CodeAbilitySpecification, CodeAbilityTestSuite
@@ -123,14 +123,20 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
             else:
                 """ measure execution time """
                 start_time = time.time()
-                #otherwise time gets converted to zero, hmmm?
-                time.sleep(0.00000001)
                 try:
                     execute_file(file, namespace)
+                except TimeoutError as e:
+                    print(f"TimeoutError: execute_file {file} failed")
+                    #print(e)
+                    raise
                 except Exception as e:
                     print(f"Exception: execute_file {file} failed")
-                    print(e)
+                    #print(e)
                     raise
+
+                #without follwing line, exec_time gets converted to zero, hmmm?
+                time.sleep(0.00000001)
+
                 exec_time = time.time() - start_time
                 if type == "graphics":
                     if store_graphics:

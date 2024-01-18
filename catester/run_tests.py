@@ -63,12 +63,13 @@ def run_tests():
         "--json-report",
     ])
     options.extend([
+        #"--full-trace",
         #"--collect-only",
-        "--no-summary",
+        #"--no-summary",
         #"--no-header",
-        "--verbose",
+        #"--verbose",
         #"-v",
-        "-q",
+        #"-q",
     ])
 
     # run as a subprocess
