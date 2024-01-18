@@ -4,15 +4,14 @@ import pytest
 from pydantic import ValidationError
 from model import parse_spec_file, parse_test_file
 import subprocess
-#if following line is not commented out => warning: PytestAssertRewriteWarning: Module already imported so cannot be rewritten: pytest_jsonreport
-#from pytest_jsonreport.plugin import JSONReport
-#plugin = JSONReport()
 
 def run_tests():
     #default filenames for testing/debugging purposes
     spec_yaml = "../examples/ex2/specification.yaml"
     test_yaml = "../examples/ex2/test.yaml"
     test_report = "report.json"
+    test_indent = 2
+    test_verbosity = 2
 
     dir = os.path.abspath(os.path.dirname(__file__))
     os.chdir(dir)
@@ -25,10 +24,15 @@ def run_tests():
     parser.add_argument("-s", "--specification", default=spec_yaml_resolved, help="specification yaml input file")
     parser.add_argument("-t", "--test", default=test_yaml_resolved, help="test yaml input file")
     parser.add_argument("-o", "--output", default=test_report, help="json report output file")
+    parser.add_argument("-i", "--indent", default=test_indent, help="json report output indentation in spaces")
+    parser.add_argument("-v", "--verbosity", default=test_verbosity, help="verbosity level 0, 1, 2 or 3")
+
     args = parser.parse_args()
     spec_yamlfile = args.specification
     test_yamlfile = args.test
     report_jsonfile = args.output
+    indent = args.indent
+    verbosity = args.verbosity
 
     #try parsing yaml-file:
     #it gets parsed in pytest as well
@@ -57,11 +61,12 @@ def run_tests():
     options.append(f"--specyamlfile={spec_yamlfile}")
     options.append(f"--testyamlfile={test_yamlfile}")
     options.append(f"--reportfile={report_jsonfile}")
-    options.extend([
-        f"--json-report-file={None}",
-        "--json-report-indent=2",
-        "--json-report",
-    ])
+    options.append(f"--indent={indent}")
+    #options.extend([
+    #    f"--json-report-file={None}",
+    #    "--json-report-indent=2",
+    #    "--json-report",
+    #])
     options.extend([
         #"--full-trace",
         #"--collect-only",

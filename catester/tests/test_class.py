@@ -10,13 +10,18 @@ from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 from enum import Enum
 
+#todo: check for UNIX based os, for using signal 
+from stopit import TimeoutException
+import platform
+if platform.system() == "Windows":
+    from stopit import ThreadingTimeout as Timeout, threading_timeoutable as timeoutable
+else:
+    from stopit import SignalTimeout as Timeout, signal_timeoutable as timeoutable
+
 from model import CodeAbilitySpecification, CodeAbilityTestSuite
 from model import CodeAbilityTestCollection, CodeAbilityTest
 from model import TypeEnum, QualificationEnum
-from .conftest import testsuite_key
-from .conftest import specification_key
-from .conftest import report_key
-from .conftest import TestResult
+from .conftest import report_key, TestResult
 
 class Solution(str, Enum):
     student = "student"
@@ -29,9 +34,11 @@ def execute_code_list(code_list, namespace):
     for code in code_list:
         execute_code(code, "", namespace)
 
+@timeoutable()
 def execute_file(filename, namespace):
     with open(filename, "r") as file:
         execute_code(file.read(), filename, namespace)
+    return 0
 
 def get_inherited_property(property, ancestors, default):
     for ancestor in ancestors:
@@ -124,11 +131,10 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
                 """ measure execution time """
                 start_time = time.time()
                 try:
-                    execute_file(file, namespace)
-                except TimeoutError as e:
-                    print(f"TimeoutError: execute_file {file} failed")
-                    #print(e)
-                    raise
+                    result = execute_file(file, namespace, timeout=2)
+                    if result == None:
+                        print(f"TimeoutError: execute_file {file} failed")
+                        raise TimeoutError()
                 except Exception as e:
                     print(f"Exception: execute_file {file} failed")
                     #print(e)
@@ -203,17 +209,14 @@ class CodeabilityPythonTest:
     def test_entrypoint(self, request, record_property, monkeymodule, testcases):
         idx_main, idx_sub = testcases
 
-        report: any = request.config.stash[report_key]
-        testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]
-        specification: CodeAbilitySpecification = request.config.stash[specification_key]
+        report: any = request.config.stash[report_key]["report"]
+        testsuite: CodeAbilityTestSuite = request.config.stash[report_key]["testsuite"]
+        specification: CodeAbilitySpecification = request.config.stash[report_key]["specification"]
 
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
 
         if not check_success_dependency(report, main.successDependency):
-            #raise TimeoutError(f"Dependency {main.successDependency} not satisfied")
-            #raise LookupError(f"Dependency {main.successDependency} not satisfied")
-            #raise RuntimeWarning(f"Dependency {main.successDependency} not satisfied")
             pytest.skip(f"Dependency {main.successDependency} not satisfied")
 
         dir_reference = specification.testInfo.referenceDirectory
@@ -245,10 +248,14 @@ class CodeabilityPythonTest:
         #competency = get_inherited_property("competency", ancestors_main, None)
 
         """ Get solutions, measure execution time """
-        solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
-        record_property("exec_time_reference", exec_time_reference)
-        solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
-        record_property("exec_time_student", exec_time_student)
+        try:
+            solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
+            record_property("exec_time_student", exec_time_student)
+            solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
+            record_property("exec_time_reference", exec_time_reference)
+        except TimeoutError as e:
+            record_property("timeout", True)
+            raise
 
         """ if test is graphics => get saved graphics object as solution """
         if testtype == TypeEnum.graphics:

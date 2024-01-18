@@ -1,9 +1,9 @@
 import json
 import os
 import datetime
+import time
 import pytest
 from enum import Enum
-from pathlib import Path
 from model import DIRECTORIES
 from model import parse_spec_file, parse_test_file
 from model import CodeAbilityTestSuite, CodeAbilitySpecification
@@ -23,28 +23,29 @@ class TestResult(str, Enum):
     skipped = "SKIPPED"
     timedout = "TIMEDOUT"
 
-reportfile_key = pytest.StashKey[str]()
 metadata_key = pytest.StashKey[dict]()
 report_key = pytest.StashKey[dict]()
-testcases_key = pytest.StashKey[list]()
-testsuite_key = pytest.StashKey[CodeAbilityTestSuite]()
-specification_key = pytest.StashKey[CodeAbilitySpecification]()
 
 def pytest_addoption(parser: pytest.Parser):
     parser.addoption(
         "--specyamlfile",
-        default="",
-        help="please provide a specification yamlfile",
+        default="specification.yaml",
+        help="specification yaml input file",
     )
     parser.addoption(
         "--testyamlfile",
-        default="",
-        help="please provide a test yamlfile",
+        default="test.yaml",
+        help="test yaml input file",
     )
     parser.addoption(
         "--reportfile",
         default="report.json",
-        help="please provide a json report filename",
+        help="json report output file",
+    )
+    parser.addoption(
+        "--indent",
+        default=2,
+        help="json report output indentation in spaces",
     )
 
 def pytest_metadata(metadata, config):
@@ -69,6 +70,7 @@ def pytest_configure(config: pytest.Config) -> None:
     specyamlfile = config.getoption("--specyamlfile")
     testyamlfile = config.getoption("--testyamlfile")
     reportfile = config.getoption("--reportfile")
+    indent = int(config.getoption("--indent"))
 
     # parse specification yaml-file, set paths to absolute, create directories
     specification = parse_spec_file(specyamlfile)
@@ -115,6 +117,7 @@ def pytest_configure(config: pytest.Config) -> None:
                 "success": 0,
                 "failed": 0,
                 "skipped": 0,
+                "timedout": 0,
             },
             "tests": sub_tests,
         })
@@ -134,22 +137,30 @@ def pytest_configure(config: pytest.Config) -> None:
         "environment": None,
         "properties": None,
         "debug": None,
+        "exitcode": None,
         "summary": {
             "total": len(testsuite.properties.tests),
             "success": 0,
             "failed": 0,
             "skipped": 0,
+            "timedout": 0,
         },
         "tests": main_tests,
     }
-    config.stash[reportfile_key] = reportfile
+    report = {
+        "report": report,
+        "testcases": testcases,
+        "testsuite": testsuite,
+        "specification": specification,
+        "reportfile": reportfile,
+        "indent": indent,
+        "created": time.time(),
+        "started": 0,
+    }
     config.stash[report_key] = report
-    config.stash[testcases_key] = testcases
-    config.stash[testsuite_key] = testsuite
-    config.stash[specification_key] = specification
 
 def pytest_generate_tests(metafunc):
-    metafunc.parametrize("testcases", metafunc.config.stash[testcases_key])
+    metafunc.parametrize("testcases", metafunc.config.stash[report_key]["testcases"])
 
 def get_item(haystack: list[tuple[str, object]], needle, default):
     for x, y in enumerate(haystack):
@@ -164,9 +175,14 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
     _report: pytest.TestReport = out.get_result()
     if _report.when == 'call':
         idx_main, idx_sub = item.callspec.params["testcases"]
-        report = item.config.stash[report_key]
+        report = item.config.stash[report_key]["report"]
+        timeout = get_item(item.user_properties, "timeout", False)
+        if timeout:
+            result = TestResult.timedout
+        else:
+            result = _report.outcome.upper()
         test = report["tests"][idx_main]["tests"][idx_sub]
-        test["result"] = _report.outcome.upper()
+        test["result"] = result
         test["status"] = TestStatus.completed
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
@@ -192,32 +208,37 @@ def pytest_runtest_teardown(item: pytest.Item, nextitem: pytest.Item) -> None:
 def pytest_keyboard_interrupt(excinfo: pytest.ExceptionInfo) -> None:
     pass
 
-# Following 3 hooks form JSON-Report
-# https://pypi.org/project/pytest-json-report/
-def pytest_json_runtest_stage(report):
-    pass
+# Following 3 hooks form JSON-Report, see: https://pypi.org/project/pytest-json-report/
+#def pytest_json_runtest_stage(report):
+#    pass
 
-def pytest_json_runtest_metadata(item, call):
-    pass
+#def pytest_json_runtest_metadata(item, call):
+#    pass
 
-def pytest_json_modifyreport(json_report):
-    pass
+#def pytest_json_modifyreport(json_report):
+#    pass
 
-def pytest_sessionfinish(session):
-    json_report = session.config._json_report.report
-    duration = json_report['duration']
-    exit_code = json_report['exitcode']
+def pytest_sessionstart(session: pytest.Session):
+    _report = session.config.stash[report_key]
+    _report["started"] = time.time()
 
-    indent = session.config.option.json_report_indent
-    reportfile = session.config.stash[reportfile_key]
+def pytest_sessionfinish(session: pytest.Session):
+    exitcode = session.exitstatus
     environment = session.config.stash[metadata_key]
-    report = session.config.stash[report_key]
-    testsuite: CodeAbilityTestSuite = session.config.stash[testsuite_key]
+    _report = session.config.stash[report_key]
+    report = _report["report"]
+    reportfile = _report["reportfile"]
+    indent = _report["indent"]
+    started = _report["started"]
+    testsuite: CodeAbilityTestSuite = _report["testsuite"]
+
+    duration = time.time() - started
 
     total = report["summary"]["total"]
     success = 0
     failed = 0
     skipped = 0
+    timedout = 0
     time_r = 0.0
     time_s = 0.0
     for idx_main, main in enumerate(report["tests"]):
@@ -226,6 +247,7 @@ def pytest_sessionfinish(session):
         sub_success = 0
         sub_failed = 0
         sub_skipped = 0
+        sub_timedout = 0
         sub_time_r = 0.0
         sub_time_s = 0.0
         for idx_sub, sub in enumerate(main["tests"]):
@@ -244,6 +266,9 @@ def pytest_sessionfinish(session):
             elif sub["result"] == TestResult.skipped:
                 sub_skipped = sub_skipped + 1
                 result_message = "Test skipped"
+            elif sub["result"] == TestResult.timedout:
+                sub_timedout = sub_timedout + 1
+                result_message = "Test timedout"
             else:
                 result_message = "...unknown..."
             sub["resultMessage"] = result_message
@@ -254,6 +279,7 @@ def pytest_sessionfinish(session):
         main["summary"]["success"] = sub_success
         main["summary"]["failed"] = sub_failed
         main["summary"]["skipped"] = sub_skipped
+        main["summary"]["timedout"] = sub_timedout
         main["status"] = TestStatus.completed
         if sub_success == sub_total:
             success = success + 1
@@ -263,6 +289,10 @@ def pytest_sessionfinish(session):
             skipped = skipped + 1
             main["result"] = TestResult.skipped
             result_message = "Tests skipped"
+        elif sub_timedout > 0:
+            timedout = timedout + 1
+            main["result"] = TestResult.timedout
+            result_message = "Tests timedout"
         else:
             failed = failed + 1
             main["result"] = TestResult.failed
@@ -271,8 +301,9 @@ def pytest_sessionfinish(session):
     report["summary"]["success"] = success
     report["summary"]["skipped"] = skipped
     report["summary"]["failed"] = failed
+    report["summary"]["timedout"] = timedout
 
-    if exit_code == pytest.ExitCode.INTERRUPTED:
+    if exitcode == pytest.ExitCode.INTERRUPTED:
         report["status"] = TestStatus.cancelled
     else:
         report["status"] = TestStatus.completed
@@ -292,13 +323,13 @@ def pytest_sessionfinish(session):
     report["executionDurationReference"] = time_r
     report["executionDurationStudent"] = time_s
     report["duration"] = duration
-    report['exit_code'] = str(exit_code)
-    report['_json_report_output_'] = json_report
+    report["exitcode"] = str(exitcode)
+    if hasattr(session.config, "_json_report"):
+        report['_json_report'] = session.config._json_report.report
 
     with open(reportfile, 'w', encoding='utf-8') as file:
         json.dump(report, file, default=str, indent=indent)
 
-    #print('\nexited with', json_report['exitcode'])
     """exit codes:
     https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.ExitCode
     OK = 0, Tests passed.

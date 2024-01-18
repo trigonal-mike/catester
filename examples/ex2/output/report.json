@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-01-18 10:26:45.524187",
+  "timestamp": "2024-01-18 19:53:19.782376",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -8,9 +8,9 @@
   "result": "FAILED",
   "resultMessage": "Some or all Tests failed",
   "details": null,
-  "duration": 6.277438640594482,
-  "executionDurationReference": 0.010342121124267578,
-  "executionDurationStudent": 5.041134357452393,
+  "duration": 11.135170936584473,
+  "executionDurationReference": 0.01684737205505371,
+  "executionDurationStudent": 0.015839099884033203,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -25,11 +25,13 @@
   },
   "properties": null,
   "debug": null,
+  "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
     "total": 3,
-    "success": 2,
-    "failed": 1,
-    "skipped": 0
+    "success": 1,
+    "failed": 0,
+    "skipped": 1,
+    "timedout": 1
   },
   "tests": [
     {
@@ -39,25 +41,34 @@
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
-      "result": "PASSED",
-      "resultMessage": null,
+      "result": "TIMEDOUT",
+      "resultMessage": "Tests timedout",
       "details": null,
       "executionDurationReference": 0.0,
-      "executionDurationStudent": 5.0259926319122314,
+      "executionDurationStudent": 0.0,
       "summary": {
-        "total": 1,
-        "success": 1,
+        "total": 2,
+        "success": 0,
         "failed": 0,
-        "skipped": 0
+        "skipped": 0,
+        "timedout": 2
       },
       "tests": [
         {
           "name": "var1",
           "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": null,
+          "result": "TIMEDOUT",
+          "resultMessage": "Test timedout",
           "details": null,
-          "longrepr": null
+          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x0000022973157610>, request = <FixtureRequest for <Function test_entrypoint[testcases0]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000002297315E200>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022973155390>, testcases = (0, 0)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        report: any = request.config.stash[report_key][\"report\"]\n        testsuite: CodeAbilityTestSuite = request.config.stash[report_key][\"testsuite\"]\n        specification: CodeAbilitySpecification = request.config.stash[report_key][\"specification\"]\n    \n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        if not check_success_dependency(report, main.successDependency):\n            pytest.skip(f\"Dependency {main.successDependency} not satisfied\")\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n        id = main.id if main.id is not None else str(idx_main + 1)\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        #options = sub.options\n        #verificationFunction = sub.verificationFunction\n    \n        ancestors_sub = [sub, main, testsuite.properties]\n        ancestors_main = [main, testsuite.properties]\n    \n        qualification = get_inherited_property(\"qualification\", ancestors_sub, None)\n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors_sub, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors_sub, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors_sub, None)\n        store_graphics_artefacts = get_inherited_property(\"storeGraphicsArtefacts\", ancestors_main, False)\n    \n        #not needed here:\n        #verbosity = get_inherited_property(\"verbosity\", ancestors_sub, None)\n        #competency = get_inherited_property(\"competency\", ancestors_main, None)\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n>           solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:252: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nmm = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022973155390>\nspecification = CodeAbilitySpecification(testInfo=CodeAbilityTestInfo(studentDirectory='i:\\\\PYTHON\\\\catester\\\\examples\\\\ex2\\\\student',...\\\\output', artefactDirectory='i:\\\\PYTHON\\\\catester\\\\examples\\\\ex2\\\\artefacts', studentTestCounter=2, testVersion='v1'))\nid = '1'\nmain = CodeAbilityTestCollection(qualification=None, relativeTolerance=None, absoluteTolerance=None, allowedOccuranceRange=No...one, successMessage=None, verbosity=None, name='var1', value=1, evalString=None, pattern=None, countRequirement=None)])\nwhere = <Solution.student: 'student'>, store_graphics = False\n\n    def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):\n        \"\"\"Calculate solution if not yet exists\"\"\"\n        exec_time = 0\n        if not \"solutions\" in globals():\n            globals()[\"solutions\"] = {}\n        if not id in globals()[\"solutions\"]:\n            globals()[\"solutions\"][id] = {}\n        if not where in globals()[\"solutions\"][id]:\n            test_info = specification.testInfo\n            test_directory = test_info.testDirectory\n            artefact_directory = test_info.artefactDirectory\n            _dir = test_info.studentDirectory if where == Solution.student else test_info.referenceDirectory\n    \n            type = main.type\n            entry_point = main.entryPoint\n            setup_code = get_property_as_list(main.setUpCode)\n            teardown_code = get_property_as_list(main.tearDownCode)\n            setup_code_dependency = main.setUpCodeDependency\n    \n            \"\"\" remember old working directory \"\"\"\n            dir_old = os.getcwd()\n    \n            \"\"\" add test-directory to paths \"\"\"\n            sys.path.append(test_directory)\n    \n            \"\"\" change into solution-directory student | reference \"\"\"\n            os.chdir(_dir)\n    \n            \"\"\" close all open figures \"\"\"\n            plt.close(\"all\")\n    \n            \"\"\" seed the random generator \"\"\"\n            random.seed(1)\n    \n            \"\"\" Override/Disable certain methods \"\"\"\n            #mm.setattr(random, \"seed\", lambda *x: None)\n            #mm.setattr(os, \"getcwd\", lambda: \"xxx\")\n            #mm.setattr(time, \"sleep\", lambda x: None)\n            #mm.setattr(time, \"time\", lambda: 999)\n            mm.setattr(plt, \"show\", lambda *x: None)\n    \n            \"\"\" start solution with empty namespace \"\"\"\n            namespace = {}\n    \n            if setup_code_dependency is not None:\n                \"\"\" start solution with prior solution \"\"\"\n                try:\n                    namespace = globals()[\"solutions\"][setup_code_dependency][where]\n                except Exception as e:\n                    print(f\"Exception: setUpCodeDependency {setup_code_dependency} not found\")\n                    print(e)\n                    raise\n    \n            if entry_point is not None:\n                \"\"\" try execute the solution \"\"\"\n                file = os.path.join(_dir, entry_point)\n                if not os.path.exists(file):\n                    if where == Solution.student:\n                        \"\"\" only raise if student entry point is not found \"\"\"\n                        raise FileNotFoundError(f\"entryPoint {entry_point} not found\")\n                else:\n                    \"\"\" measure execution time \"\"\"\n                    start_time = time.time()\n                    try:\n                        result = execute_file(file, namespace, timeout=2)\n                        if result == None:\n                            print(f\"TimeoutError: execute_file {file} failed\")\n>                           raise TimeoutError()\nE                           TimeoutError\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:137: TimeoutError"
+        },
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "TIMEDOUT",
+          "resultMessage": "Test timedout",
+          "details": null,
+          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x0000022973157850>, request = <FixtureRequest for <Function test_entrypoint[testcases1]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000002297315E170>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x000002297321F070>, testcases = (0, 1)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        report: any = request.config.stash[report_key][\"report\"]\n        testsuite: CodeAbilityTestSuite = request.config.stash[report_key][\"testsuite\"]\n        specification: CodeAbilitySpecification = request.config.stash[report_key][\"specification\"]\n    \n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        if not check_success_dependency(report, main.successDependency):\n            pytest.skip(f\"Dependency {main.successDependency} not satisfied\")\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n        id = main.id if main.id is not None else str(idx_main + 1)\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        #options = sub.options\n        #verificationFunction = sub.verificationFunction\n    \n        ancestors_sub = [sub, main, testsuite.properties]\n        ancestors_main = [main, testsuite.properties]\n    \n        qualification = get_inherited_property(\"qualification\", ancestors_sub, None)\n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors_sub, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors_sub, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors_sub, None)\n        store_graphics_artefacts = get_inherited_property(\"storeGraphicsArtefacts\", ancestors_main, False)\n    \n        #not needed here:\n        #verbosity = get_inherited_property(\"verbosity\", ancestors_sub, None)\n        #competency = get_inherited_property(\"competency\", ancestors_main, None)\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n>           solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:252: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nmm = <_pytest.monkeypatch.MonkeyPatch object at 0x000002297321F070>\nspecification = CodeAbilitySpecification(testInfo=CodeAbilityTestInfo(studentDirectory='i:\\\\PYTHON\\\\catester\\\\examples\\\\ex2\\\\student',...\\\\output', artefactDirectory='i:\\\\PYTHON\\\\catester\\\\examples\\\\ex2\\\\artefacts', studentTestCounter=2, testVersion='v1'))\nid = '1'\nmain = CodeAbilityTestCollection(qualification=None, relativeTolerance=None, absoluteTolerance=None, allowedOccuranceRange=No...one, successMessage=None, verbosity=None, name='var1', value=1, evalString=None, pattern=None, countRequirement=None)])\nwhere = <Solution.student: 'student'>, store_graphics = False\n\n    def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):\n        \"\"\"Calculate solution if not yet exists\"\"\"\n        exec_time = 0\n        if not \"solutions\" in globals():\n            globals()[\"solutions\"] = {}\n        if not id in globals()[\"solutions\"]:\n            globals()[\"solutions\"][id] = {}\n        if not where in globals()[\"solutions\"][id]:\n            test_info = specification.testInfo\n            test_directory = test_info.testDirectory\n            artefact_directory = test_info.artefactDirectory\n            _dir = test_info.studentDirectory if where == Solution.student else test_info.referenceDirectory\n    \n            type = main.type\n            entry_point = main.entryPoint\n            setup_code = get_property_as_list(main.setUpCode)\n            teardown_code = get_property_as_list(main.tearDownCode)\n            setup_code_dependency = main.setUpCodeDependency\n    \n            \"\"\" remember old working directory \"\"\"\n            dir_old = os.getcwd()\n    \n            \"\"\" add test-directory to paths \"\"\"\n            sys.path.append(test_directory)\n    \n            \"\"\" change into solution-directory student | reference \"\"\"\n            os.chdir(_dir)\n    \n            \"\"\" close all open figures \"\"\"\n            plt.close(\"all\")\n    \n            \"\"\" seed the random generator \"\"\"\n            random.seed(1)\n    \n            \"\"\" Override/Disable certain methods \"\"\"\n            #mm.setattr(random, \"seed\", lambda *x: None)\n            #mm.setattr(os, \"getcwd\", lambda: \"xxx\")\n            #mm.setattr(time, \"sleep\", lambda x: None)\n            #mm.setattr(time, \"time\", lambda: 999)\n            mm.setattr(plt, \"show\", lambda *x: None)\n    \n            \"\"\" start solution with empty namespace \"\"\"\n            namespace = {}\n    \n            if setup_code_dependency is not None:\n                \"\"\" start solution with prior solution \"\"\"\n                try:\n                    namespace = globals()[\"solutions\"][setup_code_dependency][where]\n                except Exception as e:\n                    print(f\"Exception: setUpCodeDependency {setup_code_dependency} not found\")\n                    print(e)\n                    raise\n    \n            if entry_point is not None:\n                \"\"\" try execute the solution \"\"\"\n                file = os.path.join(_dir, entry_point)\n                if not os.path.exists(file):\n                    if where == Solution.student:\n                        \"\"\" only raise if student entry point is not found \"\"\"\n                        raise FileNotFoundError(f\"entryPoint {entry_point} not found\")\n                else:\n                    \"\"\" measure execution time \"\"\"\n                    start_time = time.time()\n                    try:\n                        result = execute_file(file, namespace, timeout=2)\n                        if result == None:\n                            print(f\"TimeoutError: execute_file {file} failed\")\n>                           raise TimeoutError()\nE                           TimeoutError\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:137: TimeoutError"
         }
       ]
     },
@@ -71,13 +82,14 @@
       "result": "PASSED",
       "resultMessage": "Test Basic 1 Tests passed",
       "details": null,
-      "executionDurationReference": 0.010342121124267578,
-      "executionDurationStudent": 0.015141725540161133,
+      "executionDurationReference": 0.01684737205505371,
+      "executionDurationStudent": 0.015839099884033203,
       "summary": {
         "total": 3,
         "success": 3,
         "failed": 0,
-        "skipped": 0
+        "skipped": 0,
+        "timedout": 0
       },
       "tests": [
         {
@@ -113,283 +125,32 @@
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
-      "result": "FAILED",
-      "resultMessage": null,
+      "result": "SKIPPED",
+      "resultMessage": "Tests skipped",
       "details": null,
       "executionDurationReference": 0.0,
       "executionDurationStudent": 0.0,
       "summary": {
         "total": 1,
         "success": 0,
-        "failed": 1,
-        "skipped": 0
+        "failed": 0,
+        "skipped": 1,
+        "timedout": 0
       },
       "tests": [
         {
           "name": "var1",
           "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
+          "result": "SKIPPED",
+          "resultMessage": "Test skipped",
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x000001FED3213B50>, request = <FixtureRequest for <Function test_entrypoint[testcases4]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000001FED322C550>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x000001FED32542B0>, testcases = (2, 0)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        report: any = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = request.config.stash[testsuite_key]\n        specification: CodeAbilitySpecification = request.config.stash[specification_key]\n    \n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        if not check_success_dependency(report, main.successDependency):\n            #raise TimeoutError(f\"Dependency {main.successDependency} not satisfied\")\n            #raise LookupError(f\"Dependency {main.successDependency} not satisfied\")\n            #raise RuntimeWarning(f\"Dependency {main.successDependency} not satisfied\")\n            pytest.skip(f\"Dependency {main.successDependency} not satisfied\")\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n        id = main.id if main.id is not None else str(idx_main + 1)\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        #options = sub.options\n        #verificationFunction = sub.verificationFunction\n    \n        ancestors_sub = [sub, main, testsuite.properties]\n        ancestors_main = [main, testsuite.properties]\n    \n        qualification = get_inherited_property(\"qualification\", ancestors_sub, None)\n        relative_tolerance = get_inherited_property(\"relativeTolerance\", ancestors_sub, 0)\n        absolute_tolerance = get_inherited_property(\"absoluteTolerance\", ancestors_sub, 0)\n        allowed_occuranceRange = get_inherited_property(\"allowedOccuranceRange\", ancestors_sub, None)\n        store_graphics_artefacts = get_inherited_property(\"storeGraphicsArtefacts\", ancestors_main, False)\n    \n        #not needed here:\n        #verbosity = get_inherited_property(\"verbosity\", ancestors_sub, None)\n        #competency = get_inherited_property(\"competency\", ancestors_main, None)\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)\n        record_property(\"exec_time_reference\", exec_time_reference)\n>       solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:250: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:127: in get_solution\n    execute_file(file, namespace)\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:34: in execute_file\n    execute_code(file.read(), filename, namespace)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\ncode = 'jskf\u00c3\u00b6', filename = 'i:\\\\PYTHON\\\\catester\\\\examples\\\\ex2\\\\student\\\\crash.py', namespace = {}\n\n    def execute_code(code, filename, namespace):\n>       exec(compile(code, filename, \"exec\"), namespace)\nE         File \"i:\\PYTHON\\catester\\examples\\ex2\\student\\crash.py\", line 1\nE           jskf\u00c3\u00b6\nE                ^\nE       SyntaxError: invalid character '\u00b6' (U+00B6)\n\ni:\\PYTHON\\catester\\catester\\tests\\test_class.py:26: SyntaxError"
+          "longrepr": [
+            "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            220,
+            "Skipped: Dependency ['0', '1'] not satisfied"
+          ]
         }
       ]
     }
-  ],
-  "exit_code": "ExitCode.TESTS_FAILED",
-  "_json_report_output_": {
-    "created": 1705570011.8151617,
-    "duration": 6.277438640594482,
-    "exitcode": 1,
-    "root": "i:\\PYTHON\\catester\\catester",
-    "environment": {},
-    "summary": {
-      "passed": 4,
-      "failed": 1,
-      "total": 5,
-      "collected": 5
-    },
-    "collectors": [
-      {
-        "nodeid": "",
-        "outcome": "passed",
-        "result": [
-          {
-            "nodeid": "model/__init__.py",
-            "type": "Package"
-          },
-          {
-            "nodeid": "tests/__init__.py",
-            "type": "Package"
-          }
-        ]
-      },
-      {
-        "nodeid": "model/__init__.py",
-        "outcome": "passed",
-        "result": []
-      },
-      {
-        "nodeid": "tests/test_class.py::CodeabilityPythonTest",
-        "outcome": "passed",
-        "result": [
-          {
-            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
-            "type": "Function",
-            "lineno": 202
-          },
-          {
-            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
-            "type": "Function",
-            "lineno": 202
-          },
-          {
-            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
-            "type": "Function",
-            "lineno": 202
-          },
-          {
-            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
-            "type": "Function",
-            "lineno": 202
-          },
-          {
-            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
-            "type": "Function",
-            "lineno": 202
-          }
-        ]
-      },
-      {
-        "nodeid": "tests/test_class.py",
-        "outcome": "passed",
-        "result": [
-          {
-            "nodeid": "tests/test_class.py::CodeabilityPythonTest",
-            "type": "Class"
-          }
-        ]
-      },
-      {
-        "nodeid": "tests/__init__.py",
-        "outcome": "passed",
-        "result": [
-          {
-            "nodeid": "tests/test_class.py",
-            "type": "Module"
-          }
-        ]
-      }
-    ],
-    "tests": [
-      {
-        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
-        "lineno": 202,
-        "outcome": "passed",
-        "keywords": [
-          "test_entrypoint[testcases0]",
-          "testcases0",
-          "CodeabilityPythonTest",
-          "test_class.py",
-          "tests/__init__.py",
-          "catester"
-        ],
-        "setup": {
-          "duration": 0.001132100005634129,
-          "outcome": "passed"
-        },
-        "call": {
-          "duration": 5.027309800032526,
-          "outcome": "passed",
-          "longrepr": "Test (0,0) failed"
-        },
-        "user_properties": [
-          {
-            "exec_time_reference": 0
-          },
-          {
-            "exec_time_student": 5.0259926319122314
-          }
-        ],
-        "teardown": {
-          "duration": 0.0008233999833464622,
-          "outcome": "passed"
-        }
-      },
-      {
-        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
-        "lineno": 202,
-        "outcome": "passed",
-        "keywords": [
-          "test_entrypoint[testcases1]",
-          "testcases1",
-          "CodeabilityPythonTest",
-          "test_class.py",
-          "tests/__init__.py",
-          "catester"
-        ],
-        "setup": {
-          "duration": 0.0012928999494761229,
-          "outcome": "passed"
-        },
-        "call": {
-          "duration": 0.026331500033847988,
-          "outcome": "passed",
-          "longrepr": "Test (1,0) failed"
-        },
-        "user_properties": [
-          {
-            "exec_time_reference": 0.010342121124267578
-          },
-          {
-            "exec_time_student": 0.015141725540161133
-          }
-        ],
-        "teardown": {
-          "duration": 0.0008134000236168504,
-          "outcome": "passed"
-        }
-      },
-      {
-        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
-        "lineno": 202,
-        "outcome": "passed",
-        "keywords": [
-          "test_entrypoint[testcases2]",
-          "testcases2",
-          "CodeabilityPythonTest",
-          "test_class.py",
-          "tests/__init__.py",
-          "catester"
-        ],
-        "setup": {
-          "duration": 0.0012889000354334712,
-          "outcome": "passed"
-        },
-        "call": {
-          "duration": 0.0007418000604957342,
-          "outcome": "passed",
-          "longrepr": "Test (1,1) failed"
-        },
-        "user_properties": [
-          {
-            "exec_time_reference": 0
-          },
-          {
-            "exec_time_student": 0
-          }
-        ],
-        "teardown": {
-          "duration": 0.0007688000332564116,
-          "outcome": "passed"
-        }
-      },
-      {
-        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
-        "lineno": 202,
-        "outcome": "passed",
-        "keywords": [
-          "test_entrypoint[testcases3]",
-          "testcases3",
-          "CodeabilityPythonTest",
-          "test_class.py",
-          "tests/__init__.py",
-          "catester"
-        ],
-        "setup": {
-          "duration": 0.0012252000160515308,
-          "outcome": "passed"
-        },
-        "call": {
-          "duration": 0.0006750999018549919,
-          "outcome": "passed",
-          "longrepr": "Test (1,2) failed"
-        },
-        "user_properties": [
-          {
-            "exec_time_reference": 0
-          },
-          {
-            "exec_time_student": 0
-          }
-        ],
-        "teardown": {
-          "duration": 0.0010997999925166368,
-          "outcome": "passed"
-        }
-      },
-      {
-        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
-        "lineno": 202,
-        "outcome": "failed",
-        "keywords": [
-          "test_entrypoint[testcases4]",
-          "testcases4",
-          "CodeabilityPythonTest",
-          "test_class.py",
-          "tests/__init__.py",
-          "catester"
-        ],
-        "setup": {
-          "duration": 0.0022227000445127487,
-          "outcome": "passed"
-        },
-        "call": {
-          "duration": 0.003044599900022149,
-          "outcome": "failed",
-          "stdout": "Exception: execute_file i:\\PYTHON\\catester\\examples\\ex2\\student\\crash.py failed\n",
-          "longrepr": "Test (2,0) failed"
-        },
-        "user_properties": [
-          {
-            "exec_time_reference": 0
-          }
-        ],
-        "teardown": {
-          "duration": 0.0007189000025391579,
-          "outcome": "passed"
-        }
-      }
-    ]
-  }
+  ]
 }

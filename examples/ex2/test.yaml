@@ -9,6 +9,8 @@ properties:
       tests:
         - name: "var1"
           value: 1
+        - name: "var1"
+          value: 1
     - name: Test variables
       type: variable
       entryPoint: "Test.py"
