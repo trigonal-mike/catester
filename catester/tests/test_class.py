@@ -131,7 +131,7 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
                 """ measure execution time """
                 start_time = time.time()
                 try:
-                    result = execute_file(file, namespace, timeout=2)
+                    result = execute_file(file, namespace, timeout=1)
                     if result == None:
                         print(f"TimeoutError: execute_file {file} failed")
                         raise TimeoutError()
@@ -182,12 +182,14 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
     return globals()["solutions"][id][where], exec_time
 
 class CodeabilityPythonTest:
+    x = 1
     """ this class gets tested """
     # hooks for setup/teardown
     # currently not used
     # teardown also possible with fixtures and code after yield statement (see conftest.py)
     @classmethod
     def setup_class(cls):
+        cls.x = 3
         pass
         #print("setup_class")
 
@@ -198,6 +200,7 @@ class CodeabilityPythonTest:
 
     # these are called for each invocation of test_entrypoint
     def setup_method(self, test_method):
+        self.x = self.x + 1
         pass
         #print("setup_method")
 
@@ -207,6 +210,7 @@ class CodeabilityPythonTest:
 
     # testcases get parametrized in conftest.py (pytest_generate_tests)
     def test_entrypoint(self, request, record_property, monkeymodule, testcases):
+        self.x = self.x + 2
         idx_main, idx_sub = testcases
 
         report: any = request.config.stash[report_key]["report"]

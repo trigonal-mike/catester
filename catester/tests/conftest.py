@@ -3,6 +3,7 @@ import os
 import datetime
 import time
 import pytest
+from _pytest.terminal import TerminalReporter
 from enum import Enum
 from model import DIRECTORIES
 from model import parse_spec_file, parse_test_file
@@ -62,7 +63,6 @@ def pytest_configure(config: pytest.Config) -> None:
     will be called with each of the generated tuples (seperately)\n
     The report is initialized here as well
     """
-
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S.%f")
     #timestamp = now.isoformat()
@@ -171,6 +171,7 @@ def get_item(haystack: list[tuple[str, object]], needle, default):
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
+    item.add_report_section("x", "y", "report section contents\nfds")
     out = yield
     _report: pytest.TestReport = out.get_result()
     if _report.when == 'call':
@@ -186,9 +187,8 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test["status"] = TestStatus.completed
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
-        longrepr_old = _report.longrepr
-        _report.longrepr = f"Test ({idx_main},{idx_sub}) failed"
-        test["longrepr"] = longrepr_old
+        test["longrepr"] = _report.longrepr
+        #_report.longrepr = f"Test ({idx_main},{idx_sub}) failed"
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
@@ -340,9 +340,14 @@ def pytest_sessionfinish(session: pytest.Session):
     NO_TESTS_COLLECTED = 5, pytest could not find tests.
     """
 
-def pytest_terminal_summary(terminalreporter, exitstatus, config):
+
+def pytest_report_header(config):
+    verbosity = config.getoption("verbose")
+    return ["CodeAbility Python Testing", f"verbosity: {verbosity}"]
+
+def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
     terminalreporter.ensure_newline()
-    terminalreporter.section('My custom section', sep='#', blue=True, bold=True)
+    terminalreporter.section('My custom section', sep='#', black=True, Purple=True, light=True)
     terminalreporter.line("...something else...")
     pass
     #reports = terminalreporter.getreports('')

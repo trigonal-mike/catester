@@ -11,7 +11,8 @@ def run_tests():
     test_yaml = "../examples/ex2/test.yaml"
     test_report = "report.json"
     test_indent = 2
-    test_verbosity = 2
+    test_verbosity = 0
+    with_json_report = True
 
     dir = os.path.abspath(os.path.dirname(__file__))
     os.chdir(dir)
@@ -28,9 +29,9 @@ def run_tests():
     parser.add_argument("-v", "--verbosity", default=test_verbosity, help="verbosity level 0, 1, 2 or 3")
 
     args = parser.parse_args()
-    spec_yamlfile = args.specification
-    test_yamlfile = args.test
-    report_jsonfile = args.output
+    specyamlfile = args.specification
+    testyamlfile = args.test
+    reportfile = args.output
     indent = args.indent
     verbosity = args.verbosity
 
@@ -38,8 +39,8 @@ def run_tests():
     #it gets parsed in pytest as well
     #but do it here, to not start pytest with an unparseable/invalid yaml-file
     try:
-        specification = parse_spec_file(spec_yamlfile)
-        testsuite = parse_test_file(test_yamlfile)
+        specification = parse_spec_file(specyamlfile)
+        testsuite = parse_test_file(testyamlfile)
         #print(specification)
         #print(testsuite)
     except ValidationError as e:
@@ -58,27 +59,34 @@ def run_tests():
     #pytest config options
     #https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
     options = []
-    options.append(f"--specyamlfile={spec_yamlfile}")
-    options.append(f"--testyamlfile={test_yamlfile}")
-    options.append(f"--reportfile={report_jsonfile}")
-    options.append(f"--indent={indent}")
-    #options.extend([
-    #    f"--json-report-file={None}",
-    #    "--json-report-indent=2",
-    #    "--json-report",
-    #])
     options.extend([
+        f"--specyamlfile={specyamlfile}",
+        f"--testyamlfile={testyamlfile}",
+        f"--reportfile={reportfile}",
+        f"--indent={indent}",
+        f"--verbosity={verbosity}",
         #"--full-trace",
         #"--collect-only",
-        #"--no-summary",
-        #"--no-header",
         #"--verbose",
-        #"-v",
-        #"-q",
+        #"-vvvvvvv",
+        #"-qqqqq",
+        #"-x",
     ])
+    if verbosity == 0:
+        options.extend([
+            #"--no-header",
+            #"--no-summary",
+        ])
+    if with_json_report:
+        #json report not needed anymore!?
+        options.extend([
+            f"--json-report-file={None}",
+            "--json-report-indent=2",
+            "--json-report",
+        ])
 
-    # run as a subprocess
-    #command = f"pytest --metadata xxxxx yyyyyy --specyamlfile={spec_yamlfile} --testyamlfile={test_yamlfile} --reportfile={report_jsonfile} --verbose --json-report --json-report-file={reportfile} --json-report-indent=2"
+    # or run as a subprocess
+    #command = f"pytest --metadata xxxxx yyyyyy --specyamlfile={specyamlfile} --testyamlfile={testyamlfile} --reportfile={reportfile} --verbosity={verbosity} --json-report --json-report-file={None} --json-report-indent=2"
     #retcode = subprocess.run(command, shell=True)
     #print(retcode.returncode)
 

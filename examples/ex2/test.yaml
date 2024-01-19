@@ -9,8 +9,8 @@ properties:
       tests:
         - name: "var1"
           value: 1
-        - name: "var1"
-          value: 1
+        #- name: "var1"
+        #  value: 1
     - name: Test variables
       type: variable
       entryPoint: "Test.py"
@@ -19,12 +19,15 @@ properties:
       failureMessage: Test Basic 1 Tests failed
       tests:
         - name: "var1"
+          value: "1"
           successMessage: var1 Test passed
           failureMessage: var1 Test failed
         - name: "var2"
+          #value: 1
           successMessage: var2 Test passed
           failureMessage: var2 Test failed
         - name: "var3"
+          #value: 1
           successMessage: var3 Test passed
           failureMessage: var3 Test failed
     - name: Test crash
