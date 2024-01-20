@@ -10,65 +10,43 @@ from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 from enum import Enum
 
-#todo: check for UNIX based os, for using signal 
-from stopit import TimeoutException
-import platform
-if platform.system() == "Windows":
-    from stopit import ThreadingTimeout as Timeout, threading_timeoutable as timeoutable
-else:
-    from stopit import SignalTimeout as Timeout, signal_timeoutable as timeoutable
-
 from model import CodeAbilitySpecification, CodeAbilityTestSuite
 from model import CodeAbilityTestCollection, CodeAbilityTest
 from model import TypeEnum, QualificationEnum
 from .conftest import report_key, TestResult
+from .execution import execute_code_list, execute_file
 
 class Solution(str, Enum):
     student = "student"
     reference = "reference"
 
-def execute_code(code, filename, namespace):
-    exec(compile(code, filename, "exec"), namespace)
-
-def execute_code_list(code_list, namespace):
-    for code in code_list:
-        execute_code(code, "", namespace)
-
-@timeoutable()
-def execute_file(filename, namespace):
-    with open(filename, "r") as file:
-        execute_code(file.read(), filename, namespace)
-    return 0
-
-def get_inherited_property(property, ancestors, default):
-    for ancestor in ancestors:
-        if hasattr(ancestor, property):
-            x = getattr(ancestor, property)
-            if x is not None:
-                return x
-    return default
-
 def get_property_as_list(property_name):
     if property_name is None:
         return []
-    if isinstance(property_name, str):
+    if not isinstance(property_name, list):
         return [property_name]
     return property_name
 
-def check_success_dependency(report, success_dependencies):
-    success_dependencies = get_property_as_list(success_dependencies)
-    for dependency in success_dependencies:
-        #todo: search for id first, then check as idx => check also if idx not out of bounds
-        main_idx = int(dependency)
-        total = report["tests"][main_idx]["summary"]["total"]
-        for sub_idx in range(total):
-            result = report["tests"][main_idx]["tests"][sub_idx]["result"]
-            if result != TestResult.passed:
-                return False
-    return True
+def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
+    for idx_main, main in enumerate(testsuite.properties.tests):
+        if main.id is not None and dependency == main.id:
+            return idx_main
+    try:
+        idx = int(dependency)
+        if idx <= 0 or idx >= len(testsuite.properties.tests):
+            raise
+        return idx - 1
+    except Exception as e:
+        pytest.fail(f"Dependency {dependency} not found!!!")
 
-def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbilityTestCollection, where: Solution, store_graphics):
+def get_solution(mm, request, idx_main, where: Solution):
     """Calculate solution if not yet exists"""
+    _report = request.config.stash[report_key]
+    testsuite: CodeAbilityTestSuite = _report["testsuite"]
+    specification: CodeAbilitySpecification = _report["specification"]
+    main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
+    id = str(idx_main)
+
     exec_time = 0
     if not "solutions" in globals():
         globals()["solutions"] = {}
@@ -85,6 +63,8 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         setup_code = get_property_as_list(main.setUpCode)
         teardown_code = get_property_as_list(main.tearDownCode)
         setup_code_dependency = main.setUpCodeDependency
+        store_graphics_artefacts = main.storeGraphicsArtefacts
+        timeout = main.timeout
 
         """ remember old working directory """
         dir_old = os.getcwd()
@@ -112,11 +92,13 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         namespace = {}
 
         if setup_code_dependency is not None:
+            scd_idx = main_idx_by_dependency(testsuite, setup_code_dependency)
+            ss = str(scd_idx)
             """ start solution with prior solution """
             try:
-                namespace = globals()["solutions"][setup_code_dependency][where]
+                namespace = globals()["solutions"][ss][where]
             except Exception as e:
-                print(f"Exception: setUpCodeDependency {setup_code_dependency} not found")
+                print(f"Exception: setUpCodeDependency {ss} not found")
                 print(e)
                 raise
 
@@ -131,8 +113,8 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
                 """ measure execution time """
                 start_time = time.time()
                 try:
-                    result = execute_file(file, namespace, timeout=1)
-                    if result == None:
+                    result = execute_file(file, namespace, timeout=timeout)
+                    if result is None:
                         print(f"TimeoutError: execute_file {file} failed")
                         raise TimeoutError()
                 except Exception as e:
@@ -145,7 +127,7 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
 
                 exec_time = time.time() - start_time
                 if type == "graphics":
-                    if store_graphics:
+                    if store_graphics_artefacts:
                         fignums = plt.get_fignums()
                         for i in fignums:
                             file_name = f"{where}_test_{id}_figure_{i}.png"
@@ -181,81 +163,54 @@ def get_solution(mm, specification: CodeAbilitySpecification, id, main: CodeAbil
         globals()["solutions"][id][where] = namespace
     return globals()["solutions"][id][where], exec_time
 
+def check_success_dependency(request, idx_main):
+    _report = request.config.stash[report_key]
+    report: any = _report["report"]
+    testsuite: CodeAbilityTestSuite = _report["testsuite"]
+    main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
+    success_dependencies = get_property_as_list(main.successDependency)
+    for dependency in success_dependencies:
+        main_idx = main_idx_by_dependency(testsuite, dependency)
+        total = report["tests"][main_idx]["summary"]["total"]
+        for sub_idx in range(total):
+            result = report["tests"][main_idx]["tests"][sub_idx]["result"]
+            if result != TestResult.passed:
+                pytest.skip(f"Dependency {success_dependencies} not satisfied")
+
 class CodeabilityPythonTest:
-    x = 1
-    """ this class gets tested """
-    # hooks for setup/teardown
-    # currently not used
-    # teardown also possible with fixtures and code after yield statement (see conftest.py)
-    @classmethod
-    def setup_class(cls):
-        cls.x = 3
-        pass
-        #print("setup_class")
-
-    @classmethod
-    def teardown_class(cls):
-        pass
-        #print("teardown_class")
-
-    # these are called for each invocation of test_entrypoint
-    def setup_method(self, test_method):
-        self.x = self.x + 1
-        pass
-        #print("setup_method")
-
-    def teardown_method(self, test_method):
-        pass
-        #print("teardown_method")
-
     # testcases get parametrized in conftest.py (pytest_generate_tests)
     def test_entrypoint(self, request, record_property, monkeymodule, testcases):
-        self.x = self.x + 2
         idx_main, idx_sub = testcases
 
-        report: any = request.config.stash[report_key]["report"]
-        testsuite: CodeAbilityTestSuite = request.config.stash[report_key]["testsuite"]
-        specification: CodeAbilitySpecification = request.config.stash[report_key]["specification"]
+        check_success_dependency(request, idx_main)
 
+        _report = request.config.stash[report_key]
+        testsuite: CodeAbilityTestSuite = _report["testsuite"]
+        specification: CodeAbilitySpecification = _report["specification"]
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
-
-        if not check_success_dependency(report, main.successDependency):
-            pytest.skip(f"Dependency {main.successDependency} not satisfied")
 
         dir_reference = specification.testInfo.referenceDirectory
         dir_student = specification.testInfo.studentDirectory
 
         testtype = main.type
         file = main.file
-        id = main.id if main.id is not None else str(idx_main + 1)
 
         name = sub.name
         value = sub.value
         evalString = sub.evalString
         pattern = sub.pattern
         countRequirement = sub.countRequirement
-        #options = sub.options
-        #verificationFunction = sub.verificationFunction
-
-        ancestors_sub = [sub, main, testsuite.properties]
-        ancestors_main = [main, testsuite.properties]
-
-        qualification = get_inherited_property("qualification", ancestors_sub, None)
-        relative_tolerance = get_inherited_property("relativeTolerance", ancestors_sub, 0)
-        absolute_tolerance = get_inherited_property("absoluteTolerance", ancestors_sub, 0)
-        allowed_occuranceRange = get_inherited_property("allowedOccuranceRange", ancestors_sub, None)
-        store_graphics_artefacts = get_inherited_property("storeGraphicsArtefacts", ancestors_main, False)
-
-        #not needed here:
-        #verbosity = get_inherited_property("verbosity", ancestors_sub, None)
-        #competency = get_inherited_property("competency", ancestors_main, None)
+        qualification = sub.qualification
+        relative_tolerance = sub.relativeTolerance
+        absolute_tolerance = sub.absoluteTolerance
+        allowed_occuranceRange = sub.allowedOccuranceRange
 
         """ Get solutions, measure execution time """
         try:
-            solution_student, exec_time_student = get_solution(monkeymodule, specification, id, main, Solution.student, store_graphics_artefacts)
+            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)
             record_property("exec_time_student", exec_time_student)
-            solution_reference, exec_time_reference = get_solution(monkeymodule, specification, id, main, Solution.reference, store_graphics_artefacts)
+            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)
             record_property("exec_time_reference", exec_time_reference)
         except TimeoutError as e:
             record_property("timeout", True)

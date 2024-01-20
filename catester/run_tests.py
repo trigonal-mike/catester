@@ -12,7 +12,7 @@ def run_tests():
     test_report = "report.json"
     test_indent = 2
     test_verbosity = 0
-    with_json_report = True
+    with_json_report = False
 
     dir = os.path.abspath(os.path.dirname(__file__))
     os.chdir(dir)

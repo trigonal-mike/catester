@@ -2,7 +2,7 @@ import json
 import os
 import yaml
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 from pydantic import BaseModel, ConfigDict, Field
 
 DIRECTORIES = [
@@ -44,14 +44,15 @@ class CodeAbilityTestCommon(BaseModel):
     relativeTolerance: Optional[float] = Field(gt=0, default=None)
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
+    verbosity: Optional[int] = Field(ge=1, le=3, default=None)
     failureMessage: Optional[str] = Field(default=None)
     successMessage: Optional[str] = Field(default=None)
-    verbosity: Optional[int] = Field(ge=1, le=3, default=None)
 
 
 class CodeAbilityTestCollectionCommon(BaseModel):
     storeGraphicsArtefacts: Optional[bool] = Field(default=None)
     competency: Optional[str] = Field(min_length=1, default=None)
+    timeout: Optional[float] = Field(ge=0, default=None)
 
 
 class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
@@ -60,16 +61,13 @@ class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
     evalString: Optional[str] = Field(min_length=1, default=None)
     pattern: Optional[str] = Field(default=None)
     countRequirement: Optional[int] = Field(ge=0, default=None)
-    #todo, not used yet:
-    #options: Optional[Dict] = None
-    #verificationFunction: Optional[str] = Field(min_length=1, default=None)
 
 
 class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon, CodeAbilityTestCommon):
     type: Optional[TypeEnum] = None
     name: str = Field(min_length=1)
     description: Optional[str] = Field(default=None)
-    successDependency: Optional[str | List[str]] = Field(default=None)
+    successDependency: Optional[str | int | List[str | int]] = Field(default=None)
     entryPoint: Optional[str] = Field(min_length=1, default=None)
     setUpCode: Optional[str | List[str]] = Field(default=None)
     tearDownCode: Optional[str | List[str]] = Field(default=None)
@@ -94,8 +92,6 @@ class CodeAbilityTestSuite(CodeAbilityBase):
 
 
 class CodeAbilityTestInfo(CodeAbilityBase):
-    #executionDirectory not needed!?
-    #executionDirectory: Optional[str] = Field(min_length=1, default=os.getcwd())
     studentDirectory: Optional[str] = Field(min_length=1, default="student")
     referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
     testDirectory: Optional[str] = Field(min_length=1, default="testprograms")
@@ -112,13 +108,13 @@ class CodeAbilitySpecification(CodeAbilityBase):
 def parse_spec_file(file_path: str):
     with open(file_path, "r") as stream:
         config = yaml.safe_load(stream)
-    return CodeAbilitySpecification(**config)#.model_dump()
+    return CodeAbilitySpecification(**config)
 
 
 def parse_test_file(file_path: str):
     with open(file_path, "r") as stream:
         config = yaml.safe_load(stream)
-    return CodeAbilityTestSuite(**config)#.model_dump()
+    return CodeAbilityTestSuite(**config)
 
 
 def get_schema(classname: BaseModel):

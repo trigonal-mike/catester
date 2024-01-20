@@ -89,9 +89,29 @@ def pytest_configure(config: pytest.Config) -> None:
     testsuite = parse_test_file(testyamlfile)
     testcases = []
     main_tests = []
+    subfields = [
+        "qualification",
+        "relativeTolerance",
+        "absoluteTolerance",
+        "allowedOccuranceRange",
+        "verbosity",
+    ]
+    mainfields = subfields.copy();
+    mainfields.extend([
+        "storeGraphicsArtefacts",
+        "competency",
+        "timeout",
+    ])
+    def parent_property(properties, this, parent):
+        for idx, property in enumerate(properties):
+            if getattr(this, property) == None:
+                setattr(this, property, getattr(parent, property))
+
     for idx_main, main in enumerate(testsuite.properties.tests):
+        parent_property(mainfields, main, testsuite.properties)
         sub_tests = []
         for idx_sub, sub in enumerate(main.tests):
+            parent_property(subfields, sub, main)
             testcases.append((idx_main, idx_sub))
             sub_tests.append({
                 "name": sub.name,
