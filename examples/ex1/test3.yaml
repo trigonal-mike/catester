@@ -15,7 +15,8 @@ properties:
         - name: "x"
         - name: "y"
           relativeTolerance: 1.0E-12
-          absoluteTolerance: 0.0001
+          #absoluteTolerance: 0.0001
+          absoluteTolerance: 0.000001
     - type: variable
       name: variable 2
       setUpCodeDependency: "0"

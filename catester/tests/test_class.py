@@ -269,7 +269,10 @@ class CodeabilityPythonTest:
                     assert val_student.equals(val_reference), failure_msg
                 elif isinstance(val_student, np.ndarray):
                     try:
-                        np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)
+                        if relative_tolerance is None and absolute_tolerance is None:
+                            np.testing.assert_allclose(val_student, val_reference)
+                        else:
+                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)
                     except AssertionError as e:
                         raise AssertionError(failure_msg)
                 else:
@@ -277,7 +280,7 @@ class CodeabilityPythonTest:
                     assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
             elif qualification == QualificationEnum.matches:
                 assert str(val_student) == pattern, f"Variable {name} does not match the specified pattern {pattern}"
-            elif qualification == QualificationEnum.c:
+            elif qualification == QualificationEnum.contains:
                 assert str(val_student).find(pattern) > -1, f"Variable {name} does not contain the specified pattern {pattern}"
             elif qualification == QualificationEnum.startsWith:
                 assert str(val_student).startswith(pattern), f"Variable {name} does not start with the specified pattern {pattern}"

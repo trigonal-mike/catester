@@ -24,3 +24,8 @@ properties:
       file: Bas*.py
       tests:
         - name: existance
+    - name: Existance of a file
+      type: exist
+      file: xxx*.py
+      tests:
+        - name: existance
