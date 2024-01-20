@@ -29,17 +29,17 @@ report_key = pytest.StashKey[dict]()
 
 def pytest_addoption(parser: pytest.Parser):
     parser.addoption(
-        "--specyamlfile",
+        "--specification",
         default="specification.yaml",
         help="specification yaml input file",
     )
     parser.addoption(
-        "--testyamlfile",
+        "--test",
         default="test.yaml",
         help="test yaml input file",
     )
     parser.addoption(
-        "--reportfile",
+        "--output",
         default="report.json",
         help="json report output file",
     )
@@ -67,14 +67,15 @@ def pytest_configure(config: pytest.Config) -> None:
     timestamp = now.strftime("%Y-%m-%d %H:%M:%S.%f")
     #timestamp = now.isoformat()
 
-    specyamlfile = config.getoption("--specyamlfile")
-    testyamlfile = config.getoption("--testyamlfile")
-    reportfile = config.getoption("--reportfile")
+    specyamlfile = config.getoption("--specification")
+    testyamlfile = config.getoption("--test")
+    reportfile = config.getoption("--output")
     indent = int(config.getoption("--indent"))
 
     # parse specification yaml-file, set paths to absolute, create directories
     specification = parse_spec_file(specyamlfile)
-    root = os.path.abspath(os.path.dirname(specyamlfile))
+    root = os.path.abspath(os.path.dirname(testyamlfile))
+    #root = os.path.abspath(os.path.dirname(specyamlfile))
     for directory in DIRECTORIES:
         _dir = getattr(specification.testInfo, directory)
         if not os.path.isabs(_dir):
