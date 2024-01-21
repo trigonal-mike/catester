@@ -6,11 +6,14 @@ from run_tests import run_tests
 # facilitates starting local test-examples
 
 def start_tests():
-    specification = "../examples/ex2/specification.yaml"
-    test = "../examples/ex2/test.yaml"
+    specification = "../examples/specification.yaml"
+    #test = "../examples/ex1/test1.yaml"
+    test = "../examples/ex2/test1.yaml"
+    #output = "I:/x/report.json"
+    #output = "./x/y/report.json"
     output = "report.json"
     indent = 2
-    verbosity = 0
+    verbosity = 1
 
     dir = os.path.abspath(os.path.dirname(__file__))
     specification = os.path.join(dir, specification)

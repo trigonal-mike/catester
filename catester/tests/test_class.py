@@ -291,9 +291,8 @@ class CodeabilityPythonTest:
             elif qualification == QualificationEnum.regexp:
                 result = re.match(re.compile(fr"{pattern}"), str(val_student))
                 assert result is not None, f"Variable {name} does not match the compiled regular expression from the specified pattern {pattern}"
-            elif qualification == QualificationEnum.verification:
-                # not implemented yet
-                pass
+            else:
+                pytest.fail(reason="qualification not set")
         elif testtype == TypeEnum.structural:
             # not implemented yet
             pass
@@ -304,6 +303,5 @@ class CodeabilityPythonTest:
             assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
             assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
         else:
-            # this should not happen anyway
-            raise KeyError
+            pytest.fail(reason="type not set")
 

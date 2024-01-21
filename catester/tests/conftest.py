@@ -72,22 +72,28 @@ def pytest_configure(config: pytest.Config) -> None:
     reportfile = config.getoption("--output")
     indent = int(config.getoption("--indent"))
 
-    # parse specification yaml-file, set paths to absolute, create directories
     specification = parse_spec_file(specyamlfile)
+    testsuite = parse_test_file(testyamlfile)
+
+    """root-directory is always the location of the test.yaml file
+    if relative directories are calculated from that root directory,
+    however, all paths can be absolute as well 
+    """
     root = os.path.abspath(os.path.dirname(testyamlfile))
-    #root = os.path.abspath(os.path.dirname(specyamlfile))
+
     for directory in DIRECTORIES:
-        _dir = getattr(specification.testInfo, directory)
-        if not os.path.isabs(_dir):
-            _dir = os.path.join(root, _dir)
-            setattr(specification.testInfo, directory, _dir)
-        if not os.path.exists(_dir):
-            os.makedirs(_dir)
+        dir = getattr(specification.testInfo, directory)
+        if not os.path.isabs(dir):
+            dir = os.path.join(root, dir)
+            setattr(specification.testInfo, directory, dir)
+        if not os.path.exists(dir):
+            os.makedirs(dir)
     if not os.path.isabs(reportfile):
         reportfile = os.path.join(specification.testInfo.outputDirectory, reportfile)
+    dir = os.path.dirname(reportfile)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
 
-    # parse testsuite yaml-file, populate testcases, generate report-skeleton
-    testsuite = parse_test_file(testyamlfile)
     testcases = []
     main_tests = []
     subfields = [
@@ -367,17 +373,11 @@ def pytest_report_header(config):
     return ["CodeAbility Python Testing", f"verbosity: {verbosity}"]
 
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
-    terminalreporter.ensure_newline()
-    terminalreporter.section('My custom section', sep='#', black=True, Purple=True, light=True)
-    terminalreporter.line("...something else...")
-    pass
-    #reports = terminalreporter.getreports('')
-    #content = os.linesep.join(text for report in reports for secname, text in report.sections)
-    #if content:
-    #    terminalreporter.ensure_newline()
-    #    terminalreporter.section('My custom section', sep='#', blue=True, bold=True)
-    #    terminalreporter.line(content)
-    #    terminalreporter.line("...something else...")
+    verbosity = config.getoption("verbose")
+    if verbosity > 0:
+        terminalreporter.ensure_newline()
+        terminalreporter.section('My custom section', sep='#', black=True, Purple=True, light=True)
+        terminalreporter.line("...something else...")
 
 @pytest.fixture(scope="function")
 def monkeymodule():

@@ -21,7 +21,6 @@ class QualificationEnum(str, Enum):
     endsWith = "endsWith"
     count = "count"
     regexp = "regexp"
-    verification = "verification"
 
 
 class TypeEnum(str, Enum):
@@ -44,7 +43,7 @@ class CodeAbilityTestCommon(BaseModel):
     relativeTolerance: Optional[float] = Field(gt=0, default=None)
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
-    verbosity: Optional[int] = Field(ge=1, le=3, default=None)
+    verbosity: Optional[int] = Field(ge=0, le=3, default=None)
     failureMessage: Optional[str] = Field(default=None)
     successMessage: Optional[str] = Field(default=None)
 
@@ -122,7 +121,7 @@ def get_schema(classname: BaseModel):
     pretty = json.dumps(schema, indent=2)
     dir = os.path.abspath(os.path.dirname(__file__))
     name = f"{classname.__name__}_schema.json"
-    schemafile = os.path.join(dir, "../output", name)
+    schemafile = os.path.join(dir, "output", name)
     with open(schemafile, "w") as file:
         file.write(pretty)
     print(pretty)
