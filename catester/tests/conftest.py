@@ -30,7 +30,7 @@ report_key = pytest.StashKey[dict]()
 def pytest_addoption(parser: pytest.Parser):
     parser.addoption(
         "--specification",
-        default="specification.yaml",
+        default="",
         help="specification yaml input file",
     )
     parser.addoption(
@@ -201,7 +201,7 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
     item.add_report_section("x", "y", "report section contents\nfds")
     out = yield
     _report: pytest.TestReport = out.get_result()
-    if _report.when == 'call':
+    if _report.when == "call":
         idx_main, idx_sub = item.callspec.params["testcases"]
         report = item.config.stash[report_key]["report"]
         timeout = get_item(item.user_properties, "timeout", False)
@@ -218,6 +218,7 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         #_report.longrepr = f"Test ({idx_main},{idx_sub}) failed"
 
 def pytest_runtest_logreport(report: pytest.TestReport):
+    #report.longrepr = ("xxx", 1, "yyy")
     pass
 
 def pytest_report_teststatus(report: pytest.TestReport, config):
@@ -352,9 +353,9 @@ def pytest_sessionfinish(session: pytest.Session):
     report["duration"] = duration
     report["exitcode"] = str(exitcode)
     if hasattr(session.config, "_json_report"):
-        report['_json_report'] = session.config._json_report.report
+        report["_json_report"] = session.config._json_report.report
 
-    with open(reportfile, 'w', encoding='utf-8') as file:
+    with open(reportfile, "w", encoding="utf-8") as file:
         json.dump(report, file, default=str, indent=indent)
 
     """exit codes:
@@ -368,16 +369,65 @@ def pytest_sessionfinish(session: pytest.Session):
     """
 
 
+@pytest.hookimpl(trylast=True)
 def pytest_report_header(config):
     verbosity = config.getoption("verbose")
-    return ["CodeAbility Python Testing", f"verbosity: {verbosity}"]
+    return [
+        "==========================",
+        "CodeAbility Python Testing",
+        f"verbosity: {verbosity}",
+        "==========================",
+    ]
 
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
     verbosity = config.getoption("verbose")
-    if verbosity > 0:
+    if verbosity >= 0:
+        _report = config.stash[report_key]
+        report = _report["report"]
+        testsuite: CodeAbilityTestSuite = _report["testsuite"]
+
+        total = report["summary"]["total"]
+        success = report["summary"]["success"]
+        failed = report["summary"]["failed"]
+        skipped = report["summary"]["skipped"]
+        timedout = report["summary"]["timedout"]
         terminalreporter.ensure_newline()
-        terminalreporter.section('My custom section', sep='#', black=True, Purple=True, light=True)
-        terminalreporter.line("...something else...")
+        terminalreporter.section(f"{testsuite.name} - Summary", sep="~", purple=True, bold=True)
+        terminalreporter.line(f"Total Test Collections: {total}")
+        terminalreporter.line(f"PASSED: {success} ", green=True)
+        terminalreporter.line(f"FAILED: {failed} ", red=True)
+        terminalreporter.line(f"SKIPPED: {skipped} ", yellow=True)
+        terminalreporter.line(f"TIMEDOUT: {timedout} ", blue=True)
+        for idx_main, main in enumerate(report["tests"]):
+            test_main = testsuite.properties.tests[idx_main]
+            sub_total = main["summary"]["total"]
+            sub_success = main["summary"]["success"]
+            sub_failed = main["summary"]["failed"]
+            sub_skipped = main["summary"]["skipped"]
+            sub_timedout = main["summary"]["timedout"]
+            testtext = "Test" if sub_total == 1 else "Tests"
+            terminalreporter.write_sep("*", f"Testcollection {idx_main + 1}")
+            terminalreporter.line(f"{test_main.name} ({sub_total} {testtext})")
+            if sub_success > 0:
+                terminalreporter.line(f"PASSED: {sub_success} ", green=True)
+            if sub_failed > 0:
+                terminalreporter.line(f"FAILED: {sub_failed} ", red=True)
+            if sub_skipped > 0:
+                terminalreporter.line(f"SKIPPED: {sub_skipped} ", yellow=True)
+            if sub_timedout > 0:
+                terminalreporter.line(f"TIMEDOUT: {sub_timedout} ", blue=True)
+            for idx_sub, sub in enumerate(main["tests"]):
+                test_sub = test_main.tests[idx_sub]
+                outcome = sub["result"]
+                terminalreporter.line(
+                    f"Test {idx_sub + 1} ({test_sub.name}): {outcome} ",
+                    green=outcome == TestResult.passed,
+                    red=outcome == TestResult.failed,
+                    yellow=outcome == TestResult.skipped,
+                    blue=outcome == TestResult.timedout,
+                )
+
+
 
 @pytest.fixture(scope="function")
 def monkeymodule():

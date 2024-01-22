@@ -102,12 +102,22 @@
   "additionalProperties": false,
   "properties": {
     "testInfo": {
-      "$ref": "#/$defs/CodeAbilityTestInfo"
+      "allOf": [
+        {
+          "$ref": "#/$defs/CodeAbilityTestInfo"
+        }
+      ],
+      "default": {
+        "studentDirectory": "student",
+        "referenceDirectory": "reference",
+        "testDirectory": "testprograms",
+        "outputDirectory": "output",
+        "artefactDirectory": "artefacts",
+        "studentTestCounter": null,
+        "testVersion": "v1"
+      }
     }
   },
-  "required": [
-    "testInfo"
-  ],
   "title": "CodeAbilitySpecification",
   "type": "object"
 }

@@ -4,7 +4,7 @@ import pytest
 from pydantic import ValidationError
 from model import parse_spec_file, parse_test_file
 
-DEFAULT_SPECIFICATION = "specification.yaml"
+DEFAULT_SPECIFICATION = None
 DEFAULT_TEST = "test.yaml"
 DEFAULT_OUTPUT = "report.json"
 DEFAULT_INDENT = 2
@@ -13,7 +13,7 @@ WITH_JSON_REPORT = False
 
 def run_tests(specification, test, output, indent, verbosity):
     cwd = os.getcwd()
-    if not os.path.isabs(specification):
+    if specification is not None and not os.path.isabs(specification):
         specification = os.path.join(cwd, specification)
     if not os.path.isabs(test):
         test = os.path.join(cwd, test)
@@ -45,7 +45,6 @@ def run_tests(specification, test, output, indent, verbosity):
     options = []
     options.extend([
         f"{dir}",
-        f"--specification={specification}",
         f"--test={test}",
         f"--output={output}",
         f"--indent={indent}",
@@ -57,6 +56,8 @@ def run_tests(specification, test, output, indent, verbosity):
         #"-qqqqq",
         #"-x",
     ])
+    if specification is not None:
+        options.append(f"--specification={specification}")
     if verbosity == 0:
         options.extend([
             #"--no-header",

@@ -61,7 +61,7 @@
           "anyOf": [
             {
               "maximum": 3,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer"
             },
             {
@@ -70,30 +70,6 @@
           ],
           "default": null,
           "title": "Verbosity"
-        },
-        "failureMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Failuremessage"
-        },
-        "successMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successmessage"
         },
         "name": {
           "minLength": 1,
@@ -147,6 +123,30 @@
           ],
           "default": null,
           "title": "Countrequirement"
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failuremessage"
+        },
+        "successMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Successmessage"
         }
       },
       "required": [
@@ -216,7 +216,7 @@
           "anyOf": [
             {
               "maximum": 3,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer"
             },
             {
@@ -225,30 +225,6 @@
           ],
           "default": null,
           "title": "Verbosity"
-        },
-        "failureMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Failuremessage"
-        },
-        "successMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successmessage"
         },
         "storeGraphicsArtefacts": {
           "anyOf": [
@@ -288,6 +264,18 @@
           "default": null,
           "title": "Timeout"
         },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "tests": {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityTest"
+          },
+          "title": "Tests",
+          "type": "array"
+        },
         "type": {
           "anyOf": [
             {
@@ -297,12 +285,7 @@
               "type": "null"
             }
           ],
-          "default": null
-        },
-        "name": {
-          "minLength": 1,
-          "title": "Name",
-          "type": "string"
+          "default": "variable"
         },
         "description": {
           "anyOf": [
@@ -343,6 +326,18 @@
           ],
           "default": null,
           "title": "Successdependency"
+        },
+        "setUpCodeDependency": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Setupcodedependency"
         },
         "entryPoint": {
           "anyOf": [
@@ -393,18 +388,6 @@
           "default": null,
           "title": "Teardowncode"
         },
-        "setUpCodeDependency": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Setupcodedependency"
-        },
         "id": {
           "anyOf": [
             {
@@ -429,24 +412,34 @@
           "default": null,
           "title": "File"
         },
-        "tests": {
+        "failureMessage": {
           "anyOf": [
             {
-              "items": {
-                "$ref": "#/$defs/CodeAbilityTest"
-              },
-              "type": "array"
+              "type": "string"
             },
             {
               "type": "null"
             }
           ],
           "default": null,
-          "title": "Tests"
+          "title": "Failuremessage"
+        },
+        "successMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Successmessage"
         }
       },
       "required": [
-        "name"
+        "name",
+        "tests"
       ],
       "title": "CodeAbilityTestCollection",
       "type": "object"
@@ -463,7 +456,7 @@
               "type": "null"
             }
           ],
-          "default": null
+          "default": "verifyEqual"
         },
         "relativeTolerance": {
           "anyOf": [
@@ -512,7 +505,7 @@
           "anyOf": [
             {
               "maximum": 3,
-              "minimum": 1,
+              "minimum": 0,
               "type": "integer"
             },
             {
@@ -521,30 +514,6 @@
           ],
           "default": null,
           "title": "Verbosity"
-        },
-        "failureMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Failuremessage"
-        },
-        "successMessage": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Successmessage"
         },
         "storeGraphicsArtefacts": {
           "anyOf": [
@@ -585,14 +554,42 @@
           "title": "Timeout"
         },
         "tests": {
-          "default": null,
           "items": {
             "$ref": "#/$defs/CodeAbilityTestCollection"
           },
           "title": "Tests",
           "type": "array"
+        },
+        "failureMessage": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "Some or all tests failed",
+          "title": "Failuremessage"
+        },
+        "successMessage": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "Congratulations! All tests passed",
+          "title": "Successmessage"
         }
       },
+      "required": [
+        "tests"
+      ],
       "title": "CodeAbilityTestProperty",
       "type": "object"
     },
@@ -626,6 +623,9 @@
   },
   "additionalProperties": false,
   "properties": {
+    "properties": {
+      "$ref": "#/$defs/CodeAbilityTestProperty"
+    },
     "type": {
       "anyOf": [
         {
@@ -677,9 +677,6 @@
       ],
       "default": "1.0",
       "title": "Version"
-    },
-    "properties": {
-      "$ref": "#/$defs/CodeAbilityTestProperty"
     }
   },
   "required": [

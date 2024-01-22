@@ -141,7 +141,7 @@ def get_solution(mm, request, idx_main, where: Solution):
                     namespace["_graphics_object_"] = {}
                     for sub_test in main.tests:
                         name = sub_test.name
-                        fun2eval = f'globals()["plt"].{name}'
+                        fun2eval = f'"globals()["plt"].{name}"'
                         value = eval(fun2eval)
                         namespace["_graphics_object_"][name] = value
 
@@ -276,7 +276,7 @@ class CodeabilityPythonTest:
                     except AssertionError as e:
                         raise AssertionError(failure_msg)
                 else:
-                    """attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' """
+                    """ attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' """
                     assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
             elif qualification == QualificationEnum.matches:
                 assert str(val_student) == pattern, f"Variable {name} does not match the specified pattern {pattern}"
@@ -304,4 +304,3 @@ class CodeabilityPythonTest:
             assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
         else:
             pytest.fail(reason="type not set")
-

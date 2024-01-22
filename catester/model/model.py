@@ -35,20 +35,18 @@ class TypeEnum(str, Enum):
 
 
 class CodeAbilityBase(BaseModel):
-    model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra="forbid")
 
 
 class CodeAbilityTestCommon(BaseModel):
-    qualification: Optional[QualificationEnum] = None
+    qualification: Optional[QualificationEnum] = Field(default=None)
     relativeTolerance: Optional[float] = Field(gt=0, default=None)
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
     verbosity: Optional[int] = Field(ge=0, le=3, default=None)
-    failureMessage: Optional[str] = Field(default=None)
-    successMessage: Optional[str] = Field(default=None)
 
 
-class CodeAbilityTestCollectionCommon(BaseModel):
+class CodeAbilityTestCollectionCommon(CodeAbilityTestCommon):
     storeGraphicsArtefacts: Optional[bool] = Field(default=None)
     competency: Optional[str] = Field(min_length=1, default=None)
     timeout: Optional[float] = Field(ge=0, default=None)
@@ -56,41 +54,51 @@ class CodeAbilityTestCollectionCommon(BaseModel):
 
 class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
     name: str = Field(min_length=1)
-    value: Optional[Any] = None
+    #optional:
+    value: Optional[Any] = Field(default=None)
     evalString: Optional[str] = Field(min_length=1, default=None)
     pattern: Optional[str] = Field(default=None)
     countRequirement: Optional[int] = Field(ge=0, default=None)
+    failureMessage: Optional[str] = Field(default=None)
+    successMessage: Optional[str] = Field(default=None)
 
 
-class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon, CodeAbilityTestCommon):
-    type: Optional[TypeEnum] = None
+class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     name: str = Field(min_length=1)
+    tests: List[CodeAbilityTest]
+    #optional:
+    type: Optional[TypeEnum] = Field(default=TypeEnum.variable)
     description: Optional[str] = Field(default=None)
     successDependency: Optional[str | int | List[str | int]] = Field(default=None)
+    setUpCodeDependency: Optional[str] = Field(default=None)
     entryPoint: Optional[str] = Field(min_length=1, default=None)
     setUpCode: Optional[str | List[str]] = Field(default=None)
     tearDownCode: Optional[str | List[str]] = Field(default=None)
-    setUpCodeDependency: Optional[str] = Field(default=None)
     id: Optional[str] = Field(default=None)
     file: Optional[str] = Field(default=None)
-    tests: Optional[List[CodeAbilityTest]] = Field(default=None)
+    failureMessage: Optional[str] = Field(default=None)
+    successMessage: Optional[str] = Field(default=None)
 
 
-class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon, CodeAbilityTestCommon):
-    tests: List[CodeAbilityTestCollection] = None
+class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
+    tests: List[CodeAbilityTestCollection]
+    #optional:
+    qualification: Optional[QualificationEnum] = Field(default=QualificationEnum.verifyEqual)
+    failureMessage: Optional[str] = Field(min_length=1, default="Some or all tests failed")
+    successMessage: Optional[str] = Field(min_length=1, default="Congratulations! All tests passed")
 
 
 class CodeAbilityTestSuite(CodeAbilityBase):
+    properties: CodeAbilityTestProperty
+    #optional:
     type: Optional[str] = Field(min_length=1, default="python")
     name: Optional[str] = Field(min_length=1, default="Python Test Suite")
     description: Optional[str] = Field(min_length=1, default="Checks subtests and graphics")
     version: Optional[str] = Field(pattern="^1.0$", default="1.0")
-    properties: CodeAbilityTestProperty
-    #failureMessage: Optional[str] = Field(min_length=1, default="Some or all tests failed")
-    #successMessage: Optional[str] = Field(min_length=1, default="Congratulations! All tests passed")
 
 
 class CodeAbilityTestInfo(CodeAbilityBase):
+    #optional:
     studentDirectory: Optional[str] = Field(min_length=1, default="student")
     referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
     testDirectory: Optional[str] = Field(min_length=1, default="testprograms")
@@ -101,12 +109,14 @@ class CodeAbilityTestInfo(CodeAbilityBase):
 
 
 class CodeAbilitySpecification(CodeAbilityBase):
-    testInfo: CodeAbilityTestInfo
-
+    testInfo: CodeAbilityTestInfo = Field(default=CodeAbilityTestInfo())
 
 def parse_spec_file(file_path: str):
-    with open(file_path, "r") as stream:
-        config = yaml.safe_load(stream)
+    # returns default if file_path is None
+    config = {}
+    if file_path is not None and len(file_path) > 0:
+        with open(file_path, "r") as stream:
+            config = yaml.safe_load(stream) or {}
     return CodeAbilitySpecification(**config)
 
 

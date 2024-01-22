@@ -1,12 +1,11 @@
 properties:
-  qualification: verifyEqual
   tests:
     - name: Test timeout
-      type: variable
+      qualification: count
       setUpCode: ["var1=1", "var2=2"]
       tearDownCode: "del var1"
       tests:
-        - name: "var1"
-          value: 1
+        #- name: "var1"
+        #  value: 1
         - name: "var2"
-          value: 2
+          #value: 2
