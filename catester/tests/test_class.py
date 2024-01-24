@@ -39,9 +39,9 @@ def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     except Exception as e:
         pytest.fail(f"Dependency {dependency} not found!!!")
 
-def get_solution(mm, request, idx_main, where: Solution):
+def get_solution(mm, pytestconfig, idx_main, where: Solution):
     """Calculate solution if not yet exists"""
-    _report = request.config.stash[report_key]
+    _report = pytestconfig.stash[report_key]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     specification: CodeAbilitySpecification = _report["specification"]
     main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
@@ -163,8 +163,8 @@ def get_solution(mm, request, idx_main, where: Solution):
         globals()["solutions"][id][where] = namespace
     return globals()["solutions"][id][where], exec_time
 
-def check_success_dependency(request, idx_main):
-    _report = request.config.stash[report_key]
+def check_success_dependency(pytestconfig, idx_main):
+    _report = pytestconfig.stash[report_key]
     report: any = _report["report"]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
@@ -179,12 +179,12 @@ def check_success_dependency(request, idx_main):
 
 class CodeabilityPythonTest:
     # testcases get parametrized in conftest.py (pytest_generate_tests)
-    def test_entrypoint(self, request, record_property, monkeymodule, testcases):
+    def test_entrypoint(self, pytestconfig, record_property, monkeymodule, testcases):
         idx_main, idx_sub = testcases
 
-        check_success_dependency(request, idx_main)
+        check_success_dependency(pytestconfig, idx_main)
 
-        _report = request.config.stash[report_key]
+        _report = pytestconfig.stash[report_key]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
         specification: CodeAbilitySpecification = _report["specification"]
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
@@ -208,9 +208,9 @@ class CodeabilityPythonTest:
 
         """ Get solutions, measure execution time """
         try:
-            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)
+            solution_student, exec_time_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
             record_property("exec_time_student", exec_time_student)
-            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)
+            solution_reference, exec_time_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
             record_property("exec_time_reference", exec_time_reference)
         except TimeoutError as e:
             record_property("timeout", True)
@@ -236,7 +236,8 @@ class CodeabilityPythonTest:
                 try:
                     val_student = eval(name, solution_student)
                 except Exception as e:
-                    raise AssertionError(f"Variable {name} not found in student namespace")
+                    raise
+                    #raise AssertionError(f"Variable {name} not found in student namespace")
 
             if qualification == QualificationEnum.verifyEqual:
                 """ get the reference value """

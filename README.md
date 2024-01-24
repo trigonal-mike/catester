@@ -50,11 +50,6 @@ python ../../rel/path/to/run_tests.py --specification=../specification.yaml
 
 # Plugins used
 
-## Pytest-JSON-Report
-https://pypi.org/project/pytest-json-report/
-- incompatible with metadata (environment is not set)
-- do we need it actually?
-
 ## Pytest-Metadata
 https://pypi.org/project/pytest-metadata/
 - this plugin provides environment data (platform, python version, plugins)

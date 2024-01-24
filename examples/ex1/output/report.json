@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-01-22 16:24:36.240093",
+  "timestamp": "2024-01-24 12:39:45.692631",
   "type": "python",
   "version": "1.0",
   "name": "Python Test suite",
@@ -8,9 +8,9 @@
   "result": "FAILED",
   "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 2.021497964859009,
-  "executionDurationReference": 0.25003910064697266,
-  "executionDurationStudent": 0.3413212299346924,
+  "duration": 1.5751709938049316,
+  "executionDurationReference": 0.24776911735534668,
+  "executionDurationStudent": 0.3324625492095947,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -44,8 +44,8 @@
       "result": "FAILED",
       "resultMessage": null,
       "details": null,
-      "executionDurationReference": 0.0027189254760742188,
-      "executionDurationStudent": 0.014229536056518555,
+      "executionDurationReference": 0.006171464920043945,
+      "executionDurationStudent": 0.015642166137695312,
       "summary": {
         "total": 8,
         "success": 5,
@@ -84,7 +84,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7963A60>, request = <FixtureRequest for <Function test_entrypoint[testcases3]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000002839490CDC0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7C7DA80>, testcases = (0, 3)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n>                   val_student = eval(name, solution_student)\n\ncatester\\tests\\test_class.py:237: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n>   ???\nE   NameError: name 'var4' is not defined\n\n<string>:1: NameError\n\nDuring handling of the above exception, another exception occurred:\n\nself = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7963A60>, request = <FixtureRequest for <Function test_entrypoint[testcases3]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000002839490CDC0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7C7DA80>, testcases = (0, 3)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n>                   raise AssertionError(f\"Variable {name} not found in student namespace\")\nE                   AssertionError: Variable var4 not found in student namespace\n\ncatester\\tests\\test_class.py:239: AssertionError"
+          "longrepr": "E   NameError: name 'var4' is not defined\n\nDuring handling of the above exception, another exception occurred:\nE   AssertionError: Variable var4 not found in student namespace"
         },
         {
           "name": "var5",
@@ -92,7 +92,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C1F7C0>, request = <FixtureRequest for <Function test_entrypoint[testcases4]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7C6E8C0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D4AD10>, testcases = (0, 4)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n>               assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\nE               AssertionError: Variable var5 has incorrect type, expected: <class 'tuple'>, obtained <class 'list'>\nE               assert <class 'list'> == <class 'tuple'>\n\ncatester\\tests\\test_class.py:262: AssertionError"
+          "longrepr": "E   AssertionError: Variable var5 has incorrect type, expected: <class 'tuple'>, obtained <class 'list'>\n    assert <class 'list'> == <class 'tuple'>"
         },
         {
           "name": "var6",
@@ -100,7 +100,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C1CE20>, request = <FixtureRequest for <Function test_entrypoint[testcases5]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000002839490CDC0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D4F220>, testcases = (0, 5)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable var6 has incorrect value\nE                   assert {1, 2, 3} == {1, 2}\nE                     Extra items in the left set:\nE                     3\nE                     Use -v to get more diff\n\ncatester\\tests\\test_class.py:267: AssertionError"
+          "longrepr": "E   AssertionError: Variable var6 has incorrect value\n    assert {1, 2, 3} == {1, 2}\n      Extra items in the left set:\n      3\n      Use -v to get more diff"
         },
         {
           "name": "var7",
@@ -130,8 +130,8 @@
       "result": "PASSED",
       "resultMessage": null,
       "details": null,
-      "executionDurationReference": 0.015790224075317383,
-      "executionDurationStudent": 0.006249666213989258,
+      "executionDurationReference": 0.0159451961517334,
+      "executionDurationStudent": 0.01328730583190918,
       "summary": {
         "total": 15,
         "success": 15,
@@ -272,8 +272,8 @@
       "result": "FAILED",
       "resultMessage": null,
       "details": null,
-      "executionDurationReference": 0.011663675308227539,
-      "executionDurationStudent": 0.01667618751525879,
+      "executionDurationReference": 0.015488147735595703,
+      "executionDurationStudent": 0.0025277137756347656,
       "summary": {
         "total": 4,
         "success": 1,
@@ -296,7 +296,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7D720>, request = <FixtureRequest for <Function test_entrypoint[testcases24]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7C6E680>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D2F010>, testcases = (2, 1)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n>                   assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_time has incorrect value\nE                   assert datetime.time...4, 37, 504241) == 16:24:37.521916\nE                     comparison failed\nE                     Obtained: 16:24:37.504241\nE                     Expected: 16:24:37.521916\n\ncatester\\tests\\test_class.py:280: AssertionError"
+          "longrepr": "E   AssertionError: Variable var_time has incorrect value\n    assert datetime.time...9, 46, 661223) == 12:39:46.662780\n      comparison failed\n      Obtained: 12:39:46.661223\n      Expected: 12:39:46.662780"
         },
         {
           "name": "var_datetime",
@@ -304,7 +304,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7D810>, request = <FixtureRequest for <Function test_entrypoint[testcases25]>>\nrecord_property = <function record_property.<locals>.append_property at 0x000002839490CDC0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D49690>, testcases = (2, 2)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n>                   assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_datetime has incorrect value\nE                   assert datetime.date...4, 37, 504241) == 2024-01-22 16:24:37.521916\nE                     comparison failed\nE                     Obtained: 2024-01-22 16:24:37.504241\nE                     Expected: 2024-01-22 16:24:37.521916\n\ncatester\\tests\\test_class.py:280: AssertionError"
+          "longrepr": "E   AssertionError: Variable var_datetime has incorrect value\n    assert datetime.date...9, 46, 661223) == 2024-01-24 12:39:46.662780\n      comparison failed\n      Obtained: 2024-01-24 12:39:46.661223\n      Expected: 2024-01-24 12:39:46.662780"
         },
         {
           "name": "var_duration",
@@ -312,7 +312,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7D8A0>, request = <FixtureRequest for <Function test_entrypoint[testcases26]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7D1DAB0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D79600>, testcases = (2, 3)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n>                   assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\nE                   AssertionError: Variable var_duration has incorrect value\nE                   assert datetime.time...croseconds=10) == 5 days, 3:00:00\nE                     comparison failed\nE                     Obtained: 5 days, 3:00:00.000010\nE                     Expected: 5 days, 3:00:00\n\ncatester\\tests\\test_class.py:280: AssertionError"
+          "longrepr": "E   AssertionError: Variable var_duration has incorrect value\n    assert datetime.time...croseconds=10) == 5 days, 3:00:00\n      comparison failed\n      Obtained: 5 days, 3:00:00.000010\n      Expected: 5 days, 3:00:00"
         }
       ]
     },
@@ -326,8 +326,8 @@
       "result": "FAILED",
       "resultMessage": null,
       "details": null,
-      "executionDurationReference": 0.20306992530822754,
-      "executionDurationStudent": 0.2727384567260742,
+      "executionDurationReference": 0.20132851600646973,
+      "executionDurationStudent": 0.27549195289611816,
       "summary": {
         "total": 2,
         "success": 1,
@@ -350,7 +350,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7E6E0>, request = <FixtureRequest for <Function test_entrypoint[testcases28]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7D1D750>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283AB26A740>, testcases = (3, 1)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n>                           np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n\ncatester\\tests\\test_class.py:275: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nargs = (<function assert_allclose.<locals>.compare at 0x00000283A7D1DCF0>, array([ 1.00000000e-04,  1.00938420e-01,  2.007488...76008,  0.13146699,  0.03083368, -0.07011396,\n       -0.17034683, -0.26884313, -0.36459873, -0.45663749, -0.54402111]))\nkwds = {'equal_nan': True, 'err_msg': '', 'header': 'Not equal to tolerance rtol=1e-08, atol=1e-05', 'verbose': True}\n\n    @wraps(func)\n    def inner(*args, **kwds):\n        with self._recreate_cm():\n>           return func(*args, **kwds)\nE           AssertionError: \nE           Not equal to tolerance rtol=1e-08, atol=1e-05\nE           \nE           Mismatched elements: 100 / 100 (100%)\nE           Max absolute difference: 0.0001\nE           Max relative difference: 0.00972825\nE            x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\nE                   3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\nE                   7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\nE            y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\nE                   0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\nE                   0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nC:\\Users\\Michael\\AppData\\Local\\Programs\\Python\\Python310\\lib\\contextlib.py:79: AssertionError\n\nDuring handling of the above exception, another exception occurred:\n\nself = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7E6E0>, request = <FixtureRequest for <Function test_entrypoint[testcases28]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7D1D750>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283AB26A740>, testcases = (3, 1)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n>                       raise AssertionError(failure_msg)\nE                       AssertionError: Variable y has incorrect value\n\ncatester\\tests\\test_class.py:277: AssertionError"
+          "longrepr": "E   AssertionError: \n    Not equal to tolerance rtol=1e-08, atol=1e-05\n    \n    Mismatched elements: 100 / 100 (100%)\n    Max absolute difference: 0.0001\n    Max relative difference: 0.00972825\n     x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\n            3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\n            7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\n     y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\n            0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\n            0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nDuring handling of the above exception, another exception occurred:\nE   AssertionError: Variable y has incorrect value"
         }
       ]
     },
@@ -364,8 +364,8 @@
       "result": "FAILED",
       "resultMessage": null,
       "details": null,
-      "executionDurationReference": 0.016796350479125977,
-      "executionDurationStudent": 0.015579462051391602,
+      "executionDurationReference": 0.008835792541503906,
+      "executionDurationStudent": 0.00983285903930664,
       "summary": {
         "total": 2,
         "success": 1,
@@ -380,7 +380,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7E980>, request = <FixtureRequest for <Function test_entrypoint[testcases29]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDD750>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283AB2E2680>, testcases = (4, 0)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n>                   assert val_student.equals(val_reference), failure_msg\nE                   AssertionError: Variable df has incorrect value\nE                   assert False\nE                    +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\nE                    +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals\n\ncatester\\tests\\test_class.py:269: AssertionError"
+          "longrepr": "E   AssertionError: Variable df has incorrect value\n    assert False\n     +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\n     +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals"
         },
         {
           "name": "ser",
@@ -403,7 +403,7 @@
       "resultMessage": null,
       "details": null,
       "executionDurationReference": 0.0,
-      "executionDurationStudent": 0.01584792137145996,
+      "executionDurationStudent": 0.015680551528930664,
       "summary": {
         "total": 12,
         "success": 6,
@@ -466,7 +466,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7CF70>, request = <FixtureRequest for <Function test_entrypoint[testcases37]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDCC10>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D49C90>, testcases = (5, 6)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == QualificationEnum.matches:\n>               assert str(val_student) == pattern, f\"Variable {name} does not match the specified pattern {pattern}\"\nE               AssertionError: Variable var2 does not match the specified pattern -\nE               assert '_x1234567890' == '-'\nE                 - -\nE                 + _x1234567890\n\ncatester\\tests\\test_class.py:282: AssertionError"
+          "longrepr": "E   AssertionError: Variable var2 does not match the specified pattern -\n    assert '_x1234567890' == '-'\n      - -\n      + _x1234567890"
         },
         {
           "name": "var2",
@@ -474,7 +474,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7D000>, request = <FixtureRequest for <Function test_entrypoint[testcases38]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDF520>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283AB124C10>, testcases = (5, 7)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == QualificationEnum.matches:\n                assert str(val_student) == pattern, f\"Variable {name} does not match the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.contains:\n>               assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain the specified pattern {pattern}\"\nE               AssertionError: Variable var2 does not contain the specified pattern -\nE               assert -1 > -1\nE                +  where -1 = <built-in method find of str object at 0x00000283A7D998F0>('-')\nE                +    where <built-in method find of str object at 0x00000283A7D998F0> = '_x1234567890'.find\nE                +      where '_x1234567890' = str('_x1234567890')\n\ncatester\\tests\\test_class.py:284: AssertionError"
+          "longrepr": "E   AssertionError: Variable var2 does not contain the specified pattern -\n    assert -1 > -1\n     +  where -1 = <built-in method find of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method find of str object at 0x00000277FFD627B0> = '_x1234567890'.find\n     +      where '_x1234567890' = str('_x1234567890')"
         },
         {
           "name": "var2",
@@ -482,7 +482,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7D930>, request = <FixtureRequest for <Function test_entrypoint[testcases39]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDC280>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283AB354970>, testcases = (5, 8)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == QualificationEnum.matches:\n                assert str(val_student) == pattern, f\"Variable {name} does not match the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.contains:\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.startsWith:\n>               assert str(val_student).startswith(pattern), f\"Variable {name} does not start with the specified pattern {pattern}\"\nE               AssertionError: Variable var2 does not start with the specified pattern -\nE               assert False\nE                +  where False = <built-in method startswith of str object at 0x00000283A7D998F0>('-')\nE                +    where <built-in method startswith of str object at 0x00000283A7D998F0> = '_x1234567890'.startswith\nE                +      where '_x1234567890' = str('_x1234567890')\n\ncatester\\tests\\test_class.py:286: AssertionError"
+          "longrepr": "E   AssertionError: Variable var2 does not start with the specified pattern -\n    assert False\n     +  where False = <built-in method startswith of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method startswith of str object at 0x00000277FFD627B0> = '_x1234567890'.startswith\n     +      where '_x1234567890' = str('_x1234567890')"
         },
         {
           "name": "var2",
@@ -490,7 +490,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7DA20>, request = <FixtureRequest for <Function test_entrypoint[testcases40]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDCEE0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D2F580>, testcases = (5, 9)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == QualificationEnum.matches:\n                assert str(val_student) == pattern, f\"Variable {name} does not match the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.contains:\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.startsWith:\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.endsWith:\n>               assert str(val_student).endswith(pattern), f\"Variable {name} does not end with the specified pattern {pattern}\"\nE               AssertionError: Variable var2 does not end with the specified pattern -\nE               assert False\nE                +  where False = <built-in method endswith of str object at 0x00000283A7D998F0>('-')\nE                +    where <built-in method endswith of str object at 0x00000283A7D998F0> = '_x1234567890'.endswith\nE                +      where '_x1234567890' = str('_x1234567890')\n\ncatester\\tests\\test_class.py:288: AssertionError"
+          "longrepr": "E   AssertionError: Variable var2 does not end with the specified pattern -\n    assert False\n     +  where False = <built-in method endswith of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method endswith of str object at 0x00000277FFD627B0> = '_x1234567890'.endswith\n     +      where '_x1234567890' = str('_x1234567890')"
         },
         {
           "name": "var2",
@@ -498,7 +498,7 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7DAB0>, request = <FixtureRequest for <Function test_entrypoint[testcases41]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDC0D0>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283A7D4AE60>, testcases = (5, 10)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == QualificationEnum.matches:\n                assert str(val_student) == pattern, f\"Variable {name} does not match the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.contains:\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.startsWith:\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.endsWith:\n                assert str(val_student).endswith(pattern), f\"Variable {name} does not end with the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.count:\n>               assert str(val_student).count(pattern) == countRequirement, f\"Variable {name} does not contain the specified pattern {pattern} {countRequirement}-times\"\nE               AssertionError: Variable var2 does not contain the specified pattern - 1-times\nE               assert 0 == 1\nE                +  where 0 = <built-in method count of str object at 0x00000283A7D998F0>('-')\nE                +    where <built-in method count of str object at 0x00000283A7D998F0> = '_x1234567890'.count\nE                +      where '_x1234567890' = str('_x1234567890')\n\ncatester\\tests\\test_class.py:290: AssertionError"
+          "longrepr": "E   AssertionError: Variable var2 does not contain the specified pattern - 1-times\n    assert 0 == 1\n     +  where 0 = <built-in method count of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method count of str object at 0x00000277FFD627B0> = '_x1234567890'.count\n     +      where '_x1234567890' = str('_x1234567890')"
         },
         {
           "name": "var2",
@@ -506,9 +506,1790 @@
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x00000283A7C7E5F0>, request = <FixtureRequest for <Function test_entrypoint[testcases42]>>\nrecord_property = <function record_property.<locals>.append_property at 0x00000283A7EDC820>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000283AB2E19F0>, testcases = (5, 11)\n\n    def test_entrypoint(self, request, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        check_success_dependency(request, idx_main)\n    \n        _report = request.config.stash[report_key]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, request, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, request, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n                    assert val_student == val_reference, failure_msg\n                elif isinstance(val_student, (DataFrame, Series)):\n                    assert val_student.equals(val_reference), failure_msg\n                elif isinstance(val_student, np.ndarray):\n                    try:\n                        if relative_tolerance is None and absolute_tolerance is None:\n                            np.testing.assert_allclose(val_student, val_reference)\n                        else:\n                            np.testing.assert_allclose(val_student, val_reference, rtol=relative_tolerance, atol=absolute_tolerance)\n                    except AssertionError as e:\n                        raise AssertionError(failure_msg)\n                else:\n                    \"\"\" attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' \"\"\"\n                    assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg\n            elif qualification == QualificationEnum.matches:\n                assert str(val_student) == pattern, f\"Variable {name} does not match the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.contains:\n                assert str(val_student).find(pattern) > -1, f\"Variable {name} does not contain the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.startsWith:\n                assert str(val_student).startswith(pattern), f\"Variable {name} does not start with the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.endsWith:\n                assert str(val_student).endswith(pattern), f\"Variable {name} does not end with the specified pattern {pattern}\"\n            elif qualification == QualificationEnum.count:\n                assert str(val_student).count(pattern) == countRequirement, f\"Variable {name} does not contain the specified pattern {pattern} {countRequirement}-times\"\n            elif qualification == QualificationEnum.regexp:\n                result = re.match(re.compile(fr\"{pattern}\"), str(val_student))\n>               assert result is not None, f\"Variable {name} does not match the compiled regular expression from the specified pattern {pattern}\"\nE               AssertionError: Variable var2 does not match the compiled regular expression from the specified pattern ^.*y.*$\nE               assert None is not None\n\ncatester\\tests\\test_class.py:293: AssertionError"
+          "longrepr": "E   AssertionError: Variable var2 does not match the compiled regular expression from the specified pattern ^.*y.*$\n    assert None is not None"
         }
       ]
     }
-  ]
+  ],
+  "_json_report": {
+    "created": 1706096387.287711,
+    "duration": 1.5751709938049316,
+    "exitcode": 1,
+    "root": "i:\\PYTHON\\catester\\catester",
+    "environment": {},
+    "summary": {
+      "passed": 29,
+      "failed": 14,
+      "total": 43,
+      "collected": 43
+    },
+    "collectors": [
+      {
+        "nodeid": "",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "model/__init__.py",
+            "type": "Package"
+          },
+          {
+            "nodeid": "tests/__init__.py",
+            "type": "Package"
+          }
+        ]
+      },
+      {
+        "nodeid": "model/__init__.py",
+        "outcome": "passed",
+        "result": []
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases5]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases6]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases7]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases8]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases9]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases10]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases11]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases12]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases13]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases14]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases15]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases16]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases17]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases18]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases19]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases20]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases21]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases22]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases23]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases24]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases25]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases26]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases27]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases28]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases29]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases30]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases31]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases32]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases33]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases34]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases35]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases36]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases37]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases38]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases39]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases40]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases41]",
+            "type": "Function",
+            "lineno": 181
+          },
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases42]",
+            "type": "Function",
+            "lineno": 181
+          }
+        ]
+      },
+      {
+        "nodeid": "tests/test_class.py",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "tests/test_class.py::CodeabilityPythonTest",
+            "type": "Class"
+          }
+        ]
+      },
+      {
+        "nodeid": "tests/__init__.py",
+        "outcome": "passed",
+        "result": [
+          {
+            "nodeid": "tests/test_class.py",
+            "type": "Module"
+          }
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases0]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases0]",
+          "testcases0",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0011676999274641275,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.01802199985831976,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0.015642166137695312
+          },
+          {
+            "exec_time_reference": 0.006171464920043945
+          }
+        ],
+        "teardown": {
+          "duration": 0.000694899819791317,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases1]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases1]",
+          "testcases1",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0005284999497234821,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0002592999953776598,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00027210009284317493,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases2]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases2]",
+          "testcases2",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0004056000616401434,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00034009991213679314,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00029649981297552586,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases3]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases3]",
+          "testcases3",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00039739999920129776,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0002959000412374735,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 239,
+            "message": "AssertionError: Variable var4 not found in student namespace"
+          },
+          "longrepr": "E   NameError: name 'var4' is not defined\n\nDuring handling of the above exception, another exception occurred:\nE   AssertionError: Variable var4 not found in student namespace"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00027210009284317493,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases4]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases4]",
+          "testcases4",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0003992000129073858,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00042070006020367146,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 262,
+            "message": "AssertionError: Variable var5 has incorrect type, expected: <class 'tuple'>, obtained <class 'list'>\nassert <class 'list'> == <class 'tuple'>"
+          },
+          "longrepr": "E   AssertionError: Variable var5 has incorrect type, expected: <class 'tuple'>, obtained <class 'list'>\n    assert <class 'list'> == <class 'tuple'>"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00040929997339844704,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases5]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases5]",
+          "testcases5",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0006000001449137926,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0004600000102072954,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 267,
+            "message": "AssertionError: Variable var6 has incorrect value\nassert {1, 2, 3} == {1, 2}\n  Extra items in the left set:\n  3\n  Use -v to get more diff"
+          },
+          "longrepr": "E   AssertionError: Variable var6 has incorrect value\n    assert {1, 2, 3} == {1, 2}\n      Extra items in the left set:\n      3\n      Use -v to get more diff"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006931000389158726,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases6]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases6]",
+          "testcases6",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0006289000157266855,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0003212001174688339,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0002816000487655401,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases7]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases7]",
+          "testcases7",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00041709979996085167,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00041699991561472416,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00026769982650876045,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases8]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases8]",
+          "testcases8",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0004016000311821699,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.02585390000604093,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0.01328730583190918
+          },
+          {
+            "exec_time_reference": 0.0159451961517334
+          }
+        ],
+        "teardown": {
+          "duration": 0.000745000084862113,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases9]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases9]",
+          "testcases9",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.001006999984383583,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0006113999988883734,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006327999290078878,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases10]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases10]",
+          "testcases10",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009252000600099564,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0010054998565465212,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0007360000163316727,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases11]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases11]",
+          "testcases11",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009881001897156239,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0007661001291126013,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006287000142037868,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases12]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases12]",
+          "testcases12",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009562999475747347,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0008162998128682375,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006678998470306396,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases13]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases13]",
+          "testcases13",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009540999308228493,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0007456999737769365,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006307000294327736,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases14]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases14]",
+          "testcases14",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009073000401258469,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0007285000756382942,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0008262998890131712,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases15]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases15]",
+          "testcases15",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.001079800073057413,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0007701998110860586,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006281998939812183,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases16]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases16]",
+          "testcases16",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.000934199895709753,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0005612000823020935,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006422000005841255,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases17]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases17]",
+          "testcases17",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.000982699915766716,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0006902001332491636,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0007283000741153955,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases18]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases18]",
+          "testcases18",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009365000296384096,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0005837001372128725,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0005964001175016165,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases19]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases19]",
+          "testcases19",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0008919001556932926,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0006655000615864992,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0005985000170767307,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases20]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases20]",
+          "testcases20",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.000871799886226654,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0008316000457853079,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0005975998938083649,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases21]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases21]",
+          "testcases21",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0008949998300522566,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0006804999429732561,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006552999839186668,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases22]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases22]",
+          "testcases22",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0010943999513983727,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0007786999922245741,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.000632499810308218,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases23]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases23]",
+          "testcases23",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009311998728662729,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.018682900117710233,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0.0025277137756347656
+          },
+          {
+            "exec_time_reference": 0.015488147735595703
+          }
+        ],
+        "teardown": {
+          "duration": 0.0007500001229345798,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases24]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases24]",
+          "testcases24",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009598999749869108,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0010667000897228718,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 280,
+            "message": "AssertionError: Variable var_time has incorrect value\nassert datetime.time...9, 46, 661223) == 12:39:46.662780\n  comparison failed\n  Obtained: 12:39:46.661223\n  Expected: 12:39:46.662780"
+          },
+          "longrepr": "E   AssertionError: Variable var_time has incorrect value\n    assert datetime.time...9, 46, 661223) == 12:39:46.662780\n      comparison failed\n      Obtained: 12:39:46.661223\n      Expected: 12:39:46.662780"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006300001405179501,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases25]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases25]",
+          "testcases25",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0010170999448746443,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0015758001245558262,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 280,
+            "message": "AssertionError: Variable var_datetime has incorrect value\nassert datetime.date...9, 46, 661223) == 2024-01-24 12:39:46.662780\n  comparison failed\n  Obtained: 2024-01-24 12:39:46.661223\n  Expected: 2024-01-24 12:39:46.662780"
+          },
+          "longrepr": "E   AssertionError: Variable var_datetime has incorrect value\n    assert datetime.date...9, 46, 661223) == 2024-01-24 12:39:46.662780\n      comparison failed\n      Obtained: 2024-01-24 12:39:46.661223\n      Expected: 2024-01-24 12:39:46.662780"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006605000235140324,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases26]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases26]",
+          "testcases26",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.000924800056964159,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0010599000379443169,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 280,
+            "message": "AssertionError: Variable var_duration has incorrect value\nassert datetime.time...croseconds=10) == 5 days, 3:00:00\n  comparison failed\n  Obtained: 5 days, 3:00:00.000010\n  Expected: 5 days, 3:00:00"
+          },
+          "longrepr": "E   AssertionError: Variable var_duration has incorrect value\n    assert datetime.time...croseconds=10) == 5 days, 3:00:00\n      comparison failed\n      Obtained: 5 days, 3:00:00.000010\n      Expected: 5 days, 3:00:00"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0006259002257138491,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases27]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases27]",
+          "testcases27",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0009139000903815031,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.5122030000202358,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0.27549195289611816
+          },
+          {
+            "exec_time_reference": 0.20132851600646973
+          }
+        ],
+        "teardown": {
+          "duration": 0.00042729987762868404,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases28]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases28]",
+          "testcases28",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0005300999619066715,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0026892998721450567,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 277,
+            "message": "AssertionError: Variable y has incorrect value"
+          },
+          "longrepr": "E   AssertionError: \n    Not equal to tolerance rtol=1e-08, atol=1e-05\n    \n    Mismatched elements: 100 / 100 (100%)\n    Max absolute difference: 0.0001\n    Max relative difference: 0.00972825\n     x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\n            3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\n            7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\n     y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\n            0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\n            0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nDuring handling of the above exception, another exception occurred:\nE   AssertionError: Variable y has incorrect value"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0003591999411582947,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases29]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases29]",
+          "testcases29",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00045870011672377586,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.027378700207918882,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 269,
+            "message": "AssertionError: Variable df has incorrect value\nassert False\n +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\n +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals"
+          },
+          "stdout": "   Column1 Column2  Column3\n0        1       a     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n   Column1 Column2  Column3\n0        1       A     True\n1        2       B    False\n2        3       C     True\n<class 'pandas.core.frame.DataFrame'>\na    1\nb    2\nc    3\ndtype: int64\n<class 'pandas.core.series.Series'>\n",
+          "longrepr": "E   AssertionError: Variable df has incorrect value\n    assert False\n     +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\n     +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0.00983285903930664
+          },
+          {
+            "exec_time_reference": 0.008835792541503906
+          }
+        ],
+        "teardown": {
+          "duration": 0.0004430999979376793,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases30]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases30]",
+          "testcases30",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00045999977737665176,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0003581000491976738,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00040060002356767654,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases31]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases31]",
+          "testcases31",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0006227998528629541,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.015899999998509884,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0.015680551528930664
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0004852998536080122,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases32]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases32]",
+          "testcases32",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00045519997365772724,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00025379983708262444,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00029390002600848675,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases33]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases33]",
+          "testcases33",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00039279996417462826,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00023799994960427284,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0002645000349730253,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases34]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases34]",
+          "testcases34",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00038870004937052727,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00023539992980659008,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00026210001669824123,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases35]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases35]",
+          "testcases35",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0003887999337166548,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0002995000686496496,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0002615000121295452,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases36]",
+        "lineno": 181,
+        "outcome": "passed",
+        "keywords": [
+          "test_entrypoint[testcases36]",
+          "testcases36",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00038640014827251434,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0003260001540184021,
+          "outcome": "passed"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0002615000121295452,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases37]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases37]",
+          "testcases37",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00039350008592009544,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0004128997679799795,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 282,
+            "message": "AssertionError: Variable var2 does not match the specified pattern -\nassert '_x1234567890' == '-'\n  - -\n  + _x1234567890"
+          },
+          "longrepr": "E   AssertionError: Variable var2 does not match the specified pattern -\n    assert '_x1234567890' == '-'\n      - -\n      + _x1234567890"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00026290002278983593,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases38]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases38]",
+          "testcases38",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0003871000371873379,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.000337099889293313,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 284,
+            "message": "AssertionError: Variable var2 does not contain the specified pattern -\nassert -1 > -1\n +  where -1 = <built-in method find of str object at 0x00000277FFD627B0>('-')\n +    where <built-in method find of str object at 0x00000277FFD627B0> = '_x1234567890'.find\n +      where '_x1234567890' = str('_x1234567890')"
+          },
+          "longrepr": "E   AssertionError: Variable var2 does not contain the specified pattern -\n    assert -1 > -1\n     +  where -1 = <built-in method find of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method find of str object at 0x00000277FFD627B0> = '_x1234567890'.find\n     +      where '_x1234567890' = str('_x1234567890')"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0002662001643329859,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases39]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases39]",
+          "testcases39",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.00038480013608932495,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0003176999744027853,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 286,
+            "message": "AssertionError: Variable var2 does not start with the specified pattern -\nassert False\n +  where False = <built-in method startswith of str object at 0x00000277FFD627B0>('-')\n +    where <built-in method startswith of str object at 0x00000277FFD627B0> = '_x1234567890'.startswith\n +      where '_x1234567890' = str('_x1234567890')"
+          },
+          "longrepr": "E   AssertionError: Variable var2 does not start with the specified pattern -\n    assert False\n     +  where False = <built-in method startswith of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method startswith of str object at 0x00000277FFD627B0> = '_x1234567890'.startswith\n     +      where '_x1234567890' = str('_x1234567890')"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.000542899826541543,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases40]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases40]",
+          "testcases40",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.000668700085952878,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0003837000112980604,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 288,
+            "message": "AssertionError: Variable var2 does not end with the specified pattern -\nassert False\n +  where False = <built-in method endswith of str object at 0x00000277FFD627B0>('-')\n +    where <built-in method endswith of str object at 0x00000277FFD627B0> = '_x1234567890'.endswith\n +      where '_x1234567890' = str('_x1234567890')"
+          },
+          "longrepr": "E   AssertionError: Variable var2 does not end with the specified pattern -\n    assert False\n     +  where False = <built-in method endswith of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method endswith of str object at 0x00000277FFD627B0> = '_x1234567890'.endswith\n     +      where '_x1234567890' = str('_x1234567890')"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.00032270001247525215,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases41]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases41]",
+          "testcases41",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0004991001915186644,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.00038020010106265545,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 290,
+            "message": "AssertionError: Variable var2 does not contain the specified pattern - 1-times\nassert 0 == 1\n +  where 0 = <built-in method count of str object at 0x00000277FFD627B0>('-')\n +    where <built-in method count of str object at 0x00000277FFD627B0> = '_x1234567890'.count\n +      where '_x1234567890' = str('_x1234567890')"
+          },
+          "longrepr": "E   AssertionError: Variable var2 does not contain the specified pattern - 1-times\n    assert 0 == 1\n     +  where 0 = <built-in method count of str object at 0x00000277FFD627B0>('-')\n     +    where <built-in method count of str object at 0x00000277FFD627B0> = '_x1234567890'.count\n     +      where '_x1234567890' = str('_x1234567890')"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.000269399955868721,
+          "outcome": "passed"
+        }
+      },
+      {
+        "nodeid": "tests/test_class.py::CodeabilityPythonTest::test_entrypoint[testcases42]",
+        "lineno": 181,
+        "outcome": "failed",
+        "keywords": [
+          "test_entrypoint[testcases42]",
+          "testcases42",
+          "CodeabilityPythonTest",
+          "test_class.py",
+          "tests/__init__.py",
+          "catester"
+        ],
+        "setup": {
+          "duration": 0.0003963001072406769,
+          "outcome": "passed"
+        },
+        "call": {
+          "duration": 0.0003844001330435276,
+          "outcome": "failed",
+          "crash": {
+            "path": "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+            "lineno": 293,
+            "message": "AssertionError: Variable var2 does not match the compiled regular expression from the specified pattern ^.*y.*$\nassert None is not None"
+          },
+          "longrepr": "E   AssertionError: Variable var2 does not match the compiled regular expression from the specified pattern ^.*y.*$\n    assert None is not None"
+        },
+        "user_properties": [
+          {
+            "exec_time_student": 0
+          },
+          {
+            "exec_time_reference": 0
+          }
+        ],
+        "teardown": {
+          "duration": 0.0008845999836921692,
+          "outcome": "passed"
+        }
+      }
+    ]
+  }
 }

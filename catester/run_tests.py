@@ -9,7 +9,6 @@ DEFAULT_TEST = "test.yaml"
 DEFAULT_OUTPUT = "report.json"
 DEFAULT_INDENT = 2
 DEFAULT_VERBOSITY = 0
-WITH_JSON_REPORT = False
 
 def run_tests(specification, test, output, indent, verbosity):
     cwd = os.getcwd()
@@ -40,8 +39,8 @@ def run_tests(specification, test, output, indent, verbosity):
         raise
     
     dir = os.path.abspath(os.path.dirname(__file__))
-    #pytest config options
-    #https://docs.pytest.org/en/stable/reference/reference.html#configuration-options
+    #pytest command-line-flags
+    #https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
     options = []
     options.extend([
         f"{dir}",
@@ -49,11 +48,16 @@ def run_tests(specification, test, output, indent, verbosity):
         f"--output={output}",
         f"--indent={indent}",
         f"--verbosity={verbosity}",
-        #"--full-trace",
+        "-rA",
+        "--tb=no",
+        #"--fixtures",
         #"--collect-only",
+        #"--showlocals",
+        #"--tb=line",
+        #"--full-trace",
         #"--verbose",
-        #"-vvvvvvv",
-        #"-qqqqq",
+        #"-vv",
+        #"-qq",
         #"-x",
     ])
     if specification is not None:
@@ -62,13 +66,6 @@ def run_tests(specification, test, output, indent, verbosity):
         options.extend([
             #"--no-header",
             #"--no-summary",
-        ])
-    if WITH_JSON_REPORT:
-        #json report not needed anymore!?
-        options.extend([
-            f"--json-report-file={None}",
-            "--json-report-indent=2",
-            "--json-report",
         ])
 
     retcode = pytest.main(options)

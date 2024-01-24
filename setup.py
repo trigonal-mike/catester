@@ -2,10 +2,10 @@ from setuptools import setup, find_packages
 
 setup(
     name="catester",
-    version="0.1.0",
-    author="Michael Meierhofer",
+    version="0.2.1",
+    author="Michael Meierhofer @ TUGraz",
     author_email="mike@trigonal.at",
-    description="Python Testing Library",
+    description="Python Testing Engine",
     packages=find_packages(),
     python_requires=">=3.10, <4",
 )

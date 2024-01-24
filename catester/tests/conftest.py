@@ -75,8 +75,8 @@ def pytest_configure(config: pytest.Config) -> None:
     specification = parse_spec_file(specyamlfile)
     testsuite = parse_test_file(testyamlfile)
 
-    """root-directory is always the location of the test.yaml file
-    if relative directories are calculated from that root directory,
+    """root-directory is always the location of the test.yaml file,
+    relative directories are calculated from that root directory,
     however, all paths can be absolute as well 
     """
     root = os.path.abspath(os.path.dirname(testyamlfile))
@@ -198,7 +198,7 @@ def get_item(haystack: list[tuple[str, object]], needle, default):
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
-    item.add_report_section("x", "y", "report section contents\nfds")
+    #item.add_report_section("x", "y", "report section contents\nfds")
     out = yield
     _report: pytest.TestReport = out.get_result()
     if _report.when == "call":
@@ -215,10 +215,8 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
         test["longrepr"] = _report.longrepr
-        #_report.longrepr = f"Test ({idx_main},{idx_sub}) failed"
 
 def pytest_runtest_logreport(report: pytest.TestReport):
-    #report.longrepr = ("xxx", 1, "yyy")
     pass
 
 def pytest_report_teststatus(report: pytest.TestReport, config):
@@ -235,16 +233,6 @@ def pytest_runtest_teardown(item: pytest.Item, nextitem: pytest.Item) -> None:
 
 def pytest_keyboard_interrupt(excinfo: pytest.ExceptionInfo) -> None:
     pass
-
-# Following 3 hooks form JSON-Report, see: https://pypi.org/project/pytest-json-report/
-#def pytest_json_runtest_stage(report):
-#    pass
-
-#def pytest_json_runtest_metadata(item, call):
-#    pass
-
-#def pytest_json_modifyreport(json_report):
-#    pass
 
 def pytest_sessionstart(session: pytest.Session):
     _report = session.config.stash[report_key]
@@ -352,8 +340,6 @@ def pytest_sessionfinish(session: pytest.Session):
     report["executionDurationStudent"] = time_s
     report["duration"] = duration
     report["exitcode"] = str(exitcode)
-    if hasattr(session.config, "_json_report"):
-        report["_json_report"] = session.config._json_report.report
 
     with open(reportfile, "w", encoding="utf-8") as file:
         json.dump(report, file, default=str, indent=indent)
@@ -380,6 +366,7 @@ def pytest_report_header(config):
     ]
 
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
+    return
     verbosity = config.getoption("verbose")
     if verbosity >= 0:
         _report = config.stash[report_key]
