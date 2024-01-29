@@ -354,7 +354,6 @@ def pytest_sessionfinish(session: pytest.Session):
     NO_TESTS_COLLECTED = 5, pytest could not find tests.
     """
 
-
 @pytest.hookimpl(trylast=True)
 def pytest_report_header(config):
     verbosity = config.getoption("verbose")
@@ -413,8 +412,6 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
                     yellow=outcome == TestResult.skipped,
                     blue=outcome == TestResult.timedout,
                 )
-
-
 
 @pytest.fixture(scope="function")
 def monkeymodule():

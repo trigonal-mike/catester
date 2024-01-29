@@ -6,9 +6,9 @@ from run_tests import run_tests
 # facilitates starting local test-examples
 
 def start_tests():
-    #specification = "../examples/specification.yaml"
-    specification = None
-    #test = "../examples/ex1/test1.yaml"
+    specification = "../examples/specification.yaml"
+    #specification = None
+    #test = "../examples/ex1/test5.yaml"
     test = "../examples/ex2/test2.yaml"
     #output = "I:/x/report.json"
     #output = "./x/y/report.json"

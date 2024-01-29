@@ -37,10 +37,10 @@ def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
             raise
         return idx - 1
     except Exception as e:
-        pytest.fail(f"Dependency {dependency} not found!!!")
+        pytest.fail(f"Dependency {dependency} not found")
 
 def get_solution(mm, pytestconfig, idx_main, where: Solution):
-    """Calculate solution if not yet exists"""
+    """ Calculate solution if not yet exists """
     _report = pytestconfig.stash[report_key]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     specification: CodeAbilitySpecification = _report["specification"]
@@ -48,11 +48,11 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
     id = str(idx_main)
 
     exec_time = 0
-    if not "solutions" in globals():
-        globals()["solutions"] = {}
-    if not id in globals()["solutions"]:
-        globals()["solutions"][id] = {}
-    if not where in globals()["solutions"][id]:
+    if not "solutions" in _report:
+        _report["solutions"] = {}
+    if not id in _report["solutions"]:
+        _report["solutions"][id] = {}
+    if not where in _report["solutions"][id]:
         test_info = specification.testInfo
         test_directory = test_info.testDirectory
         artefact_directory = test_info.artefactDirectory
@@ -83,9 +83,6 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         """ Override/Disable certain methods """ 
         #mm.setattr(random, "seed", lambda *x: None)
-        #mm.setattr(os, "getcwd", lambda: "xxx")
-        #mm.setattr(time, "sleep", lambda x: None)
-        #mm.setattr(time, "time", lambda: 999)
         mm.setattr(plt, "show", lambda *x: None)
 
         """ start solution with empty namespace """
@@ -96,7 +93,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             ss = str(scd_idx)
             """ start solution with prior solution """
             try:
-                namespace = globals()["solutions"][ss][where]
+                namespace = _report["solutions"][ss][where]
             except Exception as e:
                 print(f"Exception: setUpCodeDependency {ss} not found")
                 print(e)
@@ -141,7 +138,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                     namespace["_graphics_object_"] = {}
                     for sub_test in main.tests:
                         name = sub_test.name
-                        fun2eval = f'"globals()["plt"].{name}"'
+                        fun2eval = f"globals()['plt'].{name}"
                         value = eval(fun2eval)
                         namespace["_graphics_object_"][name] = value
 
@@ -160,35 +157,30 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         """ remove test-directory from paths """
         sys.path.remove(test_directory)
 
-        globals()["solutions"][id][where] = namespace
-    return globals()["solutions"][id][where], exec_time
-
-def check_success_dependency(pytestconfig, idx_main):
-    _report = pytestconfig.stash[report_key]
-    report: any = _report["report"]
-    testsuite: CodeAbilityTestSuite = _report["testsuite"]
-    main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
-    success_dependencies = get_property_as_list(main.successDependency)
-    for dependency in success_dependencies:
-        main_idx = main_idx_by_dependency(testsuite, dependency)
-        total = report["tests"][main_idx]["summary"]["total"]
-        for sub_idx in range(total):
-            result = report["tests"][main_idx]["tests"][sub_idx]["result"]
-            if result != TestResult.passed:
-                pytest.skip(f"Dependency {success_dependencies} not satisfied")
+        _report["solutions"][id][where] = namespace
+    return _report["solutions"][id][where], exec_time
 
 class CodeabilityPythonTest:
     # testcases get parametrized in conftest.py (pytest_generate_tests)
     def test_entrypoint(self, pytestconfig, record_property, monkeymodule, testcases):
         idx_main, idx_sub = testcases
 
-        check_success_dependency(pytestconfig, idx_main)
-
         _report = pytestconfig.stash[report_key]
+        report: any = _report["report"]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
         specification: CodeAbilitySpecification = _report["specification"]
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
+
+        """ check success dependencies, skip if not satisfied """
+        success_dependencies = get_property_as_list(main.successDependency)
+        for dependency in success_dependencies:
+            main_idx = main_idx_by_dependency(testsuite, dependency)
+            total = report["tests"][main_idx]["summary"]["total"]
+            for sub_idx in range(total):
+                result = report["tests"][main_idx]["tests"][sub_idx]["result"]
+                if result != TestResult.passed:
+                    pytest.skip(f"Dependency {success_dependencies} not satisfied")
 
         dir_reference = specification.testInfo.referenceDirectory
         dir_student = specification.testInfo.studentDirectory

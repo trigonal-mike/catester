@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-01-24 15:04:27.072534",
+  "timestamp": "2024-01-29 10:51:02.073546",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -8,7 +8,7 @@
   "result": "FAILED",
   "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 0.7696430683135986,
+  "duration": 0.8372349739074707,
   "executionDurationReference": 0.0,
   "executionDurationStudent": 0.0,
   "environment": {
@@ -101,7 +101,7 @@
           "details": null,
           "longrepr": [
             "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-            178,
+            183,
             "Skipped: Dependency ['1'] not satisfied"
           ]
         }
