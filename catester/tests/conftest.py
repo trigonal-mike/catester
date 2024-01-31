@@ -11,18 +11,19 @@ from model import CodeAbilityTestSuite, CodeAbilitySpecification
 
 class TestStatus(str, Enum):
     scheduled = "SCHEDULED"
+    completed = "COMPLETED"
+    timedout = "TIMEDOUT"
+    crashed = "CRASHED"
+    cancelled = "CANCELLED"
+    # following not used yet:
+    failed = "FAILED"
     pending = "PENDING"
     running = "RUNNING"
-    cancelled = "CANCELLED"
-    completed = "COMPLETED"
-    failed = "FAILED"
-    crashed = "CRASHED"
 
 class TestResult(str, Enum):
-    failed = "FAILED"
     passed = "PASSED"
+    failed = "FAILED"
     skipped = "SKIPPED"
-    timedout = "TIMEDOUT"
 
 metadata_key = pytest.StashKey[dict]()
 report_key = pytest.StashKey[dict]()
@@ -135,16 +136,16 @@ def pytest_configure(config: pytest.Config) -> None:
             "teardown": main.tearDownCode,
             "status": TestStatus.scheduled,
             "result": None,
+            "statusMessage": None,
             "resultMessage": None,
             "details": None,
-            "executionDurationReference": None,
-            "executionDurationStudent": None,
+            "duration": None,
+            "executionDuration": None,
             "summary": {
                 "total": len(main.tests),
                 "success": 0,
                 "failed": 0,
                 "skipped": 0,
-                "timedout": 0,
             },
             "tests": sub_tests,
         })
@@ -156,11 +157,11 @@ def pytest_configure(config: pytest.Config) -> None:
         "description": testsuite.description,
         "status": TestStatus.scheduled,
         "result": None,
+        "statusMessage": None,
         "resultMessage": None,
         "details": None,
         "duration": None,
-        "executionDurationReference": None,
-        "executionDurationStudent": None,
+        "executionDuration": None,
         "environment": None,
         "properties": None,
         "debug": None,
@@ -170,7 +171,6 @@ def pytest_configure(config: pytest.Config) -> None:
             "success": 0,
             "failed": 0,
             "skipped": 0,
-            "timedout": 0,
         },
         "tests": main_tests,
     }
@@ -206,15 +206,18 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         report = item.config.stash[report_key]["report"]
         timeout = get_item(item.user_properties, "timeout", False)
         if timeout:
-            result = TestResult.timedout
+            status = TestStatus.timedout
         else:
-            result = _report.outcome.upper()
+            status = TestStatus.completed
         test = report["tests"][idx_main]["tests"][idx_sub]
-        test["result"] = result
-        test["status"] = TestStatus.completed
+        test["status"] = status
+        test["result"] = _report.outcome.upper()
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
-        test["longrepr"] = _report.longrepr
+        test["details"] = {
+            "longrepr": _report.longrepr,
+            "timestamp": time.time(),
+        }
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
@@ -254,7 +257,6 @@ def pytest_sessionfinish(session: pytest.Session):
     success = 0
     failed = 0
     skipped = 0
-    timedout = 0
     time_r = 0.0
     time_s = 0.0
     for idx_main, main in enumerate(report["tests"]):
@@ -263,7 +265,6 @@ def pytest_sessionfinish(session: pytest.Session):
         sub_success = 0
         sub_failed = 0
         sub_skipped = 0
-        sub_timedout = 0
         sub_time_r = 0.0
         sub_time_s = 0.0
         for idx_sub, sub in enumerate(main["tests"]):
@@ -282,20 +283,20 @@ def pytest_sessionfinish(session: pytest.Session):
             elif sub["result"] == TestResult.skipped:
                 sub_skipped = sub_skipped + 1
                 result_message = "Test skipped"
-            elif sub["result"] == TestResult.timedout:
-                sub_timedout = sub_timedout + 1
-                result_message = "Test timedout"
             else:
                 result_message = "...unknown..."
             sub["resultMessage"] = result_message
         time_r = time_r + sub_time_r
         time_s = time_s + sub_time_s
-        main["executionDurationReference"] = sub_time_r
-        main["executionDurationStudent"] = sub_time_s
+        main["details"] = {
+            "executionDurationReference": sub_time_r,
+            "executionDurationStudent": sub_time_s,
+        }
+        main["duration"] = sub_time_s
+        main["executionDuration"] = sub_time_s
         main["summary"]["success"] = sub_success
         main["summary"]["failed"] = sub_failed
         main["summary"]["skipped"] = sub_skipped
-        main["summary"]["timedout"] = sub_timedout
         main["status"] = TestStatus.completed
         if sub_success == sub_total:
             success = success + 1
@@ -305,10 +306,6 @@ def pytest_sessionfinish(session: pytest.Session):
             skipped = skipped + 1
             main["result"] = TestResult.skipped
             result_message = "Tests skipped"
-        elif sub_timedout > 0:
-            timedout = timedout + 1
-            main["result"] = TestResult.timedout
-            result_message = "Tests timedout"
         else:
             failed = failed + 1
             main["result"] = TestResult.failed
@@ -317,7 +314,6 @@ def pytest_sessionfinish(session: pytest.Session):
     report["summary"]["success"] = success
     report["summary"]["skipped"] = skipped
     report["summary"]["failed"] = failed
-    report["summary"]["timedout"] = timedout
 
     if exitcode == pytest.ExitCode.INTERRUPTED:
         report["status"] = TestStatus.cancelled
@@ -336,10 +332,13 @@ def pytest_sessionfinish(session: pytest.Session):
 
     report["resultMessage"] = result_message
     report["environment"] = environment
-    report["executionDurationReference"] = time_r
-    report["executionDurationStudent"] = time_s
     report["duration"] = duration
+    report["executionDuration"] = time_s
     report["exitcode"] = str(exitcode)
+    report["details"] = {
+        "executionDurationReference": time_r,
+        "executionDurationStudent": time_s,
+    }
 
     with open(reportfile, "w", encoding="utf-8") as file:
         json.dump(report, file, default=str, indent=indent)
@@ -376,21 +375,18 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
         success = report["summary"]["success"]
         failed = report["summary"]["failed"]
         skipped = report["summary"]["skipped"]
-        timedout = report["summary"]["timedout"]
         terminalreporter.ensure_newline()
         terminalreporter.section(f"{testsuite.name} - Summary", sep="~", purple=True, bold=True)
         terminalreporter.line(f"Total Test Collections: {total}")
         terminalreporter.line(f"PASSED: {success} ", green=True)
         terminalreporter.line(f"FAILED: {failed} ", red=True)
         terminalreporter.line(f"SKIPPED: {skipped} ", yellow=True)
-        terminalreporter.line(f"TIMEDOUT: {timedout} ", blue=True)
         for idx_main, main in enumerate(report["tests"]):
             test_main = testsuite.properties.tests[idx_main]
             sub_total = main["summary"]["total"]
             sub_success = main["summary"]["success"]
             sub_failed = main["summary"]["failed"]
             sub_skipped = main["summary"]["skipped"]
-            sub_timedout = main["summary"]["timedout"]
             testtext = "Test" if sub_total == 1 else "Tests"
             terminalreporter.write_sep("*", f"Testcollection {idx_main + 1}")
             terminalreporter.line(f"{test_main.name} ({sub_total} {testtext})")
@@ -400,8 +396,6 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
                 terminalreporter.line(f"FAILED: {sub_failed} ", red=True)
             if sub_skipped > 0:
                 terminalreporter.line(f"SKIPPED: {sub_skipped} ", yellow=True)
-            if sub_timedout > 0:
-                terminalreporter.line(f"TIMEDOUT: {sub_timedout} ", blue=True)
             for idx_sub, sub in enumerate(main["tests"]):
                 test_sub = test_main.tests[idx_sub]
                 outcome = sub["result"]
@@ -410,7 +404,6 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
                     green=outcome == TestResult.passed,
                     red=outcome == TestResult.failed,
                     yellow=outcome == TestResult.skipped,
-                    blue=outcome == TestResult.timedout,
                 )
 
 @pytest.fixture(scope="function")

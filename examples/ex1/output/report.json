@@ -1,16 +1,19 @@
 {
-  "timestamp": "2024-01-29 10:49:12.165984",
+  "timestamp": "2024-01-31 10:18:39.787160",
   "type": "python",
   "version": "1.0",
   "name": "Python Test suite",
-  "description": "Checks subtests and graphics",
+  "description": "Checks variables",
   "status": "COMPLETED",
   "result": "FAILED",
+  "statusMessage": null,
   "resultMessage": "Some or all tests failed",
-  "details": null,
-  "duration": 1.7169065475463867,
-  "executionDurationReference": 0.22040128707885742,
-  "executionDurationStudent": 0.2752871513366699,
+  "details": {
+    "executionDurationReference": 0.29351258277893066,
+    "executionDurationStudent": 0.40694665908813477
+  },
+  "duration": 1.6966943740844727,
+  "executionDuration": 0.40694665908813477,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -26,64 +29,589 @@
   "debug": null,
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
-    "total": 1,
-    "success": 0,
-    "failed": 1,
-    "skipped": 0,
-    "timedout": 0
+    "total": 6,
+    "success": 1,
+    "failed": 5,
+    "skipped": 0
   },
   "tests": [
     {
-      "type": "graphics",
-      "name": "graphics",
+      "type": "variable",
+      "name": "Test Basic",
       "description": null,
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
       "result": "FAILED",
+      "statusMessage": null,
       "resultMessage": null,
-      "details": null,
-      "executionDurationReference": 0.22040128707885742,
-      "executionDurationStudent": 0.2752871513366699,
+      "details": {
+        "executionDurationReference": 0.01613640785217285,
+        "executionDurationStudent": 0.015653371810913086
+      },
+      "duration": 0.015653371810913086,
+      "executionDuration": 0.015653371810913086,
       "summary": {
-        "total": 4,
-        "success": 2,
-        "failed": 2,
-        "skipped": 0,
-        "timedout": 0
+        "total": 8,
+        "success": 5,
+        "failed": 3,
+        "skipped": 0
       },
       "tests": [
         {
-          "name": "figure(1).axes[0].lines[0]._linestyle",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x000001756195B880>, pytestconfig = <_pytest.config.Config object at 0x000001754D0A00A0>\nrecord_property = <function record_property.<locals>.append_property at 0x0000017561974820>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017561959B10>, testcases = (0, 0)\n\n    def test_entrypoint(self, pytestconfig, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        _report = pytestconfig.stash[report_key]\n        report: any = _report[\"report\"]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        \"\"\" check success dependencies, skip if not satisfied \"\"\"\n        success_dependencies = get_property_as_list(main.successDependency)\n        for dependency in success_dependencies:\n            main_idx = main_idx_by_dependency(testsuite, dependency)\n            total = report[\"tests\"][main_idx][\"summary\"][\"total\"]\n            for sub_idx in range(total):\n                result = report[\"tests\"][main_idx][\"tests\"][sub_idx][\"result\"]\n                if result != TestResult.passed:\n                    pytest.skip(f\"Dependency {success_dependencies} not satisfied\")\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise\n                    #raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ncatester\\tests\\test_class.py:260: AssertionError"
-        },
-        {
-          "name": "figure(1).axes[0].lines[0].get_linestyle()",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "longrepr": "self = <tests.test_class.CodeabilityPythonTest object at 0x000001756195B940>, pytestconfig = <_pytest.config.Config object at 0x000001754D0A00A0>\nrecord_property = <function record_property.<locals>.append_property at 0x0000017561974790>, monkeymodule = <_pytest.monkeypatch.MonkeyPatch object at 0x00000175658C1570>, testcases = (0, 1)\n\n    def test_entrypoint(self, pytestconfig, record_property, monkeymodule, testcases):\n        idx_main, idx_sub = testcases\n    \n        _report = pytestconfig.stash[report_key]\n        report: any = _report[\"report\"]\n        testsuite: CodeAbilityTestSuite = _report[\"testsuite\"]\n        specification: CodeAbilitySpecification = _report[\"specification\"]\n        main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]\n        sub: CodeAbilityTest = main.tests[idx_sub]\n    \n        \"\"\" check success dependencies, skip if not satisfied \"\"\"\n        success_dependencies = get_property_as_list(main.successDependency)\n        for dependency in success_dependencies:\n            main_idx = main_idx_by_dependency(testsuite, dependency)\n            total = report[\"tests\"][main_idx][\"summary\"][\"total\"]\n            for sub_idx in range(total):\n                result = report[\"tests\"][main_idx][\"tests\"][sub_idx][\"result\"]\n                if result != TestResult.passed:\n                    pytest.skip(f\"Dependency {success_dependencies} not satisfied\")\n    \n        dir_reference = specification.testInfo.referenceDirectory\n        dir_student = specification.testInfo.studentDirectory\n    \n        testtype = main.type\n        file = main.file\n    \n        name = sub.name\n        value = sub.value\n        evalString = sub.evalString\n        pattern = sub.pattern\n        countRequirement = sub.countRequirement\n        qualification = sub.qualification\n        relative_tolerance = sub.relativeTolerance\n        absolute_tolerance = sub.absoluteTolerance\n        allowed_occuranceRange = sub.allowedOccuranceRange\n    \n        \"\"\" Get solutions, measure execution time \"\"\"\n        try:\n            solution_student, exec_time_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)\n            record_property(\"exec_time_student\", exec_time_student)\n            solution_reference, exec_time_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)\n            record_property(\"exec_time_reference\", exec_time_reference)\n        except TimeoutError as e:\n            record_property(\"timeout\", True)\n            raise\n    \n        \"\"\" if test is graphics => get saved graphics object as solution \"\"\"\n        if testtype == TypeEnum.graphics:\n            solution_student = solution_student[\"_graphics_object_\"]\n            solution_reference = solution_reference[\"_graphics_object_\"]\n    \n        if testtype in [\n            TypeEnum.variable,\n            TypeEnum.graphics,\n            TypeEnum.error,\n            TypeEnum.warning,\n            TypeEnum.help,\n        ]:\n            \"\"\" get the student value \"\"\"\n            if name in solution_student:\n                val_student = solution_student[name]\n            else:\n                \"\"\" value not found, try eval \"\"\"\n                try:\n                    val_student = eval(name, solution_student)\n                except Exception as e:\n                    raise\n                    #raise AssertionError(f\"Variable {name} not found in student namespace\")\n    \n            if qualification == QualificationEnum.verifyEqual:\n                \"\"\" get the reference value \"\"\"\n                if value is not None:\n                    val_reference = value\n                elif evalString is not None:\n                    try:\n                        val_reference = eval(evalString)\n                    except Exception as e:\n                        pytest.skip(reason=\"Evaluation of 'evalString' not possible\")\n                else:\n                    if name in solution_reference:\n                        val_reference = solution_reference[name]\n                    else:\n                        try:\n                            val_reference = eval(name, solution_reference)\n                        except Exception as e:\n                            raise AssertionError(f\"Variable {name} not found in reference namespace\")\n    \n                \"\"\" assert variable-type \"\"\"\n                type_student = type(val_student)\n                type_reference = type(val_reference)\n                assert type_student == type_reference, f\"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}\"\n    \n                \"\"\" assert variable-value \"\"\"\n                failure_msg = f\"Variable {name} has incorrect value\"\n                if isinstance(val_student, (str, set, frozenset)):\n>                   assert val_student == val_reference, failure_msg\nE                   AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\nE                   assert '-.' == '--'\nE                     - --\nE                     + -.\n\ncatester\\tests\\test_class.py:260: AssertionError"
-        },
-        {
-          "name": "figure(1).axes[0].get_xlabel()",
+          "name": "var1",
           "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
-          "details": null,
-          "longrepr": null
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7049322
+          }
         },
         {
-          "name": "figure(2).axes[0].get_ylabel()",
+          "name": "var2",
           "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
-          "details": null,
-          "longrepr": null
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7069268
+          }
+        },
+        {
+          "name": "var3",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7089431
+          }
+        },
+        {
+          "name": "var4",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   NameError: name 'var4' is not defined",
+            "timestamp": 1706692720.7126343
+          }
+        },
+        {
+          "name": "var5",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var5 has incorrect type, expected: <class 'tuple'>, obtained <class 'list'>\n    assert <class 'list'> == <class 'tuple'>",
+            "timestamp": 1706692720.7126343
+          }
+        },
+        {
+          "name": "var6",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var6 has incorrect value\n    assert {1, 2, 3} == {1, 2}\n      Extra items in the left set:\n      3\n      Use -v to get more diff",
+            "timestamp": 1706692720.7126343
+          }
+        },
+        {
+          "name": "var7",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7212527
+          }
+        },
+        {
+          "name": "var8",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7232726
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test PythonTypes",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.012749671936035156,
+        "executionDurationStudent": 0.002517223358154297
+      },
+      "duration": 0.002517223358154297,
+      "executionDuration": 0.002517223358154297,
+      "summary": {
+        "total": 15,
+        "success": 15,
+        "failed": 0,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "x1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x2",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x3",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x4",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x5",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x6",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x7",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x8",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7405326
+          }
+        },
+        {
+          "name": "x9",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7545679
+          }
+        },
+        {
+          "name": "x10",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.758588
+          }
+        },
+        {
+          "name": "x11",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7615483
+          }
+        },
+        {
+          "name": "x12",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.763214
+          }
+        },
+        {
+          "name": "x13",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.763214
+          }
+        },
+        {
+          "name": "x14",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7733371
+          }
+        },
+        {
+          "name": "x15",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.7763288
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test DateTime",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.015890121459960938,
+        "executionDurationStudent": 0.009429216384887695
+      },
+      "duration": 0.009429216384887695,
+      "executionDuration": 0.009429216384887695,
+      "summary": {
+        "total": 4,
+        "success": 1,
+        "failed": 3,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var_date",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692720.8052912
+          }
+        },
+        {
+          "name": "var_time",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var_time has incorrect value\n    assert datetime.time...8, 40, 780319) == 10:18:40.788749\n      comparison failed\n      Obtained: 10:18:40.780319\n      Expected: 10:18:40.788749",
+            "timestamp": 1706692720.8052912
+          }
+        },
+        {
+          "name": "var_datetime",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var_datetime has incorrect value\n    assert datetime.date...8, 40, 780319) == 2024-01-31 10:18:40.788749\n      comparison failed\n      Obtained: 2024-01-31 10:18:40.780319\n      Expected: 2024-01-31 10:18:40.788749",
+            "timestamp": 1706692720.8212254
+          }
+        },
+        {
+          "name": "var_duration",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var_duration has incorrect value\n    assert datetime.time...croseconds=10) == 5 days, 3:00:00\n      comparison failed\n      Obtained: 5 days, 3:00:00.000010\n      Expected: 5 days, 3:00:00",
+            "timestamp": 1706692720.8221076
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test Matplot",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.23203754425048828,
+        "executionDurationStudent": 0.33151745796203613
+      },
+      "duration": 0.33151745796203613,
+      "executionDuration": 0.33151745796203613,
+      "summary": {
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "x",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4046576
+          }
+        },
+        {
+          "name": "y",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: \n    Not equal to tolerance rtol=1e-08, atol=1e-05\n    \n    Mismatched elements: 100 / 100 (100%)\n    Max absolute difference: 0.0001\n    Max relative difference: 0.00972825\n     x: array([ 1.000000e-04,  1.009384e-01,  2.007489e-01,  2.985138e-01,\n            3.932366e-01,  4.839516e-01,  5.697341e-01,  6.497095e-01,\n            7.230626e-01,  7.890455e-01,  8.469856e-01,  8.962922e-01,...\n     y: array([ 0.      ,  0.100838,  0.200649,  0.298414,  0.393137,  0.483852,\n            0.569634,  0.64961 ,  0.722963,  0.788945,  0.846886,  0.896192,\n            0.936363,  0.966988,  0.987755,  0.998452,  0.998971,  0.989306,...\n\nDuring handling of the above exception, another exception occurred:\nE   AssertionError: Variable y has incorrect value",
+            "timestamp": 1706692721.4046576
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test Pandas",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.016698837280273438,
+        "executionDurationStudent": 0.03226327896118164
+      },
+      "duration": 0.03226327896118164,
+      "executionDuration": 0.03226327896118164,
+      "summary": {
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "df",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable df has incorrect value\n    assert False\n     +  where False = <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True>(   Column1 Column2  Column3\\n0        1       A     True\\n1        2       B    False\\n2        3       C     True)\n     +    where <bound method NDFrame.equals of    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True> =    Column1 Column2  Column3\\n0        1       a     True\\n1        2       B    False\\n2        3       C     True.equals",
+            "timestamp": 1706692721.455244
+          }
+        },
+        {
+          "name": "ser",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4702241
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test Strings",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.015566110610961914
+      },
+      "duration": 0.015566110610961914,
+      "executionDuration": 0.015566110610961914,
+      "summary": {
+        "total": 12,
+        "success": 6,
+        "failed": 6,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4879353
+          }
+        },
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var2 does not match the specified pattern -\n    assert '_x1234567890' == '-'\n      - -\n      + _x1234567890",
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var2 does not contain the specified pattern -\n    assert -1 > -1\n     +  where -1 = <built-in method find of str object at 0x000001D652EF2BB0>('-')\n     +    where <built-in method find of str object at 0x000001D652EF2BB0> = '_x1234567890'.find\n     +      where '_x1234567890' = str('_x1234567890')",
+            "timestamp": 1706692721.4881248
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var2 does not start with the specified pattern -\n    assert False\n     +  where False = <built-in method startswith of str object at 0x000001D652EF2BB0>('-')\n     +    where <built-in method startswith of str object at 0x000001D652EF2BB0> = '_x1234567890'.startswith\n     +      where '_x1234567890' = str('_x1234567890')",
+            "timestamp": 1706692721.5044653
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var2 does not end with the specified pattern -\n    assert False\n     +  where False = <built-in method endswith of str object at 0x000001D652EF2BB0>('-')\n     +    where <built-in method endswith of str object at 0x000001D652EF2BB0> = '_x1234567890'.endswith\n     +      where '_x1234567890' = str('_x1234567890')",
+            "timestamp": 1706692721.5044653
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var2 does not contain the specified pattern - 1-times\n    assert 0 == 1\n     +  where 0 = <built-in method count of str object at 0x000001D652EF2BB0>('-')\n     +    where <built-in method count of str object at 0x000001D652EF2BB0> = '_x1234567890'.count\n     +      where '_x1234567890' = str('_x1234567890')",
+            "timestamp": 1706692721.5044653
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: Variable var2 does not match the compiled regular expression from the specified pattern ^.*y.*$\n    assert None is not None",
+            "timestamp": 1706692721.5044653
+          }
         }
       ]
     }

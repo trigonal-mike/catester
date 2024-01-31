@@ -1,16 +1,19 @@
 {
-  "timestamp": "2024-01-29 10:51:02.073546",
+  "timestamp": "2024-01-31 10:20:00.527035",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
   "description": "Checks subtests and graphics",
   "status": "COMPLETED",
   "result": "FAILED",
-  "resultMessage": "Some or all tests failed",
-  "details": null,
-  "duration": 0.8372349739074707,
-  "executionDurationReference": 0.0,
-  "executionDurationStudent": 0.0,
+  "statusMessage": null,
+  "resultMessage": "Some or all Tests failed",
+  "details": {
+    "executionDurationReference": 0.03220343589782715,
+    "executionDurationStudent": 2.0560691356658936
+  },
+  "duration": 2.949822425842285,
+  "executionDuration": 2.0560691356658936,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -26,114 +29,164 @@
   "debug": null,
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
-    "total": 3,
-    "success": 1,
+    "total": 4,
+    "success": 3,
     "failed": 1,
-    "skipped": 1,
-    "timedout": 0
+    "skipped": 0
   },
   "tests": [
     {
       "type": "variable",
-      "name": "Variables 1",
+      "name": "Test timeout",
       "description": null,
       "setup": [
-        "var1=1"
+        "a = 1",
+        "b = 1"
       ],
-      "teardown": null,
+      "teardown": [
+        "del a"
+      ],
       "status": "COMPLETED",
-      "result": "FAILED",
+      "result": "PASSED",
+      "statusMessage": null,
       "resultMessage": null,
-      "details": null,
-      "executionDurationReference": 0.0,
-      "executionDurationStudent": 0.0,
+      "details": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 2.02486515045166
+      },
+      "duration": 2.02486515045166,
+      "executionDuration": 2.02486515045166,
       "summary": {
-        "total": 2,
+        "total": 1,
         "success": 1,
-        "failed": 1,
-        "skipped": 0,
-        "timedout": 0
+        "failed": 0,
+        "skipped": 0
       },
       "tests": [
         {
           "name": "var1",
           "status": "COMPLETED",
           "result": "PASSED",
-          "resultMessage": "fbvgdfbvdf",
-          "details": null,
-          "longrepr": null
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
           "resultMessage": null,
-          "details": null,
-          "longrepr": "E   NameError: name 'var2' is not defined"
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692803.419082
+          }
         }
       ]
     },
     {
       "type": "variable",
-      "name": "Variables 2",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "SKIPPED",
-      "resultMessage": "Tests skipped",
-      "details": null,
-      "executionDurationReference": 0.0,
-      "executionDurationStudent": 0.0,
-      "summary": {
-        "total": 1,
-        "success": 0,
-        "failed": 0,
-        "skipped": 1,
-        "timedout": 0
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "SKIPPED",
-          "resultMessage": "Test skipped",
-          "details": null,
-          "longrepr": [
-            "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-            183,
-            "Skipped: Dependency ['1'] not satisfied"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Variables 3",
+      "name": "Test variables 1",
       "description": null,
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
       "result": "PASSED",
-      "resultMessage": null,
-      "details": null,
-      "executionDurationReference": 0.0,
-      "executionDurationStudent": 0.0,
+      "statusMessage": null,
+      "resultMessage": "Test variables 1 Tests passed",
+      "details": {
+        "executionDurationReference": 0.01551198959350586,
+        "executionDurationStudent": 0.01559138298034668
+      },
+      "duration": 0.01559138298034668,
+      "executionDuration": 0.01559138298034668,
       "summary": {
-        "total": 1,
-        "success": 1,
+        "total": 2,
+        "success": 2,
         "failed": 0,
-        "skipped": 0,
-        "timedout": 0
+        "skipped": 0
       },
       "tests": [
         {
           "name": "var1",
           "status": "COMPLETED",
           "result": "PASSED",
+          "resultMessage": "var1 Test passed",
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692803.4511416
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": "var2 Test passed",
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692803.4541576
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test variables 2",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "statusMessage": null,
+      "resultMessage": "Test variables 1 Tests passed",
+      "details": {
+        "executionDurationReference": 0.01669144630432129,
+        "executionDurationStudent": 0.015612602233886719
+      },
+      "duration": 0.015612602233886719,
+      "executionDuration": 0.015612602233886719,
+      "summary": {
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var3",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": "var3 Test passed",
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706692803.4884825
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test crash",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.0
+      },
+      "duration": 0.0,
+      "executionDuration": 0.0,
+      "summary": {
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "FAILED",
           "resultMessage": null,
-          "details": null,
-          "longrepr": null
+          "details": {
+            "longrepr": "E   IndexError: list index out of range",
+            "timestamp": 1706692803.4894185
+          }
         }
       ]
     }
