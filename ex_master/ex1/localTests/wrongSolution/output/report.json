@@ -1,0 +1,84 @@
+{
+  "timestamp": "2024-02-02 13:04:12.022905",
+  "type": "Python",
+  "version": "1.0",
+  "name": "Python Test suite",
+  "description": "Checks variables",
+  "status": "COMPLETED",
+  "result": "PASSED",
+  "statusMessage": null,
+  "resultMessage": "Tests succeeded",
+  "details": {
+    "executionDurationReference": 0.002768993377685547,
+    "executionDurationStudent": 0.01574110984802246
+  },
+  "duration": 0.8239495754241943,
+  "executionDuration": 0.01574110984802246,
+  "environment": {
+    "Python": "3.10.11",
+    "Platform": "Windows-10-10.0.19045-SP0",
+    "Packages": {
+      "pytest": "7.4.3",
+      "pluggy": "1.3.0"
+    },
+    "Plugins": {
+      "metadata": "3.0.0"
+    }
+  },
+  "properties": null,
+  "debug": null,
+  "exitcode": "0",
+  "summary": {
+    "total": 1,
+    "success": 1,
+    "failed": 0,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "type": "variable",
+      "name": "Test 1",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.002768993377685547,
+        "executionDurationStudent": 0.01574110984802246
+      },
+      "duration": 0.01574110984802246,
+      "executionDuration": 0.01574110984802246,
+      "summary": {
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706875452.859194
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1706875452.8609889
+          }
+        }
+      ]
+    }
+  ]
+}

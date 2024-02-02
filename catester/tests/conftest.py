@@ -86,6 +86,7 @@ def pytest_configure(config: pytest.Config) -> None:
         dir = getattr(specification.testInfo, directory)
         if not os.path.isabs(dir):
             dir = os.path.join(root, dir)
+            dir = os.path.abspath(dir)
             setattr(specification.testInfo, directory, dir)
         if not os.path.exists(dir):
             os.makedirs(dir)

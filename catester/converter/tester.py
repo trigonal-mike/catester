@@ -1,6 +1,8 @@
 import glob
 import os
 import shutil
+import subprocess
+from colorama import Fore, Back, Style
 
 DEFAULT_SPECIFICATION = """testInfo:
   studentDirectory: "student"
@@ -58,17 +60,29 @@ class LocalTester:
             print(f"### Creating directory: {directory}")
         else:
             print(f"### Directory already exists: {directory}")
+            print(f"### Skipping: {directory}")
+            return
         if isref:
             shutil.copy(self.py_file, directory)
         else:
             shutil.copy(self.test_file, directory)
-            shutil.copy(self.spec_file, directory)
+            #shutil.copy(self.spec_file, directory)
             student_directory = os.path.join(directory, "student")
             os.makedirs(student_directory, exist_ok=True)
             shutil.copy(self.py_file, student_directory)
 
+    def run_local_tests(self):
+        print(f"### Running local tests: {self.localTestdir}")
+        directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
+        for idx, directory in enumerate(directories):
+            print()
+            print(f"{Back.MAGENTA}### Running local test #{idx+1}{Style.RESET_ALL}")
+            print(f"{Back.MAGENTA}### Directory: {directory}{Style.RESET_ALL}")
+            self.run_local_test(directory)
 
-
-
-
-
+    def run_local_test(self, directory):
+        os.chdir(directory)
+        dir = os.path.dirname(__file__)
+        entry_file = os.path.join(dir, "../run_tests.py")
+        entry_file = os.path.abspath(entry_file)
+        retcode = subprocess.run(f"python {entry_file} --specification={self.spec_file}", shell=True)

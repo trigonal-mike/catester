@@ -19,6 +19,7 @@ def convert_master(scandir):
     conv.convert()
     tester = LocalTester(scandir)
     tester.prepare()
+    tester.run_local_tests()
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

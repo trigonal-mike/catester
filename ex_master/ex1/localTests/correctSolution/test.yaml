@@ -1,0 +1,14 @@
+type: Python
+name: Python Test suite
+description: Checks variables
+version: "1.0"
+properties:
+  successMessage: Tests succeeded
+  failureMessage: "Tests failed"
+  tests:
+    - name: Test 1
+      entryPoint: ex1.py
+      type: variable
+      tests:
+        - name: var1
+        - name: var2
