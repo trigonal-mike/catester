@@ -20,7 +20,7 @@ Python Testing Library
             ├── student         ... student files
             ├── reference       ... reference files
             ├── output          ... JSON-Report output
-            ├── artefacts       ... generated images/data/etc
+            ├── artifacts       ... generated images/data/etc
             ├── testprograms    ... additional test programs
             └── test.yaml       ... file containing testsuite
         ├── ex2

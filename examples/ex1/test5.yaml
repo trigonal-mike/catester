@@ -1,10 +1,10 @@
 name: Python Test suite
 
 properties:
-  storeGraphicsArtefacts: true
+  storeGraphicsArtifacts: true
   tests:
     - type: graphics
-      #storeGraphicsArtefacts: false
+      #storeGraphicsArtifacts: false
       name: graphics
       entryPoint: "Matplot.py"
       qualification: verifyEqual

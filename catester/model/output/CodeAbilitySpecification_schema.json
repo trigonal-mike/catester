@@ -55,7 +55,7 @@
           "default": "output",
           "title": "Outputdirectory"
         },
-        "artefactDirectory": {
+        "artifactDirectory": {
           "anyOf": [
             {
               "minLength": 1,
@@ -65,8 +65,8 @@
               "type": "null"
             }
           ],
-          "default": "artefacts",
-          "title": "Artefactdirectory"
+          "default": "artifacts",
+          "title": "Artifactdirectory"
         },
         "studentTestCounter": {
           "anyOf": [
@@ -112,7 +112,7 @@
         "referenceDirectory": "reference",
         "testDirectory": "testprograms",
         "outputDirectory": "output",
-        "artefactDirectory": "artefacts",
+        "artifactDirectory": "artifacts",
         "studentTestCounter": null,
         "testVersion": "v1"
       }

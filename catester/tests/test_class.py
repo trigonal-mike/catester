@@ -55,7 +55,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
     if not where in _report["solutions"][id]:
         test_info = specification.testInfo
         test_directory = test_info.testDirectory
-        artefact_directory = test_info.artefactDirectory
+        artifact_directory = test_info.artifactDirectory
         _dir = test_info.studentDirectory if where == Solution.student else test_info.referenceDirectory
 
         type = main.type
@@ -63,7 +63,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         setup_code = get_property_as_list(main.setUpCode)
         teardown_code = get_property_as_list(main.tearDownCode)
         setup_code_dependency = main.setUpCodeDependency
-        store_graphics_artefacts = main.storeGraphicsArtefacts
+        store_graphics_artifacts = main.storeGraphicsArtifacts
         timeout = main.timeout
 
         """ remember old working directory """
@@ -124,11 +124,11 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
                 exec_time = time.time() - start_time
                 if type == "graphics":
-                    if store_graphics_artefacts:
+                    if store_graphics_artifacts:
                         fignums = plt.get_fignums()
                         for i in fignums:
                             file_name = f"{where}_test_{id}_figure_{i}.png"
-                            abs_file_name = os.path.join(artefact_directory, file_name)
+                            abs_file_name = os.path.join(artifact_directory, file_name)
                             figure = plt.figure(i)
                             figure.savefig(abs_file_name)
 

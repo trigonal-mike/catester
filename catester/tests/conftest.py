@@ -106,7 +106,7 @@ def pytest_configure(config: pytest.Config) -> None:
     ]
     mainfields = subfields.copy();
     mainfields.extend([
-        "storeGraphicsArtefacts",
+        "storeGraphicsArtifacts",
         "competency",
         "timeout",
     ])

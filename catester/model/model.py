@@ -10,7 +10,7 @@ DIRECTORIES = [
     "referenceDirectory",
     "testDirectory",
     "outputDirectory",
-    "artefactDirectory",
+    "artifactDirectory",
 ]
 
 class QualificationEnum(str, Enum):
@@ -47,7 +47,7 @@ class CodeAbilityTestCommon(BaseModel):
 
 
 class CodeAbilityTestCollectionCommon(CodeAbilityTestCommon):
-    storeGraphicsArtefacts: Optional[bool] = Field(default=None)
+    storeGraphicsArtifacts: Optional[bool] = Field(default=None)
     competency: Optional[str] = Field(min_length=1, default=None)
     timeout: Optional[float] = Field(ge=0, default=None)
 
@@ -103,7 +103,7 @@ class CodeAbilityTestInfo(CodeAbilityBase):
     referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
     testDirectory: Optional[str] = Field(min_length=1, default="testprograms")
     outputDirectory: Optional[str] = Field(min_length=1, default="output")
-    artefactDirectory: Optional[str] = Field(min_length=1, default="artefacts")
+    artifactDirectory: Optional[str] = Field(min_length=1, default="artifacts")
     studentTestCounter: Optional[int] = Field(ge=0, default=None)
     testVersion: Optional[str] = Field(min_length=1, default="v1")
 

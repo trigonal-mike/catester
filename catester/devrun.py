@@ -10,6 +10,10 @@ def start_tests():
     #specification = None
     #test = "../examples/ex1/test5.yaml"
     test = "../examples/ex2/test2.yaml"
+    #specification = "../ex_master/ex1/localTests/correctSolution/specification.yaml"
+    #specification = "../ex_master/ex1/localTests/emptySolution/specification.yaml"
+    #test = "../ex_master/ex1/localTests/correctSolution/test.yaml"
+    #test = "../ex_master/ex1/localTests/emptySolution/test.yaml"
     #output = "I:/x/report.json"
     #output = "./x/y/report.json"
     output = "report.json"

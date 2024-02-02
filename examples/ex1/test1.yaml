@@ -6,7 +6,7 @@ version: "1.0"
 properties:
   failureMessage: Some or all tests failed
   successMessage: Congratulations! All tests passed
-  storeGraphicsArtefacts: false
+  storeGraphicsArtifacts: false
   relativeTolerance: 1.0E-12
   absoluteTolerance: 0.000001
   qualification: verifyEqual

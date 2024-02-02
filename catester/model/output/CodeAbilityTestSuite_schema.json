@@ -226,7 +226,7 @@
           "default": null,
           "title": "Verbosity"
         },
-        "storeGraphicsArtefacts": {
+        "storeGraphicsArtifacts": {
           "anyOf": [
             {
               "type": "boolean"
@@ -236,7 +236,7 @@
             }
           ],
           "default": null,
-          "title": "Storegraphicsartefacts"
+          "title": "Storegraphicsartifacts"
         },
         "competency": {
           "anyOf": [
@@ -515,7 +515,7 @@
           "default": null,
           "title": "Verbosity"
         },
-        "storeGraphicsArtefacts": {
+        "storeGraphicsArtifacts": {
           "anyOf": [
             {
               "type": "boolean"
@@ -525,7 +525,7 @@
             }
           ],
           "default": null,
-          "title": "Storegraphicsartefacts"
+          "title": "Storegraphicsartifacts"
         },
         "competency": {
           "anyOf": [
