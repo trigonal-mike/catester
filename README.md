@@ -1,5 +1,5 @@
 # catester
-Python Testing Library
+Python Testing Engine
 
 ## project folder structure
 ```

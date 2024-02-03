@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-03 09:39:40.367123",
+  "timestamp": "2024-02-03 11:40:52.428466",
   "type": "Python",
   "version": "1.0",
   "name": "Python Test suite",
@@ -12,7 +12,7 @@
     "executionDurationReference": 0.0,
     "executionDurationStudent": 0.0
   },
-  "duration": 0.8594777584075928,
+  "duration": 0.8106348514556885,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -65,7 +65,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": "E   FileNotFoundError: entryPoint ex1.py not found",
-            "timestamp": 1706949581.2325778
+            "timestamp": 1706956853.243936
           }
         },
         {
@@ -75,7 +75,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": "E   FileNotFoundError: entryPoint ex1.py not found",
-            "timestamp": 1706949581.2355707
+            "timestamp": 1706956853.246956
           }
         }
       ]
