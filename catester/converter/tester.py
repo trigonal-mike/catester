@@ -3,19 +3,14 @@ import os
 import shutil
 import subprocess
 from colorama import Fore, Back, Style
+from enum import Enum
 
-DEFAULT_SPECIFICATION = """testInfo:
-  studentDirectory: "student"
-  referenceDirectory: "../_reference"
-  outputDirectory: "output"
-"""
+DEFAULT_SPECIFICATION = """testInfo:\n  referenceDirectory: "../_reference"\n"""
 
-LOCAL_TEST_DIRECTORIES = [
-    "_reference",
-    "correctSolution",
-    "emptySolution",
-    "wrongSolution",
-]
+class LOCAL_TEST_DIRECTORIES(str, Enum):
+    _reference = "_reference"
+    _correctSolution = "_correctSolution"
+    _emptySolution = "_emptySolution"
 
 class LocalTester:
     def __init__(self, scandir: str):
@@ -44,32 +39,32 @@ class LocalTester:
         if not os.path.exists(test_file):
             print(f"### test.yaml does not exist in directory: {self.scandir}")
             return
-
         self.py_file = py_file
         self.test_file = test_file
         self.spec_file = spec_file
         self.localTestdir = localTestdir
-        for directory in LOCAL_TEST_DIRECTORIES:
+        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
             self.init_local_test_dir(directory)
 
     def init_local_test_dir(self, directory: str):
-        isref = directory.startswith("_")
+        isref = directory == LOCAL_TEST_DIRECTORIES._reference
+        isempty = directory == LOCAL_TEST_DIRECTORIES._emptySolution
         directory = os.path.join(self.localTestdir, directory)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-            print(f"### Creating directory: {directory}")
-        else:
-            print(f"### Directory already exists: {directory}")
-            print(f"### Skipping: {directory}")
-            return
+        student_directory = os.path.join(directory, "student")
+
+        if os.path.exists(directory):
+            print(f"{Fore.RED}### Removing directory: {directory}{Style.RESET_ALL}")
+            shutil.rmtree(directory)
+        print(f"### Creating directory: {directory}")
+        os.makedirs(directory)
+
         if isref:
             shutil.copy(self.py_file, directory)
         else:
             shutil.copy(self.test_file, directory)
-            #shutil.copy(self.spec_file, directory)
-            student_directory = os.path.join(directory, "student")
-            os.makedirs(student_directory, exist_ok=True)
-            shutil.copy(self.py_file, student_directory)
+            os.makedirs(student_directory)
+            if not isempty:
+                shutil.copy(self.py_file, student_directory)
 
     def run_local_tests(self):
         print(f"### Running local tests: {self.localTestdir}")

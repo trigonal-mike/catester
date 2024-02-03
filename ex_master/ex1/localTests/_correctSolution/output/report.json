@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-02 13:04:09.185446",
+  "timestamp": "2024-02-03 09:39:38.727518",
   "type": "Python",
   "version": "1.0",
   "name": "Python Test suite",
@@ -9,11 +9,11 @@
   "statusMessage": null,
   "resultMessage": "Tests succeeded",
   "details": {
-    "executionDurationReference": 0.0023298263549804688,
-    "executionDurationStudent": 0.01563549041748047
+    "executionDurationReference": 0.01529550552368164,
+    "executionDurationStudent": 0.008084535598754883
   },
-  "duration": 0.8360586166381836,
-  "executionDuration": 0.01563549041748047,
+  "duration": 1.002986192703247,
+  "executionDuration": 0.008084535598754883,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -46,11 +46,11 @@
       "statusMessage": null,
       "resultMessage": null,
       "details": {
-        "executionDurationReference": 0.0023298263549804688,
-        "executionDurationStudent": 0.01563549041748047
+        "executionDurationReference": 0.01529550552368164,
+        "executionDurationStudent": 0.008084535598754883
       },
-      "duration": 0.01563549041748047,
-      "executionDuration": 0.01563549041748047,
+      "duration": 0.008084535598754883,
+      "executionDuration": 0.008084535598754883,
       "summary": {
         "total": 2,
         "success": 2,
@@ -65,7 +65,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": null,
-            "timestamp": 1706875450.033635
+            "timestamp": 1706949579.736929
           }
         },
         {
@@ -75,7 +75,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": null,
-            "timestamp": 1706875450.0356243
+            "timestamp": 1706949579.738953
           }
         }
       ]

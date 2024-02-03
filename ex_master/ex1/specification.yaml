@@ -1,4 +1,2 @@
 testInfo:
-  studentDirectory: "student"
   referenceDirectory: "../_reference"
-  outputDirectory: "output"

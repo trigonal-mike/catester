@@ -24,5 +24,6 @@ def convert_master(scandir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--scandir", help="directory containing *_master.py file")
+    #parser.add_argument("-r", "--reset", default=False, action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     convert_master(args.scandir)

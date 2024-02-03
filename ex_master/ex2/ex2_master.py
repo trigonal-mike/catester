@@ -9,6 +9,7 @@
 
 var1 = 1.0
 var2 = [1, 2]
+var3 = "[1, 2]"
 #$VARIABLE var1
 #$TEST successMessage: "Test succeeded"
 #$TEST failureMessage: "Test failed"
