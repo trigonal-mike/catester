@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-02 11:53:25.697600",
+  "timestamp": "2024-02-04 16:26:15.742095",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -12,7 +12,7 @@
     "executionDurationReference": 0.0,
     "executionDurationStudent": 0.0
   },
-  "duration": 0.8356962203979492,
+  "duration": 1.1302828788757324,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -67,7 +67,7 @@
           "resultMessage": "fbvgdfbvdf",
           "details": {
             "longrepr": null,
-            "timestamp": 1706871206.5248525
+            "timestamp": 1707060376.8851643
           }
         },
         {
@@ -77,7 +77,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": "E   NameError: name 'var2' is not defined",
-            "timestamp": 1706871206.5248525
+            "timestamp": 1707060376.8851643
           }
         }
       ]
@@ -116,7 +116,7 @@
               183,
               "Skipped: Dependency ['1'] not satisfied"
             ],
-            "timestamp": 1706871206.5248525
+            "timestamp": 1707060376.8851643
           }
         }
       ]
@@ -151,7 +151,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": null,
-            "timestamp": 1706871206.5413148
+            "timestamp": 1707060376.8851643
           }
         }
       ]

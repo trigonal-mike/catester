@@ -187,8 +187,9 @@ def pytest_configure(config: pytest.Config) -> None:
     }
     config.stash[report_key] = report
 
-def pytest_generate_tests(metafunc):
-    metafunc.parametrize("testcases", metafunc.config.stash[report_key]["testcases"])
+def pytest_generate_tests(metafunc: pytest.Metafunc):
+    report = metafunc.config.stash[report_key]
+    metafunc.parametrize("testcases", report["testcases"])
 
 def get_item(haystack: list[tuple[str, object]], needle, default):
     for x, y in enumerate(haystack):
@@ -204,7 +205,12 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
     _report: pytest.TestReport = out.get_result()
     if _report.when == "call":
         idx_main, idx_sub = item.callspec.params["testcases"]
-        report = item.config.stash[report_key]["report"]
+        rep = item.config.stash[report_key]
+        report = rep["report"]
+        testsuite: CodeAbilityTestSuite = rep["testsuite"]
+        main = testsuite.properties.tests[idx_main]
+        sub = main.tests[idx_sub]
+
         timeout = get_item(item.user_properties, "timeout", False)
         if timeout:
             status = TestStatus.timedout
@@ -219,6 +225,7 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
             "longrepr": _report.longrepr,
             "timestamp": time.time(),
         }
+        _report.nodeid = f"{main.name}\\{sub.name}"
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
