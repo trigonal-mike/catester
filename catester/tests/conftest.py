@@ -40,11 +40,6 @@ def pytest_addoption(parser: pytest.Parser):
         help="test yaml input file",
     )
     parser.addoption(
-        "--output",
-        default="report.json",
-        help="json report output file",
-    )
-    parser.addoption(
         "--indent",
         default=2,
         help="json report output indentation in spaces",
@@ -70,7 +65,6 @@ def pytest_configure(config: pytest.Config) -> None:
 
     specyamlfile = config.getoption("--specification")
     testyamlfile = config.getoption("--test")
-    reportfile = config.getoption("--output")
     indent = int(config.getoption("--indent"))
 
     specification = parse_spec_file(specyamlfile)
@@ -83,18 +77,18 @@ def pytest_configure(config: pytest.Config) -> None:
     root = os.path.abspath(os.path.dirname(testyamlfile))
 
     for directory in DIRECTORIES:
-        dir = getattr(specification.testInfo, directory)
+        dir = getattr(specification, directory)
         if not os.path.isabs(dir):
             dir = os.path.join(root, dir)
             dir = os.path.abspath(dir)
-            setattr(specification.testInfo, directory, dir)
-        if not os.path.exists(dir):
-            os.makedirs(dir)
+            setattr(specification, directory, dir)
+            os.makedirs(dir, exist_ok=True)
+
+    reportfile = specification.testOutputName
     if not os.path.isabs(reportfile):
-        reportfile = os.path.join(specification.testInfo.outputDirectory, reportfile)
+        reportfile = os.path.join(specification.outputDirectory, reportfile)
     dir = os.path.dirname(reportfile)
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+    os.makedirs(dir, exist_ok=True)
 
     testcases = []
     main_tests = []

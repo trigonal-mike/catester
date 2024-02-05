@@ -97,7 +97,7 @@ class CodeAbilityTestSuite(CodeAbilityBase):
     version: Optional[str] = Field(pattern="^1.0$", default="1.0")
 
 
-class CodeAbilityTestInfo(CodeAbilityBase):
+class CodeAbilitySpecification(CodeAbilityBase):
     #optional:
     studentDirectory: Optional[str] = Field(min_length=1, default="student")
     referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
@@ -106,10 +106,10 @@ class CodeAbilityTestInfo(CodeAbilityBase):
     artifactDirectory: Optional[str] = Field(min_length=1, default="artifacts")
     studentTestCounter: Optional[int] = Field(ge=0, default=None)
     testVersion: Optional[str] = Field(min_length=1, default="v1")
+    storeGraphicsArtifacts: Optional[bool] = Field(default=None)
+    testOutputName: Optional[str] = Field(min_length=1, default="testSummary.json")
+    isLocalUsage: Optional[bool] = Field(default=False)
 
-
-class CodeAbilitySpecification(CodeAbilityBase):
-    testInfo: CodeAbilityTestInfo = Field(default=CodeAbilityTestInfo())
 
 def parse_spec_file(file_path: str):
     # returns default if file_path is None

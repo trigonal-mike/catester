@@ -6,11 +6,10 @@ from model import parse_spec_file, parse_test_file
 
 DEFAULT_SPECIFICATION = None
 DEFAULT_TEST = "test.yaml"
-DEFAULT_OUTPUT = "report.json"
 DEFAULT_INDENT = 2
 DEFAULT_VERBOSITY = 0
 
-def run_tests(specification, test, output, indent, verbosity):
+def run_tests(specification, test, indent, verbosity):
     cwd = os.getcwd()
     if specification is not None and not os.path.isabs(specification):
         specification = os.path.join(cwd, specification)
@@ -45,7 +44,6 @@ def run_tests(specification, test, output, indent, verbosity):
     options.extend([
         f"{dir}",
         f"--test={test}",
-        f"--output={output}",
         f"--indent={indent}",
         f"--verbosity={verbosity}",
         "-rA",
@@ -76,9 +74,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", "--specification", default=DEFAULT_SPECIFICATION, help="specification yaml input file")
     parser.add_argument("-t", "--test", default=DEFAULT_TEST, help="test yaml input file")
-    parser.add_argument("-o", "--output", default=DEFAULT_OUTPUT, help="json report output file")
     parser.add_argument("-i", "--indent", default=DEFAULT_INDENT, help="json report output indentation in spaces")
     parser.add_argument("-v", "--verbosity", default=DEFAULT_VERBOSITY, help="verbosity level 0, 1, 2 or 3")
 
     args = parser.parse_args()
-    run_tests(args.specification, args.test, args.output, args.indent, args.verbosity)
+    run_tests(args.specification, args.test, args.indent, args.verbosity)

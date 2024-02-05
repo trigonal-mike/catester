@@ -1,121 +1,133 @@
 {
-  "$defs": {
-    "CodeAbilityTestInfo": {
-      "additionalProperties": false,
-      "properties": {
-        "studentDirectory": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "student",
-          "title": "Studentdirectory"
-        },
-        "referenceDirectory": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "reference",
-          "title": "Referencedirectory"
-        },
-        "testDirectory": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "testprograms",
-          "title": "Testdirectory"
-        },
-        "outputDirectory": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "output",
-          "title": "Outputdirectory"
-        },
-        "artifactDirectory": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "artifacts",
-          "title": "Artifactdirectory"
-        },
-        "studentTestCounter": {
-          "anyOf": [
-            {
-              "minimum": 0,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Studenttestcounter"
-        },
-        "testVersion": {
-          "anyOf": [
-            {
-              "minLength": 1,
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "v1",
-          "title": "Testversion"
-        }
-      },
-      "title": "CodeAbilityTestInfo",
-      "type": "object"
-    }
-  },
   "additionalProperties": false,
   "properties": {
-    "testInfo": {
-      "allOf": [
+    "studentDirectory": {
+      "anyOf": [
         {
-          "$ref": "#/$defs/CodeAbilityTestInfo"
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
         }
       ],
-      "default": {
-        "studentDirectory": "student",
-        "referenceDirectory": "reference",
-        "testDirectory": "testprograms",
-        "outputDirectory": "output",
-        "artifactDirectory": "artifacts",
-        "studentTestCounter": null,
-        "testVersion": "v1"
-      }
+      "default": "student",
+      "title": "Studentdirectory"
+    },
+    "referenceDirectory": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "reference",
+      "title": "Referencedirectory"
+    },
+    "testDirectory": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "testprograms",
+      "title": "Testdirectory"
+    },
+    "outputDirectory": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "output",
+      "title": "Outputdirectory"
+    },
+    "artifactDirectory": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "artifacts",
+      "title": "Artifactdirectory"
+    },
+    "studentTestCounter": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Studenttestcounter"
+    },
+    "testVersion": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "v1",
+      "title": "Testversion"
+    },
+    "storeGraphicsArtifacts": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Storegraphicsartifacts"
+    },
+    "testOutputName": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "testSummary.json",
+      "title": "Testoutputname"
+    },
+    "isLocalUsage": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": false,
+      "title": "Islocalusage"
     }
   },
   "title": "CodeAbilitySpecification",

@@ -53,10 +53,9 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
     if not id in _report["solutions"]:
         _report["solutions"][id] = {}
     if not where in _report["solutions"][id]:
-        test_info = specification.testInfo
-        test_directory = test_info.testDirectory
-        artifact_directory = test_info.artifactDirectory
-        _dir = test_info.studentDirectory if where == Solution.student else test_info.referenceDirectory
+        test_directory = specification.testDirectory
+        artifact_directory = specification.artifactDirectory
+        _dir = specification.studentDirectory if where == Solution.student else specification.referenceDirectory
 
         type = main.type
         entry_point = main.entryPoint
@@ -182,8 +181,8 @@ class CodeabilityPythonTest:
                 if result != TestResult.passed:
                     pytest.skip(f"Dependency {success_dependencies} not satisfied")
 
-        dir_reference = specification.testInfo.referenceDirectory
-        dir_student = specification.testInfo.studentDirectory
+        dir_reference = specification.referenceDirectory
+        dir_student = specification.studentDirectory
 
         testtype = main.type
         file = main.file

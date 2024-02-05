@@ -1,2 +1,2 @@
-testInfo:
-  referenceDirectory: "../_reference"
+referenceDirectory: "../_reference"
+isLocalUsage: true

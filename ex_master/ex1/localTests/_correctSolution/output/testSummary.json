@@ -1,19 +1,19 @@
 {
-  "timestamp": "2024-02-05 11:17:33.249581",
+  "timestamp": "2024-02-05 12:04:58.937116",
   "type": "Python",
   "version": "1.0",
   "name": "Python Test suite",
   "description": "Checks variables",
   "status": "COMPLETED",
-  "result": "FAILED",
+  "result": "PASSED",
   "statusMessage": null,
-  "resultMessage": "Tests failed",
+  "resultMessage": "Tests succeeded",
   "details": {
-    "executionDurationReference": 0.0,
-    "executionDurationStudent": 0.0
+    "executionDurationReference": 0.01595759391784668,
+    "executionDurationStudent": 0.010970592498779297
   },
-  "duration": 0.9745612144470215,
-  "executionDuration": 0.0,
+  "duration": 1.106520414352417,
+  "executionDuration": 0.010970592498779297,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -27,11 +27,11 @@
   },
   "properties": null,
   "debug": null,
-  "exitcode": "ExitCode.TESTS_FAILED",
+  "exitcode": "0",
   "summary": {
     "total": 1,
-    "success": 0,
-    "failed": 1,
+    "success": 1,
+    "failed": 0,
     "skipped": 0
   },
   "tests": [
@@ -42,40 +42,40 @@
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
-      "result": "FAILED",
+      "result": "PASSED",
       "statusMessage": null,
       "resultMessage": null,
       "details": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
+        "executionDurationReference": 0.01595759391784668,
+        "executionDurationStudent": 0.010970592498779297
       },
-      "duration": 0.0,
-      "executionDuration": 0.0,
+      "duration": 0.010970592498779297,
+      "executionDuration": 0.010970592498779297,
       "summary": {
         "total": 2,
-        "success": 0,
-        "failed": 2,
+        "success": 2,
+        "failed": 0,
         "skipped": 0
       },
       "tests": [
         {
           "name": "var1",
           "status": "COMPLETED",
-          "result": "FAILED",
+          "result": "PASSED",
           "resultMessage": null,
           "details": {
-            "longrepr": "E   FileNotFoundError: entryPoint ex1.py not found",
-            "timestamp": 1707128254.2279432
+            "longrepr": null,
+            "timestamp": 1707131100.0397656
           }
         },
         {
           "name": "var2",
           "status": "COMPLETED",
-          "result": "FAILED",
+          "result": "PASSED",
           "resultMessage": null,
           "details": {
-            "longrepr": "E   FileNotFoundError: entryPoint ex1.py not found",
-            "timestamp": 1707128254.231146
+            "longrepr": null,
+            "timestamp": 1707131100.046747
           }
         }
       ]

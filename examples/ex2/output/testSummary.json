@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-04 16:33:17.784124",
+  "timestamp": "2024-02-05 12:03:09.092940",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -12,7 +12,7 @@
     "executionDurationReference": 0.0,
     "executionDurationStudent": 0.0
   },
-  "duration": 0.8139662742614746,
+  "duration": 0.8873581886291504,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -67,7 +67,7 @@
           "resultMessage": "fbvgdfbvdf",
           "details": {
             "longrepr": null,
-            "timestamp": 1707060798.5929663
+            "timestamp": 1707130989.9855585
           }
         },
         {
@@ -77,7 +77,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": "E   AssertionError: Variable var2 not found in student namespace",
-            "timestamp": 1707060798.5929663
+            "timestamp": 1707130989.9875262
           }
         }
       ]
@@ -113,10 +113,10 @@
           "details": {
             "longrepr": [
               "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-              183,
+              182,
               "Skipped: Dependency ['1'] not satisfied"
             ],
-            "timestamp": 1707060798.609683
+            "timestamp": 1707130989.9893973
           }
         }
       ]
@@ -151,7 +151,7 @@
           "resultMessage": null,
           "details": {
             "longrepr": null,
-            "timestamp": 1707060798.6127105
+            "timestamp": 1707130989.990859
           }
         }
       ]

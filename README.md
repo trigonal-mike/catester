@@ -35,11 +35,8 @@ run_tests.py uses following command line arguments:
 | --- | --- | --- |
 | --specification | specification.yaml | abs/rel path to specification file |
 | --test | test.yaml | abs/rel path to testsuite file |
-| --output | report.json | abs/rel file name of generated json-report |
 | --indent | 2 | indentation for the generated report |
 | --verbosity | 0 | verbosity level [0,1,2,3] |
-
-if --output is a relative path, then it is relative to **specification.testInfo.outputDirectory**
 
 ## starting pytest with run_tests.py
 python ./run_tests.py

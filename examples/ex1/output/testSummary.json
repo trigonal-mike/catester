@@ -1,0 +1,174 @@
+{
+  "timestamp": "2024-02-05 12:03:25.833363",
+  "type": "python",
+  "version": "1.0",
+  "name": "Python Test suite",
+  "description": "Checks variables",
+  "status": "COMPLETED",
+  "result": "FAILED",
+  "statusMessage": null,
+  "resultMessage": "Some or all tests failed",
+  "details": {
+    "executionDurationReference": 0.015529632568359375,
+    "executionDurationStudent": 0.014573335647583008
+  },
+  "duration": 0.9024574756622314,
+  "executionDuration": 0.014573335647583008,
+  "environment": {
+    "Python": "3.10.11",
+    "Platform": "Windows-10-10.0.19045-SP0",
+    "Packages": {
+      "pytest": "7.4.3",
+      "pluggy": "1.3.0"
+    },
+    "Plugins": {
+      "metadata": "3.0.0"
+    }
+  },
+  "properties": null,
+  "debug": null,
+  "exitcode": "ExitCode.TESTS_FAILED",
+  "summary": {
+    "total": 3,
+    "success": 2,
+    "failed": 1,
+    "skipped": 0
+  },
+  "tests": [
+    {
+      "type": "variable",
+      "name": "Test Basic",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.015529632568359375,
+        "executionDurationStudent": 0.014573335647583008
+      },
+      "duration": 0.014573335647583008,
+      "executionDuration": 0.014573335647583008,
+      "summary": {
+        "total": 4,
+        "success": 4,
+        "failed": 0,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1707131006.7337768
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1707131006.7357705
+          }
+        },
+        {
+          "name": "var3",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1707131006.7377856
+          }
+        },
+        {
+          "name": "var9[0]",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1707131006.73978
+          }
+        }
+      ]
+    },
+    {
+      "type": "exist",
+      "name": "Existance of a file",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "PASSED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.0
+      },
+      "duration": 0.0,
+      "executionDuration": 0.0,
+      "summary": {
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "existance",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": null,
+            "timestamp": 1707131006.7427502
+          }
+        }
+      ]
+    },
+    {
+      "type": "exist",
+      "name": "Existance of a file",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.0
+      },
+      "duration": 0.0,
+      "executionDuration": 0.0,
+      "summary": {
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "existance",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": {
+            "longrepr": "E   AssertionError: File with pattern xxx*.py not found in reference namespace\n    assert 0 > 0\n     +  where 0 = len([])\n     +    where [] = <function glob at 0x0000014E5B7E69E0>('xxx*.py', root_dir='i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1\\\\reference')\n     +      where <function glob at 0x0000014E5B7E69E0> = glob.glob",
+            "timestamp": 1707131006.745771
+          }
+        }
+      ]
+    }
+  ]
+}

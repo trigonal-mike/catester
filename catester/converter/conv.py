@@ -10,7 +10,7 @@ from model import TypeEnum, QualificationEnum
 from model import parse_test_file
 from .enums import PropertyEnum, SubTestEnum, TestEnum, TestSuiteEnum, TokenEnum
 
-DEFAULT_SPECIFICATION = """testInfo:\n  referenceDirectory: "../_reference"\n"""
+DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true"""
 
 class LOCAL_TEST_DIRECTORIES(str, Enum):
     _reference = "_reference"
