@@ -225,11 +225,15 @@ class CodeabilityPythonTest:
                 val_student = solution_student[name]
             else:
                 """ value not found, try eval """
+                ok = False
                 try:
                     val_student = eval(name, solution_student)
+                    ok = True
                 except Exception as e:
-                    raise
-                    #raise AssertionError(f"Variable {name} not found in student namespace")
+                    pass
+                finally:
+                    if not ok:
+                        raise AssertionError(f"Variable {name} not found in student namespace")
 
             if qualification == QualificationEnum.verifyEqual:
                 """ get the reference value """

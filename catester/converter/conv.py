@@ -1,36 +1,72 @@
+import glob
 import os
 import time
+import shutil
+import subprocess
 from colorama import Fore, Back, Style
+from enum import Enum
 from pydantic import ValidationError
 from model import TypeEnum, QualificationEnum
 from model import parse_test_file
 from .enums import PropertyEnum, SubTestEnum, TestEnum, TestSuiteEnum, TokenEnum
 
-class Converter:
-    def __init__(self, filename: str):
-        dirname = os.path.dirname(filename)
-        output = os.path.join(dirname, "test.yaml")
-        entrypoint = os.path.basename(filename).replace("_master", "")
-        reference = os.path.join(dirname, entrypoint)
+DEFAULT_SPECIFICATION = """testInfo:\n  referenceDirectory: "../_reference"\n"""
 
-        self.filename = filename
-        self.dirname = dirname
-        self.output = output
+class LOCAL_TEST_DIRECTORIES(str, Enum):
+    _reference = "_reference"
+    _correctSolution = "_correctSolution"
+    _emptySolution = "_emptySolution"
+
+class Converter:
+    def __init__(self, scandir):
+        self.ready = False
+        self._scan_dir = scandir
+        if scandir is None:
+            scandir = os.getcwd()
+        if not os.path.exists(scandir):
+            print(f"Directory not found: {scandir}")
+            return
+        os.chdir(scandir)
+        flist = glob.glob("*_master.py")
+        if len(flist) == 0:
+            print(f"No file named *_master.py in directory: {scandir}")
+            return
+        entrypoint = flist[0].replace("_master", "")
+
+        self.scandir = scandir
         self.entrypoint = entrypoint
-        self.reference = reference
+        self.masterfile = os.path.join(scandir, flist[0])
+        self.py_file = os.path.join(scandir, entrypoint)
+        self.test_yaml = os.path.join(scandir, "test.yaml")
+        self.spec_file = os.path.join(self.scandir, "specification.yaml")
+        self.localTestdir = os.path.join(self.scandir, "localTests")
+        self.ready = True
 
     def convert(self):
-        print(f"### Converting {self.filename}")
+        if not self.ready:
+            print(f"{Fore.RED}ERROR Conversion, directory invalid: {self._scan_dir}{Style.RESET_ALL}")
+        print(f"### Conversion started")
         start = time.time()
+
+        print(f"### Analyzing {self.masterfile}")
         self._analyze_master()
-        self._write_yaml()
+        print(f"### Creating TestSuite: {self.test_yaml}")
+        self._write_testsuite()
+        print(f"### Validating TestSuite")
         self._validate_yaml()
+        print(f"### Creating Reference: {self.py_file}")
+        self._write_reference()
+        print(f"### Creating Specification: {self.spec_file}")
+        self._write_specification()
+        print(f"### Preparing Local Test Directory: {self.localTestdir}")
+        self._prepare_local_test_directories()
+
         time.sleep(0.00000000000001)
         end = round(time.time() - start, 3)
-        print(f"### Converting finished, duration {end} seconds")
+        print(f"### Conversion finished, duration {end} seconds")
 
     def _analyze_master(self):
-        with open(self.filename, "r") as file:
+        with open(self.masterfile, "r") as file:
             masterlines = file.readlines()
         #lines = [l for l in lines if l.startswith("#$")]
         lines = []
@@ -93,10 +129,9 @@ class Converter:
                     raise Exception(f"QUALIFICATION value invalid: {Fore.RED}{value}{Style.RESET_ALL}\nchoose from: {QualificationEnum._member_names_}")
         return token, argument, value
 
-    def _write_yaml(self):
+    def _write_testsuite(self):
         if not hasattr(self, "tokens"):
-            return
-        
+            return        
         contents = []
         testsuite = {}
         properties = {}
@@ -161,15 +196,71 @@ class Converter:
                     contents.append(f"{prefix}{argument}: {subtest[argument]}")
 
         content = "\n".join(contents)
-        with open(self.output, "w", encoding="utf-8") as file:
+        with open(self.test_yaml, "w", encoding="utf-8") as file:
             file.write(content)
-        with open(self.reference, "w", encoding="utf-8") as file:
+
+    def _write_reference(self):
+        if not hasattr(self, "lines"):
+            return
+        with open(self.py_file, "w", encoding="utf-8") as file:
             file.write("".join(self.lines))
+
+    def _write_specification(self):
+        with open(self.spec_file, "w", encoding="utf-8") as file:
+            file.write(DEFAULT_SPECIFICATION)
 
     def _validate_yaml(self):
         try:
-            _test = parse_test_file(self.output)
+            _test = parse_test_file(self.test_yaml)
             #print(_test)
         except ValidationError as e:
             print("YAML File could not be validated")
             print(e)
+
+    def _prepare_local_test_directories(self):
+        if not os.path.exists(self.localTestdir):
+            os.makedirs(self.localTestdir)
+            print(f"### Creating directory: {self.localTestdir}")
+        else:
+            print(f"{Fore.CYAN}### Directory already exists:{Style.RESET_ALL} {self.localTestdir}")
+        if not os.path.exists(self.test_yaml):
+            print(f"### test.yaml does not exist in directory: {self.scandir}")
+            return
+        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
+            self._init_local_test_dir(directory)
+
+    def _init_local_test_dir(self, directory: str):
+        isref = directory == LOCAL_TEST_DIRECTORIES._reference
+        isempty = directory == LOCAL_TEST_DIRECTORIES._emptySolution
+        directory = os.path.join(self.localTestdir, directory)
+        student_directory = os.path.join(directory, "student")
+
+        if os.path.exists(directory):
+            print(f"{Fore.RED}### Removing directory: {directory}{Style.RESET_ALL}")
+            shutil.rmtree(directory)
+        print(f"### Creating directory: {directory}")
+        os.makedirs(directory)
+
+        if isref:
+            shutil.copy(self.py_file, directory)
+        else:
+            shutil.copy(self.test_yaml, directory)
+            os.makedirs(student_directory)
+            if not isempty:
+                shutil.copy(self.py_file, student_directory)
+
+    def run_local_tests(self):
+        print(f"### Running local tests: {self.localTestdir}")
+        directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
+        for idx, directory in enumerate(directories):
+            print()
+            print(f"{Back.MAGENTA}### Running local test #{idx+1}{Style.RESET_ALL}")
+            print(f"{Back.MAGENTA}### Directory: {directory}{Style.RESET_ALL}")
+            self._run_local_test(directory)
+
+    def _run_local_test(self, directory):
+        os.chdir(directory)
+        dir = os.path.dirname(__file__)
+        run_tests_py = os.path.join(dir, "../run_tests.py")
+        run_tests_py = os.path.abspath(run_tests_py)
+        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file}", shell=True)
