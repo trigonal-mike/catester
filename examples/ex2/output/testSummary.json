@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-05 13:10:12.889669",
+  "timestamp": "2024-02-05 13:51:16.728067",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -7,9 +7,9 @@
   "status": "COMPLETED",
   "result": "FAILED",
   "statusMessage": null,
-  "resultMessage": "Some or all tests failed",
+  "resultMessage": "Some or all Tests failed",
   "details": null,
-  "duration": 1.0590901374816895,
+  "duration": 2.9092273712158203,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -23,7 +23,7 @@
     }
   },
   "properties": {
-    "test": "i:\\PYTHON\\catester\\examples\\ex2\\test2.yaml",
+    "test": "i:\\PYTHON\\catester\\examples\\ex2\\test.yaml",
     "specification": "i:\\PYTHON\\catester\\examples\\specification.yaml"
   },
   "debug": {
@@ -32,70 +32,25 @@
   },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
-    "total": 3,
-    "success": 2,
-    "failed": 1,
-    "skipped": 0
+    "total": 4,
+    "success": 0,
+    "failed": 2,
+    "skipped": 2
   },
   "tests": [
     {
       "type": "variable",
-      "name": "Variables 1",
+      "name": "Test timeout",
       "description": null,
       "setup": [
-        "var1=1\nvar2=2"
+        "a = 1",
+        "b = 1"
       ],
-      "teardown": null,
+      "teardown": [
+        "del a"
+      ],
       "status": "COMPLETED",
-      "result": "PASSED",
-      "statusMessage": null,
-      "resultMessage": "325432534",
-      "details": null,
-      "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 2,
-        "success": 2,
-        "failed": 0,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": "fbvgdfbvdf",
-          "details": null,
-          "debug": {
-            "longrepr": null,
-            "timestamp": 1707135013.9530003
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": "fbvgdfbvdf",
-          "details": null,
-          "debug": {
-            "longrepr": null,
-            "timestamp": 1707135013.9549937
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Variables 2",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "PASSED",
+      "result": "FAILED",
       "statusMessage": null,
       "resultMessage": null,
       "details": null,
@@ -107,27 +62,124 @@
       "executionDuration": 0.0,
       "summary": {
         "total": 1,
-        "success": 1,
-        "failed": 0,
+        "success": 0,
+        "failed": 1,
         "skipped": 0
       },
       "tests": [
         {
           "name": "var1",
-          "status": "COMPLETED",
-          "result": "PASSED",
+          "status": "TIMEDOUT",
+          "result": "FAILED",
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": null,
-            "timestamp": 1707135013.955991
+            "longrepr": "E   TimeoutError",
+            "timestamp": 1707137479.6253645
           }
         }
       ]
     },
     {
       "type": "variable",
-      "name": "Variables 3",
+      "name": "Test variables 1",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "SKIPPED",
+      "statusMessage": null,
+      "resultMessage": "Tests skipped",
+      "details": null,
+      "debug": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.0
+      },
+      "duration": 0.0,
+      "executionDuration": 0.0,
+      "summary": {
+        "total": 2,
+        "success": 0,
+        "failed": 0,
+        "skipped": 2
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "SKIPPED",
+          "resultMessage": "Test skipped",
+          "details": null,
+          "debug": {
+            "longrepr": [
+              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              185,
+              "Skipped: Dependency [1] not satisfied"
+            ],
+            "timestamp": 1707137479.6333423
+          }
+        },
+        {
+          "name": "var2",
+          "status": "COMPLETED",
+          "result": "SKIPPED",
+          "resultMessage": "Test skipped",
+          "details": null,
+          "debug": {
+            "longrepr": [
+              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              185,
+              "Skipped: Dependency [1] not satisfied"
+            ],
+            "timestamp": 1707137479.6412838
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test variables 2",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "SKIPPED",
+      "statusMessage": null,
+      "resultMessage": "Tests skipped",
+      "details": null,
+      "debug": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.0
+      },
+      "duration": 0.0,
+      "executionDuration": 0.0,
+      "summary": {
+        "total": 1,
+        "success": 0,
+        "failed": 0,
+        "skipped": 1
+      },
+      "tests": [
+        {
+          "name": "var3",
+          "status": "COMPLETED",
+          "result": "SKIPPED",
+          "resultMessage": "Test skipped",
+          "details": null,
+          "debug": {
+            "longrepr": [
+              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+              185,
+              "Skipped: Dependency ['xxx', '1'] not satisfied"
+            ],
+            "timestamp": 1707137479.6453037
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Test crash",
       "description": null,
       "setup": null,
       "teardown": null,
@@ -156,8 +208,8 @@
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   Failed: Exception: setUpCodeDependency `3` not found",
-            "timestamp": 1707135013.9589937
+            "longrepr": "E   IndexError: list index out of range",
+            "timestamp": 1707137479.651437
           }
         }
       ]

@@ -21,6 +21,7 @@ properties:
           relativeTolerance: 1.0E-05
           #value: 0.3
         - name: "var2"
+          evalString: jhunok
         - name: "var3"
         - name: "var4"
         - name: "var5"

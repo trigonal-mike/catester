@@ -82,7 +82,7 @@ def pytest_configure(config: pytest.Config) -> None:
             dir = os.path.join(root, dir)
             dir = os.path.abspath(dir)
             setattr(specification, directory, dir)
-            os.makedirs(dir, exist_ok=True)
+        os.makedirs(dir, exist_ok=True)
 
     reportfile = specification.testOutputName
     if not os.path.isabs(reportfile):
@@ -199,7 +199,6 @@ def get_item(haystack: list[tuple[str, object]], needle, default):
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
-    #item.add_report_section("x", "y", "report section contents\nfds")
     out = yield
     _report: pytest.TestReport = out.get_result()
     if _report.when == "call":

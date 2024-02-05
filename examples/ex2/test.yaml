@@ -8,7 +8,7 @@ properties:
     - name: Test timeout
       type: variable
       id: xxx
-      timeout: 10.3
+      timeout: 0.3
       entryPoint: "timeout.py"
       setUpCode: ["a = 1", "b = 1"]
       tearDownCode: ["del a"]

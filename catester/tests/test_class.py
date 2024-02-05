@@ -233,7 +233,7 @@ class CodeabilityPythonTest:
                     pass
                 finally:
                     if not "val_student" in locals():
-                        raise AssertionError(f"Variable {name} not found in student namespace")
+                        raise KeyError(f"Variable `{name}` not found in student namespace")
 
             if qualification == QualificationEnum.verifyEqual:
                 """ get the reference value """
@@ -243,7 +243,7 @@ class CodeabilityPythonTest:
                     try:
                         val_reference = eval(evalString)
                     except Exception as e:
-                        pytest.skip(reason="Evaluation of 'evalString' not possible")
+                        pytest.skip(f"Evaluation of `{evalString}` not possible")
                 else:
                     if name in solution_reference:
                         val_reference = solution_reference[name]
@@ -251,15 +251,15 @@ class CodeabilityPythonTest:
                         try:
                             val_reference = eval(name, solution_reference)
                         except Exception as e:
-                            raise AssertionError(f"Variable {name} not found in reference namespace")
+                            pytest.skip(f"Variable `{name}` not found in reference namespace")
                 
                 """ assert variable-type """
                 type_student = type(val_student)
                 type_reference = type(val_reference)
-                assert type_student == type_reference, f"Variable {name} has incorrect type, expected: {type_reference}, obtained {type_student}"
+                assert type_student == type_reference, f"Variable `{name}` has incorrect type, expected: {type_reference}, obtained {type_student}"
 
                 """ assert variable-value """
-                failure_msg = f"Variable {name} has incorrect value"
+                failure_msg = f"Variable `{name}` has incorrect value"
                 if isinstance(val_student, (str, set, frozenset)):
                     assert val_student == val_reference, failure_msg
                 elif isinstance(val_student, (DataFrame, Series)):
@@ -276,18 +276,18 @@ class CodeabilityPythonTest:
                     """ attention: pytest.approx() does not support nested data structures, like: 'var7 = [[1, 22, 44]]' """
                     assert val_student == pytest.approx(val_reference, rel=relative_tolerance, abs=absolute_tolerance), failure_msg
             elif qualification == QualificationEnum.matches:
-                assert str(val_student) == pattern, f"Variable {name} does not match the specified pattern {pattern}"
+                assert str(val_student) == pattern, f"Variable `{name}` does not match the specified pattern `{pattern}`"
             elif qualification == QualificationEnum.contains:
-                assert str(val_student).find(pattern) > -1, f"Variable {name} does not contain the specified pattern {pattern}"
+                assert str(val_student).find(pattern) > -1, f"Variable `{name}` does not contain the specified pattern `{pattern}`"
             elif qualification == QualificationEnum.startsWith:
-                assert str(val_student).startswith(pattern), f"Variable {name} does not start with the specified pattern {pattern}"
+                assert str(val_student).startswith(pattern), f"Variable `{name}` does not start with the specified pattern `{pattern}`"
             elif qualification == QualificationEnum.endsWith:
-                assert str(val_student).endswith(pattern), f"Variable {name} does not end with the specified pattern {pattern}"
+                assert str(val_student).endswith(pattern), f"Variable `{name}` does not end with the specified pattern `{pattern}`"
             elif qualification == QualificationEnum.count:
-                assert str(val_student).count(pattern) == countRequirement, f"Variable {name} does not contain the specified pattern {pattern} {countRequirement}-times"
+                assert str(val_student).count(pattern) == countRequirement, f"Variable `{name}` does not contain the specified pattern `{pattern}` {countRequirement}-times"
             elif qualification == QualificationEnum.regexp:
                 result = re.match(re.compile(fr"{pattern}"), str(val_student))
-                assert result is not None, f"Variable {name} does not match the compiled regular expression from the specified pattern {pattern}"
+                assert result is not None, f"Variable `{name}` does not match the compiled regular expression from the specified pattern `{pattern}`"
             else:
                 pytest.fail(reason="qualification not set")
         elif testtype == TypeEnum.structural:
