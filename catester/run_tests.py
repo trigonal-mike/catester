@@ -16,6 +16,8 @@ def run_tests(specification, test, indent, verbosity):
     if not os.path.isabs(test):
         test = os.path.join(cwd, test)
 
+    specification = os.path.abspath(specification)
+    test = os.path.abspath(test)
     #try parsing yaml-file:
     #it gets parsed in pytest as well
     #but do it here, to not start pytest with an unparseable/invalid yaml-file

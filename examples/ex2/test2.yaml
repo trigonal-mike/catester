@@ -2,22 +2,24 @@ properties:
   successMessage: "kkkkkkkk"
   tests:
     - name: Variables 1
-      setUpCode: ["var1=1"]
+      setUpCode: ["var1=1\nvar2=2"]
+      id: gg
       successMessage: "325432534"
       tests:
         - name: "var1"
           value: 1
           successMessage: "fbvgdfbvdf"
         - name: "var2"
-          value: 11
+          value: 2
           successMessage: "fbvgdfbvdf"
     - name: Variables 2
-      successDependency: ["1"]
+      setUpCodeDependency: "1"
+      successDependency: gg
       tests:
         - name: "var1"
           value: 1
     - name: Variables 3
-      setUpCodeDependency: "1"
+      setUpCodeDependency: "3"
       tests:
         - name: "var1"
           value: 1

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-05 12:03:09.092940",
+  "timestamp": "2024-02-05 13:10:12.889669",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -8,11 +8,8 @@
   "result": "FAILED",
   "statusMessage": null,
   "resultMessage": "Some or all tests failed",
-  "details": {
-    "executionDurationReference": 0.0,
-    "executionDurationStudent": 0.0
-  },
-  "duration": 0.8873581886291504,
+  "details": null,
+  "duration": 1.0590901374816895,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -25,14 +22,20 @@
       "metadata": "3.0.0"
     }
   },
-  "properties": null,
-  "debug": null,
+  "properties": {
+    "test": "i:\\PYTHON\\catester\\examples\\ex2\\test2.yaml",
+    "specification": "i:\\PYTHON\\catester\\examples\\specification.yaml"
+  },
+  "debug": {
+    "executionDurationReference": 0.0,
+    "executionDurationStudent": 0.0
+  },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
     "total": 3,
-    "success": 1,
+    "success": 2,
     "failed": 1,
-    "skipped": 1
+    "skipped": 0
   },
   "tests": [
     {
@@ -40,14 +43,15 @@
       "name": "Variables 1",
       "description": null,
       "setup": [
-        "var1=1"
+        "var1=1\nvar2=2"
       ],
       "teardown": null,
       "status": "COMPLETED",
-      "result": "FAILED",
+      "result": "PASSED",
       "statusMessage": null,
-      "resultMessage": null,
-      "details": {
+      "resultMessage": "325432534",
+      "details": null,
+      "debug": {
         "executionDurationReference": 0.0,
         "executionDurationStudent": 0.0
       },
@@ -55,8 +59,8 @@
       "executionDuration": 0.0,
       "summary": {
         "total": 2,
-        "success": 1,
-        "failed": 1,
+        "success": 2,
+        "failed": 0,
         "skipped": 0
       },
       "tests": [
@@ -65,19 +69,21 @@
           "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": "fbvgdfbvdf",
-          "details": {
+          "details": null,
+          "debug": {
             "longrepr": null,
-            "timestamp": 1707130989.9855585
+            "timestamp": 1707135013.9530003
           }
         },
         {
           "name": "var2",
           "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": {
-            "longrepr": "E   AssertionError: Variable var2 not found in student namespace",
-            "timestamp": 1707130989.9875262
+          "result": "PASSED",
+          "resultMessage": "fbvgdfbvdf",
+          "details": null,
+          "debug": {
+            "longrepr": null,
+            "timestamp": 1707135013.9549937
           }
         }
       ]
@@ -89,49 +95,11 @@
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
-      "result": "SKIPPED",
-      "statusMessage": null,
-      "resultMessage": "Tests skipped",
-      "details": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 1,
-        "success": 0,
-        "failed": 0,
-        "skipped": 1
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "SKIPPED",
-          "resultMessage": "Test skipped",
-          "details": {
-            "longrepr": [
-              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-              182,
-              "Skipped: Dependency ['1'] not satisfied"
-            ],
-            "timestamp": 1707130989.9893973
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Variables 3",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
       "result": "PASSED",
       "statusMessage": null,
       "resultMessage": null,
-      "details": {
+      "details": null,
+      "debug": {
         "executionDurationReference": 0.0,
         "executionDurationStudent": 0.0
       },
@@ -149,9 +117,47 @@
           "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
-          "details": {
+          "details": null,
+          "debug": {
             "longrepr": null,
-            "timestamp": 1707130989.990859
+            "timestamp": 1707135013.955991
+          }
+        }
+      ]
+    },
+    {
+      "type": "variable",
+      "name": "Variables 3",
+      "description": null,
+      "setup": null,
+      "teardown": null,
+      "status": "COMPLETED",
+      "result": "FAILED",
+      "statusMessage": null,
+      "resultMessage": null,
+      "details": null,
+      "debug": {
+        "executionDurationReference": 0.0,
+        "executionDurationStudent": 0.0
+      },
+      "duration": 0.0,
+      "executionDuration": 0.0,
+      "summary": {
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "skipped": 0
+      },
+      "tests": [
+        {
+          "name": "var1",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": null,
+          "debug": {
+            "longrepr": "E   Failed: Exception: setUpCodeDependency `3` not found",
+            "timestamp": 1707135013.9589937
           }
         }
       ]

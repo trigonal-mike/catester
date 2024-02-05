@@ -122,6 +122,7 @@ def pytest_configure(config: pytest.Config) -> None:
                 "result": None,
                 "resultMessage": None,
                 "details": None,
+                "debug": None,
             })
         main_tests.append({
             "type": main.type,
@@ -134,6 +135,7 @@ def pytest_configure(config: pytest.Config) -> None:
             "statusMessage": None,
             "resultMessage": None,
             "details": None,
+            "debug": None,
             "duration": None,
             "executionDuration": None,
             "summary": {
@@ -158,7 +160,10 @@ def pytest_configure(config: pytest.Config) -> None:
         "duration": None,
         "executionDuration": None,
         "environment": None,
-        "properties": None,
+        "properties": {
+            "test": testyamlfile,
+            "specification": specyamlfile,
+        },
         "debug": None,
         "exitcode": None,
         "summary": {
@@ -215,7 +220,7 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         test["result"] = _report.outcome.upper()
         test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
         test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
-        test["details"] = {
+        test["debug"] = {
             "longrepr": _report.longrepr,
             "timestamp": time.time(),
         }
@@ -240,6 +245,7 @@ def pytest_keyboard_interrupt(excinfo: pytest.ExceptionInfo) -> None:
     pass
 
 def pytest_sessionstart(session: pytest.Session):
+    #session.name = "xxxxx"
     _report = session.config.stash[report_key]
     _report["started"] = time.time()
 
@@ -290,7 +296,7 @@ def pytest_sessionfinish(session: pytest.Session):
             sub["resultMessage"] = result_message
         time_r = time_r + sub_time_r
         time_s = time_s + sub_time_s
-        main["details"] = {
+        main["debug"] = {
             "executionDurationReference": sub_time_r,
             "executionDurationStudent": sub_time_s,
         }
@@ -337,7 +343,7 @@ def pytest_sessionfinish(session: pytest.Session):
     report["duration"] = duration
     report["executionDuration"] = time_s
     report["exitcode"] = str(exitcode)
-    report["details"] = {
+    report["debug"] = {
         "executionDurationReference": time_r,
         "executionDurationStudent": time_s,
     }

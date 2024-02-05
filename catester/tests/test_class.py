@@ -33,11 +33,12 @@ def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
             return idx_main
     try:
         idx = int(dependency)
-        if idx <= 0 or idx >= len(testsuite.properties.tests):
+        if idx <= 0 or idx > len(testsuite.properties.tests):
             raise
         return idx - 1
     except Exception as e:
-        pytest.fail(f"Dependency {dependency} not found")
+        pass
+    pytest.fail(f"Dependency `{dependency}` not found")
 
 def get_solution(mm, pytestconfig, idx_main, where: Solution):
     """ Calculate solution if not yet exists """
@@ -92,11 +93,13 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             ss = str(scd_idx)
             """ start solution with prior solution """
             try:
-                namespace = _report["solutions"][ss][where]
+                _namespace = _report["solutions"][ss][where]
             except Exception as e:
-                print(f"Exception: setUpCodeDependency {ss} not found")
-                print(e)
-                raise
+                pass
+            finally:
+                if not "_namespace" in locals():
+                    pytest.fail(f"Exception: setUpCodeDependency `{setup_code_dependency}` not found")
+            namespace = _namespace
 
         if entry_point is not None:
             """ try execute the solution """
@@ -224,14 +227,12 @@ class CodeabilityPythonTest:
                 val_student = solution_student[name]
             else:
                 """ value not found, try eval """
-                ok = False
                 try:
                     val_student = eval(name, solution_student)
-                    ok = True
                 except Exception as e:
                     pass
                 finally:
-                    if not ok:
+                    if not "val_student" in locals():
                         raise AssertionError(f"Variable {name} not found in student namespace")
 
             if qualification == QualificationEnum.verifyEqual:

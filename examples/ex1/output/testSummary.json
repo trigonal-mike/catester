@@ -1,19 +1,16 @@
 {
-  "timestamp": "2024-02-05 12:03:25.833363",
+  "timestamp": "2024-02-05 13:46:22.287861",
   "type": "python",
   "version": "1.0",
   "name": "Python Test suite",
-  "description": "Checks variables",
+  "description": "Checks subtests and graphics",
   "status": "COMPLETED",
   "result": "FAILED",
   "statusMessage": null,
   "resultMessage": "Some or all tests failed",
-  "details": {
-    "executionDurationReference": 0.015529632568359375,
-    "executionDurationStudent": 0.014573335647583008
-  },
-  "duration": 0.9024574756622314,
-  "executionDuration": 0.014573335647583008,
+  "details": null,
+  "duration": 1.5727744102478027,
+  "executionDuration": 0.285290002822876,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -25,119 +22,25 @@
       "metadata": "3.0.0"
     }
   },
-  "properties": null,
-  "debug": null,
+  "properties": {
+    "test": "i:\\PYTHON\\catester\\examples\\ex1\\test5.yaml",
+    "specification": "i:\\PYTHON\\catester\\examples\\specification.yaml"
+  },
+  "debug": {
+    "executionDurationReference": 0.20842456817626953,
+    "executionDurationStudent": 0.285290002822876
+  },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
-    "total": 3,
-    "success": 2,
+    "total": 1,
+    "success": 0,
     "failed": 1,
     "skipped": 0
   },
   "tests": [
     {
-      "type": "variable",
-      "name": "Test Basic",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "PASSED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": {
-        "executionDurationReference": 0.015529632568359375,
-        "executionDurationStudent": 0.014573335647583008
-      },
-      "duration": 0.014573335647583008,
-      "executionDuration": 0.014573335647583008,
-      "summary": {
-        "total": 4,
-        "success": 4,
-        "failed": 0,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": null,
-          "details": {
-            "longrepr": null,
-            "timestamp": 1707131006.7337768
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": null,
-          "details": {
-            "longrepr": null,
-            "timestamp": 1707131006.7357705
-          }
-        },
-        {
-          "name": "var3",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": null,
-          "details": {
-            "longrepr": null,
-            "timestamp": 1707131006.7377856
-          }
-        },
-        {
-          "name": "var9[0]",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": null,
-          "details": {
-            "longrepr": null,
-            "timestamp": 1707131006.73978
-          }
-        }
-      ]
-    },
-    {
-      "type": "exist",
-      "name": "Existance of a file",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "PASSED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 1,
-        "success": 1,
-        "failed": 0,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "existance",
-          "status": "COMPLETED",
-          "result": "PASSED",
-          "resultMessage": null,
-          "details": {
-            "longrepr": null,
-            "timestamp": 1707131006.7427502
-          }
-        }
-      ]
-    },
-    {
-      "type": "exist",
-      "name": "Existance of a file",
+      "type": "graphics",
+      "name": "graphics",
       "description": null,
       "setup": null,
       "teardown": null,
@@ -145,27 +48,62 @@
       "result": "FAILED",
       "statusMessage": null,
       "resultMessage": null,
-      "details": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
+      "details": null,
+      "debug": {
+        "executionDurationReference": 0.20842456817626953,
+        "executionDurationStudent": 0.285290002822876
       },
-      "duration": 0.0,
-      "executionDuration": 0.0,
+      "duration": 0.285290002822876,
+      "executionDuration": 0.285290002822876,
       "summary": {
-        "total": 1,
-        "success": 0,
-        "failed": 1,
+        "total": 4,
+        "success": 2,
+        "failed": 2,
         "skipped": 0
       },
       "tests": [
         {
-          "name": "existance",
+          "name": "figure(1).axes[0].lines[0]._linestyle",
           "status": "COMPLETED",
           "result": "FAILED",
           "resultMessage": null,
-          "details": {
-            "longrepr": "E   AssertionError: File with pattern xxx*.py not found in reference namespace\n    assert 0 > 0\n     +  where 0 = len([])\n     +    where [] = <function glob at 0x0000014E5B7E69E0>('xxx*.py', root_dir='i:\\\\PYTHON\\\\catester\\\\examples\\\\ex1\\\\reference')\n     +      where <function glob at 0x0000014E5B7E69E0> = glob.glob",
-            "timestamp": 1707131006.745771
+          "details": null,
+          "debug": {
+            "longrepr": "E   AssertionError: Variable figure(1).axes[0].lines[0]._linestyle has incorrect value\n    assert '-.' == '--'\n      - --\n      + -.",
+            "timestamp": 1707137184.0748098
+          }
+        },
+        {
+          "name": "figure(1).axes[0].lines[0].get_linestyle()",
+          "status": "COMPLETED",
+          "result": "FAILED",
+          "resultMessage": null,
+          "details": null,
+          "debug": {
+            "longrepr": "E   AssertionError: Variable figure(1).axes[0].lines[0].get_linestyle() has incorrect value\n    assert '-.' == '--'\n      - --\n      + -.",
+            "timestamp": 1707137184.0777776
+          }
+        },
+        {
+          "name": "figure(1).axes[0].get_xlabel()",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": null,
+          "debug": {
+            "longrepr": null,
+            "timestamp": 1707137184.0789871
+          }
+        },
+        {
+          "name": "figure(2).axes[0].get_ylabel()",
+          "status": "COMPLETED",
+          "result": "PASSED",
+          "resultMessage": null,
+          "details": null,
+          "debug": {
+            "longrepr": null,
+            "timestamp": 1707137184.0804493
           }
         }
       ]
