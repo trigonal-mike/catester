@@ -107,7 +107,7 @@ class CodeAbilitySpecification(CodeAbilityBase):
     studentTestCounter: Optional[int] = Field(ge=0, default=None)
     testVersion: Optional[str] = Field(min_length=1, default="v1")
     storeGraphicsArtifacts: Optional[bool] = Field(default=None)
-    testOutputName: Optional[str] = Field(min_length=1, default="testSummary.json")
+    outputName: Optional[str] = Field(min_length=1, default="testSummary.json")
     isLocalUsage: Optional[bool] = Field(default=False)
 
 

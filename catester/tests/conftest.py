@@ -84,7 +84,7 @@ def pytest_configure(config: pytest.Config) -> None:
             setattr(specification, directory, dir)
         os.makedirs(dir, exist_ok=True)
 
-    reportfile = specification.testOutputName
+    reportfile = specification.outputName
     if not os.path.isabs(reportfile):
         reportfile = os.path.join(specification.outputDirectory, reportfile)
     dir = os.path.dirname(reportfile)

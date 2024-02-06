@@ -104,7 +104,7 @@
       "default": null,
       "title": "Storegraphicsartifacts"
     },
-    "testOutputName": {
+    "outputName": {
       "anyOf": [
         {
           "minLength": 1,
@@ -115,7 +115,7 @@
         }
       ],
       "default": "testSummary.json",
-      "title": "Testoutputname"
+      "title": "Outputname"
     },
     "isLocalUsage": {
       "anyOf": [
