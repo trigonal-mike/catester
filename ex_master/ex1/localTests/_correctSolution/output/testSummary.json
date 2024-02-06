@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-05 12:04:58.937116",
+  "timestamp": "2024-02-06 14:23:55.983016",
   "type": "Python",
   "version": "1.0",
   "name": "Python Test suite",
@@ -8,12 +8,9 @@
   "result": "PASSED",
   "statusMessage": null,
   "resultMessage": "Tests succeeded",
-  "details": {
-    "executionDurationReference": 0.01595759391784668,
-    "executionDurationStudent": 0.010970592498779297
-  },
-  "duration": 1.106520414352417,
-  "executionDuration": 0.010970592498779297,
+  "details": null,
+  "duration": 1.0093348026275635,
+  "executionDuration": 0.01696920394897461,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -25,8 +22,14 @@
       "metadata": "3.0.0"
     }
   },
-  "properties": null,
-  "debug": null,
+  "properties": {
+    "test": "i:\\PYTHON\\catester\\ex_master\\ex1\\localTests\\_correctSolution\\test.yaml",
+    "specification": "i:\\PYTHON\\catester\\ex_master\\ex1\\specification.yaml"
+  },
+  "debug": {
+    "executionDurationStudent": 0.01696920394897461,
+    "executionDurationReference": 0.0012960433959960938
+  },
   "exitcode": "0",
   "summary": {
     "total": 1,
@@ -45,12 +48,14 @@
       "result": "PASSED",
       "statusMessage": null,
       "resultMessage": null,
-      "details": {
-        "executionDurationReference": 0.01595759391784668,
-        "executionDurationStudent": 0.010970592498779297
+      "details": null,
+      "debug": {
+        "executionDurationStudent": 0.01696920394897461,
+        "executionDurationReference": 0.0012960433959960938,
+        "traceback": {}
       },
-      "duration": 0.010970592498779297,
-      "executionDuration": 0.010970592498779297,
+      "duration": 0.01696920394897461,
+      "executionDuration": 0.01696920394897461,
       "summary": {
         "total": 2,
         "success": 2,
@@ -63,9 +68,10 @@
           "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
-          "details": {
+          "details": null,
+          "debug": {
             "longrepr": null,
-            "timestamp": 1707131100.0397656
+            "timestamp": 1707225837.002966
           }
         },
         {
@@ -73,9 +79,10 @@
           "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
-          "details": {
+          "details": null,
+          "debug": {
             "longrepr": null,
-            "timestamp": 1707131100.046747
+            "timestamp": 1707225837.004964
           }
         }
       ]

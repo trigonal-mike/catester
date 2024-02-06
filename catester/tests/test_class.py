@@ -149,7 +149,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                 except Exception as e:
                     error = True
                     errormsg = f"Execution of {file} failed"
-                    status = SolutionStatus.failed
+                    status = SolutionStatus.crashed
                     tb1 = traceback.extract_tb(e.__traceback__)
                     tb2 = tb1[len(tb1)-1]
                     tb = {

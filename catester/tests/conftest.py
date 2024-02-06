@@ -34,6 +34,7 @@ class SolutionStatus(str, Enum):
     started = "started"
     skipped = "skipped"
     failed = "failed"
+    crashed = "crashed"
     completed = "completed"
     timeout = "timeout"
 
@@ -130,7 +131,6 @@ def pytest_configure(config: pytest.Config) -> None:
             testcases.append((idx_main, idx_sub))
             sub_tests.append({
                 "name": sub.name,
-                "status": TestStatus.scheduled,
                 "result": None,
                 "resultMessage": None,
                 "details": None,
@@ -215,7 +215,6 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         main = testsuite.properties.tests[idx_main]
         sub = main.tests[idx_sub]
         test = report["tests"][idx_main]["tests"][idx_sub]
-        test["status"] = TestStatus.completed
         test["result"] = _report.outcome.upper()
         test["debug"] = {
             "longrepr": _report.longrepr,
@@ -258,9 +257,7 @@ def pytest_sessionfinish(session: pytest.Session):
     started = _report["started"]
     solutions = _report["solutions"]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
-
     duration = time.time() - started
-
     total = report["summary"]["total"]
     success = 0
     failed = 0
@@ -282,8 +279,13 @@ def pytest_sessionfinish(session: pytest.Session):
             sub_time_r = solution_r["exectime"]
             if solution_s["status"] == SolutionStatus.timeout:
                 status = TestStatus.timedout
-            elif solution_s["status"] != SolutionStatus.completed:
+            elif solution_s["status"] == SolutionStatus.crashed:
                 status = TestStatus.crashed
+            elif solution_s["status"] == SolutionStatus.skipped:
+                #todo:
+                status = TestStatus.completed
+            elif solution_s["status"] != SolutionStatus.completed:
+                status = TestStatus.failed
         sub_total = main["summary"]["total"]
         sub_success = 0
         sub_failed = 0
@@ -302,7 +304,6 @@ def pytest_sessionfinish(session: pytest.Session):
             else:
                 result_message = "...unknown..."
             sub["resultMessage"] = result_message
-            sub["status"] = status
         time_r = time_r + sub_time_r
         time_s = time_s + sub_time_s
         main["debug"] = {

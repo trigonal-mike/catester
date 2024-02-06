@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-05 12:05:00.838531",
+  "timestamp": "2024-02-06 14:23:57.726834",
   "type": "Python",
   "version": "1.0",
   "name": "Python Test suite",
@@ -8,11 +8,8 @@
   "result": "FAILED",
   "statusMessage": null,
   "resultMessage": "Tests failed",
-  "details": {
-    "executionDurationReference": 0.0,
-    "executionDurationStudent": 0.0
-  },
-  "duration": 0.8929052352905273,
+  "details": null,
+  "duration": 0.9517881870269775,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -25,8 +22,14 @@
       "metadata": "3.0.0"
     }
   },
-  "properties": null,
-  "debug": null,
+  "properties": {
+    "test": "i:\\PYTHON\\catester\\ex_master\\ex1\\localTests\\_emptySolution\\test.yaml",
+    "specification": "i:\\PYTHON\\catester\\ex_master\\ex1\\specification.yaml"
+  },
+  "debug": {
+    "executionDurationStudent": 0.0,
+    "executionDurationReference": 0.013023138046264648
+  },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
     "total": 1,
@@ -41,16 +44,18 @@
       "description": null,
       "setup": null,
       "teardown": null,
-      "status": "COMPLETED",
+      "status": "FAILED",
       "result": "FAILED",
       "statusMessage": null,
       "resultMessage": null,
-      "details": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
+      "details": null,
+      "debug": {
+        "executionDurationStudent": 0,
+        "executionDurationReference": 0.013023138046264648,
+        "traceback": {}
       },
-      "duration": 0.0,
-      "executionDuration": 0.0,
+      "duration": 0,
+      "executionDuration": 0,
       "summary": {
         "total": 2,
         "success": 0,
@@ -60,22 +65,24 @@
       "tests": [
         {
           "name": "var1",
-          "status": "COMPLETED",
+          "status": "FAILED",
           "result": "FAILED",
           "resultMessage": null,
-          "details": {
-            "longrepr": "E   FileNotFoundError: entryPoint ex1.py not found",
-            "timestamp": 1707131101.736424
+          "details": null,
+          "debug": {
+            "longrepr": "E   Failed: entryPoint ex1.py not found",
+            "timestamp": 1707225838.688323
           }
         },
         {
           "name": "var2",
-          "status": "COMPLETED",
+          "status": "FAILED",
           "result": "FAILED",
           "resultMessage": null,
-          "details": {
-            "longrepr": "E   FileNotFoundError: entryPoint ex1.py not found",
-            "timestamp": 1707131101.7394454
+          "details": null,
+          "debug": {
+            "longrepr": "E   Failed: entryPoint ex1.py not found",
+            "timestamp": 1707225838.6913147
           }
         }
       ]
