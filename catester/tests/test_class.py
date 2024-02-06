@@ -111,6 +111,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         dir_old = os.getcwd()
 
         """ add test-directory to paths """
+        #todo: test if this works
         sys.path.append(specification.testDirectory)
 
         """ change into solution-directory student | reference """
