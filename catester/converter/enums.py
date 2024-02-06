@@ -6,8 +6,9 @@ class TokenEnum(str, Enum):
     PROPERTY = "PROPERTY"
     TEST = "TEST"
     SUBTEST = "SUBTEST"
-    VARIABLE = "VARIABLE"
-    GRAPHICS = "GRAPHICS"
+    VARIABLETEST = "VARIABLETEST"
+    GRAPHICSTEST = "GRAPHICSTEST"
+    TESTVAR = "TESTVAR"
 
 
 class SubTestEnum(str, Enum):

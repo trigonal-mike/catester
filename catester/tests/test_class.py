@@ -137,7 +137,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                 try:
                     start_time = time.time()
                     result = execute_file(file, namespace, timeout=timeout)
-                    time.sleep(0.00000001)
+                    time.sleep(0.0001)
                     exectime = time.time() - start_time
                     if result is None:
                         error = True
