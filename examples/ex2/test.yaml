@@ -1,6 +1,6 @@
 properties:
   qualification: verifyEqual
-  relativeTolerance: 1
+  relativeTolerance: 0.001
   successMessage: All Tests passed
   failureMessage: Some or all Tests failed
   timeout: 3

@@ -4,6 +4,7 @@ import datetime
 import time
 import pytest
 from _pytest.terminal import TerminalReporter
+from colorama import Fore, Back, Style
 from enum import Enum
 from typing import List
 from model import DIRECTORIES
@@ -16,10 +17,11 @@ class TestStatus(str, Enum):
     timedout = "TIMEDOUT"
     crashed = "CRASHED"
     cancelled = "CANCELLED"
-    # following not used yet:
+    skipped = "SKIPPED"
     failed = "FAILED"
-    pending = "PENDING"
-    running = "RUNNING"
+    # following not used yet:
+    #pending = "PENDING"
+    #running = "RUNNING"
 
 class TestResult(str, Enum):
     passed = "PASSED"
@@ -29,14 +31,6 @@ class TestResult(str, Enum):
 class Solution(str, Enum):
     student = "student"
     reference = "reference"
-
-class SolutionStatus(str, Enum):
-    started = "started"
-    skipped = "skipped"
-    failed = "failed"
-    crashed = "crashed"
-    completed = "completed"
-    timeout = "timeout"
 
 metadata_key = pytest.StashKey[dict]()
 report_key = pytest.StashKey[dict]()
@@ -196,6 +190,9 @@ def pytest_configure(config: pytest.Config) -> None:
         "created": time.time(),
         "started": 0,
         "solutions": {},
+        "root": root,
+        "testyamlfile": testyamlfile,
+        "specyamlfile": specyamlfile,
     }
     config.stash[report_key] = report
 
@@ -210,20 +207,25 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
     if _report.when == "call":
         idx_main, idx_sub = item.callspec.params["testcases"]
         rep = item.config.stash[report_key]
-        report = rep["report"]
         testsuite: CodeAbilityTestSuite = rep["testsuite"]
         main = testsuite.properties.tests[idx_main]
         sub = main.tests[idx_sub]
-        test = report["tests"][idx_main]["tests"][idx_sub]
-        test["result"] = _report.outcome.upper()
-        test["debug"] = {
+        _report.nodeid = f"{main.name}\\{sub.name}"
+
+        report = rep["report"]
+        testmain = report["tests"][idx_main]
+        testsub = testmain["tests"][idx_sub]
+        testsub["result"] = _report.outcome.upper()
+        testsub["debug"] = {
             "longrepr": _report.longrepr,
             "timestamp": time.time(),
         }
-        _report.nodeid = f"{main.name}\\{sub.name}"
+        testmain["timestamp"] = time.time()
 
 def pytest_collection_modifyitems(session: pytest.Session, config: pytest.Config, items: List[pytest.Item]) -> None:
     pass
+    #for item in items:
+    #    item._nodeid = "xxxxxxxxx"
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
@@ -264,7 +266,14 @@ def pytest_sessionfinish(session: pytest.Session):
     skipped = 0
     time_s = 0.0
     time_r = 0.0
+
+    _teststarted = started
     for idx_main, main in enumerate(report["tests"]):
+        _testended = main["timestamp"]
+        del main["timestamp"]
+        _testduration = _testended - _teststarted
+        _teststarted = _testended
+
         test_main = testsuite.properties.tests[idx_main]
         sub_time_s = 0
         sub_time_r = 0
@@ -277,15 +286,7 @@ def pytest_sessionfinish(session: pytest.Session):
             tb = solution_s["traceback"]
             sub_time_s = solution_s["exectime"]
             sub_time_r = solution_r["exectime"]
-            if solution_s["status"] == SolutionStatus.timeout:
-                status = TestStatus.timedout
-            elif solution_s["status"] == SolutionStatus.crashed:
-                status = TestStatus.crashed
-            elif solution_s["status"] == SolutionStatus.skipped:
-                #todo:
-                status = TestStatus.completed
-            elif solution_s["status"] != SolutionStatus.completed:
-                status = TestStatus.failed
+            status = solution_s["status"]
         sub_total = main["summary"]["total"]
         sub_success = 0
         sub_failed = 0
@@ -304,14 +305,14 @@ def pytest_sessionfinish(session: pytest.Session):
             else:
                 result_message = "...unknown..."
             sub["resultMessage"] = result_message
-        time_r = time_r + sub_time_r
         time_s = time_s + sub_time_s
+        time_r = time_r + sub_time_r
         main["debug"] = {
             "executionDurationStudent": sub_time_s,
             "executionDurationReference": sub_time_r,
             "traceback": tb,
         }
-        main["duration"] = sub_time_s
+        main["duration"] = _testduration
         main["executionDuration"] = sub_time_s
         main["summary"]["success"] = sub_success
         main["summary"]["failed"] = sub_failed
@@ -374,12 +375,22 @@ def pytest_sessionfinish(session: pytest.Session):
 
 @pytest.hookimpl(trylast=True)
 def pytest_report_header(config):
+    _report = config.stash[report_key]
+    root = _report["root"]
+    testyamlfile = _report["testyamlfile"]
+    specyamlfile = _report["specyamlfile"]
     verbosity = config.getoption("verbose")
+    tw, th = os.get_terminal_size()
+    full = "=" * tw
     return [
-        "==========================",
-        "CodeAbility Python Testing",
-        f"verbosity: {verbosity}",
-        "==========================",
+        f"{full}",
+        f"{Fore.CYAN}CodeAbility Python Testing Engine{Style.RESET_ALL}",
+        f"{full}",
+        f"{Fore.CYAN}verbosity:    {Style.RESET_ALL} {verbosity}",
+        f"{Fore.CYAN}testroot:     {Style.RESET_ALL} {root}",
+        f"{Fore.CYAN}testsuite:    {Style.RESET_ALL} {testyamlfile}",
+        f"{Fore.CYAN}specification:{Style.RESET_ALL} {specyamlfile}",
+        f"{full}",
     ]
 
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
