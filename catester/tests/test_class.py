@@ -8,17 +8,12 @@ import random
 import numpy as np
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
-from enum import Enum
-
+import traceback
 from model import CodeAbilitySpecification, CodeAbilityTestSuite
 from model import CodeAbilityTestCollection, CodeAbilityTest
 from model import TypeEnum, QualificationEnum
-from .conftest import report_key, TestResult
+from .conftest import report_key, TestResult, Solution, SolutionStatus
 from .execution import execute_code_list, execute_file
-
-class Solution(str, Enum):
-    student = "student"
-    reference = "reference"
 
 def get_property_as_list(property_name):
     if property_name is None:
@@ -33,44 +28,92 @@ def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
             return idx_main
     try:
         idx = int(dependency)
-        if idx <= 0 or idx > len(testsuite.properties.tests):
-            raise
-        return idx - 1
-    except Exception as e:
+        if idx > 0 and idx <= len(testsuite.properties.tests):
+            return idx - 1
+    except Exception:
         pass
-    pytest.fail(f"Dependency `{dependency}` not found")
 
 def get_solution(mm, pytestconfig, idx_main, where: Solution):
     """ Calculate solution if not yet exists """
     _report = pytestconfig.stash[report_key]
+    solutions: any = _report["solutions"]
+    report: any = _report["report"]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     specification: CodeAbilitySpecification = _report["specification"]
     main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
     id = str(idx_main)
 
-    exec_time = 0
-    if not "solutions" in _report:
-        _report["solutions"] = {}
-    if not id in _report["solutions"]:
-        _report["solutions"][id] = {}
-    if not where in _report["solutions"][id]:
-        test_directory = specification.testDirectory
-        artifact_directory = specification.artifactDirectory
-        _dir = specification.studentDirectory if where == Solution.student else specification.referenceDirectory
+    if not id in solutions:
+        solutions[id] = {}
+    if not where in solutions[id]:
+        solutions[id][where] = {
+            "namespace": {},
+            "timestamp": time.time(),
+            "status": SolutionStatus.started,
+            "errormsg": "",
+            "exectime": 0,
+            "traceback": {},
+        }
+        _solution = solutions[id][where]
+        _solution["entry_point"] = main.entryPoint
+        _solution["timeout"] = main.timeout
 
-        type = main.type
+        _dir = specification.studentDirectory if where == Solution.student else specification.referenceDirectory
         entry_point = main.entryPoint
+        timeout = main.timeout
         setup_code = get_property_as_list(main.setUpCode)
         teardown_code = get_property_as_list(main.tearDownCode)
+        success_dependencies = get_property_as_list(main.successDependency)
         setup_code_dependency = main.setUpCodeDependency
         store_graphics_artifacts = main.storeGraphicsArtifacts
-        timeout = main.timeout
+        if specification.storeGraphicsArtifacts is not None:
+            store_graphics_artifacts = specification.storeGraphicsArtifacts
+
+        """ start solution with empty namespace """
+        namespace = {}
+        error = False
+        errormsg = ""
+        status = SolutionStatus.started
+        tb = {}
+
+        """ check success dependencies, mark as skipped if not satisfied """
+        for dependency in success_dependencies:
+            _idx = main_idx_by_dependency(testsuite, dependency)
+            if _idx is None:
+                error = True
+                errormsg = f"Success-Dependency `{success_dependencies}` not valid"
+                status = SolutionStatus.failed
+            else:
+                total = report["tests"][_idx]["summary"]["total"]
+                for sub_idx in range(total):
+                    result = report["tests"][_idx]["tests"][sub_idx]["result"]
+                    if result != TestResult.passed:
+                        error = True
+                        errormsg = f"Success-Dependency `{success_dependencies}` not satisfied"
+                        status = SolutionStatus.skipped
+                        break
+            if error:
+                break
+
+        if setup_code_dependency is not None and not error:
+            _idx = main_idx_by_dependency(testsuite, setup_code_dependency)
+            if _idx is None:
+                error = True
+                errormsg = f"Setup-Code-Dependency `{setup_code_dependency}` not valid"
+                status = SolutionStatus.failed
+            else:
+                try:
+                    namespace = solutions[str(_idx)][where]["namespace"]
+                except Exception as e:
+                    error = True
+                    errormsg = f"ERROR: Setup-Code-Dependency `{setup_code_dependency}` not found"
+                    status = SolutionStatus.failed
 
         """ remember old working directory """
         dir_old = os.getcwd()
 
         """ add test-directory to paths """
-        sys.path.append(test_directory)
+        sys.path.append(specification.testDirectory)
 
         """ change into solution-directory student | reference """
         os.chdir(_dir)
@@ -82,55 +125,47 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         random.seed(1)
 
         """ Override/Disable certain methods """ 
-        #mm.setattr(random, "seed", lambda *x: None)
         mm.setattr(plt, "show", lambda *x: None)
 
-        """ start solution with empty namespace """
-        namespace = {}
-
-        if setup_code_dependency is not None:
-            scd_idx = main_idx_by_dependency(testsuite, setup_code_dependency)
-            ss = str(scd_idx)
-            """ start solution with prior solution """
-            try:
-                _namespace = _report["solutions"][ss][where]
-            except Exception as e:
-                pass
-            finally:
-                if not "_namespace" in locals():
-                    pytest.fail(f"Exception: setUpCodeDependency `{setup_code_dependency}` not found")
-            namespace = _namespace
-
-        if entry_point is not None:
-            """ try execute the solution """
+        if entry_point is not None and not error:
             file = os.path.join(_dir, entry_point)
             if not os.path.exists(file):
                 if where == Solution.student:
-                    """ only raise if student entry point is not found """
-                    raise FileNotFoundError(f"entryPoint {entry_point} not found")
+                    error = True
+                    errormsg = f"entryPoint {entry_point} not found"
+                    status = SolutionStatus.failed
             else:
-                """ measure execution time """
-                start_time = time.time()
                 try:
+                    start_time = time.time()
                     result = execute_file(file, namespace, timeout=timeout)
+                    time.sleep(0.00000001)
+                    _solution["exectime"] = time.time() - start_time
                     if result is None:
-                        print(f"TimeoutError: execute_file {file} failed")
-                        raise TimeoutError()
+                        error = True
+                        errormsg = f"Maximum execution time of {timeout} seconds exceeded"
+                        status = SolutionStatus.timeout
+                    else:
+                        status = SolutionStatus.completed
                 except Exception as e:
-                    print(f"Exception: execute_file {file} failed")
-                    #print(e)
-                    raise
-
-                #without follwing line, exec_time gets converted to zero, hmmm?
-                time.sleep(0.00000001)
-
-                exec_time = time.time() - start_time
-                if type == "graphics":
+                    error = True
+                    errormsg = f"Execution of {file} failed"
+                    status = SolutionStatus.failed
+                    tb1 = traceback.extract_tb(e.__traceback__)
+                    tb2 = tb1[len(tb1)-1]
+                    tb = {
+                        "name": tb2.name,
+                        "filename": tb2.filename,
+                        "lineno": tb2.lineno,
+                        "line": tb2.line,
+                        "locals": tb2.locals,
+                        "errormsg": e,
+                    }
+                if not error and main.type == "graphics":
                     if store_graphics_artifacts:
                         fignums = plt.get_fignums()
                         for i in fignums:
                             file_name = f"{where}_test_{id}_figure_{i}.png"
-                            abs_file_name = os.path.join(artifact_directory, file_name)
+                            abs_file_name = os.path.join(specification.artifactDirectory, file_name)
                             figure = plt.figure(i)
                             figure.savefig(abs_file_name)
 
@@ -141,14 +176,29 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                     for sub_test in main.tests:
                         name = sub_test.name
                         fun2eval = f"globals()['plt'].{name}"
-                        value = eval(fun2eval)
-                        namespace["_graphics_object_"][name] = value
+                        try:
+                            namespace["_graphics_object_"][name] = eval(fun2eval)
+                        except:
+                            #todo:
+                            pass
 
-        """ run setup-code """
-        execute_code_list(setup_code, namespace)
+        if not error:
+            try:
+                """ run setup-code """
+                execute_code_list(setup_code, namespace)
+            except:
+                error = True
+                errormsg = f"setupCode {setup_code} could not be executed"
+                status = SolutionStatus.failed
 
-        """ run teardown-code """
-        execute_code_list(teardown_code, namespace)
+        if not error:
+            try:
+                """ run teardown-code """
+                execute_code_list(teardown_code, namespace)
+            except:
+                error = True
+                errormsg = f"teardownCode {teardown_code} could not be executed"
+                status = SolutionStatus.failed
 
         """ close all open figures """
         plt.close("all")
@@ -157,32 +207,24 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         os.chdir(dir_old)
 
         """ remove test-directory from paths """
-        sys.path.remove(test_directory)
+        sys.path.remove(specification.testDirectory)
 
-        _report["solutions"][id][where] = namespace
-    return _report["solutions"][id][where], exec_time
+        _solution["traceback"] = tb
+        _solution["namespace"] = namespace
+        _solution["status"] = status
+        _solution["errormsg"] = errormsg
+    return solutions[id][where]
 
 class CodeabilityPythonTest:
     # testcases get parametrized in conftest.py (pytest_generate_tests)
-    def test_entrypoint(self, pytestconfig, record_property, monkeymodule, testcases):
+    def test_entrypoint(self, pytestconfig, monkeymodule, testcases):
         idx_main, idx_sub = testcases
 
         _report = pytestconfig.stash[report_key]
-        report: any = _report["report"]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
         specification: CodeAbilitySpecification = _report["specification"]
         main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
         sub: CodeAbilityTest = main.tests[idx_sub]
-
-        """ check success dependencies, skip if not satisfied """
-        success_dependencies = get_property_as_list(main.successDependency)
-        for dependency in success_dependencies:
-            main_idx = main_idx_by_dependency(testsuite, dependency)
-            total = report["tests"][main_idx]["summary"]["total"]
-            for sub_idx in range(total):
-                result = report["tests"][main_idx]["tests"][sub_idx]["result"]
-                if result != TestResult.passed:
-                    pytest.skip(f"Dependency {success_dependencies} not satisfied")
 
         dir_reference = specification.referenceDirectory
         dir_student = specification.studentDirectory
@@ -200,15 +242,18 @@ class CodeabilityPythonTest:
         absolute_tolerance = sub.absoluteTolerance
         allowed_occuranceRange = sub.allowedOccuranceRange
 
-        """ Get solutions, measure execution time """
-        try:
-            solution_student, exec_time_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
-            record_property("exec_time_student", exec_time_student)
-            solution_reference, exec_time_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
-            record_property("exec_time_reference", exec_time_reference)
-        except TimeoutError as e:
-            record_property("timeout", True)
-            raise
+        _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
+        _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
+        if _solution_student["status"] == SolutionStatus.skipped:
+            pytest.skip(_solution_student["errormsg"])
+        elif _solution_student["status"] != SolutionStatus.completed:
+            pytest.fail(_solution_student["errormsg"])
+        #if _solution_reference["status"] != SolutionStatus.completed:
+        #    #pytest.skip(_solution_reference["errormsg"])
+        #    pass
+
+        solution_student = _solution_student["namespace"]
+        solution_reference = _solution_reference["namespace"]
 
         """ if test is graphics => get saved graphics object as solution """
         if testtype == TypeEnum.graphics:

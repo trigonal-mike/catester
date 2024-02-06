@@ -8,7 +8,7 @@ def start_tests():
     specification = "../examples/specification.yaml"
     #specification = None
     test = "../examples/ex1/test1.yaml"
-    #test = "../examples/ex2/test.yaml"
+    test = "../examples/ex2/test.yaml"
     #specification = "../ex_master/ex1/localTests/correctSolution/specification.yaml"
     #specification = "../ex_master/ex1/localTests/emptySolution/specification.yaml"
     #test = "../ex_master/ex1/localTests/correctSolution/test.yaml"

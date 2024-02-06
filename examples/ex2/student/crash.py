@@ -1,4 +1,5 @@
 x = []
 #var1=x["xx"]
 #gfh
-var1=x[1]
+vahjfg.r1=7
+var1=1

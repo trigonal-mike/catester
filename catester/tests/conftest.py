@@ -5,6 +5,7 @@ import time
 import pytest
 from _pytest.terminal import TerminalReporter
 from enum import Enum
+from typing import List
 from model import DIRECTORIES
 from model import parse_spec_file, parse_test_file
 from model import CodeAbilityTestSuite, CodeAbilitySpecification
@@ -24,6 +25,17 @@ class TestResult(str, Enum):
     passed = "PASSED"
     failed = "FAILED"
     skipped = "SKIPPED"
+
+class Solution(str, Enum):
+    student = "student"
+    reference = "reference"
+
+class SolutionStatus(str, Enum):
+    started = "started"
+    skipped = "skipped"
+    failed = "failed"
+    completed = "completed"
+    timeout = "timeout"
 
 metadata_key = pytest.StashKey[dict]()
 report_key = pytest.StashKey[dict]()
@@ -183,19 +195,13 @@ def pytest_configure(config: pytest.Config) -> None:
         "indent": indent,
         "created": time.time(),
         "started": 0,
+        "solutions": {},
     }
     config.stash[report_key] = report
 
 def pytest_generate_tests(metafunc: pytest.Metafunc):
     report = metafunc.config.stash[report_key]
     metafunc.parametrize("testcases", report["testcases"])
-
-def get_item(haystack: list[tuple[str, object]], needle, default):
-    for x, y in enumerate(haystack):
-        s, o = y
-        if s == needle:
-            return o
-    return default
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
@@ -208,22 +214,17 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         testsuite: CodeAbilityTestSuite = rep["testsuite"]
         main = testsuite.properties.tests[idx_main]
         sub = main.tests[idx_sub]
-
-        timeout = get_item(item.user_properties, "timeout", False)
-        if timeout:
-            status = TestStatus.timedout
-        else:
-            status = TestStatus.completed
         test = report["tests"][idx_main]["tests"][idx_sub]
-        test["status"] = status
+        test["status"] = TestStatus.completed
         test["result"] = _report.outcome.upper()
-        test["executionDurationReference"] = get_item(item.user_properties, "exec_time_reference", 0)
-        test["executionDurationStudent"] = get_item(item.user_properties, "exec_time_student", 0)
         test["debug"] = {
             "longrepr": _report.longrepr,
             "timestamp": time.time(),
         }
         _report.nodeid = f"{main.name}\\{sub.name}"
+
+def pytest_collection_modifyitems(session: pytest.Session, config: pytest.Config, items: List[pytest.Item]) -> None:
+    pass
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass
@@ -244,7 +245,6 @@ def pytest_keyboard_interrupt(excinfo: pytest.ExceptionInfo) -> None:
     pass
 
 def pytest_sessionstart(session: pytest.Session):
-    #session.name = "xxxxx"
     _report = session.config.stash[report_key]
     _report["started"] = time.time()
 
@@ -256,6 +256,7 @@ def pytest_sessionfinish(session: pytest.Session):
     reportfile = _report["reportfile"]
     indent = _report["indent"]
     started = _report["started"]
+    solutions = _report["solutions"]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
 
     duration = time.time() - started
@@ -264,23 +265,31 @@ def pytest_sessionfinish(session: pytest.Session):
     success = 0
     failed = 0
     skipped = 0
-    time_r = 0.0
     time_s = 0.0
+    time_r = 0.0
     for idx_main, main in enumerate(report["tests"]):
         test_main = testsuite.properties.tests[idx_main]
+        sub_time_s = 0
+        sub_time_r = 0
+        status = TestStatus.completed
+        idx = str(idx_main)
+        tb = None
+        if idx in solutions:
+            solution_s = solutions[idx][Solution.student]
+            solution_r = solutions[idx][Solution.reference]
+            tb = solution_s["traceback"]
+            sub_time_s = solution_s["exectime"]
+            sub_time_r = solution_r["exectime"]
+            if solution_s["status"] == SolutionStatus.timeout:
+                status = TestStatus.timedout
+            elif solution_s["status"] != SolutionStatus.completed:
+                status = TestStatus.crashed
         sub_total = main["summary"]["total"]
         sub_success = 0
         sub_failed = 0
         sub_skipped = 0
-        sub_time_r = 0.0
-        sub_time_s = 0.0
         for idx_sub, sub in enumerate(main["tests"]):
             test_sub = test_main.tests[idx_sub]
-            if "executionDurationReference" in sub and "executionDurationStudent" in sub:
-                sub_time_r = sub_time_r + sub["executionDurationReference"]
-                sub_time_s = sub_time_s + sub["executionDurationStudent"]
-                del sub["executionDurationReference"]
-                del sub["executionDurationStudent"]
             if sub["result"] == TestResult.passed:
                 sub_success = sub_success + 1
                 result_message = test_sub.successMessage
@@ -293,18 +302,20 @@ def pytest_sessionfinish(session: pytest.Session):
             else:
                 result_message = "...unknown..."
             sub["resultMessage"] = result_message
+            sub["status"] = status
         time_r = time_r + sub_time_r
         time_s = time_s + sub_time_s
         main["debug"] = {
-            "executionDurationReference": sub_time_r,
             "executionDurationStudent": sub_time_s,
+            "executionDurationReference": sub_time_r,
+            "traceback": tb,
         }
         main["duration"] = sub_time_s
         main["executionDuration"] = sub_time_s
         main["summary"]["success"] = sub_success
         main["summary"]["failed"] = sub_failed
         main["summary"]["skipped"] = sub_skipped
-        main["status"] = TestStatus.completed
+        main["status"] = status
         if sub_success == sub_total:
             success = success + 1
             main["result"] = TestResult.passed
@@ -343,8 +354,8 @@ def pytest_sessionfinish(session: pytest.Session):
     report["executionDuration"] = time_s
     report["exitcode"] = str(exitcode)
     report["debug"] = {
-        "executionDurationReference": time_r,
         "executionDurationStudent": time_s,
+        "executionDurationReference": time_r,
     }
 
     with open(reportfile, "w", encoding="utf-8") as file:
