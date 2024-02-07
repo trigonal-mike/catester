@@ -33,6 +33,24 @@ class TypeEnum(str, Enum):
     warning = "warning"
     help = "help"
 
+DEFAULT_PROPERTY_QUALIFICATION = QualificationEnum.verifyEqual
+DEFAULT_PROPERTY_FAILURE_MESSAGE = "Some or all tests failed"
+DEFAULT_PROPERTY_SUCCESS_MESSAGE = "Congratulations! All tests passed"
+
+DEFAULT_TESTSUITE_TYPE = "python"
+DEFAULT_TESTSUITE_NAME = "Python Test Suite"
+DEFAULT_TESTSUITE_DESCRIPTION = "Checks subtests and graphics"
+DEFAULT_TESTSUITE_VERSION = "1.0"
+
+DEFAULT_SPECIFICATION_STUDENT_DIRECTORY = "student"
+DEFAULT_SPECIFICATION_REFERENCE_DIRECTORY = "reference"
+DEFAULT_SPECIFICATION_TEST_DIRECTORY = "testprograms"
+DEFAULT_SPECIFICATION_OUTPUT_DIRECTORY = "output"
+DEFAULT_SPECIFICATION_ARTIFACTS_DIRECTORY = "artifacts"
+DEFAULT_SPECIFICATION_TEST_VERSION = "v1"
+DEFAULT_SPECIFICATION_STORE_GRAPHICS_ARTIFACTS = None
+DEFAULT_SPECIFICATION_OUTPUT_NAME = "testSummary.json"
+DEFAULT_SPECIFICATION_IS_LOCAL_USAGE = False
 
 class CodeAbilityBase(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -83,32 +101,32 @@ class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon
 class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     tests: List[CodeAbilityTestCollection]
     #optional:
-    qualification: Optional[QualificationEnum] = Field(default=QualificationEnum.verifyEqual)
-    failureMessage: Optional[str] = Field(min_length=1, default="Some or all tests failed")
-    successMessage: Optional[str] = Field(min_length=1, default="Congratulations! All tests passed")
+    qualification: Optional[QualificationEnum] = Field(default=DEFAULT_PROPERTY_QUALIFICATION)
+    failureMessage: Optional[str] = Field(min_length=1, default=DEFAULT_PROPERTY_FAILURE_MESSAGE)
+    successMessage: Optional[str] = Field(min_length=1, default=DEFAULT_PROPERTY_SUCCESS_MESSAGE)
 
 
 class CodeAbilityTestSuite(CodeAbilityBase):
     properties: CodeAbilityTestProperty
     #optional:
-    type: Optional[str] = Field(min_length=1, default="python")
-    name: Optional[str] = Field(min_length=1, default="Python Test Suite")
-    description: Optional[str] = Field(min_length=1, default="Checks subtests and graphics")
-    version: Optional[str] = Field(pattern="^1.0$", default="1.0")
+    type: Optional[str] = Field(min_length=1, default=DEFAULT_TESTSUITE_TYPE)
+    name: Optional[str] = Field(min_length=1, default=DEFAULT_TESTSUITE_NAME)
+    description: Optional[str] = Field(min_length=1, default=DEFAULT_TESTSUITE_DESCRIPTION)
+    version: Optional[str] = Field(pattern="^([1-9]\d*|0)(\.(([1-9]\d*)|0)){0,3}$", default=DEFAULT_TESTSUITE_VERSION)
 
 
 class CodeAbilitySpecification(CodeAbilityBase):
     #optional:
-    studentDirectory: Optional[str] = Field(min_length=1, default="student")
-    referenceDirectory: Optional[str] = Field(min_length=1, default="reference")
-    testDirectory: Optional[str] = Field(min_length=1, default="testprograms")
-    outputDirectory: Optional[str] = Field(min_length=1, default="output")
-    artifactDirectory: Optional[str] = Field(min_length=1, default="artifacts")
+    studentDirectory: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_STUDENT_DIRECTORY)
+    referenceDirectory: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_REFERENCE_DIRECTORY)
+    testDirectory: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_TEST_DIRECTORY)
+    outputDirectory: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_OUTPUT_DIRECTORY)
+    artifactDirectory: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_ARTIFACTS_DIRECTORY)
     studentTestCounter: Optional[int] = Field(ge=0, default=None)
-    testVersion: Optional[str] = Field(min_length=1, default="v1")
-    storeGraphicsArtifacts: Optional[bool] = Field(default=None)
-    outputName: Optional[str] = Field(min_length=1, default="testSummary.json")
-    isLocalUsage: Optional[bool] = Field(default=False)
+    testVersion: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_TEST_VERSION)
+    storeGraphicsArtifacts: Optional[bool] = Field(default=DEFAULT_SPECIFICATION_STORE_GRAPHICS_ARTIFACTS)
+    outputName: Optional[str] = Field(min_length=1, default=DEFAULT_SPECIFICATION_OUTPUT_NAME)
+    isLocalUsage: Optional[bool] = Field(default=DEFAULT_SPECIFICATION_IS_LOCAL_USAGE)
 
 
 def parse_spec_file(file_path: str):

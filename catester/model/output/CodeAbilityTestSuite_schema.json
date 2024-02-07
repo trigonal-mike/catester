@@ -662,13 +662,13 @@
           "type": "null"
         }
       ],
-      "default": "Checks subtests and graphics",
+      "default": "Python Test Suite",
       "title": "Description"
     },
     "version": {
       "anyOf": [
         {
-          "pattern": "^1.0$",
+          "pattern": "^([1-9]\\d*|0)(\\.(([1-9]\\d*)|0)){0,3}$",
           "type": "string"
         },
         {
