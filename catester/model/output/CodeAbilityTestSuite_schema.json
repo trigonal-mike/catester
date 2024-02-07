@@ -226,6 +226,30 @@
           "default": null,
           "title": "Verbosity"
         },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TypeEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "timeout": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout"
+        },
         "storeGraphicsArtifacts": {
           "anyOf": [
             {
@@ -251,19 +275,6 @@
           "default": null,
           "title": "Competency"
         },
-        "timeout": {
-          "anyOf": [
-            {
-              "minimum": 0.0,
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Timeout"
-        },
         "name": {
           "minLength": 1,
           "title": "Name",
@@ -275,17 +286,6 @@
           },
           "title": "Tests",
           "type": "array"
-        },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TypeEnum"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "variable"
         },
         "description": {
           "anyOf": [
@@ -468,7 +468,7 @@
               "type": "null"
             }
           ],
-          "default": null,
+          "default": 1e-15,
           "title": "Relativetolerance"
         },
         "absoluteTolerance": {
@@ -481,7 +481,7 @@
               "type": "null"
             }
           ],
-          "default": null,
+          "default": 0.0,
           "title": "Absolutetolerance"
         },
         "allowedOccuranceRange": {
@@ -515,6 +515,30 @@
           "default": null,
           "title": "Verbosity"
         },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TypeEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "variable"
+        },
+        "timeout": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 180,
+          "title": "Timeout"
+        },
         "storeGraphicsArtifacts": {
           "anyOf": [
             {
@@ -539,19 +563,6 @@
           ],
           "default": null,
           "title": "Competency"
-        },
-        "timeout": {
-          "anyOf": [
-            {
-              "minimum": 0.0,
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "title": "Timeout"
         },
         "tests": {
           "items": {
@@ -662,7 +673,7 @@
           "type": "null"
         }
       ],
-      "default": "Python Test Suite",
+      "default": "Checks subtests and graphics",
       "title": "Description"
     },
     "version": {

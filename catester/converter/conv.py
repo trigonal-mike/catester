@@ -6,8 +6,8 @@ import subprocess
 from colorama import Fore, Back, Style
 from enum import Enum
 from pydantic import ValidationError
-from model import TypeEnum, QualificationEnum
-from model import parse_test_file
+from model.model import TypeEnum, QualificationEnum
+from model.model import parse_test_file
 from .enums import PropertyEnum, SubTestEnum, TestEnum, TestSuiteEnum, TokenEnum
 
 DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true"""

@@ -2,7 +2,7 @@ import argparse
 import os
 import pytest
 from pydantic import ValidationError
-from model import parse_spec_file, parse_test_file
+from model.model import parse_spec_file, parse_test_file
 
 DEFAULT_SPECIFICATION = None
 DEFAULT_TEST = "test.yaml"

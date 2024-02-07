@@ -66,19 +66,6 @@
       "default": "artifacts",
       "title": "Artifactdirectory"
     },
-    "studentTestCounter": {
-      "anyOf": [
-        {
-          "minimum": 0,
-          "type": "integer"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Studenttestcounter"
-    },
     "testVersion": {
       "anyOf": [
         {
@@ -128,6 +115,19 @@
       ],
       "default": false,
       "title": "Islocalusage"
+    },
+    "studentTestCounter": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Studenttestcounter"
     }
   },
   "title": "CodeAbilitySpecification",

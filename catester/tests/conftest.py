@@ -8,9 +8,9 @@ from _pytest.terminal import TerminalReporter
 from colorama import Fore, Back, Style
 from enum import Enum
 from typing import List
-from model import DIRECTORIES
-from model import parse_spec_file, parse_test_file
-from model import CodeAbilityTestSuite, CodeAbilitySpecification
+from model.model import DIRECTORIES
+from model.model import parse_spec_file, parse_test_file
+from model.model import CodeAbilityTestSuite, CodeAbilitySpecification
 
 class TestStatus(str, Enum):
     scheduled = "SCHEDULED"
@@ -75,8 +75,8 @@ def pytest_configure(config: pytest.Config) -> None:
     testyamlfile = config.getoption("--test")
     indent = int(config.getoption("--indent"))
 
-    specification = parse_spec_file(specyamlfile)
-    testsuite = parse_test_file(testyamlfile)
+    specification: CodeAbilitySpecification = parse_spec_file(specyamlfile)
+    testsuite: CodeAbilityTestSuite = parse_test_file(testyamlfile)
 
     """root-directory is always the location of the test.yaml file,
     relative directories are calculated from that root directory,
@@ -225,8 +225,6 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
 
 def pytest_collection_modifyitems(session: pytest.Session, config: pytest.Config, items: List[pytest.Item]) -> None:
     pass
-    #for item in items:
-    #    item._nodeid = "xxxxxxxxx"
 
 def pytest_runtest_logreport(report: pytest.TestReport):
     pass

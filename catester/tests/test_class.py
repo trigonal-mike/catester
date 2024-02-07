@@ -9,9 +9,9 @@ import numpy as np
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 import traceback
-from model import CodeAbilitySpecification, CodeAbilityTestSuite
-from model import CodeAbilityTestCollection, CodeAbilityTest
-from model import TypeEnum, QualificationEnum
+from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
+from model.model import CodeAbilityTestCollection, CodeAbilityTest
+from model.model import TypeEnum, QualificationEnum
 from .conftest import report_key, TestResult, TestStatus, Solution
 from .execution import execute_code_list, execute_file
 
