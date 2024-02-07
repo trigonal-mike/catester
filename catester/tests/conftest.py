@@ -1,6 +1,7 @@
 import json
 import os
 import datetime
+import shutil
 import time
 import pytest
 from _pytest.terminal import TerminalReporter
@@ -380,7 +381,7 @@ def pytest_report_header(config):
     testyamlfile = _report["testyamlfile"]
     specyamlfile = _report["specyamlfile"]
     verbosity = config.getoption("verbose")
-    tw, th = os.get_terminal_size()
+    tw, _ = shutil.get_terminal_size(fallback=(80, 24))
     full = "=" * tw
     return [
         f"{full}",
