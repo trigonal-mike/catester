@@ -6,9 +6,9 @@ import time
 import pytest
 import random
 import numpy as np
+import traceback
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
-import traceback
 from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
 from model.model import CodeAbilityTestCollection, CodeAbilityTest
 from model.model import TypeEnum, QualificationEnum

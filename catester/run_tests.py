@@ -13,11 +13,10 @@ def run_tests(specification, test, indent, verbosity):
     cwd = os.getcwd()
     if specification is not None and not os.path.isabs(specification):
         specification = os.path.join(cwd, specification)
+        specification = os.path.abspath(specification)
     if not os.path.isabs(test):
         test = os.path.join(cwd, test)
-
-    specification = os.path.abspath(specification)
-    test = os.path.abspath(test)
+        test = os.path.abspath(test)
     #try parsing yaml-file:
     #it gets parsed in pytest as well
     #but do it here, to not start pytest with an unparseable/invalid yaml-file
@@ -35,11 +34,13 @@ def run_tests(specification, test, indent, verbosity):
         print(e)
         raise
     except Exception as e:
-        print("Exception")
+        print("Other Exception")
         print(e)
         raise
     
     dir = os.path.abspath(os.path.dirname(__file__))
+
+    #todo: set desired flags for pytest
     #pytest command-line-flags
     #https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
     options = []
@@ -59,14 +60,11 @@ def run_tests(specification, test, indent, verbosity):
         #"-vv",
         #"-qq",
         #"-x",
+        #"--no-header",
+        #"--no-summary",
     ])
     if specification is not None:
         options.append(f"--specification={specification}")
-    if verbosity == 0:
-        options.extend([
-            #"--no-header",
-            #"--no-summary",
-        ])
 
     retcode = pytest.main(options)
     print(retcode)
