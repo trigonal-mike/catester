@@ -158,7 +158,28 @@ class Converter:
         arr = arr[1].split(" ", 1)
         if len(arr) == 1:
             raise Exception("no value specified")
-        return token, arr[0].strip(), arr[1].strip()
+        argument = arr[0].strip()
+        value = arr[1].strip()
+        if argument == "qualification":
+            if value not in QualificationEnum._member_names_:
+                raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {QualificationEnum._member_names_}")
+        if token != TokenEnum.TESTSUITE and argument == "type":
+            if value not in TypeEnum._member_names_:
+                raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {TypeEnum._member_names_}")
+        return token, argument, value
+    
+    def list_scandir(self):
+        excluded = [
+            os.path.basename(self.spec_file),
+            os.path.basename(self.meta_yaml),
+            os.path.basename(self.test_yaml),
+            os.path.basename(self.localTestdir),
+            os.path.basename(self.masterfile),
+            os.path.basename(self.py_file),
+        ]
+        dirlist = os.listdir(self.scandir)
+        res = filter(lambda x: x not in excluded, dirlist)
+        return list(res)
 
     def _convert_tokens(self):
         self.addfiles = []
@@ -213,15 +234,19 @@ class Converter:
                 files = str(argument).split(":")
                 for file in files:
                     f = file.strip()
-                    ff = os.path.join(self.scandir, file.strip())
+                    ff = os.path.join(self.scandir, f)
                     ff = os.path.abspath(ff)
                     if os.path.exists(ff):
                         f = ff.replace(self.scandir, ".")
-                        self.addfiles.append(f)
+                        if f == ".":
+                            errors = errors + 1
+                            print(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
+                        else:
+                            self.addfiles.append(f)
                     else:
                         errors = errors + 1
                         print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
-                        
+
         self.meta = [
             "properties:",
             f"  additionalFiles: [{','.join(self.addfiles)}]",
@@ -308,7 +333,7 @@ class Converter:
                 os.makedirs(dir, exist_ok=True)
                 shutil.copy(file, dest)
 
-    def run_local_tests(self):
+    def run_local_tests(self, verbosity):
         if self.conv_error:
             print(f"{Back.YELLOW}Testing skipped{Style.RESET_ALL}")
             return
@@ -318,11 +343,11 @@ class Converter:
             print()
             print(f"{Back.MAGENTA}Running local test #{idx+1}{Style.RESET_ALL}")
             print(f"{Back.MAGENTA}Directory: {directory}{Style.RESET_ALL}")
-            self._run_local_test(directory)
+            self._run_local_test(directory, verbosity)
 
-    def _run_local_test(self, directory):
+    def _run_local_test(self, directory, verbosity):
         os.chdir(directory)
         dir = os.path.dirname(__file__)
         run_tests_py = os.path.join(dir, "../run_tests.py")
         run_tests_py = os.path.abspath(run_tests_py)
-        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file}", shell=True)
+        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={verbosity}", shell=True)

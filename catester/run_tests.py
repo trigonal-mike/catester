@@ -50,7 +50,6 @@ def run_tests(specification, test, indent, verbosity):
         f"--indent={indent}",
         f"--verbosity={verbosity}",
         "-rA",
-        "--tb=no",
         #"--fixtures",
         #"--collect-only",
         #"--showlocals",
@@ -63,6 +62,10 @@ def run_tests(specification, test, indent, verbosity):
         #"--no-header",
         #"--no-summary",
     ])
+    if int(verbosity) < 3:
+        options.extend([
+            "--tb=no",
+        ])
     if specification is not None:
         options.append(f"--specification={specification}")
 

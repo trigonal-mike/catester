@@ -241,6 +241,7 @@ class CodeabilityPythonTest:
         qualification = sub.qualification
         relative_tolerance = sub.relativeTolerance
         absolute_tolerance = sub.absoluteTolerance
+        #todo:
         allowed_occuranceRange = sub.allowedOccuranceRange
 
         _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
@@ -337,10 +338,12 @@ class CodeabilityPythonTest:
             else:
                 pytest.fail(reason="qualification not set")
         elif testtype == TypeEnum.structural:
-            # not implemented yet
+            #todo:
+            pytest.skip(reason="structural not implemented")
             pass
         elif testtype == TypeEnum.linting:
-            # not implemented yet
+            #todo:
+            pytest.skip(reason="linting not implemented")
             pass
         elif testtype == TypeEnum.exist:
             assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
