@@ -193,9 +193,9 @@ class Converter:
                 curr_subtest = -1
                 curr_test = curr_test + 1
                 tests.append({
+                    "type": TEST_MAPPING[token],
                     "name": f"{argument}",
                     "entryPoint": f"{self.entrypoint}",
-                    "type": TEST_MAPPING[token],
                     "tests": [],
                 })
             elif token == TokenEnum.TESTVAR:
@@ -212,10 +212,7 @@ class Converter:
 
         self.contents.append("properties:")
         for key in properties:
-            if isinstance(properties[key], str):
-                self.contents.append(f'  {key}: "{properties[key]}"')
-            else:
-                self.contents.append(f"  {key}: {properties[key]}")
+            self.contents.append(f"  {key}: {properties[key]}")
         self.contents.append("  tests:")
 
         for idx, test in enumerate(tests):

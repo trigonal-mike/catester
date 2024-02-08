@@ -66,6 +66,8 @@ class CodeAbilityBase(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 class CodeAbilityTestCommon(BaseModel):
+    failureMessage: Optional[str] = Field(default=None)
+    successMessage: Optional[str] = Field(default=None)
     qualification: Optional[QualificationEnum] = Field(default=None)
     relativeTolerance: Optional[float] = Field(gt=0, default=None)
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
@@ -73,9 +75,9 @@ class CodeAbilityTestCommon(BaseModel):
     verbosity: Optional[int] = Field(ge=0, le=3, default=None)
 
 class CodeAbilityTestCollectionCommon(CodeAbilityTestCommon):
-    timeout: Optional[float] = Field(ge=0, default=None)
     storeGraphicsArtifacts: Optional[bool] = Field(default=None)
     competency: Optional[str] = Field(min_length=1, default=None)
+    timeout: Optional[float] = Field(ge=0, default=None)
 
 class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
     name: str = Field(min_length=1)
@@ -84,8 +86,6 @@ class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
     evalString: Optional[str] = Field(min_length=1, default=None)
     pattern: Optional[str] = Field(default=None)
     countRequirement: Optional[int] = Field(ge=0, default=None)
-    failureMessage: Optional[str] = Field(default=None)
-    successMessage: Optional[str] = Field(default=None)
 
 class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     name: str = Field(min_length=1)
@@ -100,8 +100,6 @@ class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon
     tearDownCode: Optional[str | List[str]] = Field(default=None)
     id: Optional[str] = Field(default=None)
     file: Optional[str] = Field(default=None)
-    failureMessage: Optional[str] = Field(default=None)
-    successMessage: Optional[str] = Field(default=None)
 
 class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     tests: List[CodeAbilityTestCollection]
