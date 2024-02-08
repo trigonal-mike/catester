@@ -1,6 +1,7 @@
 from enum import Enum
 
 class TokenEnum(str, Enum):
+    META = "META"
     ADDITIONALFILES = "ADDITIONALFILES"
     TESTSUITE = "TESTSUITE"
     PROPERTY = "PROPERTY"
@@ -13,6 +14,21 @@ class TokenEnum(str, Enum):
     HELPTEST = "HELPTEST"
     WARNINGTEST = "WARNINGTEST"
     TESTVAR = "TESTVAR"
+
+VALID_PROPS_META = [
+    "version",
+    "type",
+    "title",
+    "description",
+    #"authors",
+    #"maintainers",
+    #"links",
+    #"supportingMaterial",
+    "language",
+    #"keywords",
+    "license",
+    #"properties",
+]
 
 VALID_PROPS_TESTSUITE = [
     "type",

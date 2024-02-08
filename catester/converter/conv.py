@@ -6,27 +6,29 @@ import subprocess
 from colorama import Fore, Back, Style
 from enum import Enum
 from pydantic import ValidationError
+import yaml
 from model.model import TypeEnum, QualificationEnum
 from model.model import parse_test_file
 from model.model import DEFAULTS
-from .enums import VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST, TokenEnum
+from .enums import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST, TokenEnum
 
 DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true\n"""
 
 TEST_MAPPING = {
-    TokenEnum.VARIABLETEST: TypeEnum.variable,
-    TokenEnum.GRAPHICSTEST: TypeEnum.graphics,
-    TokenEnum.EXISTANCETEST: TypeEnum.exist,
-    TokenEnum.LINTINGTEST: TypeEnum.linting,
-    TokenEnum.STRUCTURALTEST: TypeEnum.structural,
-    TokenEnum.ERRORTEST: TypeEnum.error,
-    TokenEnum.HELPTEST: TypeEnum.help,
-    TokenEnum.WARNINGTEST: TypeEnum.warning,
+    TokenEnum.VARIABLETEST: TypeEnum.variable.name,
+    TokenEnum.GRAPHICSTEST: TypeEnum.graphics.name,
+    TokenEnum.EXISTANCETEST: TypeEnum.exist.name,
+    TokenEnum.LINTINGTEST: TypeEnum.linting.name,
+    TokenEnum.STRUCTURALTEST: TypeEnum.structural.name,
+    TokenEnum.ERRORTEST: TypeEnum.error.name,
+    TokenEnum.HELPTEST: TypeEnum.help.name,
+    TokenEnum.WARNINGTEST: TypeEnum.warning.name,
 }
 
 ARGUMENT_VALUE_TOKENS = (
     TokenEnum.TESTSUITE,
     TokenEnum.PROPERTY,
+    TokenEnum.META,
 )
 
 class LOCAL_TEST_DIRECTORIES(str, Enum):
@@ -60,6 +62,13 @@ class Converter:
         self.localTestdir = os.path.join(self.scandir, "localTests")
         self.ready = True
         self.conv_error = False
+
+        #todo: filename as arg
+        dir = os.path.dirname(__file__)
+        file = os.path.join(dir, "../metayaml/meta-template.yaml")
+        with open(file, "r") as stream:
+            self.metaconfig = yaml.safe_load(stream)
+            #print(self.metaconfig)
 
     def cleanup(self):
         print(f"Cleanup started: {self.scandir}")
@@ -111,6 +120,8 @@ class Converter:
         #with open(self.test_yaml, "w", encoding="utf-8") as file:
         with open(self.test_yaml, "w") as file:
             file.write("\n".join(self.contents))
+        #with open(self.test_yaml, "w") as stream:
+        #    yaml.safe_dump(self.contents1, stream, sort_keys=False, indent=2)
         print(f"{Fore.GREEN}Test-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Validating TestSuite")
@@ -135,8 +146,8 @@ class Converter:
         print(f"{Fore.GREEN}Specification-File created{Style.RESET_ALL}")
 
         print(f"Creating Meta-Yaml-File: {self.meta_yaml}")
-        with open(self.meta_yaml, "w") as file:
-            file.write("\n".join(self.meta))
+        with open(self.meta_yaml, "w") as stream:
+            yaml.safe_dump(self.metaconfig, stream, sort_keys=False, indent=2)
         print(f"{Fore.GREEN}Meta-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Preparing Local Test Directory: {self.localTestdir}")
@@ -254,6 +265,12 @@ class Converter:
                 tests[curr_test]["tests"].append({
                     "name": argument,
                 })
+            elif token == TokenEnum.META:
+                if argument not in VALID_PROPS_META:
+                    errors = errors + 1
+                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTSUITE}")
+                else:
+                    self.metaconfig[argument] = value
             elif token == TokenEnum.ADDITIONALFILES:
                 files = str(argument).split(":")
                 for file in files:
@@ -270,12 +287,12 @@ class Converter:
                     else:
                         errors = errors + 1
                         print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
-
-        self.meta = [
-            "properties:",
-            f"  additionalFiles: [{','.join(self.addfiles)}]",
-        ]
+        self.metaconfig["properties"]["studentSubmissionFiles"] = [os.path.basename(self.py_file)]
+        self.metaconfig["properties"]["additionalFiles"] = self.addfiles
         self.contents = []
+        #self.contents1 = testsuite
+        #self.contents1["properties"] = properties
+        #self.contents1["properties"]["tests"] = tests
         for key in testsuite:
             val = testsuite[key]
             if isinstance(val, str):
