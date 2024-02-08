@@ -119,7 +119,9 @@ class CodeAbilityTestSuite(CodeAbilityBase):
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["description"])
     version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["testsuite"]["version"])
 
-class CodeAbilitySpecification(CodeAbilityBase):
+class CodeAbilitySpecification(BaseModel):
+#class CodeAbilitySpecification(CodeAbilityBase):
+    #model_config = ConfigDict(extra="forbid")
     #optional:
     studentDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["studentDirectory"])
     referenceDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["referenceDirectory"])

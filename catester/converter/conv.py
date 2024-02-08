@@ -43,17 +43,18 @@ class Converter:
         if not os.path.exists(scandir):
             print(f"Directory not found: {scandir}")
             return
+        scandir = os.path.abspath(scandir)
         os.chdir(scandir)
         flist = glob.glob("*_master.py")
         if len(flist) == 0:
             print(f"No file named *_master.py in directory: {scandir}")
             return
         entrypoint = flist[0].replace("_master", "")
-
         self.scandir = scandir
         self.entrypoint = entrypoint
         self.masterfile = os.path.join(scandir, flist[0])
         self.py_file = os.path.join(scandir, entrypoint)
+        self.meta_yaml = os.path.join(scandir, "meta.yaml")
         self.test_yaml = os.path.join(scandir, "test.yaml")
         self.spec_file = os.path.join(self.scandir, "specification.yaml")
         self.localTestdir = os.path.join(self.scandir, "localTests")
@@ -80,13 +81,13 @@ class Converter:
             return
         print(f"{Fore.GREEN}All Tokens converted{Style.RESET_ALL}")
 
-        print(f"Creating TestSuite-File: {self.test_yaml}")
+        print(f"Creating Test-Yaml-File: {self.test_yaml}")
         #todo: check encoding
         #if encoding="utf-8" => 'ä' turns into 'Ã¤'
         #with open(self.test_yaml, "w", encoding="utf-8") as file:
         with open(self.test_yaml, "w") as file:
-            file.write(("\n".join(self.contents)))
-        print(f"{Fore.GREEN}TestSuite created{Style.RESET_ALL}")
+            file.write("\n".join(self.contents))
+        print(f"{Fore.GREEN}Test-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Validating TestSuite")
         try:
@@ -108,6 +109,11 @@ class Converter:
         with open(self.spec_file, "w") as file:
             file.write(DEFAULT_SPECIFICATION)
         print(f"{Fore.GREEN}Specification-File created{Style.RESET_ALL}")
+
+        print(f"Creating Meta-Yaml-File: {self.meta_yaml}")
+        with open(self.meta_yaml, "w") as file:
+            file.write("\n".join(self.meta))
+        print(f"{Fore.GREEN}Meta-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Preparing Local Test Directory: {self.localTestdir}")
         self._prepare_local_test_directories()
@@ -155,7 +161,7 @@ class Converter:
         return token, arr[0].strip(), arr[1].strip()
 
     def _convert_tokens(self):
-        self.contents = []
+        self.addfiles = []
         testsuite = DEFAULTS["testsuite"]
         properties = DEFAULTS["properties"]
         tests = []
@@ -203,38 +209,55 @@ class Converter:
                 tests[curr_test]["tests"].append({
                     "name": argument,
                 })
-
+            elif token == TokenEnum.ADDITIONALFILES:
+                files = str(argument).split(":")
+                for file in files:
+                    f = file.strip()
+                    ff = os.path.join(self.scandir, file.strip())
+                    ff = os.path.abspath(ff)
+                    if os.path.exists(ff):
+                        f = ff.replace(self.scandir, ".")
+                        self.addfiles.append(f)
+                    else:
+                        errors = errors + 1
+                        print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
+                        
+        self.meta = [
+            "properties:",
+            f"  additionalFiles: [{','.join(self.addfiles)}]",
+        ]
+        self.contents = []
         for key in testsuite:
             if isinstance(testsuite[key], str):
                 self.contents.append(f'{key}: "{testsuite[key]}"')
             else:
                 self.contents.append(f"{key}: {testsuite[key]}")
-
         self.contents.append("properties:")
         for key in properties:
             self.contents.append(f"  {key}: {properties[key]}")
         self.contents.append("  tests:")
-
-        for idx, test in enumerate(tests):
-            found_test = False
-            for argument in test:
-                if argument != "tests":
-                    prefix = "      " if found_test else "    - "
-                    found_test = True
-                    self.contents.append(f"{prefix}{argument}: {test[argument]}")
-            self.contents.append("      tests:")
-            if len(test["tests"]) == 0:
-                errors = errors + 1
-                print(f"{Fore.RED}ERROR at test #{idx+1} '{test['name']}' no subtests specified{Style.RESET_ALL}")
-            for subtest in test["tests"]:
-                found_subtest = False
-                for argument in subtest:
-                    prefix = "          " if found_subtest else "        - "
-                    found_subtest = True
-                    self.contents.append(f"{prefix}{argument}: {subtest[argument]}")
         if len(tests) == 0:
             errors = errors + 1
             print(f"{Fore.RED}ERROR no testcollection specified{Style.RESET_ALL}")
+        else:
+            for idx, test in enumerate(tests):
+                found_test = False
+                for argument in test:
+                    if argument != "tests":
+                        prefix = "      " if found_test else "    - "
+                        found_test = True
+                        self.contents.append(f"{prefix}{argument}: {test[argument]}")
+                self.contents.append("      tests:")
+                if len(test["tests"]) == 0:
+                    errors = errors + 1
+                    print(f"{Fore.RED}ERROR at test #{idx+1} '{test['name']}' no subtests specified{Style.RESET_ALL}")
+                else:
+                    for subtest in test["tests"]:
+                        found_subtest = False
+                        for argument in subtest:
+                            prefix = "          " if found_subtest else "        - "
+                            found_subtest = True
+                            self.contents.append(f"{prefix}{argument}: {subtest[argument]}")
         return errors
 
     def _prepare_local_test_directories(self):
@@ -263,11 +286,27 @@ class Converter:
 
         if isref:
             shutil.copy(self.py_file, directory)
+            self._copy_addfiles(directory)
         else:
             shutil.copy(self.test_yaml, directory)
+            shutil.copy(self.meta_yaml, directory)
             os.makedirs(student_directory)
             if not isempty:
                 shutil.copy(self.py_file, student_directory)
+                self._copy_addfiles(student_directory)
+
+    def _copy_addfiles(self, directory: str):
+        for file in self.addfiles:
+            dir = os.path.dirname(file)
+            fn = os.path.basename(file)
+            dest = os.path.join(directory, dir, fn)
+            dest = os.path.abspath(dest)
+            if os.path.isdir(file):
+                shutil.copytree(file, dest, dirs_exist_ok=True)
+            else:
+                dir = os.path.dirname(dest)
+                os.makedirs(dir, exist_ok=True)
+                shutil.copy(file, dest)
 
     def run_local_tests(self):
         if self.conv_error:
