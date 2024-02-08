@@ -8,9 +8,26 @@ from enum import Enum
 from pydantic import ValidationError
 from model.model import TypeEnum, QualificationEnum
 from model.model import parse_test_file
-from .enums import PropertyEnum, SubTestEnum, TestEnum, TestSuiteEnum, TokenEnum
+from model.model import DEFAULTS
+from .enums import VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST, TokenEnum
 
-DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true"""
+DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true\n"""
+
+TEST_MAPPING = {
+    TokenEnum.VARIABLETEST: TypeEnum.variable,
+    TokenEnum.GRAPHICSTEST: TypeEnum.graphics,
+    TokenEnum.EXISTANCETEST: TypeEnum.exist,
+    TokenEnum.LINTINGTEST: TypeEnum.linting,
+    TokenEnum.STRUCTURALTEST: TypeEnum.structural,
+    TokenEnum.ERRORTEST: TypeEnum.error,
+    TokenEnum.HELPTEST: TypeEnum.help,
+    TokenEnum.WARNINGTEST: TypeEnum.warning,
+}
+
+ARGUMENT_VALUE_TOKENS = (
+    TokenEnum.TESTSUITE,
+    TokenEnum.PROPERTY,
+)
 
 class LOCAL_TEST_DIRECTORIES(str, Enum):
     _reference = "_reference"
@@ -52,17 +69,23 @@ class Converter:
         print(f"Analyzing Tokens {self.masterfile}")
         errors = self._analyze_tokens()
         if errors > 0:
-            print(f"{Fore.RED}{errors} error{'s' if errors>1 else ''} occurred, writing of yaml file failed{Style.RESET_ALL}")
+            print(f"{Fore.RED}{errors} error{'s' if errors>1 else ''} occurred, Analyzing Tokens failed{Style.RESET_ALL}")
             return
         print(f"{Fore.GREEN}All Tokens valid{Style.RESET_ALL}")
 
-        try:
-            print(f"Creating TestSuite: {self.test_yaml}")
-            self._write_testsuite()
-        except Exception as e:
-            print(f"{Fore.RED}ERROR occurred{Style.RESET_ALL}")
-            print(e)
+        print(f"Converting Tokens {self.masterfile}")
+        errors = self._convert_tokens()
+        if errors > 0:
+            print(f"{Fore.RED}{errors} error{'s' if errors>1 else ''} occurred, Converting Tokens failed{Style.RESET_ALL}")
             return
+        print(f"{Fore.GREEN}All Tokens converted{Style.RESET_ALL}")
+
+        print(f"Creating TestSuite-File: {self.test_yaml}")
+        #todo: check encoding
+        #if encoding="utf-8" => 'ä' turns into 'Ã¤'
+        #with open(self.test_yaml, "w", encoding="utf-8") as file:
+        with open(self.test_yaml, "w") as file:
+            file.write(("\n".join(self.contents)))
         print(f"{Fore.GREEN}TestSuite created{Style.RESET_ALL}")
 
         print(f"Validating TestSuite")
@@ -76,11 +99,15 @@ class Converter:
         print(f"{Fore.GREEN}TestSuite validated{Style.RESET_ALL}")
 
         print(f"Creating Reference-File: {self.py_file}")
-        self._write_reference()
+        with open(self.py_file, "w") as file:
+            file.write("".join(self.lines))
+        print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
         #todo: validate reference-file for obvious errors, linting, ...!!!
 
         print(f"Creating Specification-File: {self.spec_file}")
-        self._write_specification()
+        with open(self.spec_file, "w") as file:
+            file.write(DEFAULT_SPECIFICATION)
+        print(f"{Fore.GREEN}Specification-File created{Style.RESET_ALL}")
 
         print(f"Preparing Local Test Directory: {self.localTestdir}")
         self._prepare_local_test_directories()
@@ -102,12 +129,12 @@ class Converter:
                 line = line.rstrip()[2:]
                 try:
                     token, argument, value = self._extract_from_line(line)
-                    self.tokens.append((token, argument, value))
+                    self.tokens.append((token, argument, value, idx, line))
                 except Exception as e:
                     errors = errors + 1
                     print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}")
                     print(e)
-            else:
+            elif not line.startswith("##"):
                 self.lines.append(line)
         return errors
 
@@ -117,59 +144,58 @@ class Converter:
         arr = line.split(" ", 1)
         token = arr[0]
         if token not in TokenEnum._member_names_:
-            raise Exception(f"token invalid: {Fore.MAGENTA}{token}{Style.RESET_ALL}")
+            raise Exception(f"token invalid: {Fore.MAGENTA}{token}{Style.RESET_ALL}\nchoose from: {TokenEnum._member_names_}")
         if len(arr) == 1:
             raise Exception("no argument specified")
-        if token in (TokenEnum.VARIABLETEST, TokenEnum.GRAPHICSTEST, TokenEnum.TESTVAR):
-            return token, arr[1], None
-        
-        arr = arr[1].split(":", 1)
+        if token not in ARGUMENT_VALUE_TOKENS:
+            return token, arr[1].strip(), None
+        arr = arr[1].split(" ", 1)
         if len(arr) == 1:
             raise Exception("no value specified")
-        argument = arr[0].strip()
-        value = arr[1].strip()
-        if token == TokenEnum.TESTSUITE:
-            if argument not in TestSuiteEnum._member_names_:
-                raise Exception(f"argument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {TestSuiteEnum._member_names_}")
-        elif token == TokenEnum.PROPERTY:
-            if argument not in PropertyEnum._member_names_:
-                raise Exception(f"argument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {PropertyEnum._member_names_}")
-        elif token == TokenEnum.TEST:
-            if argument not in TestEnum._member_names_:
-                raise Exception(f"argument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {TestEnum._member_names_}")
-        elif token == TokenEnum.SUBTEST:
-            if argument not in SubTestEnum._member_names_:
-                raise Exception(f"argument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {SubTestEnum._member_names_}")
-        if token == TokenEnum.PROPERTY or token == TokenEnum.TEST or token == TokenEnum.SUBTEST:
-            if argument == TestEnum.type:
-                if value not in TypeEnum._member_names_:
-                    raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {TypeEnum._member_names_}")
-            elif argument == TestEnum.qualification:
-                if value not in QualificationEnum._member_names_:
-                    raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {QualificationEnum._member_names_}")
-        return token, argument, value
+        return token, arr[0].strip(), arr[1].strip()
 
-    def _write_testsuite(self):
-        contents = []
-        testsuite = {}
-        properties = {}
+    def _convert_tokens(self):
+        self.contents = []
+        testsuite = DEFAULTS["testsuite"]
+        properties = DEFAULTS["properties"]
         tests = []
-        xxx = ""
         curr_test = -1
         curr_subtest = -1
+        errors = 0
         for idx, token in enumerate(self.tokens):
-            token, argument, value = token
+            token, argument, value, idx, line = token
             if token == TokenEnum.TESTSUITE:
-                testsuite[argument] = value
+                if argument not in VALID_PROPS_TESTSUITE:
+                    errors = errors + 1
+                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTSUITE}")
+                else:
+                    testsuite[argument] = value
             elif token == TokenEnum.PROPERTY:
-                properties[argument] = value
-            elif token in (TokenEnum.VARIABLETEST, TokenEnum.GRAPHICSTEST):
+                if curr_test == -1:
+                    if argument not in VALID_PROPS_TESTCOLLECTION_COMMON:
+                        errors = errors + 1
+                        print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTCOLLECTION_COMMON}")
+                    else:
+                        properties[argument] = value
+                elif curr_subtest == -1:
+                    if argument not in VALID_PROPS_TESTCOLLECTION:
+                        errors = errors + 1
+                        print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTCOLLECTION}")
+                    else:
+                        tests[curr_test][argument] = value
+                else:
+                    if argument not in VALID_PROPS_TEST:
+                        errors = errors + 1
+                        print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TEST}")
+                    else:
+                        tests[curr_test]["tests"][curr_subtest][argument] = value
+            elif token in (TEST_MAPPING):
                 curr_subtest = -1
                 curr_test = curr_test + 1
                 tests.append({
                     "name": f"{argument}",
                     "entryPoint": f"{self.entrypoint}",
-                    "type": TypeEnum.variable if token == TokenEnum.VARIABLETEST else TypeEnum.graphics,
+                    "type": TEST_MAPPING[token],
                     "tests": [],
                 })
             elif token == TokenEnum.TESTVAR:
@@ -177,49 +203,42 @@ class Converter:
                 tests[curr_test]["tests"].append({
                     "name": argument,
                 })
-            elif token == TokenEnum.TEST:
-                if curr_test >= 0:
-                    tests[curr_test][argument] = value
-            elif token == TokenEnum.SUBTEST:
-                if curr_test >= 0 and curr_subtest >= 0:
-                    pass
-                    tests[curr_test]["tests"][curr_subtest][argument] = value
 
         for key in testsuite:
-            contents.append(f"{key}: {testsuite[key]}")
+            if isinstance(testsuite[key], str):
+                self.contents.append(f'{key}: "{testsuite[key]}"')
+            else:
+                self.contents.append(f"{key}: {testsuite[key]}")
 
-        contents.append("properties:")
+        self.contents.append("properties:")
         for key in properties:
-            contents.append(f"  {key}: {properties[key]}")
-        contents.append("  tests:")
+            if isinstance(properties[key], str):
+                self.contents.append(f'  {key}: "{properties[key]}"')
+            else:
+                self.contents.append(f"  {key}: {properties[key]}")
+        self.contents.append("  tests:")
 
-        for test in tests:
+        for idx, test in enumerate(tests):
             found_test = False
             for argument in test:
                 if argument != "tests":
                     prefix = "      " if found_test else "    - "
                     found_test = True
-                    contents.append(f"{prefix}{argument}: {test[argument]}")
-            contents.append("      tests:")
+                    self.contents.append(f"{prefix}{argument}: {test[argument]}")
+            self.contents.append("      tests:")
             if len(test["tests"]) == 0:
-                raise Exception(f"{Fore.RED}ERROR no subtests specified")
+                errors = errors + 1
+                print(f"{Fore.RED}ERROR at test #{idx+1} '{test['name']}' no subtests specified{Style.RESET_ALL}")
             for subtest in test["tests"]:
                 found_subtest = False
                 for argument in subtest:
                     prefix = "          " if found_subtest else "        - "
                     found_subtest = True
-                    contents.append(f"{prefix}{argument}: {subtest[argument]}")
-
-        with open(self.test_yaml, "w", encoding="utf-8") as file:
-            file.write("\n".join(contents))
-
-    def _write_reference(self):
-        with open(self.py_file, "w", encoding="utf-8") as file:
-            file.write("".join(self.lines))
-
-    def _write_specification(self):
-        with open(self.spec_file, "w", encoding="utf-8") as file:
-            file.write(DEFAULT_SPECIFICATION)
+                    self.contents.append(f"{prefix}{argument}: {subtest[argument]}")
+        if len(tests) == 0:
+            errors = errors + 1
+            print(f"{Fore.RED}ERROR no testcollection specified{Style.RESET_ALL}")
+        return errors
 
     def _prepare_local_test_directories(self):
         if not os.path.exists(self.localTestdir):

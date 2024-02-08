@@ -43,9 +43,9 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
     main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
     id = str(idx_main)
 
-    if not id in solutions:
+    if id not in solutions:
         solutions[id] = {}
-    if not where in solutions[id]:
+    if where not in solutions[id]:
         solutions[id][where] = {
             "namespace": {},
             "timestamp": time.time(),
@@ -143,8 +143,6 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                         error = True
                         errormsg = f"Maximum execution time of {timeout} seconds exceeded"
                         status = TestStatus.timedout
-                    else:
-                        status = TestStatus.completed
                 except Exception as e:
                     error = True
                     errormsg = f"Execution of {file} failed"
@@ -207,6 +205,9 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         """ remove test-directory from paths """
         sys.path.remove(specification.testDirectory)
+
+        if not error:
+            status = TestStatus.completed
 
         _solution["exectime"] = exectime
         _solution["traceback"] = tb

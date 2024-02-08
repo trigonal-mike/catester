@@ -1,74 +1,62 @@
 from enum import Enum
 
-
 class TokenEnum(str, Enum):
+    ADDITIONALFILES = "ADDITIONALFILES"
     TESTSUITE = "TESTSUITE"
     PROPERTY = "PROPERTY"
-    TEST = "TEST"
-    SUBTEST = "SUBTEST"
     VARIABLETEST = "VARIABLETEST"
     GRAPHICSTEST = "GRAPHICSTEST"
+    EXISTANCETEST = "EXISTANCETEST"
+    LINTINGTEST = "LINTINGTEST"
+    STRUCTURALTEST = "STRUCTURALTEST"
+    ERRORTEST = "ERRORTEST"
+    HELPTEST = "HELPTEST"
+    WARNINGTEST = "WARNINGTEST"
     TESTVAR = "TESTVAR"
 
+VALID_PROPS_TESTSUITE = [
+    "type",
+    "name",
+    "description",
+    "version",
+]
 
-class SubTestEnum(str, Enum):
-    name = "name"
-    value = "value"
-    evalString = "evalString"
-    pattern = "pattern"
-    countRequirement = "countRequirement"
-    # common:
-    failureMessage = "failureMessage"
-    successMessage = "successMessage"
-    qualification = "qualification"
-    relativeTolerance = "relativeTolerance"
-    absoluteTolerance = "absoluteTolerance"
-    allowedOccuranceRange = "allowedOccuranceRange"
-    verbosity = "verbosity"
+VALID_PROPS_TEST_COMMON = [
+    "failureMessage",
+    "successMessage",
+    "qualification",
+    "relativeTolerance",
+    "absoluteTolerance",
+    "allowedOccuranceRange",
+    "verbosity",
+]
 
+VALID_PROPS_TESTCOLLECTION_COMMON = [
+    *VALID_PROPS_TEST_COMMON,
+    "storeGraphicsArtifacts",
+    "competency",
+    "timeout",
+]
 
-class TestEnum(str, Enum):
-    name = "name"
-    type = "type"
-    description = "description"
-    successDependency = "successDependency"
-    setUpCodeDependency = "setUpCodeDependency"
-    entryPoint = "entryPoint"
-    setUpCode = "setUpCode"
-    tearDownCode = "tearDownCode"
-    id = "id"
-    file = "file"
-    # common:
-    failureMessage = "failureMessage"
-    successMessage = "successMessage"
-    qualification = "qualification"
-    relativeTolerance = "relativeTolerance"
-    absoluteTolerance = "absoluteTolerance"
-    allowedOccuranceRange = "allowedOccuranceRange"
-    verbosity = "verbosity"
-    ## common:
-    storeGraphicsArtifacts = "storeGraphicsArtifacts"
-    competency = "competency"
-    timeout = "timeout"
+VALID_PROPS_TEST = [
+    *VALID_PROPS_TEST_COMMON,
+    "name",
+    "value",
+    "evalString",
+    "pattern",
+    "countRequirement",
+]
 
-
-class PropertyEnum(str, Enum):
-    # common:
-    failureMessage = "failureMessage"
-    successMessage = "successMessage"
-    qualification = "qualification"
-    relativeTolerance = "relativeTolerance"
-    absoluteTolerance = "absoluteTolerance"
-    allowedOccuranceRange = "allowedOccuranceRange"
-    verbosity = "verbosity"
-    ## common:
-    storeGraphicsArtifacts = "storeGraphicsArtifacts"
-    competency = "competency"
-    timeout = "timeout"
-
-
-class TestSuiteEnum(str, Enum):
-    type = "type"
-    name = "name"
-    description = "description"
-    version = "version"
+VALID_PROPS_TESTCOLLECTION = [
+    *VALID_PROPS_TESTCOLLECTION_COMMON,
+    "name",
+    "type",
+    "description",
+    "successDependency",
+    "setUpCodeDependency",
+    "entryPoint",
+    "setUpCode",
+    "tearDownCode",
+    "id",
+    "file",
+]

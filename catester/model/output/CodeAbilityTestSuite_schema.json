@@ -226,17 +226,6 @@
           "default": null,
           "title": "Verbosity"
         },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TypeEnum"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null
-        },
         "timeout": {
           "anyOf": [
             {
@@ -286,6 +275,17 @@
           },
           "title": "Tests",
           "type": "array"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TypeEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "variable"
         },
         "description": {
           "anyOf": [
@@ -515,17 +515,6 @@
           "default": null,
           "title": "Verbosity"
         },
-        "type": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/TypeEnum"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": "variable"
-        },
         "timeout": {
           "anyOf": [
             {
@@ -536,7 +525,7 @@
               "type": "null"
             }
           ],
-          "default": 180,
+          "default": 180.0,
           "title": "Timeout"
         },
         "storeGraphicsArtifacts": {
