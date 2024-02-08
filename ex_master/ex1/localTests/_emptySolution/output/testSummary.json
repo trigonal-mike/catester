@@ -1,15 +1,15 @@
 {
-  "timestamp": "2024-02-06 14:23:57.726834",
-  "type": "Python",
+  "timestamp": "2024-02-08 22:29:52.675537",
+  "type": "python",
   "version": "1.0",
-  "name": "Python Test suite",
-  "description": "Checks variables",
+  "name": "Python Test Suite",
+  "description": "Checks subtests and graphics",
   "status": "COMPLETED",
   "result": "FAILED",
   "statusMessage": null,
-  "resultMessage": "Tests failed",
+  "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 0.9517881870269775,
+  "duration": 0.8574554920196533,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -28,7 +28,7 @@
   },
   "debug": {
     "executionDurationStudent": 0.0,
-    "executionDurationReference": 0.013023138046264648
+    "executionDurationReference": 0.015697002410888672
   },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
@@ -40,7 +40,7 @@
   "tests": [
     {
       "type": "variable",
-      "name": "Test 1",
+      "name": "var test",
       "description": null,
       "setup": null,
       "teardown": null,
@@ -51,10 +51,10 @@
       "details": null,
       "debug": {
         "executionDurationStudent": 0,
-        "executionDurationReference": 0.013023138046264648,
+        "executionDurationReference": 0.015697002410888672,
         "traceback": {}
       },
-      "duration": 0,
+      "duration": 0.8510425090789795,
       "executionDuration": 0,
       "summary": {
         "total": 2,
@@ -65,24 +65,22 @@
       "tests": [
         {
           "name": "var1",
-          "status": "FAILED",
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
           "debug": {
             "longrepr": "E   Failed: entryPoint ex1.py not found",
-            "timestamp": 1707225838.688323
+            "timestamp": 1707427793.5377622
           }
         },
         {
           "name": "var2",
-          "status": "FAILED",
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
           "debug": {
             "longrepr": "E   Failed: entryPoint ex1.py not found",
-            "timestamp": 1707225838.6913147
+            "timestamp": 1707427793.5377622
           }
         }
       ]

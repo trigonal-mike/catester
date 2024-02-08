@@ -277,10 +277,12 @@ class Converter:
         ]
         self.contents = []
         for key in testsuite:
-            if isinstance(testsuite[key], str):
-                self.contents.append(f'{key}: "{testsuite[key]}"')
+            val = testsuite[key]
+            if isinstance(val, str):
+                val = val.replace('"', '')
+                self.contents.append(f'{key}: "{val}"')
             else:
-                self.contents.append(f"{key}: {testsuite[key]}")
+                self.contents.append(f"{key}: {val}")
         self.contents.append("properties:")
         for key in properties:
             self.contents.append(f"  {key}: {properties[key]}")

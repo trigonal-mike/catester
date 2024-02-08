@@ -1,16 +1,16 @@
 {
-  "timestamp": "2024-02-06 14:23:55.983016",
-  "type": "Python",
+  "timestamp": "2024-02-08 22:29:51.036685",
+  "type": "python",
   "version": "1.0",
-  "name": "Python Test suite",
-  "description": "Checks variables",
+  "name": "Python Test Suite",
+  "description": "Checks subtests and graphics",
   "status": "COMPLETED",
   "result": "PASSED",
   "statusMessage": null,
-  "resultMessage": "Tests succeeded",
+  "resultMessage": "Congratulations! All tests passed",
   "details": null,
-  "duration": 1.0093348026275635,
-  "executionDuration": 0.01696920394897461,
+  "duration": 0.9819469451904297,
+  "executionDuration": 0.009974241256713867,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -27,8 +27,8 @@
     "specification": "i:\\PYTHON\\catester\\ex_master\\ex1\\specification.yaml"
   },
   "debug": {
-    "executionDurationStudent": 0.01696920394897461,
-    "executionDurationReference": 0.0012960433959960938
+    "executionDurationStudent": 0.009974241256713867,
+    "executionDurationReference": 0.001527547836303711
   },
   "exitcode": "0",
   "summary": {
@@ -40,7 +40,7 @@
   "tests": [
     {
       "type": "variable",
-      "name": "Test 1",
+      "name": "var test",
       "description": null,
       "setup": null,
       "teardown": null,
@@ -50,12 +50,12 @@
       "resultMessage": null,
       "details": null,
       "debug": {
-        "executionDurationStudent": 0.01696920394897461,
-        "executionDurationReference": 0.0012960433959960938,
+        "executionDurationStudent": 0.009974241256713867,
+        "executionDurationReference": 0.001527547836303711,
         "traceback": {}
       },
-      "duration": 0.01696920394897461,
-      "executionDuration": 0.01696920394897461,
+      "duration": 0.9797894954681396,
+      "executionDuration": 0.009974241256713867,
       "summary": {
         "total": 2,
         "success": 2,
@@ -65,24 +65,22 @@
       "tests": [
         {
           "name": "var1",
-          "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
           "details": null,
           "debug": {
             "longrepr": null,
-            "timestamp": 1707225837.002966
+            "timestamp": 1707427792.0255034
           }
         },
         {
           "name": "var2",
-          "status": "COMPLETED",
           "result": "PASSED",
           "resultMessage": null,
           "details": null,
           "debug": {
             "longrepr": null,
-            "timestamp": 1707225837.004964
+            "timestamp": 1707427792.0274997
           }
         }
       ]
