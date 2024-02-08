@@ -5,6 +5,7 @@ if __name__ == "__main__":
     action = None
     #action = "convert"
     #action = "test"
+    #action = "cleanup"
 
     verbosity = 3 # with full traceback
     verbosity = 0

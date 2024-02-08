@@ -61,6 +61,30 @@ class Converter:
         self.ready = True
         self.conv_error = False
 
+    def cleanup(self):
+        print(f"Cleanup started: {self.scandir}")
+        if os.path.exists(self.py_file):
+            os.remove(self.py_file)
+            print(f"{Fore.MAGENTA}Removed file: {self.py_file}{Style.RESET_ALL}")
+        if os.path.exists(self.meta_yaml):
+            os.remove(self.meta_yaml)
+            print(f"{Fore.MAGENTA}Removed file: {self.meta_yaml}{Style.RESET_ALL}")
+        if os.path.exists(self.test_yaml):
+            os.remove(self.test_yaml)
+            print(f"{Fore.MAGENTA}Removed file: {self.test_yaml}{Style.RESET_ALL}")
+        if os.path.exists(self.spec_file):
+            os.remove(self.spec_file)
+            print(f"{Fore.MAGENTA}Removed file: {self.spec_file}{Style.RESET_ALL}")
+        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
+            dir = os.path.join(self.localTestdir, directory)
+            if os.path.exists(dir):
+                shutil.rmtree(dir)
+                print(f"{Fore.MAGENTA}Removed directory: {dir}{Style.RESET_ALL}")
+        if os.path.exists(self.localTestdir) and not os.listdir(self.localTestdir):
+            shutil.rmtree(self.localTestdir)
+            print(f"{Fore.MAGENTA}Removed empty directory: {self.localTestdir}{Style.RESET_ALL}")
+        print(f"Cleanup ended")
+
     def convert(self):
         self.conv_error = True
         if not self.ready:
