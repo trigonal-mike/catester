@@ -1,0 +1,9 @@
+properties:
+  tests:
+    - name: Test timeout
+      entryPoint: "timeout.py"
+      setUpCode: ["import time","time.sleep(5)","var1 = 1"]
+      timeout: 0.5
+      tests:
+        - name: "var1"
+          value: 1

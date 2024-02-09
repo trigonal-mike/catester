@@ -5,10 +5,10 @@ from run_tests import run_tests
 # facilitates starting local test-examples
 
 def start_tests():
-    specification = "../examples/specification.yaml"
-    #specification = None
-    test = "../examples/ex1/test1.yaml"
-    test = "../examples/ex2/test.yaml"
+    #specification = "../examples/specification.yaml"
+    specification = None
+    #test = "../examples/ex1/test1.yaml"
+    test = "../examples/ex2/test_timeout.yaml"
 
     #specification = "../ex_master/_ex_/specification.yaml"
     #test = "../ex_master/_ex_/localTests/_correctSolution/test.yaml"

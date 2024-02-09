@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-06 18:31:48.153974",
+  "timestamp": "2024-02-09 09:49:28.979461",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -7,10 +7,10 @@
   "status": "COMPLETED",
   "result": "FAILED",
   "statusMessage": null,
-  "resultMessage": "Some or all Tests failed",
+  "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 2.8585622310638428,
-  "executionDuration": 2.0295190811157227,
+  "duration": 7.828203201293945,
+  "executionDuration": 2.013293504714966,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -23,19 +23,19 @@
     }
   },
   "properties": {
-    "test": "i:\\PYTHON\\catester\\examples\\ex2\\test.yaml",
-    "specification": "i:\\PYTHON\\catester\\examples\\specification.yaml"
+    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_timeout.yaml",
+    "specification": ""
   },
   "debug": {
-    "executionDurationStudent": 2.0295190811157227,
+    "executionDurationStudent": 2.013293504714966,
     "executionDurationReference": 0.0
   },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
-    "total": 4,
+    "total": 1,
     "success": 0,
-    "failed": 2,
-    "skipped": 2
+    "failed": 1,
+    "skipped": 0
   },
   "tests": [
     {
@@ -43,24 +43,23 @@
       "name": "Test timeout",
       "description": null,
       "setup": [
-        "a = 1",
-        "b = 1"
+        "import time",
+        "time.sleep(5)",
+        "var1 = 1"
       ],
-      "teardown": [
-        "del a"
-      ],
+      "teardown": null,
       "status": "TIMEDOUT",
       "result": "FAILED",
       "statusMessage": null,
       "resultMessage": null,
       "details": null,
       "debug": {
-        "executionDurationStudent": 2.0295190811157227,
+        "executionDurationStudent": 2.013293504714966,
         "executionDurationReference": 0,
         "traceback": {}
       },
-      "duration": 2.835435628890991,
-      "executionDuration": 2.0295190811157227,
+      "duration": 7.828203201293945,
+      "executionDuration": 2.013293504714966,
       "summary": {
         "total": 1,
         "success": 0,
@@ -74,148 +73,8 @@
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   Failed: Maximum execution time of 0.3 seconds exceeded",
-            "timestamp": 1707240711.0050316
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test variables 1",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "SKIPPED",
-      "result": "SKIPPED",
-      "statusMessage": null,
-      "resultMessage": "Tests skipped",
-      "details": null,
-      "debug": {
-        "executionDurationStudent": 0,
-        "executionDurationReference": 0,
-        "traceback": {}
-      },
-      "duration": 0.0,
-      "executionDuration": 0,
-      "summary": {
-        "total": 2,
-        "success": 0,
-        "failed": 0,
-        "skipped": 2
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "result": "SKIPPED",
-          "resultMessage": "Test skipped",
-          "details": null,
-          "debug": {
-            "longrepr": [
-              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-              247,
-              "Skipped: Success-Dependency `[1]` not satisfied"
-            ],
-            "timestamp": 1707240711.0050316
-          }
-        },
-        {
-          "name": "var2",
-          "result": "SKIPPED",
-          "resultMessage": "Test skipped",
-          "details": null,
-          "debug": {
-            "longrepr": [
-              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-              247,
-              "Skipped: Success-Dependency `[1]` not satisfied"
-            ],
-            "timestamp": 1707240711.0050316
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test variables 2",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "SKIPPED",
-      "result": "SKIPPED",
-      "statusMessage": null,
-      "resultMessage": "Tests skipped",
-      "details": null,
-      "debug": {
-        "executionDurationStudent": 0,
-        "executionDurationReference": 0,
-        "traceback": {}
-      },
-      "duration": 0.016539573669433594,
-      "executionDuration": 0,
-      "summary": {
-        "total": 1,
-        "success": 0,
-        "failed": 0,
-        "skipped": 1
-      },
-      "tests": [
-        {
-          "name": "var3",
-          "result": "SKIPPED",
-          "resultMessage": "Test skipped",
-          "details": null,
-          "debug": {
-            "longrepr": [
-              "i:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-              247,
-              "Skipped: Success-Dependency `['xxx', '1']` not satisfied"
-            ],
-            "timestamp": 1707240711.0215712
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test crash",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "CRASHED",
-      "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
-      "debug": {
-        "executionDurationStudent": 0,
-        "executionDurationReference": 0,
-        "traceback": {
-          "name": "<module>",
-          "filename": "i:\\PYTHON\\catester\\examples\\ex2\\student\\crash.py",
-          "lineno": 4,
-          "line": "vahjfg.r1=7",
-          "locals": null,
-          "errormsg": "name 'vahjfg' is not defined"
-        }
-      },
-      "duration": 0.006587028503417969,
-      "executionDuration": 0,
-      "summary": {
-        "total": 1,
-        "success": 0,
-        "failed": 1,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   Failed: Execution of i:\\PYTHON\\catester\\examples\\ex2\\student\\crash.py failed",
-            "timestamp": 1707240711.0281582
+            "longrepr": "E   Failed: Maximum execution time of 0.5 seconds exceeded",
+            "timestamp": 1707468576.8159719
           }
         }
       ]
