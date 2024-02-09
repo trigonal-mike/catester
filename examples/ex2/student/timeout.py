@@ -1,4 +1,4 @@
 import time
 
-time.sleep(2)
+time.sleep(5)
 var1 = 1
