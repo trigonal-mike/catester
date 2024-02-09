@@ -1,0 +1,330 @@
+{
+  "$defs": {
+    "CodeAbilityLink": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "url": {
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "url"
+      ],
+      "title": "CodeAbilityLink",
+      "type": "object"
+    },
+    "CodeAbilityMetaProperty": {
+      "additionalProperties": false,
+      "properties": {
+        "studentSubmissionFiles": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Studentsubmissionfiles"
+        },
+        "additionalFiles": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Additionalfiles"
+        },
+        "testFiles": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Testfiles"
+        },
+        "studentTemplates": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Studenttemplates"
+        }
+      },
+      "title": "CodeAbilityMetaProperty",
+      "type": "object"
+    },
+    "CodeAbilityPerson": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "email": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Email"
+        },
+        "affiliation": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Affiliation"
+        }
+      },
+      "title": "CodeAbilityPerson",
+      "type": "object"
+    },
+    "LanguageEnum": {
+      "enum": [
+        "de",
+        "en"
+      ],
+      "title": "LanguageEnum",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "anyOf": [
+        {
+          "pattern": "^([1-9]\\d*|0)(\\.(([1-9]\\d*)|0)){0,3}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "1.0",
+      "title": "Version"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "ProblemSet",
+      "title": "Type"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "TITLE",
+      "title": "Title"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "DESCRIPTION",
+      "title": "Description"
+    },
+    "language": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LanguageEnum"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "en"
+    },
+    "license": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "Not specified",
+      "title": "License"
+    },
+    "authors": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityPerson"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [
+        {
+          "name": "unknown",
+          "email": "unknown@tugraz.at",
+          "affiliation": "TU Graz"
+        }
+      ],
+      "title": "Authors"
+    },
+    "maintainers": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityPerson"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [
+        {
+          "name": "unknown",
+          "email": "unknown@tugraz.at",
+          "affiliation": "TU Graz"
+        }
+      ],
+      "title": "Maintainers"
+    },
+    "links": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityLink"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Links"
+    },
+    "supportingMaterial": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityLink"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Supportingmaterial"
+    },
+    "keywords": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Keywords"
+    },
+    "properties": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CodeAbilityMetaProperty"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": {
+        "studentSubmissionFiles": [],
+        "additionalFiles": [],
+        "testFiles": [],
+        "studentTemplates": []
+      }
+    }
+  },
+  "title": "CodeAbilityMeta",
+  "type": "object"
+}

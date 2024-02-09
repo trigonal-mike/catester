@@ -20,6 +20,7 @@ VALID_PROPS_META = [
     "type",
     "title",
     "description",
+    #todo:
     #"authors",
     #"maintainers",
     #"links",

@@ -32,6 +32,10 @@ class TypeEnum(str, Enum):
     warning = "warning"
     help = "help"
 
+class LanguageEnum(str, Enum):
+    de = "de"
+    en = "en"
+
 VERSION_REGEX = "^([1-9]\d*|0)(\.(([1-9]\d*)|0)){0,3}$"
 
 DEFAULTS = {
@@ -59,6 +63,19 @@ DEFAULTS = {
         "relativeTolerance": 1.0e-15,
         "absoluteTolerance": 0.0,
         "timeout": 180.0,
+    },
+    "meta": {
+        "version": "1.0",
+        "type": "ProblemSet",
+        "title": "TITLE",
+        "description": "DESCRIPTION",
+        "language": LanguageEnum.en,
+        "license": "Not specified",
+    },
+    "person": {
+        "name": "unknown",
+        "email": "unknown@tugraz.at",
+        "affiliation": "TU Graz",
     },
 }
 
@@ -134,8 +151,51 @@ class CodeAbilitySpecification(BaseModel):
     isLocalUsage: Optional[bool] = Field(default=DEFAULTS["specification"]["isLocalUsage"])
     studentTestCounter: Optional[int] = Field(ge=0, default=None)
 
-def parse_spec_file(file_path: str):
-    # returns default if file_path is None
+class CodeAbilityLink(CodeAbilityBase):
+    description: str = Field(min_length=1)
+    url: str = Field(min_length=1)
+
+class CodeAbilityPerson(CodeAbilityBase):
+    name: Optional[str] = Field(min_length=1, default=None)
+    email: Optional[str] = Field(min_length=1, default=None)
+    affiliation: Optional[str] = Field(min_length=1, default=None)
+
+class CodeAbilityMetaProperty(CodeAbilityBase):
+    studentSubmissionFiles: Optional[List[str]] = Field(default=[])
+    additionalFiles: Optional[List[str]] = Field(default=[])
+    testFiles: Optional[List[str]] = Field(default=[])
+    studentTemplates: Optional[List[str]] = Field(default=[])
+
+class CodeAbilityMeta(CodeAbilityBase):
+    version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["meta"]["version"])
+    type: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["type"])
+    title: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["title"])
+    description: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["description"])
+    language: Optional[LanguageEnum] = Field(default=DEFAULTS["meta"]["language"])
+    license: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["license"])
+    authors: Optional[List[CodeAbilityPerson]] = Field(default=[CodeAbilityPerson(
+        name=DEFAULTS["person"]["name"],
+        email=DEFAULTS["person"]["email"],
+        affiliation=DEFAULTS["person"]["affiliation"]
+    )])
+    maintainers: Optional[List[CodeAbilityPerson]] = Field(default=[CodeAbilityPerson(
+        name=DEFAULTS["person"]["name"],
+        email=DEFAULTS["person"]["email"],
+        affiliation=DEFAULTS["person"]["affiliation"]
+    )])
+    links: Optional[List[CodeAbilityLink]] = Field(default=[])
+    supportingMaterial: Optional[List[CodeAbilityLink]] = Field(default=[])
+    keywords: Optional[List[str]] = Field(default=[])
+    properties: Optional[CodeAbilityMetaProperty] = Field(default=CodeAbilityMetaProperty())
+
+def parse_meta_file(file_path: str = None):
+    config = {}
+    if file_path is not None and len(file_path) > 0:
+        with open(file_path, "r") as stream:
+            config = yaml.safe_load(stream) or {}
+    return CodeAbilityMeta(**config)
+
+def parse_spec_file(file_path: str = None):
     config = {}
     if file_path is not None and len(file_path) > 0:
         with open(file_path, "r") as stream:
@@ -161,3 +221,4 @@ def get_schema(classname: BaseModel):
 if __name__ == "__main__":
     get_schema(CodeAbilitySpecification)
     get_schema(CodeAbilityTestSuite)
+    get_schema(CodeAbilityMeta)

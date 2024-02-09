@@ -7,9 +7,9 @@ from colorama import Fore, Back, Style
 from enum import Enum
 from pydantic import ValidationError
 import yaml
-from model.model import TypeEnum, QualificationEnum
-from model.model import parse_test_file
-from model.model import DEFAULTS
+from model.model import TypeEnum, QualificationEnum, LanguageEnum
+from model.model import parse_meta_file, parse_spec_file, parse_test_file
+from model.model import DEFAULTS, CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbilityTestCollection
 from .enums import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST, TokenEnum
 
 DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true\n"""
@@ -37,7 +37,7 @@ class LOCAL_TEST_DIRECTORIES(str, Enum):
     _emptySolution = "_emptySolution"
 
 class Converter:
-    def __init__(self, scandir):
+    def __init__(self, scandir, metatemplate = None):
         self.ready = False
         self._scan_dir = scandir
         if scandir is None:
@@ -63,12 +63,10 @@ class Converter:
         self.ready = True
         self.conv_error = False
 
-        #todo: filename as arg
-        dir = os.path.dirname(__file__)
-        file = os.path.join(dir, "../metayaml/meta-template.yaml")
-        with open(file, "r") as stream:
-            self.metaconfig = yaml.safe_load(stream)
-            #print(self.metaconfig)
+        if metatemplate is not None and not os.path.isabs(metatemplate):
+            metatemplate = os.path.join(scandir, metatemplate)
+            metatemplate = os.path.abspath(metatemplate)
+        self.metaconfig = parse_meta_file(metatemplate)
 
     def cleanup(self):
         print(f"Cleanup started: {self.scandir}")
@@ -120,6 +118,7 @@ class Converter:
         #with open(self.test_yaml, "w", encoding="utf-8") as file:
         with open(self.test_yaml, "w") as file:
             file.write("\n".join(self.contents))
+            #file.write(self.contents1.model_dump_json(indent=2))
         #with open(self.test_yaml, "w") as stream:
         #    yaml.safe_dump(self.contents1, stream, sort_keys=False, indent=2)
         print(f"{Fore.GREEN}Test-Yaml-File created{Style.RESET_ALL}")
@@ -146,8 +145,8 @@ class Converter:
         print(f"{Fore.GREEN}Specification-File created{Style.RESET_ALL}")
 
         print(f"Creating Meta-Yaml-File: {self.meta_yaml}")
-        with open(self.meta_yaml, "w") as stream:
-            yaml.safe_dump(self.metaconfig, stream, sort_keys=False, indent=2)
+        with open(self.meta_yaml, "w") as file:
+            file.write(self.metaconfig.model_dump_json(indent=2))
         print(f"{Fore.GREEN}Meta-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Preparing Local Test Directory: {self.localTestdir}")
@@ -195,6 +194,9 @@ class Converter:
             raise Exception("no value specified")
         argument = arr[0].strip()
         value = arr[1].strip()
+        if argument == "language":
+            if value not in LanguageEnum._member_names_:
+                raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {LanguageEnum._member_names_}")
         if argument == "qualification":
             if value not in QualificationEnum._member_names_:
                 raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {QualificationEnum._member_names_}")
@@ -270,7 +272,7 @@ class Converter:
                     errors = errors + 1
                     print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTSUITE}")
                 else:
-                    self.metaconfig[argument] = value
+                    setattr(self.metaconfig, argument, value)
             elif token == TokenEnum.ADDITIONALFILES:
                 files = str(argument).split(":")
                 for file in files:
@@ -287,12 +289,15 @@ class Converter:
                     else:
                         errors = errors + 1
                         print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
-        self.metaconfig["properties"]["studentSubmissionFiles"] = [os.path.basename(self.py_file)]
-        self.metaconfig["properties"]["additionalFiles"] = self.addfiles
+        setattr(self.metaconfig.properties, "studentSubmissionFiles", [os.path.basename(self.py_file)])
+        setattr(self.metaconfig.properties, "additionalFiles", self.addfiles)
         self.contents = []
-        #self.contents1 = testsuite
+
+        #todo:
+        #self.contents1 = CodeAbilityTestSuite(**testsuite, properties=CodeAbilityTestProperty(**properties, tests=CodeAbilityTestCollection(tests)))
         #self.contents1["properties"] = properties
         #self.contents1["properties"]["tests"] = tests
+
         for key in testsuite:
             val = testsuite[key]
             if isinstance(val, str):
@@ -394,3 +399,4 @@ class Converter:
         run_tests_py = os.path.join(dir, "../run_tests.py")
         run_tests_py = os.path.abspath(run_tests_py)
         retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={verbosity}", shell=True)
+        print(retcode)
