@@ -2,7 +2,6 @@ from enum import Enum
 
 class TokenEnum(str, Enum):
     META = "META"
-    ADDITIONALFILES = "ADDITIONALFILES"
     TESTSUITE = "TESTSUITE"
     PROPERTY = "PROPERTY"
     VARIABLETEST = "VARIABLETEST"

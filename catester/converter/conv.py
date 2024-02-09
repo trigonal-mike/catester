@@ -27,9 +27,9 @@ TEST_MAPPING = {
 }
 
 ARGUMENT_VALUE_TOKENS = (
+    TokenEnum.META,
     TokenEnum.TESTSUITE,
     TokenEnum.PROPERTY,
-    TokenEnum.META,
 )
 
 class LOCAL_TEST_DIRECTORIES(str, Enum):
@@ -68,6 +68,7 @@ class Converter:
             metatemplate = os.path.join(scandir, metatemplate)
             metatemplate = os.path.abspath(metatemplate)
         self.metaconfig = parse_meta_file(metatemplate)
+        self.metaconfig.properties.studentSubmissionFiles.append(self.py_file.replace(self.scandir, "."))
 
     def cleanup(self):
         print(f"Cleanup started: {self.scandir}")
@@ -150,7 +151,6 @@ class Converter:
         print(f"Preparing Local Test Directory: {self.localTestdir}")
         self._prepare_local_test_directories()
 
-        time.sleep(0.0001)
         end = round(time.time() - start, 3)
         print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
         self.conv_error = False
@@ -271,7 +271,7 @@ class Converter:
             elif token == TokenEnum.META:
                 if argument not in VALID_PROPS_META:
                     errors = errors + 1
-                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTSUITE}")
+                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_META}")
                 else:
                     if argument in ("keywords"):
                         v = getattr(self.metaconfig, argument)
@@ -300,6 +300,8 @@ class Converter:
                                     v.append(f)
                                     #todo:
                                     #maybe better following?
+                                    #.\file.py => file.py
+                                    #.\data\dat.txt => data\dat.txt
                                     #v.append(os.path.relpath(f))
                             else:
                                 errors = errors + 1
@@ -307,8 +309,6 @@ class Converter:
 
                     else:
                         setattr(self.metaconfig, argument, value)
-
-        self.metaconfig.properties.studentSubmissionFiles.append(os.path.basename(os.path.relpath(self.py_file)))
 
         self.contents = []
         for key in testsuite:
