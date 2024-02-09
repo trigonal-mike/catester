@@ -3,7 +3,7 @@ from convert import convert_master
 
 if __name__ == "__main__":
     action = None
-    action = "convert"
+    #action = "convert"
     #action = "test"
     #action = "cleanup"
 
@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     scandir = "../ex_master/ex1"
     scandir = "../ex_master/ex2"
-    scandir = "../ex_master/_ex_"
+    #scandir = "../ex_master/_ex_"
 
     metayaml = "./metayaml/meta-template.yaml"
 
