@@ -40,6 +40,7 @@ VERSION_REGEX = "^([1-9]\d*|0)(\.(([1-9]\d*)|0)){0,3}$"
 
 DEFAULTS = {
     "specification": {
+        "executionDirectory": None,
         "studentDirectory": "student",
         "referenceDirectory": "reference",
         "testDirectory": "testprograms",
@@ -136,10 +137,9 @@ class CodeAbilityTestSuite(CodeAbilityBase):
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["description"])
     version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["testsuite"]["version"])
 
-class CodeAbilitySpecification(BaseModel):
-#class CodeAbilitySpecification(CodeAbilityBase):
-    #model_config = ConfigDict(extra="forbid")
+class CodeAbilitySpecification(CodeAbilityBase):
     #optional:
+    executionDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["executionDirectory"])
     studentDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["studentDirectory"])
     referenceDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["referenceDirectory"])
     testDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["testDirectory"])

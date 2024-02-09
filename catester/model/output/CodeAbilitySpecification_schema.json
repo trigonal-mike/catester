@@ -1,5 +1,19 @@
 {
+  "additionalProperties": false,
   "properties": {
+    "executionDirectory": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Executiondirectory"
+    },
     "studentDirectory": {
       "anyOf": [
         {
