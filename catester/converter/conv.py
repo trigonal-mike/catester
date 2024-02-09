@@ -1,4 +1,5 @@
 import glob
+import json
 import os
 import time
 import shutil
@@ -7,9 +8,9 @@ from colorama import Fore, Back, Style
 from enum import Enum
 from pydantic import ValidationError
 import yaml
-from model.model import TypeEnum, QualificationEnum, LanguageEnum
+from model.model import TypeEnum, QualificationEnum, LanguageEnum, MetaTypeEnum
 from model.model import parse_meta_file, parse_spec_file, parse_test_file
-from model.model import DEFAULTS, CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbilityTestCollection
+from model.model import DEFAULTS, CodeAbilityLink, CodeAbilityPerson, CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbilityTestCollection
 from .enums import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST, TokenEnum
 
 DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true\n"""
@@ -118,9 +119,6 @@ class Converter:
         #with open(self.test_yaml, "w", encoding="utf-8") as file:
         with open(self.test_yaml, "w") as file:
             file.write("\n".join(self.contents))
-            #file.write(self.contents1.model_dump_json(indent=2))
-        #with open(self.test_yaml, "w") as stream:
-        #    yaml.safe_dump(self.contents1, stream, sort_keys=False, indent=2)
         print(f"{Fore.GREEN}Test-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Validating TestSuite")
@@ -146,7 +144,7 @@ class Converter:
 
         print(f"Creating Meta-Yaml-File: {self.meta_yaml}")
         with open(self.meta_yaml, "w") as file:
-            file.write(self.metaconfig.model_dump_json(indent=2))
+            yaml.dump(self.metaconfig.model_dump(), file, sort_keys=False, indent=2)
         print(f"{Fore.GREEN}Meta-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Preparing Local Test Directory: {self.localTestdir}")
@@ -200,9 +198,13 @@ class Converter:
         if argument == "qualification":
             if value not in QualificationEnum._member_names_:
                 raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {QualificationEnum._member_names_}")
-        if token != TokenEnum.TESTSUITE and argument == "type":
-            if value not in TypeEnum._member_names_:
-                raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {TypeEnum._member_names_}")
+        if argument == "type":
+            if token == TokenEnum.PROPERTY:
+                if value not in TypeEnum._member_names_:
+                    raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {TypeEnum._member_names_}")
+            elif token == TokenEnum.META:
+                if value not in MetaTypeEnum._member_names_:
+                    raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {MetaTypeEnum._member_names_}")
         return token, argument, value
     
     def list_scandir(self):
@@ -219,7 +221,6 @@ class Converter:
         return list(res)
 
     def _convert_tokens(self):
-        self.addfiles = []
         testsuite = DEFAULTS["testsuite"]
         properties = DEFAULTS["properties"]
         tests = []
@@ -272,32 +273,44 @@ class Converter:
                     errors = errors + 1
                     print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTSUITE}")
                 else:
-                    setattr(self.metaconfig, argument, value)
-            elif token == TokenEnum.ADDITIONALFILES:
-                files = str(argument).split(":")
-                for file in files:
-                    f = file.strip()
-                    ff = os.path.join(self.scandir, f)
-                    ff = os.path.abspath(ff)
-                    if os.path.exists(ff):
-                        f = ff.replace(self.scandir, ".")
-                        if f == ".":
-                            errors = errors + 1
-                            print(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
-                        else:
-                            self.addfiles.append(f)
+                    if argument in ("keywords"):
+                        v = getattr(self.metaconfig, argument)
+                        v.append(value)
+                    elif argument in ("links", "supportingMaterial"):
+                        value = json.loads(value)
+                        v = getattr(self.metaconfig, argument)
+                        v.append(CodeAbilityLink(**value))
+                    elif argument in ("authors", "maintainers"):
+                        value = json.loads(value)
+                        v = getattr(self.metaconfig, argument)
+                        v.append(CodeAbilityPerson(**value))
+                    elif argument in ("studentSubmissionFiles", "additionalFiles", "testFiles", "studentTemplates"):
+                        v = getattr(self.metaconfig.properties, argument)
+                        files = value.split(":")
+                        for file in files:
+                            f = file.strip()
+                            ff = os.path.join(self.scandir, f)
+                            ff = os.path.abspath(ff)
+                            if os.path.exists(ff):
+                                f = ff.replace(self.scandir, ".")
+                                if f == ".":
+                                    errors = errors + 1
+                                    print(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
+                                else:
+                                    v.append(f)
+                                    #todo:
+                                    #maybe better following?
+                                    #v.append(os.path.relpath(f))
+                            else:
+                                errors = errors + 1
+                                print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
+
                     else:
-                        errors = errors + 1
-                        print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
-        setattr(self.metaconfig.properties, "studentSubmissionFiles", [os.path.basename(self.py_file)])
-        setattr(self.metaconfig.properties, "additionalFiles", self.addfiles)
+                        setattr(self.metaconfig, argument, value)
+
+        self.metaconfig.properties.studentSubmissionFiles.append(os.path.basename(os.path.relpath(self.py_file)))
+
         self.contents = []
-
-        #todo:
-        #self.contents1 = CodeAbilityTestSuite(**testsuite, properties=CodeAbilityTestProperty(**properties, tests=CodeAbilityTestCollection(tests)))
-        #self.contents1["properties"] = properties
-        #self.contents1["properties"]["tests"] = tests
-
         for key in testsuite:
             val = testsuite[key]
             if isinstance(val, str):
@@ -369,7 +382,7 @@ class Converter:
                 self._copy_addfiles(student_directory)
 
     def _copy_addfiles(self, directory: str):
-        for file in self.addfiles:
+        for file in self.metaconfig.properties.additionalFiles:
             dir = os.path.dirname(file)
             fn = os.path.basename(file)
             dest = os.path.join(directory, dir, fn)

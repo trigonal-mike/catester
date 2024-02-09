@@ -36,6 +36,9 @@ class LanguageEnum(str, Enum):
     de = "de"
     en = "en"
 
+class MetaTypeEnum(str, Enum):
+    ProblemSet = "ProblemSet"
+
 VERSION_REGEX = "^([1-9]\d*|0)(\.(([1-9]\d*)|0)){0,3}$"
 
 DEFAULTS = {
@@ -67,7 +70,7 @@ DEFAULTS = {
     },
     "meta": {
         "version": "1.0",
-        "type": "ProblemSet",
+        "type": MetaTypeEnum.ProblemSet,
         "title": "TITLE",
         "description": "DESCRIPTION",
         "language": LanguageEnum.en,
@@ -81,7 +84,7 @@ DEFAULTS = {
 }
 
 class CodeAbilityBase(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", use_enum_values=True)
 
 class CodeAbilityTestCommon(BaseModel):
     failureMessage: Optional[str] = Field(default=None)
@@ -168,10 +171,10 @@ class CodeAbilityMetaProperty(CodeAbilityBase):
 
 class CodeAbilityMeta(CodeAbilityBase):
     version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["meta"]["version"])
-    type: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["type"])
+    type: Optional[MetaTypeEnum] = Field(default=DEFAULTS["meta"]["type"], validate_default=True)
     title: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["title"])
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["description"])
-    language: Optional[LanguageEnum] = Field(default=DEFAULTS["meta"]["language"])
+    language: Optional[LanguageEnum] = Field(default=DEFAULTS["meta"]["language"], validate_default=True)
     license: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["license"])
     authors: Optional[List[CodeAbilityPerson]] = Field(default=[CodeAbilityPerson(
         name=DEFAULTS["person"]["name"],

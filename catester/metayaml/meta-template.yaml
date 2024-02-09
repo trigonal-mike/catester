@@ -6,7 +6,8 @@ authors:
 - {name: NAME, email: EMAIL@tugraz.at, affiliation: TU Graz}
 maintainers:
 - {name: NAME, email: EMAIL@tugraz.at, affiliation: TU Graz}
-links: []
+links: 
+- {description: matlab-scripts, url: 'https://www.mathworks.com/help/matlab/scripts.html'}
 supportingMaterial: []
 language: en
 keywords: []

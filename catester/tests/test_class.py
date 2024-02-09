@@ -288,7 +288,7 @@ class CodeabilityPythonTest:
                     val_reference = value
                 elif evalString is not None:
                     try:
-                        val_reference = eval(evalString)
+                        val_reference = eval(evalString, solution_reference)
                     except Exception as e:
                         pytest.skip(f"Evaluation of `{evalString}` not possible")
                 else:

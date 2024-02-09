@@ -20,15 +20,18 @@ VALID_PROPS_META = [
     "type",
     "title",
     "description",
-    #todo:
-    #"authors",
-    #"maintainers",
-    #"links",
-    #"supportingMaterial",
+    "authors",
+    "maintainers",
+    "links",
+    "supportingMaterial",
     "language",
-    #"keywords",
+    "keywords",
     "license",
-    #"properties",
+    #in properties
+    "studentSubmissionFiles",
+    "additionalFiles",
+    "testFiles",
+    "studentTemplates",
 ]
 
 VALID_PROPS_TESTSUITE = [
