@@ -45,7 +45,6 @@ class Converter:
         self.localTestdir = os.path.join(self.scandir, "localTests")
         self.ready = True
         self.conv_error = False
-
         if metatemplate is not None and not os.path.isabs(metatemplate):
             metatemplate = os.path.join(scandir, metatemplate)
             metatemplate = os.path.abspath(metatemplate)
@@ -79,7 +78,6 @@ class Converter:
             print(f"{Fore.RED}ERROR Conversion, directory invalid: {self._scan_dir}{Style.RESET_ALL}")
         start = time.time()
         self.errors = 0
-
         try:
             self._analyze_tokens()
             self._convert_tokens()
@@ -88,16 +86,13 @@ class Converter:
             self._write_yaml("Meta", self.meta_yaml, self.metaconfig, parse_meta_file)
         except:
             return
-
         print(f"Creating Reference-File: {self.py_file}")
         with open(self.py_file, "w") as file:
             file.write("".join(self.lines))
         print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
         #todo: validate reference-file for obvious errors, linting, ...!!!
-
         print(f"Preparing Local Test Directory: {self.localTestdir}")
         self._prepare_local_test_directories()
-
         end = round(time.time() - start, 3)
         print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
         self.conv_error = False

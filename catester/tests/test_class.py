@@ -7,6 +7,7 @@ import pytest
 import random
 import numpy as np
 import traceback
+import subprocess
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
@@ -241,26 +242,7 @@ class CodeabilityPythonTest:
         qualification = sub.qualification
         relative_tolerance = sub.relativeTolerance
         absolute_tolerance = sub.absoluteTolerance
-        #todo:
-        allowed_occuranceRange = sub.allowedOccuranceRange
-
-        _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
-        _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
-        if _solution_student["status"] == TestStatus.skipped:
-            pytest.skip(_solution_student["errormsg"])
-        elif _solution_student["status"] != TestStatus.completed:
-            pytest.fail(_solution_student["errormsg"])
-        #if _solution_reference["status"] != SolutionStatus.completed:
-        #    #pytest.skip(_solution_reference["errormsg"])
-        #    pass
-
-        solution_student = _solution_student["namespace"]
-        solution_reference = _solution_reference["namespace"]
-
-        """ if test is graphics => get saved graphics object as solution """
-        if testtype == TypeEnum.graphics:
-            solution_student = solution_student["_graphics_object_"]
-            solution_reference = solution_reference["_graphics_object_"]
+        allowed_occurance_range = sub.allowedOccuranceRange
 
         if testtype in [
             TypeEnum.variable,
@@ -269,6 +251,24 @@ class CodeabilityPythonTest:
             TypeEnum.warning,
             TypeEnum.help,
         ]:
+            _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
+            _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
+            if _solution_student["status"] == TestStatus.skipped:
+                pytest.skip(_solution_student["errormsg"])
+            elif _solution_student["status"] != TestStatus.completed:
+                pytest.fail(_solution_student["errormsg"])
+            #if _solution_reference["status"] != SolutionStatus.completed:
+            #    #pytest.skip(_solution_reference["errormsg"])
+            #    pass
+
+            solution_student = _solution_student["namespace"]
+            solution_reference = _solution_reference["namespace"]
+
+            """ if test is graphics => get saved graphics object as solution """
+            if testtype == TypeEnum.graphics:
+                solution_student = solution_student["_graphics_object_"]
+                solution_reference = solution_reference["_graphics_object_"]
+
             """ get the student value """
             if name in solution_student:
                 val_student = solution_student[name]
@@ -333,15 +333,38 @@ class CodeabilityPythonTest:
                 result = re.match(re.compile(fr"{pattern}"), str(val_student))
                 assert result is not None, f"Variable `{name}` does not match the compiled regular expression from the specified pattern `{pattern}`"
             else:
-                pytest.fail(reason="qualification not set")
+                pytest.skip(reason="qualification not set")
         elif testtype == TypeEnum.structural:
             #todo:
             pytest.skip(reason="structural not implemented")
         elif testtype == TypeEnum.linting:
-            #todo:
-            pytest.skip(reason="linting not implemented")
+            filename = f"{main.name}-{name}-linting.txt"
+            outputfile = os.path.join(specification.outputDirectory, filename)
+            if os.path.exists(outputfile):
+                os.remove(outputfile)
+            ff = os.path.join(dir_student, file)
+            result = subprocess.run(f"python -m flake8 {ff} --output-file={outputfile} --count", shell=True, capture_output=True)
+
+            #with open(outputfile, "r") as stream:
+            #    contents = stream.read()
+            #matches = re.findall(pattern, contents)
+            #found = len(matches)
+            #c_min = allowed_occurance_range[0]
+            #c_max = allowed_occurance_range[1]
+            #if found < c_min or found > c_max:
+            #    raise SyntaxError(f"allowed_occurance_range (see: {outputfile})")
+
+            _stdout = result.stdout
+            _stderr = result.stderr
+            errcount = int(_stdout)
+            if errcount > 0:
+                raise SyntaxError(f"{errcount} Syntax Error{'s' if errcount != 1 else ''} in file `{file}` (see: {outputfile})")
         elif testtype == TypeEnum.exist:
-            assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
-            assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"
+            len_s = len(glob.glob(file, root_dir=dir_reference))
+            len_r = len(glob.glob(file, root_dir=dir_student))
+            if len_s == 0:
+                raise FileNotFoundError(f"File with pattern `{file}` not found in student namespace")
+            if len_r == 0:
+                raise FileNotFoundError(f"File with pattern `{file}` not found in reference namespace")
         else:
-            pytest.fail(reason="type not set")
+            pytest.skip(reason="type not set")

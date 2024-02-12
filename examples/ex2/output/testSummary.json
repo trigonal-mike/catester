@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-09 09:49:28.979461",
+  "timestamp": "2024-02-12 23:27:37.847562",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -9,8 +9,8 @@
   "statusMessage": null,
   "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 7.828203201293945,
-  "executionDuration": 2.013293504714966,
+  "duration": 1.064286708831787,
+  "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -23,11 +23,11 @@
     }
   },
   "properties": {
-    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_timeout.yaml",
+    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_linting.yaml",
     "specification": ""
   },
   "debug": {
-    "executionDurationStudent": 2.013293504714966,
+    "executionDurationStudent": 0.0,
     "executionDurationReference": 0.0
   },
   "exitcode": "ExitCode.TESTS_FAILED",
@@ -39,27 +39,23 @@
   },
   "tests": [
     {
-      "type": "variable",
-      "name": "Test timeout",
+      "type": "linting",
+      "name": "linting",
       "description": null,
-      "setup": [
-        "import time",
-        "time.sleep(5)",
-        "var1 = 1"
-      ],
+      "setup": null,
       "teardown": null,
-      "status": "TIMEDOUT",
+      "status": "COMPLETED",
       "result": "FAILED",
       "statusMessage": null,
       "resultMessage": null,
       "details": null,
       "debug": {
-        "executionDurationStudent": 2.013293504714966,
+        "executionDurationStudent": 0,
         "executionDurationReference": 0,
-        "traceback": {}
+        "traceback": null
       },
-      "duration": 7.828203201293945,
-      "executionDuration": 2.013293504714966,
+      "duration": 1.0486948490142822,
+      "executionDuration": 0,
       "summary": {
         "total": 1,
         "success": 0,
@@ -73,8 +69,8 @@
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   Failed: Maximum execution time of 0.5 seconds exceeded",
-            "timestamp": 1707468576.8159719
+            "longrepr": "E   SyntaxError: 13 Syntax Errors in file `Linting.py` (see: i:\\PYTHON\\catester\\examples\\ex2\\output\\linting-var1-linting.txt)",
+            "timestamp": 1707776858.9066317
           }
         }
       ]

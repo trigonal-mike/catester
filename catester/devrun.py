@@ -9,10 +9,11 @@ def start_tests():
     specification = None
     #test = "../examples/ex1/test1.yaml"
     test = "../examples/ex2/test_timeout.yaml"
+    test = "../examples/ex2/test_linting.yaml"
 
-    #specification = "../ex_master/_ex_/specification.yaml"
-    #test = "../ex_master/_ex_/localTests/_correctSolution/test.yaml"
-    #test = "../ex_master/_ex_/localTests/_emptySolution/test.yaml"
+    #specification = "../ex_master/_ex_/3/specification.yaml"
+    #test = "../ex_master/_ex_/3/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/_ex_/3/localTests/_emptySolution/test.yaml"
     indent = 2
     verbosity = 0
 

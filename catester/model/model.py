@@ -97,8 +97,8 @@ class CodeAbilityBase(BaseModel):
     )
 
 class CodeAbilityTestCommon(BaseModel):
-    failureMessage: Optional[str] = Field(default=None)
-    successMessage: Optional[str] = Field(default=None)
+    failureMessage: Optional[str] = Field(min_length=1, default=None)
+    successMessage: Optional[str] = Field(min_length=1, default=None)
     qualification: Optional[QualificationEnum] = Field(default=None, validate_default=True)
     relativeTolerance: Optional[float] = Field(gt=0, default=None)
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
@@ -114,21 +114,22 @@ class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
     name: str = Field(min_length=1)
     value: Optional[Any] = Field(default=None)
     evalString: Optional[str] = Field(min_length=1, default=None)
-    pattern: Optional[str] = Field(default=None)
+    pattern: Optional[str] = Field(min_length=1, default=None)
     countRequirement: Optional[int] = Field(ge=0, default=None)
 
 class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     type: Optional[TypeEnum] = Field(default=TypeEnum.variable, validate_default=True)
     name: str = Field(min_length=1)
-    description: Optional[str] = Field(default=None)
+    description: Optional[str] = Field(min_length=1, default=None)
     successDependency: Optional[str | int | List[str | int]] = Field(default=None)
-    setUpCodeDependency: Optional[str] = Field(default=None)
+    setUpCodeDependency: Optional[str] = Field(min_length=1, default=None)
     entryPoint: Optional[str] = Field(min_length=1, default=None)
     setUpCode: Optional[str | List[str]] = Field(default=None)
     tearDownCode: Optional[str | List[str]] = Field(default=None)
-    id: Optional[str] = Field(default=None)
-    file: Optional[str] = Field(default=None)
+    id: Optional[str] = Field(min_length=1, default=None)
+    file: Optional[str] = Field(min_length=1, default=None)
     tests: List[CodeAbilityTest]
+    #tests: Optional[List[CodeAbilityTest]] = Field(default=[])
 
 class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     qualification: Optional[QualificationEnum] = Field(default=DEFAULTS["properties"]["qualification"], validate_default=True)
