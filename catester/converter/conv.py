@@ -4,38 +4,20 @@ import os
 import time
 import shutil
 import subprocess
-from colorama import Fore, Back, Style
-from enum import Enum
-from pydantic import ValidationError
 import yaml
+from colorama import Fore, Back, Style
+from pydantic import ValidationError
 from model.model import TypeEnum, QualificationEnum, LanguageEnum, MetaTypeEnum
 from model.model import parse_meta_file, parse_spec_file, parse_test_file
-from model.model import DEFAULTS, CodeAbilityLink, CodeAbilityPerson, CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbilityTestCollection
-from .enums import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST, TokenEnum
+from model.model import CodeAbilityLink, CodeAbilityPerson, CodeAbilitySpecification
+from model.model import CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbilityTestCollection, CodeAbilityTest 
+from .settings import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST
+from .settings import TokenEnum, ARGUMENT_VALUE_TOKENS, TEST_MAPPING, LOCAL_TEST_DIRECTORIES
 
-DEFAULT_SPECIFICATION = """referenceDirectory: "../_reference"\nisLocalUsage: true\n"""
-
-TEST_MAPPING = {
-    TokenEnum.VARIABLETEST: TypeEnum.variable.name,
-    TokenEnum.GRAPHICSTEST: TypeEnum.graphics.name,
-    TokenEnum.EXISTANCETEST: TypeEnum.exist.name,
-    TokenEnum.LINTINGTEST: TypeEnum.linting.name,
-    TokenEnum.STRUCTURALTEST: TypeEnum.structural.name,
-    TokenEnum.ERRORTEST: TypeEnum.error.name,
-    TokenEnum.HELPTEST: TypeEnum.help.name,
-    TokenEnum.WARNINGTEST: TypeEnum.warning.name,
-}
-
-ARGUMENT_VALUE_TOKENS = (
-    TokenEnum.META,
-    TokenEnum.TESTSUITE,
-    TokenEnum.PROPERTY,
+LOCAL_TEST_SPECIFICATION = CodeAbilitySpecification(
+    referenceDirectory="../_reference",
+    isLocalUsage=True
 )
-
-class LOCAL_TEST_DIRECTORIES(str, Enum):
-    _reference = "_reference"
-    _correctSolution = "_correctSolution"
-    _emptySolution = "_emptySolution"
 
 class Converter:
     def __init__(self, scandir, metatemplate = None):
@@ -70,20 +52,17 @@ class Converter:
         self.metaconfig = parse_meta_file(metatemplate)
         self.metaconfig.properties.studentSubmissionFiles.append(self.py_file.replace(self.scandir, "."))
 
+    def _remove_file(self, path):
+        if os.path.exists(path):
+            os.remove(path)
+            print(f"{Fore.MAGENTA}Removed file: {path}{Style.RESET_ALL}")
+
     def cleanup(self):
         print(f"Cleanup started: {self.scandir}")
-        if os.path.exists(self.py_file):
-            os.remove(self.py_file)
-            print(f"{Fore.MAGENTA}Removed file: {self.py_file}{Style.RESET_ALL}")
-        if os.path.exists(self.meta_yaml):
-            os.remove(self.meta_yaml)
-            print(f"{Fore.MAGENTA}Removed file: {self.meta_yaml}{Style.RESET_ALL}")
-        if os.path.exists(self.test_yaml):
-            os.remove(self.test_yaml)
-            print(f"{Fore.MAGENTA}Removed file: {self.test_yaml}{Style.RESET_ALL}")
-        if os.path.exists(self.spec_file):
-            os.remove(self.spec_file)
-            print(f"{Fore.MAGENTA}Removed file: {self.spec_file}{Style.RESET_ALL}")
+        self._remove_file(self.py_file)
+        self._remove_file(self.meta_yaml)
+        self._remove_file(self.test_yaml)
+        self._remove_file(self.spec_file)
         for directory in LOCAL_TEST_DIRECTORIES._member_names_:
             dir = os.path.join(self.localTestdir, directory)
             if os.path.exists(dir):
@@ -99,54 +78,22 @@ class Converter:
         if not self.ready:
             print(f"{Fore.RED}ERROR Conversion, directory invalid: {self._scan_dir}{Style.RESET_ALL}")
         start = time.time()
+        self.errors = 0
 
-        print(f"Analyzing Tokens {self.masterfile}")
-        errors = self._analyze_tokens()
-        if errors > 0:
-            print(f"{Fore.RED}{errors} error{'s' if errors>1 else ''} occurred, Analyzing Tokens failed{Style.RESET_ALL}")
-            return
-        print(f"{Fore.GREEN}All Tokens valid{Style.RESET_ALL}")
-
-        print(f"Converting Tokens {self.masterfile}")
-        errors = self._convert_tokens()
-        if errors > 0:
-            print(f"{Fore.RED}{errors} error{'s' if errors>1 else ''} occurred, Converting Tokens failed{Style.RESET_ALL}")
-            return
-        print(f"{Fore.GREEN}All Tokens converted{Style.RESET_ALL}")
-
-        print(f"Creating Test-Yaml-File: {self.test_yaml}")
-        #todo: check encoding
-        #if encoding="utf-8" => 'ä' turns into 'Ã¤'
-        #with open(self.test_yaml, "w", encoding="utf-8") as file:
-        with open(self.test_yaml, "w") as file:
-            file.write("\n".join(self.contents))
-        print(f"{Fore.GREEN}Test-Yaml-File created{Style.RESET_ALL}")
-
-        print(f"Validating TestSuite")
         try:
-            _test = parse_test_file(self.test_yaml)
-            #print(_test)
-        except ValidationError as e:
-            print(f"{Fore.RED}TestSuite could not be validated{Style.RESET_ALL}")
-            print(e)
+            self._analyze_tokens()
+            self._convert_tokens()
+            self._write_yaml("TestSuite", self.test_yaml, self.testsuite, parse_test_file)
+            self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
+            self._write_yaml("Meta", self.meta_yaml, self.metaconfig, parse_meta_file)
+        except:
             return
-        print(f"{Fore.GREEN}TestSuite validated{Style.RESET_ALL}")
 
         print(f"Creating Reference-File: {self.py_file}")
         with open(self.py_file, "w") as file:
             file.write("".join(self.lines))
         print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
         #todo: validate reference-file for obvious errors, linting, ...!!!
-
-        print(f"Creating Specification-File: {self.spec_file}")
-        with open(self.spec_file, "w") as file:
-            file.write(DEFAULT_SPECIFICATION)
-        print(f"{Fore.GREEN}Specification-File created{Style.RESET_ALL}")
-
-        print(f"Creating Meta-Yaml-File: {self.meta_yaml}")
-        with open(self.meta_yaml, "w") as file:
-            yaml.dump(self.metaconfig.model_dump(), file, sort_keys=False, indent=2)
-        print(f"{Fore.GREEN}Meta-Yaml-File created{Style.RESET_ALL}")
 
         print(f"Preparing Local Test Directory: {self.localTestdir}")
         self._prepare_local_test_directories()
@@ -155,13 +102,27 @@ class Converter:
         print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
         self.conv_error = False
 
+    def _write_yaml(self, title, filename, obj, parsing_fct):
+        print(f"Creating {title}: {filename}")
+        with open(filename, "w") as file:
+            yaml.dump(obj.model_dump(exclude_none=True), file, sort_keys=False, indent=2)
+        print(f"{Fore.GREEN}{title} created{Style.RESET_ALL}")
+        print(f"Validating {title}")
+        try:
+            _test = parsing_fct(filename)
+        except ValidationError as e:
+            print(e)
+            print(f"{Fore.RED}{title} could not be validated{Style.RESET_ALL}")
+            raise
+        print(f"{Fore.GREEN}{title} validated{Style.RESET_ALL}")
+
     def _analyze_tokens(self):
+        print(f"Analyzing Tokens: {self.masterfile}")
         with open(self.masterfile, "r") as file:
             masterlines = file.readlines()
         #lines = [l for l in lines if l.startswith("#$")]
         self.lines = []
         self.tokens = []
-        errors = 0
         for idx, line in enumerate(masterlines):
             if line.startswith("#$"):
                 line = line.rstrip()[2:]
@@ -169,12 +130,13 @@ class Converter:
                     token, argument, value = self._extract_from_line(line)
                     self.tokens.append((token, argument, value, idx, line))
                 except Exception as e:
-                    errors = errors + 1
-                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}")
-                    print(e)
+                    self._error(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\n{e}")
             elif not line.startswith("##"):
                 self.lines.append(line)
-        return errors
+        if self.errors > 0:
+            print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Analyzing Tokens failed{Style.RESET_ALL}")
+            raise
+        print(f"{Fore.GREEN}All Tokens valid{Style.RESET_ALL}")
 
     def _extract_from_line(self, line: str):
         if len(line) == 0:
@@ -193,20 +155,20 @@ class Converter:
         argument = arr[0].strip()
         value = arr[1].strip()
         if argument == "language":
-            if value not in LanguageEnum._member_names_:
-                raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {LanguageEnum._member_names_}")
+            self._check_value(value, LanguageEnum._member_names_)
         if argument == "qualification":
-            if value not in QualificationEnum._member_names_:
-                raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {QualificationEnum._member_names_}")
+            self._check_value(value, QualificationEnum._member_names_)
         if argument == "type":
             if token == TokenEnum.PROPERTY:
-                if value not in TypeEnum._member_names_:
-                    raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {TypeEnum._member_names_}")
+                self._check_value(value, TypeEnum._member_names_)
             elif token == TokenEnum.META:
-                if value not in MetaTypeEnum._member_names_:
-                    raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {MetaTypeEnum._member_names_}")
+                self._check_value(value, MetaTypeEnum._member_names_)
         return token, argument, value
     
+    def _check_value(self, value, valid_values):
+        if value not in valid_values:
+            raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {valid_values}")
+
     def list_scandir(self):
         excluded = [
             os.path.basename(self.spec_file),
@@ -219,72 +181,91 @@ class Converter:
         dirlist = os.listdir(self.scandir)
         res = filter(lambda x: x not in excluded, dirlist)
         return list(res)
+    
+    def _error(self, msg):
+        self.errors = self.errors + 1
+        print(msg)
+
+    def _find_argument(self, token, valid_props):
+        token, argument, value, idx, line = token
+        if argument not in valid_props:
+            self._error(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {valid_props}")
+            return False
+        return True
+
+    def _try_set_value(self, token, obj):
+        tokenname, argument, value, idx, line = token
+        try:
+            value = json.loads(value)
+        except Exception as e:
+            pass
+        try:
+            is_list = False
+            if argument in ("links", "supportingMaterial"):
+                value = CodeAbilityLink(**value)
+                is_list = True
+            elif argument in ("authors", "maintainers"):
+                value = CodeAbilityPerson(**value)
+                is_list = True
+            elif argument in ("successDependency", "setUpCode", "tearDownCode", "keywords"):
+                is_list = True
+            if is_list:
+                v = getattr(obj, argument) or []
+                if isinstance(value, list):
+                    v.extend(value)
+                else:
+                    v.append(value)
+                setattr(obj, argument, v)
+            else:
+                setattr(obj, argument, value)
+        except Exception as e:
+            self._error(f"{e}\n{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nvalue invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}")
 
     def _convert_tokens(self):
-        testsuite = DEFAULTS["testsuite"]
-        properties = DEFAULTS["properties"]
-        tests = []
+        print(f"Converting {len(self.tokens)} Tokens")
+        testsuite = CodeAbilityTestSuite(
+            properties = CodeAbilityTestProperty(
+                tests = []
+            )
+        )
         curr_test = -1
         curr_subtest = -1
-        errors = 0
-        for idx, token in enumerate(self.tokens):
-            token, argument, value, idx, line = token
-            if token == TokenEnum.TESTSUITE:
-                if argument not in VALID_PROPS_TESTSUITE:
-                    errors = errors + 1
-                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTSUITE}")
-                else:
-                    testsuite[argument] = value
-            elif token == TokenEnum.PROPERTY:
+        for _idx, token in enumerate(self.tokens):
+            tokenname, argument, value, idx, line = token
+            if tokenname == TokenEnum.TESTSUITE:
+                if self._find_argument(token, VALID_PROPS_TESTSUITE):
+                    self._try_set_value(token, testsuite)
+            elif tokenname == TokenEnum.PROPERTY:
                 if curr_test == -1:
-                    if argument not in VALID_PROPS_TESTCOLLECTION_COMMON:
-                        errors = errors + 1
-                        print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTCOLLECTION_COMMON}")
-                    else:
-                        properties[argument] = value
+                    if self._find_argument(token, VALID_PROPS_TESTCOLLECTION_COMMON):
+                        self._try_set_value(token, testsuite.properties)
                 elif curr_subtest == -1:
-                    if argument not in VALID_PROPS_TESTCOLLECTION:
-                        errors = errors + 1
-                        print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TESTCOLLECTION}")
-                    else:
-                        tests[curr_test][argument] = value
+                    if self._find_argument(token, VALID_PROPS_TESTCOLLECTION):
+                        self._try_set_value(token, testsuite.properties.tests[curr_test])
                 else:
-                    if argument not in VALID_PROPS_TEST:
-                        errors = errors + 1
-                        print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_TEST}")
-                    else:
-                        tests[curr_test]["tests"][curr_subtest][argument] = value
-            elif token in (TEST_MAPPING):
+                    if self._find_argument(token, VALID_PROPS_TEST):
+                        self._try_set_value(token, testsuite.properties.tests[curr_test].tests[curr_subtest])
+            elif tokenname in (TEST_MAPPING):
                 curr_subtest = -1
                 curr_test = curr_test + 1
-                tests.append({
-                    "type": TEST_MAPPING[token],
-                    "name": f"{argument}",
-                    "entryPoint": f"{self.entrypoint}",
-                    "tests": [],
-                })
-            elif token == TokenEnum.TESTVAR:
+                testsuite.properties.tests.append(
+                    CodeAbilityTestCollection(
+                        type = TEST_MAPPING[tokenname],
+                        name = argument,
+                        entryPoint = self.entrypoint,
+                        tests = [],
+                    )
+                )
+            elif tokenname == TokenEnum.TESTVAR:
                 curr_subtest = curr_subtest + 1
-                tests[curr_test]["tests"].append({
-                    "name": argument,
-                })
-            elif token == TokenEnum.META:
-                if argument not in VALID_PROPS_META:
-                    errors = errors + 1
-                    print(f"{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nargument invalid: {Fore.MAGENTA}{argument}{Style.RESET_ALL}\nchoose from: {VALID_PROPS_META}")
-                else:
-                    if argument in ("keywords"):
-                        v = getattr(self.metaconfig, argument)
-                        v.append(value)
-                    elif argument in ("links", "supportingMaterial"):
-                        value = json.loads(value)
-                        v = getattr(self.metaconfig, argument)
-                        v.append(CodeAbilityLink(**value))
-                    elif argument in ("authors", "maintainers"):
-                        value = json.loads(value)
-                        v = getattr(self.metaconfig, argument)
-                        v.append(CodeAbilityPerson(**value))
-                    elif argument in ("studentSubmissionFiles", "additionalFiles", "testFiles", "studentTemplates"):
+                testsuite.properties.tests[curr_test].tests.append(
+                    CodeAbilityTest(
+                        name = argument,
+                    )
+                )
+            elif tokenname == TokenEnum.META:
+                if self._find_argument(token, VALID_PROPS_META):
+                    if argument in ("studentSubmissionFiles", "additionalFiles", "testFiles", "studentTemplates"):
                         v = getattr(self.metaconfig.properties, argument)
                         files = value.split(":")
                         for file in files:
@@ -294,8 +275,7 @@ class Converter:
                             if os.path.exists(ff):
                                 f = ff.replace(self.scandir, ".")
                                 if f == ".":
-                                    errors = errors + 1
-                                    print(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
+                                    self._error(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
                                 else:
                                     v.append(f)
                                     #todo:
@@ -304,47 +284,19 @@ class Converter:
                                     #.\data\dat.txt => data\dat.txt
                                     #v.append(os.path.relpath(f))
                             else:
-                                errors = errors + 1
-                                print(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
-
+                                self._error(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
                     else:
-                        setattr(self.metaconfig, argument, value)
-
-        self.contents = []
-        for key in testsuite:
-            val = testsuite[key]
-            if isinstance(val, str):
-                val = val.replace('"', '')
-                self.contents.append(f'{key}: "{val}"')
-            else:
-                self.contents.append(f"{key}: {val}")
-        self.contents.append("properties:")
-        for key in properties:
-            self.contents.append(f"  {key}: {properties[key]}")
-        self.contents.append("  tests:")
-        if len(tests) == 0:
-            errors = errors + 1
-            print(f"{Fore.RED}ERROR no testcollection specified{Style.RESET_ALL}")
-        else:
-            for idx, test in enumerate(tests):
-                found_test = False
-                for argument in test:
-                    if argument != "tests":
-                        prefix = "      " if found_test else "    - "
-                        found_test = True
-                        self.contents.append(f"{prefix}{argument}: {test[argument]}")
-                self.contents.append("      tests:")
-                if len(test["tests"]) == 0:
-                    errors = errors + 1
-                    print(f"{Fore.RED}ERROR at test #{idx+1} '{test['name']}' no subtests specified{Style.RESET_ALL}")
-                else:
-                    for subtest in test["tests"]:
-                        found_subtest = False
-                        for argument in subtest:
-                            prefix = "          " if found_subtest else "        - "
-                            found_subtest = True
-                            self.contents.append(f"{prefix}{argument}: {subtest[argument]}")
-        return errors
+                        self._try_set_value(token, self.metaconfig)
+        if len(testsuite.properties.tests) == 0:
+            self._error(f"{Fore.RED}ERROR no testcollection specified{Style.RESET_ALL}")
+        for idx, test in enumerate(testsuite.properties.tests):
+            if len(test.tests) == 0:
+                self._error(f"{Fore.RED}ERROR at testcollection #{idx+1} '{test.name}' no tests specified{Style.RESET_ALL}")
+        if self.errors > 0:
+            print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Converting Tokens failed{Style.RESET_ALL}")
+            raise
+        print(f"{Fore.GREEN}All Tokens converted{Style.RESET_ALL}")
+        self.testsuite = testsuite
 
     def _prepare_local_test_directories(self):
         if not os.path.exists(self.localTestdir):
@@ -363,13 +315,11 @@ class Converter:
         isempty = directory == LOCAL_TEST_DIRECTORIES._emptySolution
         directory = os.path.join(self.localTestdir, directory)
         student_directory = os.path.join(directory, "student")
-
         if os.path.exists(directory):
             print(f"{Fore.MAGENTA}Removing directory: {directory}{Style.RESET_ALL}")
             shutil.rmtree(directory)
         print(f"Creating directory: {directory}")
         os.makedirs(directory)
-
         if isref:
             shutil.copy(self.py_file, directory)
             self._copy_addfiles(directory)

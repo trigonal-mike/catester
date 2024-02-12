@@ -277,10 +277,7 @@ class CodeabilityPythonTest:
                 try:
                     val_student = eval(name, solution_student)
                 except Exception as e:
-                    pass
-                finally:
-                    if not "val_student" in locals():
-                        raise KeyError(f"Variable `{name}` not found in student namespace")
+                    raise KeyError(f"Variable `{name}` not found in student namespace") from None
 
             if qualification == QualificationEnum.verifyEqual:
                 """ get the reference value """
@@ -340,11 +337,9 @@ class CodeabilityPythonTest:
         elif testtype == TypeEnum.structural:
             #todo:
             pytest.skip(reason="structural not implemented")
-            pass
         elif testtype == TypeEnum.linting:
             #todo:
             pytest.skip(reason="linting not implemented")
-            pass
         elif testtype == TypeEnum.exist:
             assert len(glob.glob(file, root_dir=dir_reference)) > 0, f"File with pattern {file} not found in reference namespace"
             assert len(glob.glob(file, root_dir=dir_student)) > 0, f"File with pattern {file} not found in student namespace"

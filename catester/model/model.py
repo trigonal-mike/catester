@@ -40,6 +40,8 @@ class MetaTypeEnum(str, Enum):
     ProblemSet = "ProblemSet"
 
 VERSION_REGEX = "^([1-9]\d*|0)(\.(([1-9]\d*)|0)){0,3}$"
+#todo:
+#url + email regex
 
 DEFAULTS = {
     "specification": {
@@ -84,12 +86,20 @@ DEFAULTS = {
 }
 
 class CodeAbilityBase(BaseModel):
-    model_config = ConfigDict(extra="forbid", use_enum_values=True)
+    #todo:
+    #check if validate_assignment=True is a problem somewhere???
+    #check if coerce_numbers_to_str=True is a problem somewhere???
+    model_config = ConfigDict(
+        extra="forbid",
+        use_enum_values=True,
+        validate_assignment=True,
+        coerce_numbers_to_str=True
+    )
 
 class CodeAbilityTestCommon(BaseModel):
     failureMessage: Optional[str] = Field(default=None)
     successMessage: Optional[str] = Field(default=None)
-    qualification: Optional[QualificationEnum] = Field(default=None)
+    qualification: Optional[QualificationEnum] = Field(default=None, validate_default=True)
     relativeTolerance: Optional[float] = Field(gt=0, default=None)
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
@@ -102,17 +112,14 @@ class CodeAbilityTestCollectionCommon(CodeAbilityTestCommon):
 
 class CodeAbilityTest(CodeAbilityBase, CodeAbilityTestCommon):
     name: str = Field(min_length=1)
-    #optional:
     value: Optional[Any] = Field(default=None)
     evalString: Optional[str] = Field(min_length=1, default=None)
     pattern: Optional[str] = Field(default=None)
     countRequirement: Optional[int] = Field(ge=0, default=None)
 
 class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon):
+    type: Optional[TypeEnum] = Field(default=TypeEnum.variable, validate_default=True)
     name: str = Field(min_length=1)
-    tests: List[CodeAbilityTest]
-    #optional:
-    type: Optional[TypeEnum] = Field(default=TypeEnum.variable)
     description: Optional[str] = Field(default=None)
     successDependency: Optional[str | int | List[str | int]] = Field(default=None)
     setUpCodeDependency: Optional[str] = Field(default=None)
@@ -121,27 +128,25 @@ class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon
     tearDownCode: Optional[str | List[str]] = Field(default=None)
     id: Optional[str] = Field(default=None)
     file: Optional[str] = Field(default=None)
+    tests: List[CodeAbilityTest]
 
 class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
-    tests: List[CodeAbilityTestCollection]
-    #optional:
-    qualification: Optional[QualificationEnum] = Field(default=DEFAULTS["properties"]["qualification"])
+    qualification: Optional[QualificationEnum] = Field(default=DEFAULTS["properties"]["qualification"], validate_default=True)
     failureMessage: Optional[str] = Field(min_length=1, default=DEFAULTS["properties"]["failureMessage"])
     successMessage: Optional[str] = Field(min_length=1, default=DEFAULTS["properties"]["successMessage"])
     relativeTolerance: Optional[float] = Field(gt=0, default=DEFAULTS["properties"]["relativeTolerance"])
     absoluteTolerance: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["absoluteTolerance"])
     timeout: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["timeout"])
+    tests: List[CodeAbilityTestCollection]
 
 class CodeAbilityTestSuite(CodeAbilityBase):
-    properties: CodeAbilityTestProperty
-    #optional:
     type: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["type"])
     name: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["name"])
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["description"])
     version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["testsuite"]["version"])
+    properties: CodeAbilityTestProperty
 
 class CodeAbilitySpecification(CodeAbilityBase):
-    #optional:
     executionDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["executionDirectory"])
     studentDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["studentDirectory"])
     referenceDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["referenceDirectory"])

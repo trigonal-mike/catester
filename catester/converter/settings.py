@@ -1,4 +1,5 @@
 from enum import Enum
+from model.model import TypeEnum
 
 class TokenEnum(str, Enum):
     META = "META"
@@ -13,6 +14,28 @@ class TokenEnum(str, Enum):
     HELPTEST = "HELPTEST"
     WARNINGTEST = "WARNINGTEST"
     TESTVAR = "TESTVAR"
+
+ARGUMENT_VALUE_TOKENS = (
+    TokenEnum.META,
+    TokenEnum.TESTSUITE,
+    TokenEnum.PROPERTY,
+)
+
+TEST_MAPPING = {
+    TokenEnum.VARIABLETEST: TypeEnum.variable.name,
+    TokenEnum.GRAPHICSTEST: TypeEnum.graphics.name,
+    TokenEnum.EXISTANCETEST: TypeEnum.exist.name,
+    TokenEnum.LINTINGTEST: TypeEnum.linting.name,
+    TokenEnum.STRUCTURALTEST: TypeEnum.structural.name,
+    TokenEnum.ERRORTEST: TypeEnum.error.name,
+    TokenEnum.HELPTEST: TypeEnum.help.name,
+    TokenEnum.WARNINGTEST: TypeEnum.warning.name,
+}
+
+class LOCAL_TEST_DIRECTORIES(str, Enum):
+    _reference = "_reference"
+    _correctSolution = "_correctSolution"
+    _emptySolution = "_emptySolution"
 
 VALID_PROPS_META = [
     "version",
