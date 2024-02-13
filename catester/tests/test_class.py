@@ -8,6 +8,7 @@ import random
 import numpy as np
 import traceback
 import subprocess
+import token
 import tokenize
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
@@ -344,23 +345,22 @@ class CodeabilityPythonTest:
             ff = os.path.join(dir_student, file)
             with open(ff, 'rb') as f:
                 tokens = tokenize.tokenize(f.readline)
-                for token in tokens:
-                    if token.type == 1:
-                        if token.string == name:
+                for _token in tokens:
+                    if _token.type == token.NAME:
+                        if _token.string == name:
                             c = c + 1
-                        #   print(f"{token.exact_type} -- {token}" )
+                        #   print(f"{_token.exact_type} -- {_token}" )
             if c < c_min:
                 raise AssertionError(f"`{name}` found {c}-times, minimum required: {c_min}")
             if c > c_max:
                 raise AssertionError(f"`{name}` found {c}-times, maximum required: {c_max}")
         elif testtype == TypeEnum.linting:
             filename = f"{main.name}-{name}-linting.txt"
-            filename = filename.replace(" ", "")
             outputfile = os.path.join(specification.outputDirectory, filename)
             if os.path.exists(outputfile):
                 os.remove(outputfile)
             ff = os.path.join(dir_student, file)
-            result = subprocess.run(f"python -m flake8 {ff} --output-file={outputfile} --count", shell=True, capture_output=True)
+            result = subprocess.run(f'python -m flake8 {ff} --output-file="{outputfile}" --count', shell=True, capture_output=True)
 
             #with open(outputfile, "r") as stream:
             #    contents = stream.read()

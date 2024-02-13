@@ -10,7 +10,7 @@ def start_tests():
     #test = "../examples/ex1/test1.yaml"
     test = "../examples/ex2/test_timeout.yaml"
     test = "../examples/ex2/test_linting.yaml"
-    test = "../examples/ex2/test_structural.yaml"
+    #test = "../examples/ex2/test_structural.yaml"
 
     #specification = "../ex_master/_ex_/3/specification.yaml"
     #test = "../ex_master/_ex_/3/localTests/_correctSolution/test.yaml"

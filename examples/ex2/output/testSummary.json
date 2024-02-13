@@ -1,15 +1,15 @@
 {
-  "timestamp": "2024-02-13 01:04:15.846142",
+  "timestamp": "2024-02-13 10:10:28.990050",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
   "description": "Checks subtests and graphics",
   "status": "COMPLETED",
-  "result": "SKIPPED",
+  "result": "FAILED",
   "statusMessage": null,
-  "resultMessage": "Tests skipped",
+  "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 0.8714017868041992,
+  "duration": 1.7293343544006348,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -23,7 +23,7 @@
     }
   },
   "properties": {
-    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_structural.yaml",
+    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_linting.yaml",
     "specification": ""
   },
   "debug": {
@@ -34,77 +34,43 @@
   "summary": {
     "total": 1,
     "success": 0,
-    "failed": 0,
-    "skipped": 1
+    "failed": 1,
+    "skipped": 0
   },
   "tests": [
     {
-      "type": "structural",
-      "name": "structural",
+      "type": "linting",
+      "name": "linting",
       "description": null,
       "setup": null,
       "teardown": null,
       "status": "COMPLETED",
-      "result": "SKIPPED",
+      "result": "FAILED",
       "statusMessage": null,
-      "resultMessage": "Tests skipped",
+      "resultMessage": null,
       "details": null,
       "debug": {
         "executionDurationStudent": 0,
         "executionDurationReference": 0,
         "traceback": null
       },
-      "duration": 0.8714017868041992,
+      "duration": 1.7263422012329102,
       "executionDuration": 0,
       "summary": {
-        "total": 4,
-        "success": 1,
-        "failed": 2,
-        "skipped": 1
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "skipped": 0
       },
       "tests": [
         {
-          "name": "None",
-          "result": "SKIPPED",
-          "resultMessage": "Test skipped",
-          "details": null,
-          "debug": {
-            "longrepr": [
-              "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
-              340,
-              "Skipped: allowedOccuranceRange not set"
-            ],
-            "timestamp": 1707782656.7097745
-          }
-        },
-        {
-          "name": "is",
+          "name": "var 1",
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   AssertionError: `is` found 2-times, maximum required: 1",
-            "timestamp": 1707782656.7330873
-          }
-        },
-        {
-          "name": "for",
-          "result": "PASSED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": null,
-            "timestamp": 1707782656.7330873
-          }
-        },
-        {
-          "name": "type",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   AssertionError: `type` found 2-times, maximum required: 1",
-            "timestamp": 1707782656.7330873
+            "longrepr": "E   SyntaxError: 24 Syntax Errors in file `.` (see: i:\\PYTHON\\catester\\examples\\ex2\\output\\linting-var 1-linting.txt)",
+            "timestamp": 1707815430.725546
           }
         }
       ]

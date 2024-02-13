@@ -2,8 +2,8 @@ properties:
   tests:
     - name: linting
       type: linting
-      file: Linting.py
+      file: .
       tests:
-        - name: var1
+        - name: var 1
           #pattern: \s[EFW]\d{3}\s
           #allowedOccuranceRange: [0, 110]
