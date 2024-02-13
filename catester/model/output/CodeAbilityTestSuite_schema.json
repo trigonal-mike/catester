@@ -6,6 +6,7 @@
         "failureMessage": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -18,6 +19,7 @@
         "successMessage": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -126,6 +128,7 @@
         "pattern": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -161,6 +164,7 @@
         "failureMessage": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -173,6 +177,7 @@
         "successMessage": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -288,18 +293,6 @@
           "default": null,
           "title": "Timeout"
         },
-        "name": {
-          "minLength": 1,
-          "title": "Name",
-          "type": "string"
-        },
-        "tests": {
-          "items": {
-            "$ref": "#/$defs/CodeAbilityTest"
-          },
-          "title": "Tests",
-          "type": "array"
-        },
         "type": {
           "anyOf": [
             {
@@ -311,9 +304,15 @@
           ],
           "default": "variable"
         },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
         "description": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -354,6 +353,7 @@
         "setUpCodeDependency": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -415,6 +415,7 @@
         "id": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -427,6 +428,7 @@
         "file": {
           "anyOf": [
             {
+              "minLength": 1,
               "type": "string"
             },
             {
@@ -435,6 +437,13 @@
           ],
           "default": null,
           "title": "File"
+        },
+        "tests": {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityTest"
+          },
+          "title": "Tests",
+          "type": "array"
         }
       },
       "required": [
@@ -623,9 +632,6 @@
   },
   "additionalProperties": false,
   "properties": {
-    "properties": {
-      "$ref": "#/$defs/CodeAbilityTestProperty"
-    },
     "type": {
       "anyOf": [
         {
@@ -677,6 +683,9 @@
       ],
       "default": "1.0",
       "title": "Version"
+    },
+    "properties": {
+      "$ref": "#/$defs/CodeAbilityTestProperty"
     }
   },
   "required": [
