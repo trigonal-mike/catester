@@ -377,8 +377,8 @@ class CodeabilityPythonTest:
             if errcount > 0:
                 raise SyntaxError(f"{errcount} Syntax Error{'s' if errcount != 1 else ''} in file `{file}` (see: {outputfile})")
         elif testtype == TypeEnum.exist:
-            len_s = len(glob.glob(file, root_dir=dir_reference))
-            len_r = len(glob.glob(file, root_dir=dir_student))
+            len_s = len(glob.glob(file, root_dir=dir_student))
+            len_r = len(glob.glob(file, root_dir=dir_reference))
             if len_s == 0:
                 raise FileNotFoundError(f"File with pattern `{file}` not found in student namespace")
             if len_r == 0:
