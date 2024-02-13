@@ -1,0 +1,13 @@
+properties:
+  tests:
+    - name: structural
+      type: structural
+      file: Structural.py
+      tests:
+        - name: None
+        - name: is
+          allowedOccuranceRange: [1, 1]
+        - name: for
+          allowedOccuranceRange: [1, 1]
+        - name: type
+          allowedOccuranceRange: [1, 1]

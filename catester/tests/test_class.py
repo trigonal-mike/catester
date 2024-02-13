@@ -8,6 +8,7 @@ import random
 import numpy as np
 import traceback
 import subprocess
+import tokenize
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
@@ -335,10 +336,26 @@ class CodeabilityPythonTest:
             else:
                 pytest.skip(reason="qualification not set")
         elif testtype == TypeEnum.structural:
-            #todo:
-            pytest.skip(reason="structural not implemented")
+            if allowed_occurance_range is None:
+                pytest.skip(reason="allowedOccuranceRange not set")
+            c_min = allowed_occurance_range[0]
+            c_max = allowed_occurance_range[1]
+            c = 0
+            ff = os.path.join(dir_student, file)
+            with open(ff, 'rb') as f:
+                tokens = tokenize.tokenize(f.readline)
+                for token in tokens:
+                    if token.type == 1:
+                        if token.string == name:
+                            c = c + 1
+                        #   print(f"{token.exact_type} -- {token}" )
+            if c < c_min:
+                raise AssertionError(f"`{name}` found {c}-times, minimum required: {c_min}")
+            if c > c_max:
+                raise AssertionError(f"`{name}` found {c}-times, maximum required: {c_max}")
         elif testtype == TypeEnum.linting:
             filename = f"{main.name}-{name}-linting.txt"
+            filename = filename.replace(" ", "")
             outputfile = os.path.join(specification.outputDirectory, filename)
             if os.path.exists(outputfile):
                 os.remove(outputfile)
