@@ -66,3 +66,8 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 python /abs/path/to/convert.py
 
 python ../../rel/path/to/convert.py
+
+
+## flake8 linter options
+https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore
+

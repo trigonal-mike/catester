@@ -70,7 +70,11 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             store_graphics_artifacts = specification.storeGraphicsArtifacts
 
         """ start solution with empty namespace """
-        namespace = {}
+        namespace = {
+            #todo: check if this correct:
+            "__file__": os.path.join(_dir, entry_point)
+        }
+
         error = False
         errormsg = ""
         status = TestStatus.scheduled
@@ -246,6 +250,16 @@ class CodeabilityPythonTest:
         absolute_tolerance = sub.absoluteTolerance
         allowed_occurance_range = sub.allowedOccuranceRange
 
+        _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
+        _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
+        if _solution_student["status"] == TestStatus.skipped:
+            pytest.skip(_solution_student["errormsg"])
+        elif _solution_student["status"] != TestStatus.completed:
+            pytest.fail(_solution_student["errormsg"])
+        #if _solution_reference["status"] != SolutionStatus.completed:
+        #    #pytest.skip(_solution_reference["errormsg"])
+        #    pass
+
         if testtype in [
             TypeEnum.variable,
             TypeEnum.graphics,
@@ -253,16 +267,6 @@ class CodeabilityPythonTest:
             TypeEnum.warning,
             TypeEnum.help,
         ]:
-            _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
-            _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
-            if _solution_student["status"] == TestStatus.skipped:
-                pytest.skip(_solution_student["errormsg"])
-            elif _solution_student["status"] != TestStatus.completed:
-                pytest.fail(_solution_student["errormsg"])
-            #if _solution_reference["status"] != SolutionStatus.completed:
-            #    #pytest.skip(_solution_reference["errormsg"])
-            #    pass
-
             solution_student = _solution_student["namespace"]
             solution_reference = _solution_reference["namespace"]
 
@@ -356,11 +360,16 @@ class CodeabilityPythonTest:
                 raise AssertionError(f"`{name}` found {c}-times, maximum required: {c_max}")
         elif testtype == TypeEnum.linting:
             filename = f"{main.name}-{name}-linting.txt"
+            filename = filename.replace(" ", "-")
             outputfile = os.path.join(specification.outputDirectory, filename)
             if os.path.exists(outputfile):
                 os.remove(outputfile)
             ff = os.path.join(dir_student, file)
-            result = subprocess.run(f'python -m flake8 {ff} --output-file="{outputfile}" --count', shell=True, capture_output=True)
+            #todo: find something better than "pattern" as ignorelist
+            #ignore_list = ["W"]
+            #ignore = ",".join(ignore_list)
+            result = subprocess.run(f'python -m flake8 {ff} --output-file="{outputfile}" --ignore={pattern} --count', shell=True, capture_output=True)
+            #result = subprocess.run(f'python -m flake8 {ff} --output-file="{outputfile}" --count', shell=True, capture_output=True)
 
             #with open(outputfile, "r") as stream:
             #    contents = stream.read()

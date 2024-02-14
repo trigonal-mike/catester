@@ -315,19 +315,18 @@ class Converter:
             shutil.rmtree(directory)
         print(f"Creating directory: {directory}")
         os.makedirs(directory)
-        if isref:
-            shutil.copy(self.py_file, directory)
-            self._copy_addfiles(directory)
-        else:
+        if not isref:
             shutil.copy(self.test_yaml, directory)
             shutil.copy(self.meta_yaml, directory)
-            os.makedirs(student_directory)
-            if not isempty:
-                shutil.copy(self.py_file, student_directory)
-                self._copy_addfiles(student_directory)
+            directory = student_directory
+            os.makedirs(directory)
+        self._copy_files(directory, self.metaconfig.properties.additionalFiles)
+        self._copy_files(directory, self.metaconfig.properties.studentTemplates)
+        if not isempty:
+            self._copy_files(directory, self.metaconfig.properties.studentSubmissionFiles)
 
-    def _copy_addfiles(self, directory: str):
-        for file in self.metaconfig.properties.additionalFiles:
+    def _copy_files(self, directory: str, files: list[str]):
+        for file in files:
             dir = os.path.dirname(file)
             fn = os.path.basename(file)
             dest = os.path.join(directory, dir, fn)
