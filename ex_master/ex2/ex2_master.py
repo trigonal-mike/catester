@@ -1,7 +1,7 @@
 """ doc string comment """
 ## Double hash comments remain only here
 ## they dont get copied into the solution file
-## TOKENS are defined by '#$' following a keyword in the beginning of a line
+## TOKENS are defined by '#$' followed by a keyword in the beginning of a line
 
 import time
 

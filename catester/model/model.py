@@ -182,16 +182,8 @@ class CodeAbilityMeta(CodeAbilityBase):
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["description"])
     language: Optional[LanguageEnum] = Field(default=DEFAULTS["meta"]["language"], validate_default=True)
     license: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["license"])
-    authors: Optional[List[CodeAbilityPerson]] = Field(default=[CodeAbilityPerson(
-        name=DEFAULTS["person"]["name"],
-        email=DEFAULTS["person"]["email"],
-        affiliation=DEFAULTS["person"]["affiliation"]
-    )])
-    maintainers: Optional[List[CodeAbilityPerson]] = Field(default=[CodeAbilityPerson(
-        name=DEFAULTS["person"]["name"],
-        email=DEFAULTS["person"]["email"],
-        affiliation=DEFAULTS["person"]["affiliation"]
-    )])
+    authors: Optional[List[CodeAbilityPerson]] = Field(default=[])
+    maintainers: Optional[List[CodeAbilityPerson]] = Field(default=[])
     links: Optional[List[CodeAbilityLink]] = Field(default=[])
     supportingMaterial: Optional[List[CodeAbilityLink]] = Field(default=[])
     keywords: Optional[List[str]] = Field(default=[])

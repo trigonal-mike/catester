@@ -2,18 +2,15 @@ version: '1.0'
 type: ProblemSet
 title: TITLE
 description: DESCRIPTION
-authors:
-- {name: NAME, email: EMAIL@tugraz.at, affiliation: TU Graz}
-maintainers:
-- {name: NAME, email: EMAIL@tugraz.at, affiliation: TU Graz}
+language: en
+license: Not specified
+authors: []
+maintainers: []
 links: []
 supportingMaterial: []
-language: en
 keywords: []
-license: Not specified
 properties:
   studentSubmissionFiles: []
   additionalFiles: []
   testFiles: []
   studentTemplates: []
-
