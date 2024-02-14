@@ -69,6 +69,7 @@ DEFAULTS = {
         "relativeTolerance": 1.0e-15,
         "absoluteTolerance": 0.0,
         "timeout": 180.0,
+        "allowedOccuranceRange": [0, 0],
     },
     "meta": {
         "version": "1.0",
@@ -137,7 +138,7 @@ class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     successMessage: Optional[str] = Field(min_length=1, default=DEFAULTS["properties"]["successMessage"])
     relativeTolerance: Optional[float] = Field(gt=0, default=DEFAULTS["properties"]["relativeTolerance"])
     absoluteTolerance: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["absoluteTolerance"])
-    timeout: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["timeout"])
+    allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=DEFAULTS["properties"]["timeout"])
     tests: List[CodeAbilityTestCollection]
 
 class CodeAbilityTestSuite(CodeAbilityBase):

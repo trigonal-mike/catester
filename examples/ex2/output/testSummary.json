@@ -1,15 +1,13 @@
 {
-  "timestamp": "2024-02-13 10:10:28.990050",
+  "timestamp": "2024-02-14 16:15:02.581773",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
   "description": "Checks subtests and graphics",
   "status": "COMPLETED",
   "result": "FAILED",
-  "statusMessage": null,
   "resultMessage": "Some or all tests failed",
-  "details": null,
-  "duration": 1.7293343544006348,
+  "duration": 0.7903892993927002,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -23,7 +21,7 @@
     }
   },
   "properties": {
-    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_linting.yaml",
+    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_structural.yaml",
     "specification": ""
   },
   "debug": {
@@ -39,38 +37,52 @@
   },
   "tests": [
     {
-      "type": "linting",
-      "name": "linting",
-      "description": null,
-      "setup": null,
-      "teardown": null,
+      "type": "structural",
+      "name": "structural",
       "status": "COMPLETED",
       "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
       "debug": {
         "executionDurationStudent": 0,
         "executionDurationReference": 0,
-        "traceback": null
+        "traceback": {},
+        "lintingErrors": []
       },
-      "duration": 1.7263422012329102,
+      "duration": 0.7903892993927002,
       "executionDuration": 0,
       "summary": {
-        "total": 1,
-        "success": 0,
+        "total": 4,
+        "success": 3,
         "failed": 1,
         "skipped": 0
       },
       "tests": [
         {
-          "name": "var 1",
+          "name": "None",
           "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
           "debug": {
-            "longrepr": "E   SyntaxError: 24 Syntax Errors in file `.` (see: i:\\PYTHON\\catester\\examples\\ex2\\output\\linting-var 1-linting.txt)",
-            "timestamp": 1707815430.725546
+            "longrepr": "E   AssertionError: `None` found 3-times, minimum required: 6",
+            "timestamp": 1707923703.3753035
+          }
+        },
+        {
+          "name": "is",
+          "result": "PASSED",
+          "debug": {
+            "timestamp": 1707923703.378862
+          }
+        },
+        {
+          "name": "for",
+          "result": "PASSED",
+          "debug": {
+            "timestamp": 1707923703.3808784
+          }
+        },
+        {
+          "name": "type",
+          "result": "PASSED",
+          "debug": {
+            "timestamp": 1707923703.3824852
           }
         }
       ]

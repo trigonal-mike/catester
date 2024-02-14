@@ -17,13 +17,7 @@ from model.model import CodeAbilityTestCollection, CodeAbilityTest
 from model.model import TypeEnum, QualificationEnum
 from .conftest import report_key, TestResult, TestStatus, Solution
 from .execution import execute_code_list, execute_file
-
-def get_property_as_list(property_name):
-    if property_name is None:
-        return []
-    if not isinstance(property_name, list):
-        return [property_name]
-    return property_name
+from .helper import get_property_as_list
 
 def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     for idx_main, main in enumerate(testsuite.properties.tests):
@@ -56,6 +50,8 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             "errormsg": "",
             "exectime": 0,
             "traceback": {},
+            "errors": [],
+            "warnings": [],
         }
         _solution = solutions[id][where]
         _dir = specification.studentDirectory if where == Solution.student else specification.referenceDirectory
@@ -70,10 +66,10 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             store_graphics_artifacts = specification.storeGraphicsArtifacts
 
         """ start solution with empty namespace """
-        namespace = {
+        namespace = {}
+        if entry_point is not None:
             #todo: check if this correct:
-            "__file__": os.path.join(_dir, entry_point)
-        }
+            namespace["__file__"] = os.path.join(_dir, entry_point)
 
         error = False
         errormsg = ""
@@ -350,10 +346,9 @@ class CodeabilityPythonTest:
             with open(ff, 'rb') as f:
                 tokens = tokenize.tokenize(f.readline)
                 for _token in tokens:
-                    if _token.type == token.NAME:
-                        if _token.string == name:
-                            c = c + 1
-                        #   print(f"{_token.exact_type} -- {_token}" )
+                    #print(f"{_token.exact_type} -- {_token}" )
+                    if _token.type == token.NAME and _token.string == name:
+                        c = c + 1
             if c < c_min:
                 raise AssertionError(f"`{name}` found {c}-times, minimum required: {c_min}")
             if c > c_max:
@@ -368,21 +363,20 @@ class CodeabilityPythonTest:
             #todo: find something better than "pattern" as ignorelist
             #ignore_list = ["W"]
             #ignore = ",".join(ignore_list)
-            result = subprocess.run(f'python -m flake8 {ff} --output-file="{outputfile}" --ignore={pattern} --count', shell=True, capture_output=True)
-            #result = subprocess.run(f'python -m flake8 {ff} --output-file="{outputfile}" --count', shell=True, capture_output=True)
-
-            #with open(outputfile, "r") as stream:
-            #    contents = stream.read()
-            #matches = re.findall(pattern, contents)
-            #found = len(matches)
-            #c_min = allowed_occurance_range[0]
-            #c_max = allowed_occurance_range[1]
-            #if found < c_min or found > c_max:
-            #    raise SyntaxError(f"allowed_occurance_range (see: {outputfile})")
-
-            _stdout = result.stdout
+            result = subprocess.run(f'python -m flake8 {ff} --tee --output-file="{outputfile}" --ignore={pattern}', shell=True, capture_output=True)
+            _stdout = result.stdout.decode()
             _stderr = result.stderr
-            errcount = int(_stdout)
+            lines = _stdout.splitlines()
+            errcount = len(lines)
+            rlines = []
+            for line in lines:
+                arr = line.split(": ")
+                arr1 = arr[0].rsplit(":", 2)
+                fn = os.path.relpath(arr1[0], dir_student)
+                rlines.append(f"{fn}:{arr1[1]}:{arr1[2]} {arr[1]}")
+            _solution_student["errors"] = rlines
+            if len(_stderr) > 0:
+                pytest.skip(reason=f"Linting Error occurred: {_stderr}")
             if errcount > 0:
                 raise SyntaxError(f"{errcount} Syntax Error{'s' if errcount != 1 else ''} in file `{file}` (see: {outputfile})")
         elif testtype == TypeEnum.exist:

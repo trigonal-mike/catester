@@ -11,6 +11,7 @@ from typing import List
 from model.model import DIRECTORIES
 from model.model import parse_spec_file, parse_test_file
 from model.model import CodeAbilityTestSuite, CodeAbilitySpecification
+from .helper import clear_nones
 
 class TestStatus(str, Enum):
     scheduled = "SCHEDULED"
@@ -279,9 +280,11 @@ def pytest_sessionfinish(session: pytest.Session):
         status = TestStatus.completed
         idx = str(idx_main)
         tb = None
+        errs = []
         if idx in solutions:
             solution_s = solutions[idx][Solution.student]
             solution_r = solutions[idx][Solution.reference]
+            errs = solution_s["errors"]
             tb = solution_s["traceback"]
             sub_time_s = solution_s["exectime"]
             sub_time_r = solution_r["exectime"]
@@ -310,6 +313,7 @@ def pytest_sessionfinish(session: pytest.Session):
             "executionDurationStudent": sub_time_s,
             "executionDurationReference": sub_time_r,
             "traceback": tb,
+            "lintingErrors": errs,
         }
         main["duration"] = _testduration
         main["executionDuration"] = sub_time_s
@@ -359,8 +363,9 @@ def pytest_sessionfinish(session: pytest.Session):
         "executionDurationReference": time_r,
     }
 
+    report_without_null = clear_nones(report)
     with open(reportfile, "w", encoding="utf-8") as file:
-        json.dump(report, file, default=str, indent=indent)
+        json.dump(report_without_null, file, default=str, indent=indent)
 
     """exit codes:
     https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.ExitCode
@@ -393,9 +398,8 @@ def pytest_report_header(config):
     ]
 
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
-    return
     verbosity = config.getoption("verbose")
-    if verbosity >= 0:
+    if verbosity > 0:
         _report = config.stash[report_key]
         report = _report["report"]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]

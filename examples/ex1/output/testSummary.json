@@ -1,16 +1,16 @@
 {
-  "timestamp": "2024-02-06 09:18:54.396852",
+  "timestamp": "2024-02-14 14:24:51.062332",
   "type": "python",
   "version": "1.0",
   "name": "Python Test suite",
-  "description": "Checks variables",
+  "description": "Checks subtests and graphics",
   "status": "COMPLETED",
   "result": "FAILED",
   "statusMessage": null,
   "resultMessage": "Some or all tests failed",
   "details": null,
-  "duration": 12.785203218460083,
-  "executionDuration": 0.0,
+  "duration": 1.5627994537353516,
+  "executionDuration": 0.28776073455810547,
   "environment": {
     "Python": "3.10.11",
     "Platform": "Windows-10-10.0.19045-SP0",
@@ -23,24 +23,24 @@
     }
   },
   "properties": {
-    "test": "I:\\PYTHON\\catester\\examples\\ex1\\test1.yaml",
-    "specification": "I:\\PYTHON\\catester\\examples\\specification.yaml"
+    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex1/test5.yaml",
+    "specification": ""
   },
   "debug": {
-    "executionDurationReference": 0.0,
-    "executionDurationStudent": 0.0
+    "executionDurationStudent": 0.28776073455810547,
+    "executionDurationReference": 0.20252418518066406
   },
   "exitcode": "ExitCode.TESTS_FAILED",
   "summary": {
-    "total": 6,
+    "total": 1,
     "success": 0,
-    "failed": 6,
+    "failed": 1,
     "skipped": 0
   },
   "tests": [
     {
-      "type": "variable",
-      "name": "Test Basic",
+      "type": "graphics",
+      "name": "graphics",
       "description": null,
       "setup": null,
       "teardown": null,
@@ -50,619 +50,57 @@
       "resultMessage": null,
       "details": null,
       "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
+        "executionDurationStudent": 0.28776073455810547,
+        "executionDurationReference": 0.20252418518066406,
+        "traceback": {}
       },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 8,
-        "success": 0,
-        "failed": 8,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207539.463496
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207541.5291996
-          }
-        },
-        {
-          "name": "var3",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207542.806936
-          }
-        },
-        {
-          "name": "var4",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207543.5342836
-          }
-        },
-        {
-          "name": "var5",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0433614
-          }
-        },
-        {
-          "name": "var6",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.049327
-          }
-        },
-        {
-          "name": "var7",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0542302
-          }
-        },
-        {
-          "name": "var8",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0618656
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test PythonTypes",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
-      "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 15,
-        "success": 0,
-        "failed": 15,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "x1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0671895
-          }
-        },
-        {
-          "name": "x2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0728357
-          }
-        },
-        {
-          "name": "x3",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.078022
-          }
-        },
-        {
-          "name": "x4",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0841525
-          }
-        },
-        {
-          "name": "x5",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0856283
-          }
-        },
-        {
-          "name": "x6",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.0856283
-          }
-        },
-        {
-          "name": "x7",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1007464
-          }
-        },
-        {
-          "name": "x8",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.104748
-          }
-        },
-        {
-          "name": "x9",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.104748
-          }
-        },
-        {
-          "name": "x10",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1191616
-          }
-        },
-        {
-          "name": "x11",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1256373
-          }
-        },
-        {
-          "name": "x12",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.130597
-          }
-        },
-        {
-          "name": "x13",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1351655
-          }
-        },
-        {
-          "name": "x14",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1351655
-          }
-        },
-        {
-          "name": "x15",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1467907
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test DateTime",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
-      "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
+      "duration": 1.5627994537353516,
+      "executionDuration": 0.28776073455810547,
       "summary": {
         "total": 4,
-        "success": 0,
-        "failed": 4,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "var_date",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1522205
-          }
-        },
-        {
-          "name": "var_time",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1522205
-          }
-        },
-        {
-          "name": "var_datetime",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1633759
-          }
-        },
-        {
-          "name": "var_duration",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1686563
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test Matplot",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
-      "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 2,
-        "success": 0,
+        "success": 2,
         "failed": 2,
         "skipped": 0
       },
       "tests": [
         {
-          "name": "x",
-          "status": "COMPLETED",
+          "name": "figure(1).axes[0].lines[0]._linestyle",
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1686563
+            "longrepr": "E   AssertionError: Variable `figure(1).axes[0].lines[0]._linestyle` has incorrect value\n    assert '-.' == '--'\n      - --\n      + -.",
+            "timestamp": 1707917092.6251323
           }
         },
         {
-          "name": "y",
-          "status": "COMPLETED",
+          "name": "figure(1).axes[0].lines[0].get_linestyle()",
           "result": "FAILED",
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1801212
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test Pandas",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
-      "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 2,
-        "success": 0,
-        "failed": 2,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "df",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1853034
+            "longrepr": "E   AssertionError: Variable `figure(1).axes[0].lines[0].get_linestyle()` has incorrect value\n    assert '-.' == '--'\n      - --\n      + -.",
+            "timestamp": 1707917092.6251323
           }
         },
         {
-          "name": "ser",
-          "status": "COMPLETED",
-          "result": "FAILED",
+          "name": "figure(1).axes[0].get_xlabel()",
+          "result": "PASSED",
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.1853034
-          }
-        }
-      ]
-    },
-    {
-      "type": "variable",
-      "name": "Test Strings",
-      "description": null,
-      "setup": null,
-      "teardown": null,
-      "status": "COMPLETED",
-      "result": "FAILED",
-      "statusMessage": null,
-      "resultMessage": null,
-      "details": null,
-      "debug": {
-        "executionDurationReference": 0.0,
-        "executionDurationStudent": 0.0
-      },
-      "duration": 0.0,
-      "executionDuration": 0.0,
-      "summary": {
-        "total": 12,
-        "success": 0,
-        "failed": 12,
-        "skipped": 0
-      },
-      "tests": [
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.196738
+            "longrepr": null,
+            "timestamp": 1707917092.6251323
           }
         },
         {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
+          "name": "figure(2).axes[0].get_ylabel()",
+          "result": "PASSED",
           "resultMessage": null,
           "details": null,
           "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.201763
-          }
-        },
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.201763
-          }
-        },
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.201763
-          }
-        },
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.2182784
-          }
-        },
-        {
-          "name": "var1",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.2182784
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.230041
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.234988
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.234988
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.234988
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.2518632
-          }
-        },
-        {
-          "name": "var2",
-          "status": "COMPLETED",
-          "result": "FAILED",
-          "resultMessage": null,
-          "details": null,
-          "debug": {
-            "longrepr": "E   TypeError: get_solution() missing 1 required positional argument: 'record_property'",
-            "timestamp": 1707207547.2518632
+            "longrepr": null,
+            "timestamp": 1707917092.6251323
           }
         }
       ]
