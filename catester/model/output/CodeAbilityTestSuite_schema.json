@@ -533,7 +533,10 @@
               "type": "null"
             }
           ],
-          "default": null,
+          "default": [
+            0,
+            0
+          ],
           "title": "Allowedoccurancerange"
         },
         "verbosity": {

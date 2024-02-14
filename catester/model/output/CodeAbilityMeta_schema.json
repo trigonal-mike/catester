@@ -236,13 +236,7 @@
           "type": "null"
         }
       ],
-      "default": [
-        {
-          "name": "unknown",
-          "email": "unknown@tugraz.at",
-          "affiliation": "TU Graz"
-        }
-      ],
+      "default": [],
       "title": "Authors"
     },
     "maintainers": {
@@ -257,13 +251,7 @@
           "type": "null"
         }
       ],
-      "default": [
-        {
-          "name": "unknown",
-          "email": "unknown@tugraz.at",
-          "affiliation": "TU Graz"
-        }
-      ],
+      "default": [],
       "title": "Maintainers"
     },
     "links": {

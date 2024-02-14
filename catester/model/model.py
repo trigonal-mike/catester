@@ -139,6 +139,7 @@ class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     relativeTolerance: Optional[float] = Field(gt=0, default=DEFAULTS["properties"]["relativeTolerance"])
     absoluteTolerance: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["absoluteTolerance"])
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=DEFAULTS["properties"]["allowedOccuranceRange"])
+    timeout: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["timeout"])
     tests: List[CodeAbilityTestCollection]
 
 class CodeAbilityTestSuite(CodeAbilityBase):
