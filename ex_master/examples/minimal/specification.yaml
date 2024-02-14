@@ -1,0 +1,8 @@
+studentDirectory: student
+referenceDirectory: ../_reference
+testDirectory: testprograms
+outputDirectory: output
+artifactDirectory: artifacts
+testVersion: v1
+outputName: testSummary.json
+isLocalUsage: true

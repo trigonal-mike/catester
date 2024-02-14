@@ -12,9 +12,9 @@ def start_tests():
     test = "../examples/ex2/test_linting.yaml"
     #test = "../examples/ex2/test_structural.yaml"
 
-    #specification = "../ex_master/_ex_/3/specification.yaml"
-    #test = "../ex_master/_ex_/3/localTests/_correctSolution/test.yaml"
-    #test = "../ex_master/_ex_/3/localTests/_emptySolution/test.yaml"
+    specification = "../ex_master/examples/full/specification.yaml"
+    test = "../ex_master/examples/full/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/full/localTests/_emptySolution/test.yaml"
     indent = 2
     verbosity = 0
 

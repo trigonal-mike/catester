@@ -1,4 +1,5 @@
-ex_master/_ex_/*
+ex_master/_ex_/
+ex_master/*/*/localTests/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
