@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-02-14 16:15:02.581773",
+  "timestamp": "2024-02-15 10:41:41.095195",
   "type": "python",
   "version": "1.0",
   "name": "Python Test Suite",
@@ -7,7 +7,7 @@
   "status": "COMPLETED",
   "result": "FAILED",
   "resultMessage": "Some or all tests failed",
-  "duration": 0.7903892993927002,
+  "duration": 1.6836252212524414,
   "executionDuration": 0.0,
   "environment": {
     "Python": "3.10.11",
@@ -21,7 +21,7 @@
     }
   },
   "properties": {
-    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_structural.yaml",
+    "test": "i:\\PYTHON\\catester\\catester\\../examples/ex2/test_linting.yaml",
     "specification": ""
   },
   "debug": {
@@ -37,52 +37,43 @@
   },
   "tests": [
     {
-      "type": "structural",
-      "name": "structural",
+      "type": "linting",
+      "name": "linting",
       "status": "COMPLETED",
       "result": "FAILED",
       "debug": {
         "executionDurationStudent": 0,
         "executionDurationReference": 0,
         "traceback": {},
-        "lintingErrors": []
+        "lintingErrors": [
+          "Linting.py:3:1 F401 'os1' imported but unused",
+          "Linting.py:4:1 F821 undefined name 'importyaml'",
+          "Linting.py:7:8 F821 undefined name 'os'",
+          "Linting.py:10:2 E111 indentation is not a multiple of 4",
+          "Linting.py:10:11 F821 undefined name 'yaml'",
+          "Linting.py:18:80 E501 line too long (166 > 79 characters)",
+          "Linting.py:20:2 E111 indentation is not a multiple of 4",
+          "Linting.py:22:1 F811 redefinition of unused 'y' from line 15",
+          "Linting.py:23:2 E111 indentation is not a multiple of 4",
+          "Structural.py:1:1 E741 ambiguous variable name 'l'",
+          "crash.py:4:1 F821 undefined name 'vahjfg'"
+        ]
       },
-      "duration": 0.7903892993927002,
+      "duration": 1.6836252212524414,
       "executionDuration": 0,
       "summary": {
-        "total": 4,
-        "success": 3,
+        "total": 1,
+        "success": 0,
         "failed": 1,
         "skipped": 0
       },
       "tests": [
         {
-          "name": "None",
+          "name": "var1",
           "result": "FAILED",
           "debug": {
-            "longrepr": "E   AssertionError: `None` found 3-times, minimum required: 6",
-            "timestamp": 1707923703.3753035
-          }
-        },
-        {
-          "name": "is",
-          "result": "PASSED",
-          "debug": {
-            "timestamp": 1707923703.378862
-          }
-        },
-        {
-          "name": "for",
-          "result": "PASSED",
-          "debug": {
-            "timestamp": 1707923703.3808784
-          }
-        },
-        {
-          "name": "type",
-          "result": "PASSED",
-          "debug": {
-            "timestamp": 1707923703.3824852
+            "longrepr": "E   SyntaxError: 11 Syntax Errors in file `.` (see: i:\\PYTHON\\catester\\examples\\ex2\\output\\linting-var1-linting.txt)",
+            "timestamp": 1707990102.7788208
           }
         }
       ]

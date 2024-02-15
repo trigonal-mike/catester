@@ -53,7 +53,7 @@ keywords:
 properties:
   studentSubmissionFiles:
   - .\unit1.py
-  - .\types.py
+  - .\py_types.py
   - .\graphics.py
   additionalFiles:
   - .\data

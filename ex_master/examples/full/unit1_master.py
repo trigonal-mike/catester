@@ -37,7 +37,7 @@ pass
 #$META keywords "intermediate"
 #$META keywords "programming"
 
-#$META studentSubmissionFiles ./types.py
+#$META studentSubmissionFiles ./py_types.py
 #$META studentSubmissionFiles ./graphics.py
 #$META additionalFiles ./data
 #$META additionalFiles ./graphics.dat
@@ -54,8 +54,8 @@ pass
 #$TESTVAR -
 
 #$EXISTANCETEST existance 2
-#$PROPERTY id "types"
-#$PROPERTY file "types.py"
+#$PROPERTY id "py_types"
+#$PROPERTY file "py_types.py"
 #$TESTVAR -
 
 #$EXISTANCETEST existance 3
@@ -70,8 +70,8 @@ pass
 #$PROPERTY pattern "W"
 
 #$LINTINGTEST linting 2
-#$PROPERTY successDependency "types"
-#$PROPERTY file "types.py"
+#$PROPERTY successDependency "py_types"
+#$PROPERTY file "py_types.py"
 #$TESTVAR -
 
 #$LINTINGTEST linting 3
@@ -94,9 +94,9 @@ pass
 #$PROPERTY qualification startsWith
 #$PROPERTY pattern This is the doc-string
 
-#$VARIABLETEST variables types
-#$PROPERTY successDependency "types"
-#$PROPERTY entryPoint "types.py"
+#$VARIABLETEST variables py_types
+#$PROPERTY successDependency "py_types"
+#$PROPERTY entryPoint "py_types.py"
 #$TESTVAR x1
 #$TESTVAR x2
 #$TESTVAR x3

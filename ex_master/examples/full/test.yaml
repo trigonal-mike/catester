@@ -23,8 +23,8 @@ properties:
   - type: exist
     name: existance 2
     entryPoint: unit1.py
-    id: types
-    file: types.py
+    id: py_types
+    file: py_types.py
     tests:
     - name: '-'
   - type: exist
@@ -46,9 +46,9 @@ properties:
   - type: linting
     name: linting 2
     successDependency:
-    - types
+    - py_types
     entryPoint: unit1.py
-    file: types.py
+    file: py_types.py
     tests:
     - name: '-'
   - type: linting
@@ -85,10 +85,10 @@ properties:
       name: __doc__
       pattern: This is the doc-string
   - type: variable
-    name: variables types
+    name: variables py_types
     successDependency:
-    - types
-    entryPoint: types.py
+    - py_types
+    entryPoint: py_types.py
     tests:
     - name: x1
     - name: x2
