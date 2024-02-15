@@ -2,13 +2,8 @@ import argparse
 from converter import Converter
 
 def convert_master(scandir, action="all", verbosity=0, metayaml=None):
-    conv = Converter(scandir, metayaml)
-    if action in [None, "all", "cleanup"]:
-        conv.cleanup()
-    if action in [None, "all", "convert"]:
-        conv.convert()
-    if action in [None, "all", "test"]:
-        conv.run_local_tests(verbosity)
+    conv = Converter(scandir, action, verbosity, metayaml)
+    conv.start()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -17,7 +17,7 @@ if __name__ == "__main__":
     scandir = "../ex_master/examples/minimal"
     scandir = "../ex_master/examples/full"
 
-    metayaml = "../ex_master/_meta-template.yaml"
+    metayaml = "../ex_master/example-init-meta.yaml"
 
     dir = os.path.dirname(__file__)
     scandir = os.path.abspath(os.path.join(dir, scandir))

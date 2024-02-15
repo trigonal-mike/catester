@@ -20,36 +20,56 @@ LOCAL_TEST_SPECIFICATION = CodeAbilitySpecification(
 )
 
 class Converter:
-    def __init__(self, scandir, metatemplate = None):
+    def __init__(self, scandir, action, verbosity, metatemplate):
         self.ready = False
-        self._scan_dir = scandir
-        if scandir is None:
-            scandir = os.getcwd()
-        if not os.path.exists(scandir):
-            print(f"Directory not found: {scandir}")
-            return
-        scandir = os.path.abspath(scandir)
-        os.chdir(scandir)
-        flist = glob.glob("*_master.py")
-        if len(flist) == 0:
-            print(f"No file named *_master.py in directory: {scandir}")
-            return
-        entrypoint = flist[0].replace("_master", "")
         self.scandir = scandir
+        self.action = action
+        self.verbosity = verbosity
+        self.metatemplate = metatemplate
+        try:
+            self.init()
+            self.ready = True
+        except Exception as e:
+            print(e)
+            print(f"{Fore.RED}ERROR Initialization failed{Style.RESET_ALL}")
+
+    def init(self):
+        if self.scandir is None:
+            self.scandir = os.getcwd()
+        if not os.path.exists(self.scandir):
+            raise Exception(f"Directory not found: {self.scandir}")
+        self.scandir = os.path.abspath(self.scandir)
+        os.chdir(self.scandir)
+        flist = glob.glob("*_master.py")
+        count = len(flist)
+        if count == 0:
+            raise Exception(f"No file named *_master.py in directory: {self.scandir}")
+        if count >= 2:
+            raise Exception(f"Only one master file alllowed. {count} files named *_master.py in directory: {self.scandir}")
+        masterfile = flist[0]
+        entrypoint = masterfile.replace("_master", "")
         self.entrypoint = entrypoint
-        self.masterfile = os.path.join(scandir, flist[0])
-        self.py_file = os.path.join(scandir, entrypoint)
-        self.meta_yaml = os.path.join(scandir, "meta.yaml")
-        self.test_yaml = os.path.join(scandir, "test.yaml")
+        self.masterfile = os.path.join(self.scandir, masterfile)
+        self.py_file = os.path.join(self.scandir, entrypoint)
+        self.meta_yaml = os.path.join(self.scandir, "meta.yaml")
+        self.test_yaml = os.path.join(self.scandir, "test.yaml")
         self.spec_file = os.path.join(self.scandir, "specification.yaml")
         self.localTestdir = os.path.join(self.scandir, "localTests")
-        self.ready = True
-        self.conv_error = False
-        if metatemplate is not None and not os.path.isabs(metatemplate):
-            metatemplate = os.path.join(scandir, metatemplate)
-            metatemplate = os.path.abspath(metatemplate)
-        self.metaconfig = parse_meta_file(metatemplate)
-        self.metaconfig.properties.studentSubmissionFiles.append(self.py_file.replace(self.scandir, "."))
+
+    def start(self):
+        self.errors = 0
+        if not self.ready:
+            return
+        try:
+            if self.action in [None, "all", "cleanup"]:
+                self.cleanup()
+            if self.action in [None, "all", "convert"]:
+                self.convert()
+            if self.action in [None, "all", "test"]:
+                self.run_local_tests()
+        except Exception as e:
+            print(e)
+            print(f"{Fore.RED}ERROR occurred{Style.RESET_ALL}")
 
     def _remove_file(self, path):
         if os.path.exists(path):
@@ -73,29 +93,35 @@ class Converter:
         print(f"Cleanup ended")
 
     def convert(self):
-        self.conv_error = True
-        if not self.ready:
-            print(f"{Fore.RED}ERROR Conversion, directory invalid: {self._scan_dir}{Style.RESET_ALL}")
         start = time.time()
-        self.errors = 0
         try:
+            self._init_meta_yaml()
             self._analyze_tokens()
             self._convert_tokens()
             self._write_yaml("TestSuite", self.test_yaml, self.testsuite, parse_test_file)
             self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
             self._write_yaml("Meta", self.meta_yaml, self.metaconfig, parse_meta_file)
-        except:
-            return
+            self._create_reference()
+            self._prepare_local_test_directories()
+        except Exception as e:
+            print(f"{Fore.RED}ERROR Conversion failed{Style.RESET_ALL}")
+            raise
+        end = round(time.time() - start, 3)
+        print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
+
+    def _create_reference(self):
         print(f"Creating Reference-File: {self.py_file}")
         with open(self.py_file, "w") as file:
             file.write("".join(self.lines))
         print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
         #todo: validate reference-file for obvious errors, linting, ...!!!
-        print(f"Preparing Local Test Directory: {self.localTestdir}")
-        self._prepare_local_test_directories()
-        end = round(time.time() - start, 3)
-        print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
-        self.conv_error = False
+
+    def _init_meta_yaml(self):
+        if self.metatemplate is not None and not os.path.isabs(self.metatemplate):
+            self.metatemplate = os.path.join(self.scandir, self.metatemplate)
+            self.metatemplate = os.path.abspath(self.metatemplate)
+        self.metaconfig = parse_meta_file(self.metatemplate)
+        self.metaconfig.properties.studentSubmissionFiles.append(self.py_file.replace(self.scandir, "."))
 
     def _write_yaml(self, title, filename, obj, parsing_fct):
         print(f"Creating {title}: {filename}")
@@ -273,11 +299,6 @@ class Converter:
                                     self._error(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
                                 else:
                                     v.append(f)
-                                    #todo:
-                                    #maybe better following?
-                                    #.\file.py => file.py
-                                    #.\data\dat.txt => data\dat.txt
-                                    #v.append(os.path.relpath(f))
                             else:
                                 self._error(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
                     else:
@@ -294,6 +315,7 @@ class Converter:
         self.testsuite = testsuite
 
     def _prepare_local_test_directories(self):
+        print(f"Preparing Local Test Directory: {self.localTestdir}")
         if not os.path.exists(self.localTestdir):
             os.makedirs(self.localTestdir)
             print(f"Creating directory: {self.localTestdir}")
@@ -338,22 +360,21 @@ class Converter:
                 os.makedirs(dir, exist_ok=True)
                 shutil.copy(file, dest)
 
-    def run_local_tests(self, verbosity):
-        if self.conv_error:
-            print(f"{Back.YELLOW}Testing skipped{Style.RESET_ALL}")
-            return
+    def run_local_tests(self):
+        if not os.path.exists(self.localTestdir):
+            raise Exception(f"Directory not found: {self.localTestdir}")
         directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
         print(f"Running {len(directories)} local tests: {self.localTestdir}")
         for idx, directory in enumerate(directories):
             print()
             print(f"{Back.MAGENTA}Running local test #{idx+1}{Style.RESET_ALL}")
             print(f"{Back.MAGENTA}Directory: {directory}{Style.RESET_ALL}")
-            self._run_local_test(directory, verbosity)
+            self._run_local_test(directory)
 
-    def _run_local_test(self, directory, verbosity):
+    def _run_local_test(self, directory):
         os.chdir(directory)
         dir = os.path.dirname(__file__)
         run_tests_py = os.path.join(dir, "../run_tests.py")
         run_tests_py = os.path.abspath(run_tests_py)
-        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={verbosity}", shell=True)
+        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={self.verbosity}", shell=True)
         print(retcode)
