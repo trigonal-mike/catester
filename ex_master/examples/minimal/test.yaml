@@ -11,6 +11,7 @@ properties:
   allowedOccuranceRange:
   - 0
   - 0
+  timeout: 180.0
   tests:
   - type: variable
     name: test

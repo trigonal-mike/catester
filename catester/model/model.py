@@ -88,7 +88,6 @@ DEFAULTS = {
 
 class CodeAbilityBase(BaseModel):
     #todo:
-    #check if validate_assignment=True is a problem somewhere???
     #check if coerce_numbers_to_str=True is a problem somewhere???
     model_config = ConfigDict(
         extra="forbid",
@@ -130,7 +129,6 @@ class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon
     id: Optional[str] = Field(min_length=1, default=None)
     file: Optional[str] = Field(min_length=1, default=None)
     tests: List[CodeAbilityTest]
-    #tests: Optional[List[CodeAbilityTest]] = Field(default=[])
 
 class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     qualification: Optional[QualificationEnum] = Field(default=DEFAULTS["properties"]["qualification"], validate_default=True)

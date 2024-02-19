@@ -16,3 +16,9 @@ def get_property_as_list(property_name):
     if not isinstance(property_name, list):
         return [property_name]
     return property_name
+
+def get_abbr(val, maxlen=10):
+    ret = f"{val}"
+    if len(ret) > maxlen:
+        ret = f"{ret[:maxlen]}..."
+    return ret

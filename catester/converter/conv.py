@@ -20,12 +20,13 @@ LOCAL_TEST_SPECIFICATION = CodeAbilitySpecification(
 )
 
 class Converter:
-    def __init__(self, scandir, action, verbosity, metatemplate):
+    def __init__(self, scandir, action, verbosity, metatemplate, formatter):
         self.ready = False
         self.scandir = scandir
         self.action = action
         self.verbosity = verbosity
         self.metatemplate = metatemplate
+        self.formatter = formatter
         try:
             self.init()
             self.ready = True
@@ -114,7 +115,10 @@ class Converter:
         with open(self.py_file, "w") as file:
             file.write("".join(self.lines))
         print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
-        #todo: validate reference-file for obvious errors, linting, ...!!!
+        if self.formatter is not False:
+            print(f"Formatting Reference-File: {self.py_file}")
+            retcode = subprocess.run(f"python -m black {self.py_file}", shell=True)
+            print(f"{Fore.GREEN}Reference-File formatted{Style.RESET_ALL}")
 
     def _init_meta_yaml(self):
         if self.metatemplate is not None and not os.path.isabs(self.metatemplate):

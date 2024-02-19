@@ -17,7 +17,7 @@ from model.model import CodeAbilityTestCollection, CodeAbilityTest
 from model.model import TypeEnum, QualificationEnum
 from .conftest import report_key, TestResult, TestStatus, Solution
 from .execution import execute_code_list, execute_file
-from .helper import get_property_as_list
+from .helper import get_property_as_list, get_abbr
 
 def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     for idx_main, main in enumerate(testsuite.properties.tests):
@@ -305,7 +305,7 @@ class CodeabilityPythonTest:
                 assert type_student == type_reference, f"Variable `{name}` has incorrect type, expected: {type_reference}, obtained {type_student}"
 
                 """ assert variable-value """
-                failure_msg = f"Variable `{name}` has incorrect value"
+                failure_msg = f"Variable `{name}` has incorrect value (`{get_abbr(val_student)}` instead of `{get_abbr(val_reference)}`)"
                 if isinstance(val_student, (str, set, frozenset)):
                     assert val_student == val_reference, failure_msg
                 elif isinstance(val_student, (DataFrame, Series)):
