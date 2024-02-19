@@ -3,7 +3,7 @@ from convert import convert_master
 
 if __name__ == "__main__":
     action = None
-    #action = "convert"
+    action = "convert"
     #action = "test"
     #action = "cleanup"
 
@@ -23,8 +23,13 @@ if __name__ == "__main__":
     #formatter = False
     formatter = True
 
+    testdirs = "all"
+    #testdirs = "none"
+    #testdirs = "correct"
+    #testdirs = "empty"
+
     dir = os.path.dirname(__file__)
     scandir = os.path.abspath(os.path.join(dir, scandir))
     metayaml = os.path.abspath(os.path.join(dir, metayaml))
-    convert_master(scandir, action, verbosity, metayaml, formatter)
+    convert_master(scandir, action, verbosity, metayaml, formatter, testdirs)
     #convert_master(scandir, action, verbosity, None)

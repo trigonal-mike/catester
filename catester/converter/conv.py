@@ -20,13 +20,14 @@ LOCAL_TEST_SPECIFICATION = CodeAbilitySpecification(
 )
 
 class Converter:
-    def __init__(self, scandir, action, verbosity, metatemplate, formatter):
+    def __init__(self, scandir, action, verbosity, metatemplate, formatter, testdirs):
         self.ready = False
         self.scandir = scandir
         self.action = action
         self.verbosity = verbosity
         self.metatemplate = metatemplate
         self.formatter = formatter
+        self.testdirs = testdirs
         try:
             self.init()
             self.ready = True
@@ -35,6 +36,15 @@ class Converter:
             print(f"{Fore.RED}ERROR Initialization failed{Style.RESET_ALL}")
 
     def init(self):
+        self.local_test_directories = []
+        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
+            if directory == LOCAL_TEST_DIRECTORIES._correctSolution:
+                if self.testdirs == "none" or self.testdirs == "empty":
+                    continue
+            if directory == LOCAL_TEST_DIRECTORIES._emptySolution:
+                if self.testdirs == "none" or self.testdirs == "correct":
+                    continue
+            self.local_test_directories.append(directory)
         if self.scandir is None:
             self.scandir = os.getcwd()
         if not os.path.exists(self.scandir):
@@ -83,7 +93,7 @@ class Converter:
         self._remove_file(self.meta_yaml)
         self._remove_file(self.test_yaml)
         self._remove_file(self.spec_file)
-        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
+        for directory in self.local_test_directories:
             dir = os.path.join(self.localTestdir, directory)
             if os.path.exists(dir):
                 shutil.rmtree(dir)
@@ -328,7 +338,7 @@ class Converter:
         if not os.path.exists(self.test_yaml):
             print(f"test.yaml does not exist in directory: {self.scandir}")
             return
-        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
+        for directory in self.local_test_directories:
             self._init_local_test_dir(directory)
 
     def _init_local_test_dir(self, directory: str):
