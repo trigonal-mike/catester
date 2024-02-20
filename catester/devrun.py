@@ -12,7 +12,7 @@ def start_tests():
     #test = "../examples/ex2/test_linting.yaml"
     #test = "../examples/ex2/test_structural.yaml"
 
-    #specification = "../ex_master/examples/full/specification.yaml"
+    #specification = "../ex_master/examples/full/localTests/specification.yaml"
     #test = "../ex_master/examples/full/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/full/localTests/_emptySolution/test.yaml"
     #test = "../ex_master/examples/new/localTests/_emptySolution/test.yaml"

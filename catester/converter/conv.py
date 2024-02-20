@@ -65,8 +65,8 @@ class Converter:
         self.py_file = os.path.join(self.scandir, entrypoint)
         self.meta_yaml = os.path.join(self.scandir, "meta.yaml")
         self.test_yaml = os.path.join(self.scandir, "test.yaml")
-        self.spec_file = os.path.join(self.scandir, "specification.yaml")
         self.localTestdir = os.path.join(self.scandir, "localTests")
+        self.spec_file = os.path.join(self.localTestdir, "specification.yaml")
 
     def start(self):
         self.errors = 0
@@ -111,10 +111,11 @@ class Converter:
             self._analyze_tokens()
             self._convert_tokens()
             self._write_yaml("TestSuite", self.test_yaml, self.testsuite, parse_test_file)
-            self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
             self._write_yaml("Meta", self.meta_yaml, self.metaconfig, parse_meta_file)
             self._create_reference()
+            self._format_all_files()
             self._prepare_local_test_directories()
+            self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
         except Exception as e:
             print(f"{Fore.RED}ERROR Conversion failed{Style.RESET_ALL}")
             raise
@@ -126,10 +127,19 @@ class Converter:
         with open(self.py_file, "w") as file:
             file.write("".join(self.lines))
         print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
+
+    def _format_path(self, path):
         if self.formatter is not False:
-            print(f"Formatting Reference-File: {self.py_file}")
-            retcode = subprocess.run(f"python -m black {self.py_file}", shell=True)
-            print(f"{Fore.GREEN}Reference-File formatted{Style.RESET_ALL}")
+            print(f"Formatting File/Folder: {path}")
+            retcode = subprocess.run(f"python -m black {path}", shell=True)
+            print(f"{Fore.GREEN}File/Folder formatted{Style.RESET_ALL}")
+
+    def _format_all_files(self):
+        self._format_path(self.py_file)
+        for file in self.metaconfig.properties.additionalFiles:
+            self._format_path(file)
+        for file in self.metaconfig.properties.studentTemplates:
+            self._format_path(file)
 
     def _init_meta_yaml(self):
         if self.metatemplate is not None and not os.path.isabs(self.metatemplate):

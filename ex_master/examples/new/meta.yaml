@@ -23,6 +23,8 @@ keywords:
 properties:
   studentSubmissionFiles:
   - .\ex.py
-  additionalFiles: []
+  additionalFiles:
+  - .\add
   testFiles: []
-  studentTemplates: []
+  studentTemplates:
+  - .\templates
