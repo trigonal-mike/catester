@@ -19,6 +19,7 @@ properties:
     tests:
     - name: x
       value: 2
+    - name: y
   - type: variable
     name: test2
     successDependency:
