@@ -12,6 +12,7 @@ if __name__ == "__main__":
     verbosity = 0
 
     #test flags:
+    #https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
     pytestflags = DEFAULT_PYTESTFLAGS
     pytestflags = "-rA,--tb=no,--no-header,--no-summary,-q"
     pytestflags = "-ra,--tb=no,--no-header,-q"
