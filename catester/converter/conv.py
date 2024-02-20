@@ -20,11 +20,12 @@ LOCAL_TEST_SPECIFICATION = CodeAbilitySpecification(
 )
 
 class Converter:
-    def __init__(self, scandir, action, verbosity, metatemplate, formatter, testdirs):
+    def __init__(self, scandir, action, verbosity, pytestflags, metatemplate, formatter, testdirs):
         self.ready = False
         self.scandir = scandir
         self.action = action
         self.verbosity = verbosity
+        self.pytestflags = pytestflags
         self.metatemplate = metatemplate
         self.formatter = formatter
         self.testdirs = testdirs
@@ -390,5 +391,6 @@ class Converter:
         dir = os.path.dirname(__file__)
         run_tests_py = os.path.join(dir, "../run_tests.py")
         run_tests_py = os.path.abspath(run_tests_py)
-        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={self.verbosity}", shell=True)
-        print(retcode)
+        retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={self.verbosity} --pytestflags={self.pytestflags}", shell=True)
+        if int(self.verbosity) > 0:
+            print(retcode)

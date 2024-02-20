@@ -15,7 +15,7 @@ from matplotlib import pyplot as plt
 from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
 from model.model import CodeAbilityTestCollection, CodeAbilityTest
 from model.model import TypeEnum, QualificationEnum
-from .conftest import report_key, TestResult, TestStatus, Solution
+from .conftest import report_key, ETestResult, ETestStatus, Solution
 from .execution import execute_code_list, execute_file
 from .helper import get_property_as_list, get_abbr
 
@@ -46,7 +46,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         solutions[id][where] = {
             "namespace": {},
             "timestamp": time.time(),
-            "status": TestStatus.scheduled,
+            "status": ETestStatus.scheduled,
             "errormsg": "",
             "exectime": 0,
             "traceback": {},
@@ -73,7 +73,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         error = False
         errormsg = ""
-        status = TestStatus.scheduled
+        status = ETestStatus.scheduled
         tb = {}
         exectime = 0
 
@@ -83,15 +83,15 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             if _idx is None:
                 error = True
                 errormsg = f"Success-Dependency `{success_dependencies}` not valid"
-                status = TestStatus.failed
+                status = ETestStatus.failed
             else:
                 total = report["tests"][_idx]["summary"]["total"]
                 for sub_idx in range(total):
                     result = report["tests"][_idx]["tests"][sub_idx]["result"]
-                    if result != TestResult.passed:
+                    if result != ETestResult.passed:
                         error = True
                         errormsg = f"Success-Dependency `{success_dependencies}` not satisfied"
-                        status = TestStatus.skipped
+                        status = ETestStatus.skipped
                         break
             if error:
                 break
@@ -101,14 +101,14 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             if _idx is None:
                 error = True
                 errormsg = f"Setup-Code-Dependency `{setup_code_dependency}` not valid"
-                status = TestStatus.failed
+                status = ETestStatus.failed
             else:
                 try:
                     namespace = solutions[str(_idx)][where]["namespace"]
                 except Exception as e:
                     error = True
                     errormsg = f"ERROR: Setup-Code-Dependency `{setup_code_dependency}` not found"
-                    status = TestStatus.failed
+                    status = ETestStatus.failed
 
         """ remember old working directory """
         dir_old = os.getcwd()
@@ -135,7 +135,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                 if where == Solution.student:
                     error = True
                     errormsg = f"entryPoint {entry_point} not found"
-                    status = TestStatus.failed
+                    status = ETestStatus.failed
             else:
                 try:
                     start_time = time.time()
@@ -145,11 +145,11 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                     if result is None:
                         error = True
                         errormsg = f"Maximum execution time of {timeout} seconds exceeded"
-                        status = TestStatus.timedout
+                        status = ETestStatus.timedout
                 except Exception as e:
                     error = True
                     errormsg = f"Execution of {file} failed"
-                    status = TestStatus.crashed
+                    status = ETestStatus.crashed
                     tb1 = traceback.extract_tb(e.__traceback__)
                     tb2 = tb1[len(tb1)-1]
                     tb = {
@@ -189,7 +189,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             except:
                 error = True
                 errormsg = f"setupCode {setup_code} could not be executed"
-                status = TestStatus.failed
+                status = ETestStatus.failed
 
         if not error:
             try:
@@ -198,7 +198,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             except:
                 error = True
                 errormsg = f"teardownCode {teardown_code} could not be executed"
-                status = TestStatus.failed
+                status = ETestStatus.failed
 
         """ close all open figures """
         plt.close("all")
@@ -210,7 +210,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         sys.path.remove(specification.testDirectory)
 
         if not error:
-            status = TestStatus.completed
+            status = ETestStatus.completed
 
         _solution["exectime"] = exectime
         _solution["traceback"] = tb
@@ -247,9 +247,9 @@ class CodeabilityPythonTest:
 
         _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
         _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
-        if _solution_student["status"] == TestStatus.skipped:
+        if _solution_student["status"] == ETestStatus.skipped:
             pytest.skip(_solution_student["errormsg"])
-        elif _solution_student["status"] != TestStatus.completed:
+        elif _solution_student["status"] != ETestStatus.completed:
             pytest.fail(_solution_student["errormsg"])
         #if _solution_reference["status"] != SolutionStatus.completed:
         #    #pytest.skip(_solution_reference["errormsg"])
@@ -304,7 +304,7 @@ class CodeabilityPythonTest:
                 assert type_student == type_reference, f"Variable `{name}` has incorrect type, expected: {type_reference}, obtained {type_student}"
 
                 """ assert variable-shape, of supported types, dont look for int,float,complex,bool,NoneType """
-                if isinstance(val_student, (str, list, tuple, range, dict, set, frozenset, bytes, bytearray, memoryview )):
+                if isinstance(val_student, (str, list, tuple, range, dict, set, frozenset, bytes, bytearray, memoryview)):
                     len_student = len(val_student)
                     len_reference = len(val_reference)
                     assert len_student == len_reference, f"Variable `{name}` has incorrect len, expected: {len_reference}, obtained {len_student}"

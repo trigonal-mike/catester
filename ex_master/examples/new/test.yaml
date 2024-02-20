@@ -14,7 +14,15 @@ properties:
   timeout: 180.0
   tests:
   - type: variable
-    name: test
+    name: test1
+    entryPoint: ex.py
+    tests:
+    - name: x
+      value: 2
+  - type: variable
+    name: test2
+    successDependency:
+    - 1
     entryPoint: ex.py
     tests:
     - name: h

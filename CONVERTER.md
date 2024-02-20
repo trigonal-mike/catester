@@ -69,9 +69,12 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 | Argument | Default | Description |
 | --- | --- | --- |
 | --scandir | none | if not set, current working directory is used |
-| --action | all | 'all', 'test' or 'convert' |
+| --action | all | 'all', 'cleanup', 'test' or 'convert' |
 | --verbosity | 0 | 0, 1, 2 or 3 |
+| --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
 | --metayaml | none | abs/rel path to initial meta.yaml |
+| --formatter | true | use black as formatter |
+| --testdirs | all | 'all', 'none', 'correct' or 'empty', local test directories to include for action |
 
 if `--metayaml` is set, that file will be the initial configuration for the created meta.yaml file
 
@@ -82,7 +85,9 @@ python /abs/path/to/convert.py
 
 python ../../rel/path/to/convert.py
 
-
 ## flake8 linter options
 https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore
+
+## code formatter
+https://pypi.org/project/black/
 

@@ -36,7 +36,18 @@ run_tests.py uses following command line arguments:
 | --specification | specification.yaml | abs/rel path to specification file |
 | --test | test.yaml | abs/rel path to testsuite file |
 | --indent | 2 | indentation for the generated report |
-| --verbosity | 0 | verbosity level [0,1,2,3] |
+| --verbosity | 0 | catester-verbosity level [0,1,2,3] |
+| --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
+
+## pytestflags
+pytest command-line-flags
+
+https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
+
+e.g. set verbosity of pytest with --pytestflags
+
+DEFAULT-Setting: report all but PASSED, no traceback
+
 
 ## starting pytest with run_tests.py
 python ./run_tests.py
@@ -50,27 +61,4 @@ python ../../rel/path/to/run_tests.py --specification=../specification.yaml
 ## Pytest-Metadata
 https://pypi.org/project/pytest-metadata/
 - this plugin provides environment data (platform, python version, plugins)
-
-
-# TODOS
-
-## Timeout (stopit vs func_timeout):
-
-stopit:
-https://pypi.org/project/stopit/
-
-- License MIT
-
-func_timeout:
-https://pypi.org/project/func-timeout/
-
-- License LGPLv2
-
-https://pypi.org/project/stopit/#signaling-based-resources
-
-https://pypi.org/project/stopit/#comparing-thread-based-and-signal-based-timeout-control
-
-Can’t interrupt a long Python atomic instruction. e.g. if time.sleep(20.0) is actually executing, the timeout will take effect at the end of the execution of this line.
-
-**func_timeout** seems to has solved it for windows as well, but its license is LGPLv2, do we want/need that?
 

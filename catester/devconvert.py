@@ -1,21 +1,28 @@
 import os
 from convert import convert_master
+from run_tests import DEFAULT_PYTESTFLAGS
 
 if __name__ == "__main__":
     action = None
-    action = "convert"
+    #action = "convert"
     #action = "test"
     #action = "cleanup"
 
-    verbosity = 3 # with full traceback
+    #catester-verbosity
     verbosity = 0
+
+    #test flags:
+    pytestflags = DEFAULT_PYTESTFLAGS
+    pytestflags = "-rA,--tb=no,--no-header,--no-summary,-q"
+    pytestflags = "-ra,--tb=no,--no-header,-q"
 
     #scandir = "../ex_master/_ex_/1"
     #scandir = "../ex_master/_ex_/2"
     #scandir = "../ex_master/_ex_/3"
 
-    scandir = "../ex_master/examples/minimal"
-    scandir = "../ex_master/examples/full"
+    scandir = "../ex_master/examples/new"
+    #scandir = "../ex_master/examples/minimal"
+    #scandir = "../ex_master/examples/full"
     #scandir = "../../progphys-py.2023.basis1"
 
     metayaml = "../ex_master/example-init-meta.yaml"
@@ -31,5 +38,5 @@ if __name__ == "__main__":
     dir = os.path.dirname(__file__)
     scandir = os.path.abspath(os.path.join(dir, scandir))
     metayaml = os.path.abspath(os.path.join(dir, metayaml))
-    convert_master(scandir, action, verbosity, metayaml, formatter, testdirs)
+    convert_master(scandir, action, verbosity, pytestflags, metayaml, formatter, testdirs)
     #convert_master(scandir, action, verbosity, None)

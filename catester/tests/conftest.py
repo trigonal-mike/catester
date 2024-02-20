@@ -13,7 +13,7 @@ from model.model import parse_spec_file, parse_test_file
 from model.model import CodeAbilityTestSuite, CodeAbilitySpecification
 from .helper import clear_nones
 
-class TestStatus(str, Enum):
+class ETestStatus(str, Enum):
     scheduled = "SCHEDULED"
     completed = "COMPLETED"
     timedout = "TIMEDOUT"
@@ -25,7 +25,7 @@ class TestStatus(str, Enum):
     #pending = "PENDING"
     #running = "RUNNING"
 
-class TestResult(str, Enum):
+class ETestResult(str, Enum):
     passed = "PASSED"
     failed = "FAILED"
     skipped = "SKIPPED"
@@ -53,6 +53,16 @@ def pytest_addoption(parser: pytest.Parser):
         default=2,
         help="json report output indentation in spaces",
     )
+    parser.addoption(
+        "--catverbosity",
+        default="",
+        help="catester-verbosity level",
+    )
+    parser.addoption(
+        "--pytestflags",
+        default="",
+        help="pytestflags",
+    )
 
 def pytest_metadata(metadata, config):
     """metadata contains information about the environment\n
@@ -75,6 +85,8 @@ def pytest_configure(config: pytest.Config) -> None:
     specyamlfile = config.getoption("--specification")
     testyamlfile = config.getoption("--test")
     indent = int(config.getoption("--indent"))
+    catverbosity = int(config.getoption("--catverbosity"))
+    pytestflags = config.getoption("--pytestflags")
 
     specification: CodeAbilitySpecification = parse_spec_file(specyamlfile)
     testsuite: CodeAbilityTestSuite = parse_test_file(testyamlfile)
@@ -138,7 +150,7 @@ def pytest_configure(config: pytest.Config) -> None:
             "description": main.description,
             "setup": main.setUpCode,
             "teardown": main.tearDownCode,
-            "status": TestStatus.scheduled,
+            "status": ETestStatus.scheduled,
             "result": None,
             "statusMessage": None,
             "resultMessage": None,
@@ -153,6 +165,7 @@ def pytest_configure(config: pytest.Config) -> None:
                 "skipped": 0,
             },
             "tests": sub_tests,
+            "timestamp": 0,
         })
     report = {
         "timestamp": timestamp,
@@ -160,7 +173,7 @@ def pytest_configure(config: pytest.Config) -> None:
         "version": testsuite.version,
         "name": testsuite.name,
         "description": testsuite.description,
-        "status": TestStatus.scheduled,
+        "status": ETestStatus.scheduled,
         "result": None,
         "statusMessage": None,
         "resultMessage": None,
@@ -195,6 +208,8 @@ def pytest_configure(config: pytest.Config) -> None:
         "root": root,
         "testyamlfile": testyamlfile,
         "specyamlfile": specyamlfile,
+        "catverbosity": catverbosity,
+        "pytestflags": pytestflags,
     }
     config.stash[report_key] = report
 
@@ -277,7 +292,7 @@ def pytest_sessionfinish(session: pytest.Session):
         test_main = testsuite.properties.tests[idx_main]
         sub_time_s = 0
         sub_time_r = 0
-        status = TestStatus.completed
+        status = ETestStatus.completed
         idx = str(idx_main)
         tb = None
         errs = []
@@ -295,13 +310,13 @@ def pytest_sessionfinish(session: pytest.Session):
         sub_skipped = 0
         for idx_sub, sub in enumerate(main["tests"]):
             test_sub = test_main.tests[idx_sub]
-            if sub["result"] == TestResult.passed:
+            if sub["result"] == ETestResult.passed:
                 sub_success += 1
                 result_message = test_sub.successMessage
-            elif sub["result"] == TestResult.failed:
+            elif sub["result"] == ETestResult.failed:
                 sub_failed += 1
                 result_message = test_sub.failureMessage
-            elif sub["result"] == TestResult.skipped:
+            elif sub["result"] == ETestResult.skipped:
                 sub_skipped += 1
                 result_message = "Test skipped"
             else:
@@ -323,15 +338,15 @@ def pytest_sessionfinish(session: pytest.Session):
         main["status"] = status
         if sub_success == sub_total:
             success += 1
-            main["result"] = TestResult.passed
+            main["result"] = ETestResult.passed
             result_message = test_main.successMessage
         elif sub_skipped > 0:
             skipped += 1
-            main["result"] = TestResult.skipped
+            main["result"] = ETestResult.skipped
             result_message = "Tests skipped"
         else:
             failed += 1
-            main["result"] = TestResult.failed
+            main["result"] = ETestResult.failed
             result_message = test_main.failureMessage
         main["resultMessage"] = result_message
     report["summary"]["success"] = success
@@ -339,18 +354,18 @@ def pytest_sessionfinish(session: pytest.Session):
     report["summary"]["failed"] = failed
 
     if exitcode == pytest.ExitCode.INTERRUPTED:
-        report["status"] = TestStatus.cancelled
+        report["status"] = ETestStatus.cancelled
     else:
-        report["status"] = TestStatus.completed
+        report["status"] = ETestStatus.completed
 
     if success == total:
-        report["result"] = TestResult.passed
+        report["result"] = ETestResult.passed
         result_message = testsuite.properties.successMessage
     elif skipped == total:
-        report["result"] = TestResult.skipped
+        report["result"] = ETestResult.skipped
         result_message = "Tests skipped"
     else:
-        report["result"] = TestResult.failed
+        report["result"] = ETestResult.failed
         result_message = testsuite.properties.failureMessage
 
     report["resultMessage"] = result_message
@@ -383,24 +398,31 @@ def pytest_report_header(config):
     root = _report["root"]
     testyamlfile = _report["testyamlfile"]
     specyamlfile = _report["specyamlfile"]
+    pytestflags = _report["pytestflags"]
+    catverbosity = _report["catverbosity"]
     verbosity = config.getoption("verbose")
+    if specyamlfile is "":
+        specyamlfile = "not set"
+
     tw, _ = shutil.get_terminal_size(fallback=(80, 24))
     full = "=" * tw
     return [
         f"{full}",
         f"{Fore.CYAN}CodeAbility Python Testing Engine{Style.RESET_ALL}",
         f"{full}",
-        f"{Fore.CYAN}verbosity:    {Style.RESET_ALL} {verbosity}",
-        f"{Fore.CYAN}testroot:     {Style.RESET_ALL} {root}",
-        f"{Fore.CYAN}testsuite:    {Style.RESET_ALL} {testyamlfile}",
-        f"{Fore.CYAN}specification:{Style.RESET_ALL} {specyamlfile}",
+        f"{Fore.CYAN}testroot:      {Style.RESET_ALL} {root}",
+        f"{Fore.CYAN}testsuite:     {Style.RESET_ALL} {testyamlfile}",
+        f"{Fore.CYAN}specification: {Style.RESET_ALL} {specyamlfile}",
+        f"{Fore.CYAN}pytestflags:   {Style.RESET_ALL} {pytestflags}",
+        f"{Fore.CYAN}catverbosity:  {Style.RESET_ALL} {catverbosity}",
+        f"{Fore.CYAN}verbosity:     {Style.RESET_ALL} {verbosity}",
         f"{full}",
     ]
 
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
-    verbosity = config.getoption("verbose")
-    if verbosity > 0:
-        _report = config.stash[report_key]
+    _report = config.stash[report_key]
+    catverbosity = _report["catverbosity"]
+    if catverbosity > 2:
         report = _report["report"]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
 
@@ -434,9 +456,9 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
                 outcome = sub["result"]
                 terminalreporter.line(
                     f"Test {idx_sub + 1} ({test_sub.name}): {outcome} ",
-                    green=outcome == TestResult.passed,
-                    red=outcome == TestResult.failed,
-                    yellow=outcome == TestResult.skipped,
+                    green=outcome == ETestResult.passed,
+                    red=outcome == ETestResult.failed,
+                    yellow=outcome == ETestResult.skipped,
                 )
 
 @pytest.fixture(scope="function")
