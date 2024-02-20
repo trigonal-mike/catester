@@ -129,17 +129,17 @@ class Converter:
         print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
 
     def _format_path(self, path):
-        if self.formatter is not False:
-            print(f"Formatting File/Folder: {path}")
-            retcode = subprocess.run(f"python -m black {path}", shell=True)
-            print(f"{Fore.GREEN}File/Folder formatted{Style.RESET_ALL}")
+        print(f"Formatting File/Folder: {path}")
+        retcode = subprocess.run(f"python -m black {path}", shell=True)
+        print(f"{Fore.GREEN}File/Folder formatted{Style.RESET_ALL}")
 
     def _format_all_files(self):
-        self._format_path(self.py_file)
-        for file in self.metaconfig.properties.additionalFiles:
-            self._format_path(file)
-        for file in self.metaconfig.properties.studentTemplates:
-            self._format_path(file)
+        if self.formatter is not False:
+            self._format_path(self.py_file)
+            for file in self.metaconfig.properties.additionalFiles:
+                self._format_path(file)
+            for file in self.metaconfig.properties.studentTemplates:
+                self._format_path(file)
 
     def _init_meta_yaml(self):
         if self.metatemplate is not None and not os.path.isabs(self.metatemplate):
