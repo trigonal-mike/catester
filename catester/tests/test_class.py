@@ -220,7 +220,6 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
     return solutions[id][where]
 
 class CodeabilityPythonTest:
-    # testcases get parametrized in conftest.py (pytest_generate_tests)
     def test_entrypoint(self, pytestconfig, monkeymodule, testcases):
         idx_main, idx_sub = testcases
 
@@ -304,7 +303,21 @@ class CodeabilityPythonTest:
                 type_reference = type(val_reference)
                 assert type_student == type_reference, f"Variable `{name}` has incorrect type, expected: {type_reference}, obtained {type_student}"
 
+                """ assert variable-shape, of supported types, dont look for int,float,complex,bool,NoneType """
+                if isinstance(val_student, (str, list, tuple, range, dict, set, frozenset, bytes, bytearray, memoryview )):
+                    len_student = len(val_student)
+                    len_reference = len(val_reference)
+                    assert len_student == len_reference, f"Variable `{name}` has incorrect len, expected: {len_reference}, obtained {len_student}"
+                elif isinstance(val_student, np.ndarray):
+                    shape_student = val_student.shape
+                    shape_reference = val_reference.shape
+                    assert shape_student == shape_reference, f"Variable `{name}` has incorrect shape, expected: {shape_reference}, obtained {shape_student}"
+                else:
+                    #todo: which types support something like len, shape, dimensions, etc...?
+                    pass
+
                 """ assert variable-value """
+                #todo: support for more types
                 failure_msg = f"Variable `{name}` has incorrect value (`{get_abbr(val_student)}` instead of `{get_abbr(val_reference)}`)"
                 if isinstance(val_student, (str, set, frozenset)):
                     assert val_student == val_reference, failure_msg
@@ -348,7 +361,7 @@ class CodeabilityPythonTest:
                 for _token in tokens:
                     #print(f"{_token.exact_type} -- {_token}" )
                     if _token.type == token.NAME and _token.string == name:
-                        c = c + 1
+                        c += 1
             if c < c_min:
                 raise AssertionError(f"`{name}` found {c}-times, minimum required: {c_min}")
             if c > c_max:

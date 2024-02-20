@@ -18,9 +18,14 @@ for i in range(1, 15):
   globals()[f"y{i}"] = globals()[f"x{i}"]
 
 #quick check which type is instance of another type
-for i in range(1, 15):
+for i in range(1, 16):
+  print(i)
   x = globals()[f"x{i}"]
   type_x = type(x)
+  try:
+    print(f"OK:{i}-{type_x} LEN: {len(x)}")
+  except:
+    print(f"        Error:{i}-{type_x}")
   for j in range(1, 15):
     y = globals()[f"y{j}"]
     type_y = type(y)

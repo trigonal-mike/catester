@@ -218,7 +218,7 @@ class Converter:
         return list(res)
     
     def _error(self, msg):
-        self.errors = self.errors + 1
+        self.errors += 1
         print(msg)
 
     def _find_argument(self, token, valid_props):
@@ -282,7 +282,7 @@ class Converter:
                         self._try_set_value(token, testsuite.properties.tests[curr_test].tests[curr_subtest])
             elif tokenname in (TEST_MAPPING):
                 curr_subtest = -1
-                curr_test = curr_test + 1
+                curr_test += 1
                 testsuite.properties.tests.append(
                     CodeAbilityTestCollection(
                         type = TEST_MAPPING[tokenname],
@@ -292,7 +292,7 @@ class Converter:
                     )
                 )
             elif tokenname == TokenEnum.TESTVAR:
-                curr_subtest = curr_subtest + 1
+                curr_subtest += 1
                 testsuite.properties.tests[curr_test].tests.append(
                     CodeAbilityTest(
                         name = argument,

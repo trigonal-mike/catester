@@ -1,4 +1,5 @@
 """This is the doc-string ..."""
+
 import os
 
 
@@ -16,17 +17,3 @@ var1 = _file_reader.readfile(filename)
 var2 = 2
 print(var1)
 pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-

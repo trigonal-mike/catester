@@ -296,19 +296,19 @@ def pytest_sessionfinish(session: pytest.Session):
         for idx_sub, sub in enumerate(main["tests"]):
             test_sub = test_main.tests[idx_sub]
             if sub["result"] == TestResult.passed:
-                sub_success = sub_success + 1
+                sub_success += 1
                 result_message = test_sub.successMessage
             elif sub["result"] == TestResult.failed:
-                sub_failed = sub_failed + 1
+                sub_failed += 1
                 result_message = test_sub.failureMessage
             elif sub["result"] == TestResult.skipped:
-                sub_skipped = sub_skipped + 1
+                sub_skipped += 1
                 result_message = "Test skipped"
             else:
                 result_message = "...unknown..."
             sub["resultMessage"] = result_message
-        time_s = time_s + sub_time_s
-        time_r = time_r + sub_time_r
+        time_s += sub_time_s
+        time_r += sub_time_r
         main["debug"] = {
             "executionDurationStudent": sub_time_s,
             "executionDurationReference": sub_time_r,
@@ -322,15 +322,15 @@ def pytest_sessionfinish(session: pytest.Session):
         main["summary"]["skipped"] = sub_skipped
         main["status"] = status
         if sub_success == sub_total:
-            success = success + 1
+            success += 1
             main["result"] = TestResult.passed
             result_message = test_main.successMessage
         elif sub_skipped > 0:
-            skipped = skipped + 1
+            skipped += 1
             main["result"] = TestResult.skipped
             result_message = "Tests skipped"
         else:
-            failed = failed + 1
+            failed += 1
             main["result"] = TestResult.failed
             result_message = test_main.failureMessage
         main["resultMessage"] = result_message
