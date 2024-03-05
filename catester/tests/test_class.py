@@ -125,6 +125,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         """ seed the random generator """
         random.seed(1)
+        np.random.seed(1)
 
         """ Override/Disable certain methods """ 
         mm.setattr(plt, "show", lambda *x: None)
