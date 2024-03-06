@@ -23,6 +23,7 @@ if __name__ == "__main__":
 
     scandir = "../ex_master/examples/new"
     scandir = "../ex_master/examples/vector_random"
+    scandir = "../ex_master/examples/graphics"
     #scandir = "../ex_master/examples/minimal"
     #scandir = "../ex_master/examples/full"
     #scandir = "../../progphys-py.2023.basis1"

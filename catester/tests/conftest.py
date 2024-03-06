@@ -118,6 +118,7 @@ def pytest_configure(config: pytest.Config) -> None:
         "relativeTolerance",
         "absoluteTolerance",
         "allowedOccuranceRange",
+        "occuranceType",
         "verbosity",
     ]
     mainfields = subfields.copy();
@@ -401,7 +402,7 @@ def pytest_report_header(config):
     pytestflags = _report["pytestflags"]
     catverbosity = _report["catverbosity"]
     verbosity = config.getoption("verbose")
-    if specyamlfile is "":
+    if specyamlfile == "":
         specyamlfile = "not set"
 
     tw, _ = shutil.get_terminal_size(fallback=(80, 24))

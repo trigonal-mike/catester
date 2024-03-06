@@ -91,3 +91,6 @@ https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore
 ## code formatter
 https://pypi.org/project/black/
 
+## structural test
+occuranceType (default=NAME):
+https://github.com/python/cpython/blob/3.12/Lib/token.py

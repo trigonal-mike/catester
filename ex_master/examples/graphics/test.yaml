@@ -1,0 +1,46 @@
+type: python
+name: Python Test Suite
+description: Checks subtests and graphics
+version: '1.0'
+properties:
+  failureMessage: Some or all tests failed
+  successMessage: Congratulations! All tests passed
+  qualification: verifyEqual
+  relativeTolerance: 1.0e-15
+  absoluteTolerance: 0.0
+  allowedOccuranceRange:
+  - 0
+  - 0
+  occuranceType: NAME
+  timeout: 180.0
+  tests:
+  - type: graphics
+    name: graphics-test
+    entryPoint: graphics.py
+    tests:
+    - name: figure(1).axes[0].lines[0]._linestyle
+    - name: figure(1).axes[0].lines[0].get_linestyle()
+    - qualification: startsWith
+      name: figure(1).axes[0].get_xlabel()
+      pattern: x
+    - name: figure(1).axes[0].get_ylabel()
+      value: yy
+  - type: structural
+    name: structural-test
+    entryPoint: graphics.py
+    file: graphics.py
+    tests:
+    - allowedOccuranceRange:
+      - 1
+      - 1
+      occuranceType: STRING
+      name: '"upper left"'
+    - allowedOccuranceRange:
+      - 1
+      - 1
+      name: legend
+    - allowedOccuranceRange:
+      - 10
+      - 10
+      occuranceType: OP
+      name: (

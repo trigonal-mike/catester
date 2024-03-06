@@ -245,6 +245,7 @@ class CodeabilityPythonTest:
         relative_tolerance = sub.relativeTolerance
         absolute_tolerance = sub.absoluteTolerance
         allowed_occurance_range = sub.allowedOccuranceRange
+        occurance_type = sub.occuranceType
 
         _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
         _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
@@ -353,6 +354,11 @@ class CodeabilityPythonTest:
         elif testtype == TypeEnum.structural:
             if allowed_occurance_range is None:
                 pytest.skip(reason="allowedOccuranceRange not set")
+            if not hasattr(token, occurance_type):
+                pytest.skip(reason=f"occuranceType not found: {occurance_type}")
+            c_type = getattr(token, occurance_type)
+            if not isinstance(c_type, int):
+                pytest.skip(reason=f"occuranceType not int: {type(c_type)}")
             c_min = allowed_occurance_range[0]
             c_max = allowed_occurance_range[1]
             c = 0
@@ -361,7 +367,7 @@ class CodeabilityPythonTest:
                 tokens = tokenize.tokenize(f.readline)
                 for _token in tokens:
                     #print(f"{_token.exact_type} -- {_token}" )
-                    if _token.type == token.NAME and _token.string == name:
+                    if _token.type == c_type and _token.string == name:
                         c += 1
             if c < c_min:
                 raise AssertionError(f"`{name}` found {c}-times, minimum required: {c_min}")

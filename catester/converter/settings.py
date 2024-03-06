@@ -70,6 +70,7 @@ VALID_PROPS_TEST_COMMON = [
     "relativeTolerance",
     "absoluteTolerance",
     "allowedOccuranceRange",
+    "occuranceType",
     "verbosity",
 ]
 
