@@ -11,6 +11,7 @@ properties:
   allowedOccuranceRange:
   - 0
   - 0
+  occuranceType: NAME
   timeout: 180.0
   tests:
   - type: variable
@@ -27,3 +28,10 @@ properties:
     entryPoint: ex.py
     tests:
     - name: h
+  - type: variable
+    name: test3
+    entryPoint: ex.py
+    setUpCode:
+    - e1=float(e1)
+    tests:
+    - name: e1

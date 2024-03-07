@@ -5,3 +5,7 @@ h = np.array(
 )
 x = 1
 y = 1
+
+
+e1 = "np.exp(1)"
+# e1 = np.e

@@ -14,3 +14,9 @@ y=1
 
 #$META additionalFiles ./add
 #$META studentTemplates ./templates
+
+e1 = "np.exp(1)"
+#e1 = np.e
+#$VARIABLETEST test3
+#$PROPERTY setUpCode e1=float(e1)
+#$TESTVAR e1
