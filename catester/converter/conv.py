@@ -135,6 +135,7 @@ class Converter:
         print(f"{Fore.GREEN}File/Folder formatted{Style.RESET_ALL}")
 
     def _format_all_files(self):
+        #todo: only format .py files?
         if self.formatter is not False:
             self._format_path(self.py_file)
             for file in self.metaconfig.properties.additionalFiles:
