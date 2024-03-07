@@ -148,7 +148,7 @@ class CodeAbilityTestSuite(CodeAbilityBase):
     name: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["name"])
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["description"])
     version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["testsuite"]["version"])
-    properties: CodeAbilityTestProperty
+    properties: CodeAbilityTestProperty = Field(default=CodeAbilityTestProperty())
 
 class CodeAbilitySpecification(CodeAbilityBase):
     executionDirectory: Optional[str] = Field(min_length=1, default=DEFAULTS["specification"]["executionDirectory"])
@@ -208,7 +208,7 @@ def parse_spec_file(file_path: str = None):
 
 def parse_test_file(file_path: str):
     with open(file_path, "r") as stream:
-        config = yaml.safe_load(stream)
+        config = yaml.safe_load(stream) or {}
     return CodeAbilityTestSuite(**config)
 
 def get_schema(classname: BaseModel):
