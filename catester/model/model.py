@@ -31,6 +31,7 @@ class TypeEnum(str, Enum):
     error = "error"
     warning = "warning"
     help = "help"
+    stdout = "stdout"
 
 class LanguageEnum(str, Enum):
     de = "de"

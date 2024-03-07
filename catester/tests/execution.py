@@ -1,3 +1,6 @@
+import io
+from contextlib import redirect_stdout, redirect_stderr
+
 import platform
 if platform.system() == "Windows":
     #todo: check for UNIX based os, for using signal 
@@ -13,7 +16,10 @@ def execute_code_list(code_list, namespace):
         execute_code(code, "", namespace)
 
 @timeoutable()
-def execute_file(filename, namespace):
-    with open(filename, "r") as file:
-        execute_code(file.read(), filename, namespace)
+def execute_file(filename, namespace, std):
+    out = io.StringIO()
+    with redirect_stdout(out):
+        with open(filename, "r") as file:
+            execute_code(file.read(), filename, namespace)
+    std["stdout"] = out.getvalue()
     return 0

@@ -76,6 +76,10 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         status = ETestStatus.scheduled
         tb = {}
         exectime = 0
+        std = {
+            "stdout": None,
+            "stderr": None,
+        }
 
         """ check success dependencies, mark as skipped if not satisfied """
         for dependency in success_dependencies:
@@ -140,7 +144,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             else:
                 try:
                     start_time = time.time()
-                    result = execute_file(file, namespace, timeout=timeout)
+                    result = execute_file(file, namespace, std, timeout=timeout)
                     time.sleep(0.0001)
                     exectime = time.time() - start_time
                     if result is None:
@@ -218,6 +222,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         _solution["namespace"] = namespace
         _solution["status"] = status
         _solution["errormsg"] = errormsg
+        _solution["std"] = std
     return solutions[id][where]
 
 class CodeabilityPythonTest:
@@ -263,6 +268,7 @@ class CodeabilityPythonTest:
             TypeEnum.error,
             TypeEnum.warning,
             TypeEnum.help,
+            TypeEnum.stdout,
         ]:
             solution_student = _solution_student["namespace"]
             solution_reference = _solution_reference["namespace"]
@@ -273,7 +279,9 @@ class CodeabilityPythonTest:
                 solution_reference = solution_reference["_graphics_object_"]
 
             """ get the student value """
-            if name in solution_student:
+            if testtype == TypeEnum.stdout:
+                val_student = _solution_student["std"]["stdout"]
+            elif name in solution_student:
                 val_student = solution_student[name]
             else:
                 """ value not found, try eval """
@@ -292,7 +300,9 @@ class CodeabilityPythonTest:
                     except Exception as e:
                         pytest.skip(f"Evaluation of `{evalString}` not possible")
                 else:
-                    if name in solution_reference:
+                    if testtype == TypeEnum.stdout:
+                        val_reference = _solution_reference["std"]["stdout"]
+                    elif name in solution_reference:
                         val_reference = solution_reference[name]
                     else:
                         try:

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="catester",
-    version="0.2.27",
+    version="0.2.28",
     author="Michael Meierhofer @ TUGraz",
     author_email="mike@trigonal.at",
     description="Python Testing Engine",

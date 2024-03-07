@@ -13,6 +13,7 @@ class TokenEnum(str, Enum):
     ERRORTEST = "ERRORTEST"
     HELPTEST = "HELPTEST"
     WARNINGTEST = "WARNINGTEST"
+    STDOUTTEST = "STDOUTTEST"
     TESTVAR = "TESTVAR"
 
 ARGUMENT_VALUE_TOKENS = (
@@ -30,6 +31,7 @@ TEST_MAPPING = {
     TokenEnum.ERRORTEST: TypeEnum.error.name,
     TokenEnum.HELPTEST: TypeEnum.help.name,
     TokenEnum.WARNINGTEST: TypeEnum.warning.name,
+    TokenEnum.STDOUTTEST: TypeEnum.stdout.name,
 }
 
 class LOCAL_TEST_DIRECTORIES(str, Enum):
