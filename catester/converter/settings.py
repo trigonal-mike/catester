@@ -100,6 +100,7 @@ VALID_PROPS_TESTCOLLECTION = [
     "successDependency",
     "setUpCodeDependency",
     "entryPoint",
+    "inputAnswers",
     "setUpCode",
     "tearDownCode",
     "id",

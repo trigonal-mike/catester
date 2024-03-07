@@ -127,6 +127,7 @@ class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon
     successDependency: Optional[str | int | List[str | int]] = Field(default=None)
     setUpCodeDependency: Optional[str] = Field(min_length=1, default=None)
     entryPoint: Optional[str] = Field(min_length=1, default=None)
+    inputAnswers: Optional[str | List[str]] = Field(default=None)
     setUpCode: Optional[str | List[str]] = Field(default=None)
     tearDownCode: Optional[str | List[str]] = Field(default=None)
     id: Optional[str] = Field(min_length=1, default=None)

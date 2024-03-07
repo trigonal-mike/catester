@@ -83,6 +83,19 @@
           "default": null,
           "title": "Allowedoccurancerange"
         },
+        "occuranceType": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurancetype"
+        },
         "verbosity": {
           "anyOf": [
             {
@@ -241,6 +254,19 @@
           "default": null,
           "title": "Allowedoccurancerange"
         },
+        "occuranceType": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurancetype"
+        },
         "verbosity": {
           "anyOf": [
             {
@@ -375,6 +401,24 @@
           ],
           "default": null,
           "title": "Entrypoint"
+        },
+        "inputAnswers": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Inputanswers"
         },
         "setUpCode": {
           "anyOf": [
@@ -539,6 +583,19 @@
           ],
           "title": "Allowedoccurancerange"
         },
+        "occuranceType": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "NAME",
+          "title": "Occurancetype"
+        },
         "verbosity": {
           "anyOf": [
             {
@@ -592,6 +649,7 @@
           "title": "Timeout"
         },
         "tests": {
+          "default": [],
           "items": {
             "$ref": "#/$defs/CodeAbilityTestCollection"
           },
@@ -599,9 +657,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "tests"
-      ],
       "title": "CodeAbilityTestProperty",
       "type": "object"
     },
@@ -627,7 +682,8 @@
         "exist",
         "error",
         "warning",
-        "help"
+        "help",
+        "stdout"
       ],
       "title": "TypeEnum",
       "type": "string"
@@ -688,12 +744,30 @@
       "title": "Version"
     },
     "properties": {
-      "$ref": "#/$defs/CodeAbilityTestProperty"
+      "allOf": [
+        {
+          "$ref": "#/$defs/CodeAbilityTestProperty"
+        }
+      ],
+      "default": {
+        "failureMessage": "Some or all tests failed",
+        "successMessage": "Congratulations! All tests passed",
+        "qualification": "verifyEqual",
+        "relativeTolerance": 1e-15,
+        "absoluteTolerance": 0.0,
+        "allowedOccuranceRange": [
+          0,
+          0
+        ],
+        "occuranceType": "NAME",
+        "verbosity": null,
+        "storeGraphicsArtifacts": null,
+        "competency": null,
+        "timeout": 180.0,
+        "tests": []
+      }
     }
   },
-  "required": [
-    "properties"
-  ],
   "title": "CodeAbilityTestSuite",
   "type": "object"
 }

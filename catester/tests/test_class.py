@@ -1,4 +1,5 @@
 import glob
+import io
 import os
 import re
 import sys
@@ -57,6 +58,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         _dir = specification.studentDirectory if where == Solution.student else specification.referenceDirectory
         entry_point = main.entryPoint
         timeout = main.timeout
+        input_answers = get_property_as_list(main.inputAnswers)
         setup_code = get_property_as_list(main.setUpCode)
         teardown_code = get_property_as_list(main.tearDownCode)
         success_dependencies = get_property_as_list(main.successDependency)
@@ -133,6 +135,9 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         """ Override/Disable certain methods """ 
         mm.setattr(plt, "show", lambda *x: None)
+        if len(input_answers) > 0:
+            stdin = "\n".join(input_answers)
+            mm.setattr('sys.stdin', io.StringIO(stdin))
 
         if entry_point is not None and not error:
             file = os.path.join(_dir, entry_point)

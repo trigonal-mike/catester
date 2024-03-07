@@ -258,7 +258,7 @@ class Converter:
             elif argument in ("authors", "maintainers"):
                 value = CodeAbilityPerson(**value)
                 is_list = True
-            elif argument in ("successDependency", "setUpCode", "tearDownCode", "keywords"):
+            elif argument in ("successDependency", "inputAnswers", "setUpCode", "tearDownCode", "keywords"):
                 is_list = True
             if is_list:
                 v = getattr(obj, argument) or []
