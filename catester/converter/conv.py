@@ -70,6 +70,7 @@ class Converter:
 
     def start(self):
         self.errors = 0
+        self.warnings = 0
         if not self.ready:
             return
         try:
@@ -232,6 +233,10 @@ class Converter:
         self.errors += 1
         print(msg)
 
+    def _warning(self, msg):
+        self.warnings += 1
+        print(msg)
+
     def _find_argument(self, token, valid_props):
         token, argument, value, idx, line = token
         if argument not in valid_props:
@@ -329,10 +334,12 @@ class Converter:
                     else:
                         self._try_set_value(token, self.metaconfig)
         if len(testsuite.properties.tests) == 0:
-            self._error(f"{Fore.RED}ERROR no testcollection specified{Style.RESET_ALL}")
+            self._warning(f"{Fore.YELLOW}WARNING: no testcollection specified{Style.RESET_ALL}")
         for idx, test in enumerate(testsuite.properties.tests):
             if len(test.tests) == 0:
                 self._error(f"{Fore.RED}ERROR at testcollection #{idx+1} '{test.name}' no tests specified{Style.RESET_ALL}")
+        if self.warnings > 0:
+            print(f"{Fore.YELLOW}{self.warnings} warning{'s' if self.warnings>1 else ''} occurred{Style.RESET_ALL}")
         if self.errors > 0:
             print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Converting Tokens failed{Style.RESET_ALL}")
             raise

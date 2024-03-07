@@ -359,7 +359,10 @@ def pytest_sessionfinish(session: pytest.Session):
     else:
         report["status"] = ETestStatus.completed
 
-    if success == total:
+    if total == 0:
+        report["result"] = ETestResult.skipped
+        result_message = "No Tests specified"
+    elif success == total:
         report["result"] = ETestResult.passed
         result_message = testsuite.properties.successMessage
     elif skipped == total:

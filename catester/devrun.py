@@ -7,7 +7,7 @@ from run_tests import run_tests, DEFAULT_PYTESTFLAGS
 def start_tests():
     #specification = "../examples/specification.yaml"
     specification = None
-    test = "../examples/ex2/test2.yaml"
+    #test = "../examples/ex2/test2.yaml"
     #test = "../examples/ex2/test_timeout.yaml"
     #test = "../examples/ex2/test_linting.yaml"
     #test = "../examples/ex2/test_structural.yaml"
@@ -16,7 +16,8 @@ def start_tests():
     #test = "../ex_master/examples/graphics/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/full/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/full/localTests/_emptySolution/test.yaml"
-    test = "../ex_master/examples/new/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/new/localTests/_correctSolution/test.yaml"
+    test = "../ex_master/examples/empty/localTests/_correctSolution/test.yaml"
     indent = 2
 
     #catester-verbosity

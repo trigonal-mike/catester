@@ -141,7 +141,7 @@ class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=DEFAULTS["properties"]["allowedOccuranceRange"])
     occuranceType: Optional[str] = Field(min_length=1, default=DEFAULTS["properties"]["occuranceType"])
     timeout: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["timeout"])
-    tests: List[CodeAbilityTestCollection]
+    tests: List[CodeAbilityTestCollection] = Field(default=[])
 
 class CodeAbilityTestSuite(CodeAbilityBase):
     type: Optional[str] = Field(min_length=1, default=DEFAULTS["testsuite"]["type"])
