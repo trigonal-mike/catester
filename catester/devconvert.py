@@ -21,7 +21,8 @@ if __name__ == "__main__":
     #scandir = "../ex_master/_ex_/2"
     #scandir = "../ex_master/_ex_/3"
 
-    scandir = "../ex_master/examples/stdin"
+    scandir = "../ex_master/examples/errorbar"
+    #scandir = "../ex_master/examples/stdin"
     #scandir = "../ex_master/examples/stdout"
     #scandir = "../ex_master/examples/empty"
     #scandir = "../ex_master/examples/new"
