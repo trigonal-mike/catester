@@ -233,7 +233,26 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         report = rep["report"]
         testmain = report["tests"][idx_main]
         testsub = testmain["tests"][idx_sub]
+
         testsub["result"] = _report.outcome.upper()
+        if _report.longrepr is not None:
+            if testsub["result"] == ETestResult.skipped:
+                try:
+                    # the actual skipped message is the third element in the list
+                    # when skipped -> getting something like this:
+                    # "longrepr": [
+                    #     "I:\\PYTHON\\catester\\catester\\tests\\test_class.py",
+                    #     263,
+                    #     "Skipped: Success-Dependency `[1]` not satisfied"
+                    # ],
+                    # pytest -> BaseReport -> longrepr: Union[None, ExceptionInfo[BaseException], Tuple[str, int, str], str, TerminalRepr]
+                    # see:
+                    # https://github.com/pytest-dev/pytest/blob/main/src/_pytest/reports.py#L63
+                    testsub["details"] = str(_report.longrepr[2])
+                except:
+                    testsub["details"] = str(_report.longrepr)
+            else:
+                testsub["details"] = str(_report.longrepr)
         testsub["debug"] = {
             "longrepr": _report.longrepr,
             "timestamp": time.time(),
@@ -319,6 +338,8 @@ def pytest_sessionfinish(session: pytest.Session):
                 result_message = test_sub.failureMessage
             elif sub["result"] == ETestResult.skipped:
                 sub_skipped += 1
+                #todo: result_message needed in this case?
+                #maybe add test_sub.skippedMessage for convenience?
                 result_message = "Test skipped"
             else:
                 result_message = "...unknown..."
@@ -342,8 +363,12 @@ def pytest_sessionfinish(session: pytest.Session):
             main["result"] = ETestResult.passed
             result_message = test_main.successMessage
         elif sub_skipped > 0:
+            #todo: check if this is ok
+            # if one subtest is skipped, set the collection to skipped
             skipped += 1
             main["result"] = ETestResult.skipped
+            #todo: result_message needed in this case?
+            #maybe add test_main.skippedMessage for convenience?
             result_message = "Tests skipped"
         else:
             failed += 1
@@ -367,6 +392,8 @@ def pytest_sessionfinish(session: pytest.Session):
         result_message = testsuite.properties.successMessage
     elif skipped == total:
         report["result"] = ETestResult.skipped
+        #todo: result_message needed in this case?
+        #maybe add testsuite.properties.skippedMessage for convenience?
         result_message = "Tests skipped"
     else:
         report["result"] = ETestResult.failed
