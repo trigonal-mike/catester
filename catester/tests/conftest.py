@@ -412,25 +412,25 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
     _report = config.stash[report_key]
     catverbosity = _report["catverbosity"]
     if catverbosity > 2:
-        report = _report["report"]
+        report: CodeAbilityReport = _report["report"]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
 
-        total = report["summary"]["total"]
-        success = report["summary"]["success"]
-        failed = report["summary"]["failed"]
-        skipped = report["summary"]["skipped"]
+        total = report.summary.total
+        success = report.summary.success
+        failed = report.summary.failed
+        skipped = report.summary.skipped
         terminalreporter.ensure_newline()
         terminalreporter.section(f"{testsuite.name} - Summary", sep="~", purple=True, bold=True)
         terminalreporter.line(f"Total Test Collections: {total}")
         terminalreporter.line(f"PASSED: {success} ", green=True)
         terminalreporter.line(f"FAILED: {failed} ", red=True)
         terminalreporter.line(f"SKIPPED: {skipped} ", yellow=True)
-        for idx_main, main in enumerate(report["tests"]):
+        for idx_main, main in enumerate(report.tests):
             test_main = testsuite.properties.tests[idx_main]
-            sub_total = main["summary"]["total"]
-            sub_success = main["summary"]["success"]
-            sub_failed = main["summary"]["failed"]
-            sub_skipped = main["summary"]["skipped"]
+            sub_total = main.summary.total
+            sub_success = main.summary.success
+            sub_failed = main.summary.failed
+            sub_skipped = main.summary.skipped
             testtext = "Test" if sub_total == 1 else "Tests"
             terminalreporter.write_sep("*", f"Testcollection {idx_main + 1}")
             terminalreporter.line(f"{test_main.name} ({sub_total} {testtext})")
@@ -440,9 +440,9 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
                 terminalreporter.line(f"FAILED: {sub_failed} ", red=True)
             if sub_skipped > 0:
                 terminalreporter.line(f"SKIPPED: {sub_skipped} ", yellow=True)
-            for idx_sub, sub in enumerate(main["tests"]):
+            for idx_sub, sub in enumerate(main.tests):
                 test_sub = test_main.tests[idx_sub]
-                outcome = sub["result"]
+                outcome = sub.result
                 terminalreporter.line(
                     f"Test {idx_sub + 1} ({test_sub.name}): {outcome} ",
                     green=outcome == ResultEnum.passed,
