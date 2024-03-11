@@ -1,6 +1,6 @@
 ''' Python Skript: "04_plot_docstr"
     Einfaches Plotprogramm
-    Namre: "Tilman" "Gräbe"
+    Name: "xxx" "yyy"
     Datum: "10.03.2024"'''
 
 import numpy as np
