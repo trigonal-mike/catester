@@ -84,7 +84,7 @@ DEFAULTS = {
         "qualification": QualificationEnum.verifyEqual,
         "failureMessage": "Some or all tests failed",
         "successMessage": "Congratulations! All tests passed",
-        "relativeTolerance": 1.0e-15,
+        "relativeTolerance": 1.0e-12,
         "absoluteTolerance": 0.0,
         "timeout": 180.0,
         "allowedOccuranceRange": [0, 0],

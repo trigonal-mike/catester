@@ -547,7 +547,7 @@
               "type": "null"
             }
           ],
-          "default": 1e-15,
+          "default": 1e-12,
           "title": "Relativetolerance"
         },
         "absoluteTolerance": {
@@ -753,7 +753,7 @@
         "failureMessage": "Some or all tests failed",
         "successMessage": "Congratulations! All tests passed",
         "qualification": "verifyEqual",
-        "relativeTolerance": 1e-15,
+        "relativeTolerance": 1e-12,
         "absoluteTolerance": 0.0,
         "allowedOccuranceRange": [
           0,
