@@ -19,7 +19,8 @@ def start_tests():
     #test = "../ex_master/examples/new/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/empty/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/stdout/localTests/_correctSolution/test.yaml"
-    test = "../ex_master/examples/stdin/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/stdin/localTests/_correctSolution/test.yaml"
+    test = "../ex_master/examples/errorbar/localTests/_correctSolution/test.yaml"
     indent = 2
 
     #catester-verbosity

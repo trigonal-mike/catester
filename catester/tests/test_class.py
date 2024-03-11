@@ -16,7 +16,9 @@ from matplotlib import pyplot as plt
 from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
 from model.model import CodeAbilityTestCollection, CodeAbilityTest
 from model.model import TypeEnum, QualificationEnum
-from .conftest import report_key, ETestResult, ETestStatus, Solution
+from model.model import StatusEnum, ResultEnum
+from model.model import CodeAbilityReport
+from .conftest import report_key, Solution
 from .execution import execute_code_list, execute_file
 from .helper import get_property_as_list, get_abbr
 
@@ -35,7 +37,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
     """ Calculate solution if not yet exists """
     _report = pytestconfig.stash[report_key]
     solutions: any = _report["solutions"]
-    report: any = _report["report"]
+    report: CodeAbilityReport = _report["report"]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     specification: CodeAbilitySpecification = _report["specification"]
     main: CodeAbilityTestCollection = testsuite.properties.tests[idx_main]
@@ -47,7 +49,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         solutions[id][where] = {
             "namespace": {},
             "timestamp": time.time(),
-            "status": ETestStatus.scheduled,
+            "status": StatusEnum.scheduled,
             "errormsg": "",
             "exectime": 0,
             "traceback": {},
@@ -75,7 +77,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         error = False
         errormsg = ""
-        status = ETestStatus.scheduled
+        status = StatusEnum.scheduled
         tb = {}
         exectime = 0
         std = {
@@ -89,15 +91,15 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             if _idx is None:
                 error = True
                 errormsg = f"Success-Dependency `{success_dependencies}` not valid"
-                status = ETestStatus.failed
+                status = StatusEnum.failed
             else:
-                total = report["tests"][_idx]["summary"]["total"]
+                total = report.tests[_idx].summary.total
                 for sub_idx in range(total):
-                    result = report["tests"][_idx]["tests"][sub_idx]["result"]
-                    if result != ETestResult.passed:
+                    result = report.tests[_idx].tests[sub_idx].result
+                    if result != ResultEnum.passed:
                         error = True
                         errormsg = f"Success-Dependency `{success_dependencies}` not satisfied"
-                        status = ETestStatus.skipped
+                        status = StatusEnum.skipped
                         break
             if error:
                 break
@@ -107,14 +109,14 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             if _idx is None:
                 error = True
                 errormsg = f"Setup-Code-Dependency `{setup_code_dependency}` not valid"
-                status = ETestStatus.failed
+                status = StatusEnum.failed
             else:
                 try:
                     namespace = solutions[str(_idx)][where]["namespace"]
                 except Exception as e:
                     error = True
                     errormsg = f"ERROR: Setup-Code-Dependency `{setup_code_dependency}` not found"
-                    status = ETestStatus.failed
+                    status = StatusEnum.failed
 
         """ remember old working directory """
         dir_old = os.getcwd()
@@ -145,7 +147,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                 if where == Solution.student:
                     error = True
                     errormsg = f"entryPoint {entry_point} not found"
-                    status = ETestStatus.failed
+                    status = StatusEnum.failed
             else:
                 try:
                     start_time = time.time()
@@ -155,11 +157,11 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                     if result is None:
                         error = True
                         errormsg = f"Maximum execution time of {timeout} seconds exceeded"
-                        status = ETestStatus.timedout
+                        status = StatusEnum.timedout
                 except Exception as e:
                     error = True
                     errormsg = f"Execution of {file} failed"
-                    status = ETestStatus.crashed
+                    status = StatusEnum.crashed
                     tb1 = traceback.extract_tb(e.__traceback__)
                     tb2 = tb1[len(tb1)-1]
                     tb = {
@@ -199,7 +201,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             except:
                 error = True
                 errormsg = f"setupCode {setup_code} could not be executed"
-                status = ETestStatus.failed
+                status = StatusEnum.failed
 
         if not error:
             try:
@@ -208,7 +210,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             except:
                 error = True
                 errormsg = f"teardownCode {teardown_code} could not be executed"
-                status = ETestStatus.failed
+                status = StatusEnum.failed
 
         """ close all open figures """
         plt.close("all")
@@ -220,7 +222,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         sys.path.remove(specification.testDirectory)
 
         if not error:
-            status = ETestStatus.completed
+            status = StatusEnum.completed
 
         _solution["exectime"] = exectime
         _solution["traceback"] = tb
@@ -259,9 +261,9 @@ class CodeabilityPythonTest:
 
         _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
         _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
-        if _solution_student["status"] == ETestStatus.skipped:
+        if _solution_student["status"] == StatusEnum.skipped:
             pytest.skip(_solution_student["errormsg"])
-        elif _solution_student["status"] != ETestStatus.completed:
+        elif _solution_student["status"] != StatusEnum.completed:
             pytest.fail(_solution_student["errormsg"])
         #if _solution_reference["status"] != SolutionStatus.completed:
         #    #pytest.skip(_solution_reference["errormsg"])

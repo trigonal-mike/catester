@@ -11,24 +11,9 @@ from typing import List
 from model.model import DIRECTORIES
 from model.model import parse_spec_file, parse_test_file
 from model.model import CodeAbilityTestSuite, CodeAbilitySpecification
-from .helper import clear_nones
-
-class ETestStatus(str, Enum):
-    scheduled = "SCHEDULED"
-    completed = "COMPLETED"
-    timedout = "TIMEDOUT"
-    crashed = "CRASHED"
-    cancelled = "CANCELLED"
-    skipped = "SKIPPED"
-    failed = "FAILED"
-    # following not used yet:
-    #pending = "PENDING"
-    #running = "RUNNING"
-
-class ETestResult(str, Enum):
-    passed = "PASSED"
-    failed = "FAILED"
-    skipped = "SKIPPED"
+from model.model import StatusEnum, ResultEnum
+from model.model import CodeAbilityReport, CodeAbilityReportMain, CodeAbilityReportSub, CodeAbilityReportSummary
+from .helper import get_property_as_list
 
 class Solution(str, Enum):
     student = "student"
@@ -112,7 +97,7 @@ def pytest_configure(config: pytest.Config) -> None:
     os.makedirs(dir, exist_ok=True)
 
     testcases = []
-    main_tests = []
+    main_tests: List[CodeAbilityReportMain] = []
     subfields = [
         "qualification",
         "relativeTolerance",
@@ -134,68 +119,34 @@ def pytest_configure(config: pytest.Config) -> None:
 
     for idx_main, main in enumerate(testsuite.properties.tests):
         parent_property(mainfields, main, testsuite.properties)
-        sub_tests = []
+        sub_tests: List[CodeAbilityReportSub] = []
         for idx_sub, sub in enumerate(main.tests):
             parent_property(subfields, sub, main)
             testcases.append((idx_main, idx_sub))
-            sub_tests.append({
-                "name": sub.name,
-                "result": None,
-                "resultMessage": None,
-                "details": None,
-                "debug": None,
-            })
-        main_tests.append({
-            "type": main.type,
-            "name": main.name,
-            "description": main.description,
-            "setup": main.setUpCode,
-            "teardown": main.tearDownCode,
-            "status": ETestStatus.scheduled,
-            "result": None,
-            "statusMessage": None,
-            "resultMessage": None,
-            "details": None,
-            "debug": None,
-            "duration": None,
-            "executionDuration": None,
-            "summary": {
-                "total": len(main.tests),
-                "success": 0,
-                "failed": 0,
-                "skipped": 0,
-            },
-            "tests": sub_tests,
-            "timestamp": 0,
-        })
-    report = {
-        "timestamp": timestamp,
-        "type": testsuite.type,
-        "version": testsuite.version,
-        "name": testsuite.name,
-        "description": testsuite.description,
-        "status": ETestStatus.scheduled,
-        "result": None,
-        "statusMessage": None,
-        "resultMessage": None,
-        "details": None,
-        "duration": None,
-        "executionDuration": None,
-        "environment": None,
-        "properties": {
-            "test": testyamlfile,
-            "specification": specyamlfile,
-        },
-        "debug": None,
-        "exitcode": None,
-        "summary": {
-            "total": len(testsuite.properties.tests),
-            "success": 0,
-            "failed": 0,
-            "skipped": 0,
-        },
-        "tests": main_tests,
-    }
+            sub_tests.append(CodeAbilityReportSub(name=sub.name))
+        setup = None if main.setUpCode is None else "\n".join(get_property_as_list(main.setUpCode))
+        teardown = None if main.tearDownCode is None else "\n".join(get_property_as_list(main.tearDownCode))
+        main_tests.append(CodeAbilityReportMain(
+            type=main.type,
+            name=main.name,
+            description=main.description,
+            setup=setup,
+            teardown=teardown,
+            status=StatusEnum.scheduled,
+            summary=CodeAbilityReportSummary(total=len(main.tests)),
+            tests=sub_tests,
+            timestamp=0,
+        ))
+    report = CodeAbilityReport(
+        timestamp=timestamp,
+        type=testsuite.type,
+        version=testsuite.version,
+        name=testsuite.name,
+        description=testsuite.description,
+        status=StatusEnum.scheduled,
+        summary=CodeAbilityReportSummary(total=len(testsuite.properties.tests)),
+        tests=main_tests,
+    )
     report = {
         "report": report,
         "testcases": testcases,
@@ -230,13 +181,13 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
         sub = main.tests[idx_sub]
         _report.nodeid = f"{main.name}\\{sub.name}"
 
-        report = rep["report"]
-        testmain = report["tests"][idx_main]
-        testsub = testmain["tests"][idx_sub]
+        report: CodeAbilityReport = rep["report"]
+        testmain: CodeAbilityReportMain = report.tests[idx_main]
+        testsub: CodeAbilityReportSub = testmain.tests[idx_sub]
 
-        testsub["result"] = _report.outcome.upper()
+        testsub.result = _report.outcome.upper()
         if _report.longrepr is not None:
-            if testsub["result"] == ETestResult.skipped:
+            if testsub.result == ResultEnum.skipped:
                 try:
                     # the actual skipped message is the third element in the list
                     # when skipped -> getting something like this:
@@ -248,16 +199,16 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo):
                     # pytest -> BaseReport -> longrepr: Union[None, ExceptionInfo[BaseException], Tuple[str, int, str], str, TerminalRepr]
                     # see:
                     # https://github.com/pytest-dev/pytest/blob/main/src/_pytest/reports.py#L63
-                    testsub["details"] = str(_report.longrepr[2])
+                    testsub.details = str(_report.longrepr[2])
                 except:
-                    testsub["details"] = str(_report.longrepr)
+                    testsub.details = str(_report.longrepr)
             else:
-                testsub["details"] = str(_report.longrepr)
-        testsub["debug"] = {
+                testsub.details = str(_report.longrepr)
+        testsub.debug = {
             "longrepr": _report.longrepr,
             "timestamp": time.time(),
         }
-        testmain["timestamp"] = time.time()
+        testmain.timestamp = time.time()
 
 def pytest_collection_modifyitems(session: pytest.Session, config: pytest.Config, items: List[pytest.Item]) -> None:
     pass
@@ -288,14 +239,17 @@ def pytest_sessionfinish(session: pytest.Session):
     exitcode = session.exitstatus
     environment = session.config.stash[metadata_key]
     _report = session.config.stash[report_key]
-    report = _report["report"]
+    testyamlfile = _report["testyamlfile"]
+    specyamlfile = _report["specyamlfile"]
+    pytestflags = _report["pytestflags"]
+    report: CodeAbilityReport = _report["report"]
     reportfile = _report["reportfile"]
     indent = _report["indent"]
     started = _report["started"]
     solutions = _report["solutions"]
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     duration = time.time() - started
-    total = report["summary"]["total"]
+    total = report.summary.total
     success = 0
     failed = 0
     skipped = 0
@@ -303,16 +257,16 @@ def pytest_sessionfinish(session: pytest.Session):
     time_r = 0.0
 
     _teststarted = started
-    for idx_main, main in enumerate(report["tests"]):
-        _testended = main["timestamp"]
-        del main["timestamp"]
+    for idx_main, main in enumerate(report.tests):
+        _testended = float(main.timestamp)
+        del main.timestamp
         _testduration = _testended - _teststarted
         _teststarted = _testended
 
         test_main = testsuite.properties.tests[idx_main]
         sub_time_s = 0
         sub_time_r = 0
-        status = ETestStatus.completed
+        status = StatusEnum.completed
         idx = str(idx_main)
         tb = None
         errs = []
@@ -324,94 +278,98 @@ def pytest_sessionfinish(session: pytest.Session):
             sub_time_s = solution_s["exectime"]
             sub_time_r = solution_r["exectime"]
             status = solution_s["status"]
-        sub_total = main["summary"]["total"]
+        sub_total = main.summary.total
         sub_success = 0
         sub_failed = 0
         sub_skipped = 0
-        for idx_sub, sub in enumerate(main["tests"]):
+        for idx_sub, sub in enumerate(main.tests):
             test_sub = test_main.tests[idx_sub]
-            if sub["result"] == ETestResult.passed:
+            if sub.result == ResultEnum.passed:
                 sub_success += 1
                 result_message = test_sub.successMessage
-            elif sub["result"] == ETestResult.failed:
+            elif sub.result == ResultEnum.failed:
                 sub_failed += 1
                 result_message = test_sub.failureMessage
-            elif sub["result"] == ETestResult.skipped:
+            elif sub.result == ResultEnum.skipped:
                 sub_skipped += 1
                 #todo: result_message needed in this case?
                 #maybe add test_sub.skippedMessage for convenience?
                 result_message = "Test skipped"
             else:
                 result_message = "...unknown..."
-            sub["resultMessage"] = result_message
+            sub.resultMessage = result_message
         time_s += sub_time_s
         time_r += sub_time_r
-        main["debug"] = {
+        main.debug = {
             "executionDurationStudent": sub_time_s,
             "executionDurationReference": sub_time_r,
             "traceback": tb,
             "lintingErrors": errs,
         }
-        main["duration"] = _testduration
-        main["executionDuration"] = sub_time_s
-        main["summary"]["success"] = sub_success
-        main["summary"]["failed"] = sub_failed
-        main["summary"]["skipped"] = sub_skipped
-        main["status"] = status
+        main.duration = _testduration
+        main.executionDuration = sub_time_s
+        main.summary.success = sub_success
+        main.summary.failed = sub_failed
+        main.summary.skipped = sub_skipped
+        main.status = status
         if sub_success == sub_total:
             success += 1
-            main["result"] = ETestResult.passed
+            main.result = ResultEnum.passed
             result_message = test_main.successMessage
         elif sub_skipped > 0:
             #todo: check if this is ok
             # if one subtest is skipped, set the collection to skipped
             skipped += 1
-            main["result"] = ETestResult.skipped
+            main.result = ResultEnum.skipped
             #todo: result_message needed in this case?
             #maybe add test_main.skippedMessage for convenience?
             result_message = "Tests skipped"
         else:
             failed += 1
-            main["result"] = ETestResult.failed
+            main.result = ResultEnum.failed
             result_message = test_main.failureMessage
-        main["resultMessage"] = result_message
-    report["summary"]["success"] = success
-    report["summary"]["skipped"] = skipped
-    report["summary"]["failed"] = failed
+        main.resultMessage = result_message
+    report.summary.success = success
+    report.summary.skipped = skipped
+    report.summary.failed = failed
 
     if exitcode == pytest.ExitCode.INTERRUPTED:
-        report["status"] = ETestStatus.cancelled
+        report.status = StatusEnum.cancelled
     else:
-        report["status"] = ETestStatus.completed
+        report.status = StatusEnum.completed
 
     if total == 0:
-        report["result"] = ETestResult.skipped
+        report.result = ResultEnum.skipped
         result_message = "No Tests specified"
     elif success == total:
-        report["result"] = ETestResult.passed
+        report.result = ResultEnum.passed
         result_message = testsuite.properties.successMessage
     elif skipped == total:
-        report["result"] = ETestResult.skipped
+        report.result = ResultEnum.skipped
         #todo: result_message needed in this case?
         #maybe add testsuite.properties.skippedMessage for convenience?
         result_message = "Tests skipped"
     else:
-        report["result"] = ETestResult.failed
+        report.result = ResultEnum.failed
         result_message = testsuite.properties.failureMessage
 
-    report["resultMessage"] = result_message
-    report["environment"] = environment
-    report["duration"] = duration
-    report["executionDuration"] = time_s
-    report["exitcode"] = str(exitcode)
-    report["debug"] = {
+    report.resultMessage = result_message
+    report.environment = environment
+    report.duration = duration
+    report.executionDuration = time_s
+    report.debug = {
         "executionDurationStudent": time_s,
         "executionDurationReference": time_r,
     }
+    report.properties = {
+        "test": testyamlfile,
+        "specification": specyamlfile,
+        "pytestflags": pytestflags,
+        "exitcode": str(exitcode),
+    }
 
-    report_without_null = clear_nones(report)
     with open(reportfile, "w", encoding="utf-8") as file:
-        json.dump(report_without_null, file, default=str, indent=indent)
+        json.dump(report.model_dump(exclude_none=True), file, default=str, indent=indent)
 
     """exit codes:
     https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.ExitCode
@@ -487,9 +445,9 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
                 outcome = sub["result"]
                 terminalreporter.line(
                     f"Test {idx_sub + 1} ({test_sub.name}): {outcome} ",
-                    green=outcome == ETestResult.passed,
-                    red=outcome == ETestResult.failed,
-                    yellow=outcome == ETestResult.skipped,
+                    green=outcome == ResultEnum.passed,
+                    red=outcome == ResultEnum.failed,
+                    yellow=outcome == ResultEnum.skipped,
                 )
 
 @pytest.fixture(scope="function")

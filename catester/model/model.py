@@ -40,6 +40,23 @@ class LanguageEnum(str, Enum):
 class MetaTypeEnum(str, Enum):
     ProblemSet = "ProblemSet"
 
+class StatusEnum(str, Enum):
+    scheduled = "SCHEDULED"
+    completed = "COMPLETED"
+    timedout = "TIMEDOUT"
+    crashed = "CRASHED"
+    cancelled = "CANCELLED"
+    skipped = "SKIPPED"
+    failed = "FAILED"
+    # following not used yet:
+    #pending = "PENDING"
+    #running = "RUNNING"
+
+class ResultEnum(str, Enum):
+    passed = "PASSED"
+    failed = "FAILED"
+    skipped = "SKIPPED"
+
 VERSION_REGEX = "^([1-9]\d*|0)(\.(([1-9]\d*)|0)){0,3}$"
 #todo:
 #url + email regex
@@ -194,24 +211,61 @@ class CodeAbilityMeta(CodeAbilityBase):
     keywords: Optional[List[str]] = Field(default=[])
     properties: Optional[CodeAbilityMetaProperty] = Field(default=CodeAbilityMetaProperty())
 
-def parse_meta_file(file_path: str = None):
+class CodeAbilityReportSummary(CodeAbilityBase):
+    total: int = Field(ge=0, default=0)
+    #todo: success or succeeded?
+    success: int = Field(ge=0, default=0)
+    failed: int = Field(ge=0, default=0)
+    skipped: int = Field(ge=0, default=0)
+
+class CodeAbilityReportProperties(CodeAbilityBase):
+    #todo: timestamp or timeStamp?
+    timestamp: Optional[str] = Field(default=None)
+    type: Optional[str] = Field(default=None)
+    version: Optional[str] = Field(default=None)
+    name: Optional[str] = Field(default=None)
+    description: Optional[str] = Field(default=None)
+    status: Optional[StatusEnum] = Field(default=None, validate_default=True)
+    result: Optional[ResultEnum] = Field(default=None, validate_default=True)
+    summary: Optional[CodeAbilityReportSummary] = Field(default=None)
+    statusMessage: Optional[str] = Field(default=None)
+    resultMessage: Optional[str] = Field(default=None)
+    details: Optional[str] = Field(default=None)
+    setup: Optional[str] = Field(default=None)
+    teardown: Optional[str] = Field(default=None)
+    duration: Optional[float] = Field(ge=0, default=None)
+    executionDuration: Optional[float] = Field(ge=0, default=None)
+    environment: Optional[dict] = Field(default=None)
+    properties: Optional[dict] = Field(default=None)
+    debug: Optional[dict] = Field(default=None)
+
+class CodeAbilityReportSub(CodeAbilityReportProperties):
+    pass
+
+class CodeAbilityReportMain(CodeAbilityReportProperties):
+    tests: Optional[List[CodeAbilityReportSub]] = Field(default=None)
+
+class CodeAbilityReport(CodeAbilityReportProperties):
+    tests: Optional[List[CodeAbilityReportMain]] = Field(default=None)
+
+def load_config(classname: BaseModel, file_path: str = None):
     config = {}
     if file_path is not None and len(file_path) > 0:
         with open(file_path, "r") as stream:
             config = yaml.safe_load(stream) or {}
-    return CodeAbilityMeta(**config)
+    return classname(**config)
+
+def parse_meta_file(file_path: str = None):
+    return load_config(CodeAbilityMeta, file_path)
 
 def parse_spec_file(file_path: str = None):
-    config = {}
-    if file_path is not None and len(file_path) > 0:
-        with open(file_path, "r") as stream:
-            config = yaml.safe_load(stream) or {}
-    return CodeAbilitySpecification(**config)
+    return load_config(CodeAbilitySpecification, file_path)
 
-def parse_test_file(file_path: str):
-    with open(file_path, "r") as stream:
-        config = yaml.safe_load(stream) or {}
-    return CodeAbilityTestSuite(**config)
+def parse_test_file(file_path: str = None):
+    return load_config(CodeAbilityTestSuite, file_path)
+
+def parse_report_file(file_path: str = None):
+    return load_config(CodeAbilityReport, file_path)
 
 def get_schema(classname: BaseModel):
     schema = classname.model_json_schema()
@@ -228,3 +282,4 @@ if __name__ == "__main__":
     get_schema(CodeAbilitySpecification)
     get_schema(CodeAbilityTestSuite)
     get_schema(CodeAbilityMeta)
+    get_schema(CodeAbilityReport)

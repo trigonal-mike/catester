@@ -1,0 +1,751 @@
+{
+  "$defs": {
+    "CodeAbilityReportMain": {
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timestamp"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StatusEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResultEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CodeAbilityReportSummary"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "statusMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Statusmessage"
+        },
+        "resultMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resultmessage"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Details"
+        },
+        "setup": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Setup"
+        },
+        "teardown": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Teardown"
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration"
+        },
+        "executionDuration": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executionduration"
+        },
+        "environment": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Environment"
+        },
+        "properties": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Properties"
+        },
+        "debug": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Debug"
+        },
+        "tests": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/CodeAbilityReportSub"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tests"
+        }
+      },
+      "title": "CodeAbilityReportMain",
+      "type": "object"
+    },
+    "CodeAbilityReportSub": {
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timestamp"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StatusEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResultEnum"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CodeAbilityReportSummary"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "statusMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Statusmessage"
+        },
+        "resultMessage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resultmessage"
+        },
+        "details": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Details"
+        },
+        "setup": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Setup"
+        },
+        "teardown": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Teardown"
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Duration"
+        },
+        "executionDuration": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executionduration"
+        },
+        "environment": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Environment"
+        },
+        "properties": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Properties"
+        },
+        "debug": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Debug"
+        }
+      },
+      "title": "CodeAbilityReportSub",
+      "type": "object"
+    },
+    "CodeAbilityReportSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Total",
+          "type": "integer"
+        },
+        "success": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Success",
+          "type": "integer"
+        },
+        "failed": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "skipped": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Skipped",
+          "type": "integer"
+        }
+      },
+      "title": "CodeAbilityReportSummary",
+      "type": "object"
+    },
+    "ResultEnum": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "SKIPPED"
+      ],
+      "title": "ResultEnum",
+      "type": "string"
+    },
+    "StatusEnum": {
+      "enum": [
+        "SCHEDULED",
+        "COMPLETED",
+        "TIMEDOUT",
+        "CRASHED",
+        "CANCELLED",
+        "SKIPPED",
+        "FAILED"
+      ],
+      "title": "StatusEnum",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "timestamp": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Timestamp"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Type"
+    },
+    "version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Version"
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Name"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StatusEnum"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResultEnum"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CodeAbilityReportSummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "statusMessage": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Statusmessage"
+    },
+    "resultMessage": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resultmessage"
+    },
+    "details": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Details"
+    },
+    "setup": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Setup"
+    },
+    "teardown": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Teardown"
+    },
+    "duration": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duration"
+    },
+    "executionDuration": {
+      "anyOf": [
+        {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Executionduration"
+    },
+    "environment": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Environment"
+    },
+    "properties": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Properties"
+    },
+    "debug": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Debug"
+    },
+    "tests": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/CodeAbilityReportMain"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tests"
+    }
+  },
+  "title": "CodeAbilityReport",
+  "type": "object"
+}
