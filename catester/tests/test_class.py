@@ -124,6 +124,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         """ add test-directory to paths """
         #todo: test if this works
         sys.path.append(specification.testDirectory)
+        sys.path.append(_dir)
 
         """ change into solution-directory student | reference """
         os.chdir(_dir)
@@ -220,6 +221,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
 
         """ remove test-directory from paths """
         sys.path.remove(specification.testDirectory)
+        sys.path.remove(_dir)
 
         if not error:
             status = StatusEnum.completed
