@@ -250,7 +250,7 @@ def pytest_sessionfinish(session: pytest.Session):
     testsuite: CodeAbilityTestSuite = _report["testsuite"]
     duration = time.time() - started
     total = report.summary.total
-    success = 0
+    passed = 0
     failed = 0
     skipped = 0
     time_s = 0.0
@@ -279,13 +279,13 @@ def pytest_sessionfinish(session: pytest.Session):
             sub_time_r = solution_r["exectime"]
             status = solution_s["status"]
         sub_total = main.summary.total
-        sub_success = 0
+        sub_passed = 0
         sub_failed = 0
         sub_skipped = 0
         for idx_sub, sub in enumerate(main.tests):
             test_sub = test_main.tests[idx_sub]
             if sub.result == ResultEnum.passed:
-                sub_success += 1
+                sub_passed += 1
                 result_message = test_sub.successMessage
             elif sub.result == ResultEnum.failed:
                 sub_failed += 1
@@ -308,12 +308,12 @@ def pytest_sessionfinish(session: pytest.Session):
         }
         main.duration = _testduration
         main.executionDuration = sub_time_s
-        main.summary.success = sub_success
+        main.summary.passed = sub_passed
         main.summary.failed = sub_failed
         main.summary.skipped = sub_skipped
         main.status = status
-        if sub_success == sub_total:
-            success += 1
+        if sub_passed == sub_total:
+            passed += 1
             main.result = ResultEnum.passed
             result_message = test_main.successMessage
         elif sub_skipped > 0:
@@ -329,7 +329,7 @@ def pytest_sessionfinish(session: pytest.Session):
             main.result = ResultEnum.failed
             result_message = test_main.failureMessage
         main.resultMessage = result_message
-    report.summary.success = success
+    report.summary.passed = passed
     report.summary.skipped = skipped
     report.summary.failed = failed
 
@@ -341,7 +341,7 @@ def pytest_sessionfinish(session: pytest.Session):
     if total == 0:
         report.result = ResultEnum.skipped
         result_message = "No Tests specified"
-    elif success == total:
+    elif passed == total:
         report.result = ResultEnum.passed
         result_message = testsuite.properties.successMessage
     elif skipped == total:
@@ -416,26 +416,26 @@ def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pyte
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
 
         total = report.summary.total
-        success = report.summary.success
+        passed = report.summary.passed
         failed = report.summary.failed
         skipped = report.summary.skipped
         terminalreporter.ensure_newline()
         terminalreporter.section(f"{testsuite.name} - Summary", sep="~", purple=True, bold=True)
         terminalreporter.line(f"Total Test Collections: {total}")
-        terminalreporter.line(f"PASSED: {success} ", green=True)
+        terminalreporter.line(f"PASSED: {passed} ", green=True)
         terminalreporter.line(f"FAILED: {failed} ", red=True)
         terminalreporter.line(f"SKIPPED: {skipped} ", yellow=True)
         for idx_main, main in enumerate(report.tests):
             test_main = testsuite.properties.tests[idx_main]
             sub_total = main.summary.total
-            sub_success = main.summary.success
+            sub_passed = main.summary.passed
             sub_failed = main.summary.failed
             sub_skipped = main.summary.skipped
             testtext = "Test" if sub_total == 1 else "Tests"
             terminalreporter.write_sep("*", f"Testcollection {idx_main + 1}")
             terminalreporter.line(f"{test_main.name} ({sub_total} {testtext})")
-            if sub_success > 0:
-                terminalreporter.line(f"PASSED: {sub_success} ", green=True)
+            if sub_passed > 0:
+                terminalreporter.line(f"PASSED: {sub_passed} ", green=True)
             if sub_failed > 0:
                 terminalreporter.line(f"FAILED: {sub_failed} ", red=True)
             if sub_skipped > 0:

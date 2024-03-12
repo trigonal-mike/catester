@@ -213,8 +213,7 @@ class CodeAbilityMeta(CodeAbilityBase):
 
 class CodeAbilityReportSummary(CodeAbilityBase):
     total: int = Field(ge=0, default=0)
-    #todo: success or succeeded?
-    success: int = Field(ge=0, default=0)
+    passed: int = Field(ge=0, default=0)
     failed: int = Field(ge=0, default=0)
     skipped: int = Field(ge=0, default=0)
 

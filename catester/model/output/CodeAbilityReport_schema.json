@@ -468,10 +468,10 @@
           "title": "Total",
           "type": "integer"
         },
-        "success": {
+        "passed": {
           "default": 0,
           "minimum": 0,
-          "title": "Success",
+          "title": "Passed",
           "type": "integer"
         },
         "failed": {
