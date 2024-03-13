@@ -115,8 +115,11 @@ class Converter:
             self._write_yaml("Meta", self.meta_yaml, self.metaconfig, parse_meta_file)
             self._create_reference()
             self._format_all_files()
-            self._prepare_local_test_directories()
-            self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
+            if self.testdirs == "none":
+                print(f"SKIPPED: Preparing Local Test Directory: {self.localTestdir}")
+            else:
+                self._prepare_local_test_directories()
+                self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
         except Exception as e:
             print(f"{Fore.RED}ERROR Conversion failed{Style.RESET_ALL}")
             raise
@@ -394,6 +397,9 @@ class Converter:
                 shutil.copy(file, dest)
 
     def run_local_tests(self):
+        if self.testdirs == "none":
+            print(f"SKIPPED: run_local_tests")
+            return
         if not os.path.exists(self.localTestdir):
             raise Exception(f"Directory not found: {self.localTestdir}")
         directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
