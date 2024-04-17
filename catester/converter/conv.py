@@ -156,7 +156,7 @@ class Converter:
     def _write_yaml(self, title, filename, obj, parsing_fct):
         print(f"Creating {title}: {filename}")
         with open(filename, "w") as file:
-            yaml.dump(obj.model_dump(exclude_none=True), file, sort_keys=False, indent=2)
+            yaml.dump(obj.model_dump(exclude_none=True), file, sort_keys=False, indent=2, allow_unicode=True)
         print(f"{Fore.GREEN}{title} created{Style.RESET_ALL}")
         print(f"Validating {title}")
         try:
