@@ -11,6 +11,7 @@ import traceback
 import subprocess
 import token
 import tokenize
+import types
 from pandas import DataFrame, Series
 from matplotlib import pyplot as plt
 from model.model import CodeAbilitySpecification, CodeAbilityTestSuite
@@ -19,8 +20,9 @@ from model.model import TypeEnum, QualificationEnum
 from model.model import StatusEnum, ResultEnum
 from model.model import CodeAbilityReport
 from .conftest import report_key, Solution
-from .execution import execute_code_list, execute_file
+from .execution import execute_code_list, execute_file, get_imported_modules
 from .helper import get_property_as_list, get_abbr
+from contextlib import redirect_stdout, redirect_stderr
 
 def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     for idx_main, main in enumerate(testsuite.properties.tests):
@@ -55,6 +57,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             "traceback": {},
             "errors": [],
             "warnings": [],
+            "modules": [],
         }
         _solution = solutions[id][where]
         _dir = specification.studentDirectory if where == Solution.student else specification.referenceDirectory
@@ -142,76 +145,87 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
             stdin = "\n".join(input_answers)
             mm.setattr('sys.stdin', io.StringIO(stdin))
 
-        if entry_point is not None and not error:
-            file = os.path.join(_dir, entry_point)
-            if not os.path.exists(file):
-                if where == Solution.student:
-                    error = True
-                    errormsg = f"entryPoint {entry_point} not found"
-                    status = StatusEnum.failed
-            else:
-                try:
-                    start_time = time.time()
-                    result = execute_file(file, namespace, std, timeout=timeout)
-                    time.sleep(0.0001)
-                    exectime = time.time() - start_time
-                    if result is None:
+        def calculate_solution():
+            nonlocal error, errormsg, status, exectime, tb, status, namespace
+
+            if entry_point is not None and not error:
+                file = os.path.join(_dir, entry_point)
+                if not os.path.exists(file):
+                    if where == Solution.student:
                         error = True
-                        errormsg = f"Maximum execution time of {timeout} seconds exceeded"
-                        status = StatusEnum.timedout
-                except Exception as e:
+                        errormsg = f"entryPoint {entry_point} not found"
+                        status = StatusEnum.failed
+                else:
+                    try:
+                        start_time = time.time()
+                        result = execute_file(file, namespace, timeout=timeout)
+                        time.sleep(0.0001)
+                        exectime = time.time() - start_time
+                        if result is None:
+                            error = True
+                            errormsg = f"Maximum execution time of {timeout} seconds exceeded"
+                            status = StatusEnum.timedout
+                    except Exception as e:
+                        error = True
+                        errormsg = f"Execution of {file} failed"
+                        status = StatusEnum.crashed
+                        tb1 = traceback.extract_tb(e.__traceback__)
+                        tb2 = tb1[len(tb1)-1]
+                        tb = {
+                            "name": tb2.name,
+                            "filename": tb2.filename,
+                            "lineno": tb2.lineno,
+                            "line": tb2.line,
+                            "locals": tb2.locals,
+                            "errormsg": e,
+                        }
+                    if not error and main.type == "graphics":
+                        if store_graphics_artifacts:
+                            fignums = plt.get_fignums()
+                            for i in fignums:
+                                file_name = f"{where}_test_{id}_figure_{i}.png"
+                                abs_file_name = os.path.join(specification.artifactDirectory, file_name)
+                                figure = plt.figure(i)
+                                figure.savefig(abs_file_name)
+
+                        # extract variable data from graphics object and store them in the respective namespace
+                        # for later use when the subTests are run
+                        # supported are qualified strings which can be evaluated
+                        namespace["_graphics_object_"] = {}
+                        for sub_test in main.tests:
+                            name = sub_test.name
+                            fun2eval = f"globals()['plt'].{name}"
+                            try:
+                                namespace["_graphics_object_"][name] = eval(fun2eval)
+                            except:
+                                #todo:
+                                pass
+
+            if not error:
+                try:
+                    """ run setup-code """
+                    execute_code_list(setup_code, namespace)
+                except:
                     error = True
-                    errormsg = f"Execution of {file} failed"
-                    status = StatusEnum.crashed
-                    tb1 = traceback.extract_tb(e.__traceback__)
-                    tb2 = tb1[len(tb1)-1]
-                    tb = {
-                        "name": tb2.name,
-                        "filename": tb2.filename,
-                        "lineno": tb2.lineno,
-                        "line": tb2.line,
-                        "locals": tb2.locals,
-                        "errormsg": e,
-                    }
-                if not error and main.type == "graphics":
-                    if store_graphics_artifacts:
-                        fignums = plt.get_fignums()
-                        for i in fignums:
-                            file_name = f"{where}_test_{id}_figure_{i}.png"
-                            abs_file_name = os.path.join(specification.artifactDirectory, file_name)
-                            figure = plt.figure(i)
-                            figure.savefig(abs_file_name)
+                    errormsg = f"setupCode {setup_code} could not be executed"
+                    status = StatusEnum.failed
 
-                    # extract variable data from graphics object and store them in the respective namespace
-                    # for later use when the subTests are run
-                    # supported are qualified strings which can be evaluated
-                    namespace["_graphics_object_"] = {}
-                    for sub_test in main.tests:
-                        name = sub_test.name
-                        fun2eval = f"globals()['plt'].{name}"
-                        try:
-                            namespace["_graphics_object_"][name] = eval(fun2eval)
-                        except:
-                            #todo:
-                            pass
+            if not error:
+                try:
+                    """ run teardown-code """
+                    execute_code_list(teardown_code, namespace)
+                except:
+                    error = True
+                    errormsg = f"teardownCode {teardown_code} could not be executed"
+                    status = StatusEnum.failed
 
-        if not error:
-            try:
-                """ run setup-code """
-                execute_code_list(setup_code, namespace)
-            except:
-                error = True
-                errormsg = f"setupCode {setup_code} could not be executed"
-                status = StatusEnum.failed
-
-        if not error:
-            try:
-                """ run teardown-code """
-                execute_code_list(teardown_code, namespace)
-            except:
-                error = True
-                errormsg = f"teardownCode {teardown_code} could not be executed"
-                status = StatusEnum.failed
+        if main.type == TypeEnum.stdout:
+            out = io.StringIO()
+            with redirect_stdout(out):
+                calculate_solution()
+            std["stdout"] = out.getvalue()
+        else:
+            calculate_solution()
 
         """ close all open figures """
         plt.close("all")
@@ -226,12 +240,14 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         if not error:
             status = StatusEnum.completed
 
+        modules = get_imported_modules(namespace)
         _solution["exectime"] = exectime
         _solution["traceback"] = tb
         _solution["namespace"] = namespace
         _solution["status"] = status
         _solution["errormsg"] = errormsg
         _solution["std"] = std
+        _solution["modules"] = modules
     return solutions[id][where]
 
 class CodeabilityPythonTest:

@@ -1,2 +1,5 @@
-print("abc")
-var1 = 1.0
+def check_password(x):
+    if len(x) < 10:
+        print("abc")
+    else:
+        print("ok")
