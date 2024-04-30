@@ -20,8 +20,12 @@ if __name__ == "__main__":
     #scandir = "../ex_master/_ex_/1"
     #scandir = "../ex_master/_ex_/2"
     #scandir = "../ex_master/_ex_/3"
+    #scandir = "../ex_master/_ex_/4"
+    #scandir = "../ex_master/_ex_/5"
+    #scandir = "../ex_master/_ex_/15"
+    #scandir = "../ex_master/_ex_/14"
 
-    scandir = "../ex_master/examples/docstring"
+    #scandir = "../ex_master/examples/docstring"
     #scandir = "../ex_master/examples/errorbar"
     #scandir = "../ex_master/examples/stdin"
     #scandir = "../ex_master/examples/stdout"
@@ -31,6 +35,7 @@ if __name__ == "__main__":
     #scandir = "../ex_master/examples/graphics"
     #scandir = "../ex_master/examples/minimal"
     #scandir = "../ex_master/examples/full"
+    scandir = "../ex_master/examples/open"
     #scandir = "../../progphys-py.2023.basis1"
 
     metayaml = "../ex_master/example-init-meta.yaml"

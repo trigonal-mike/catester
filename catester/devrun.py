@@ -20,7 +20,10 @@ def start_tests():
     #test = "../ex_master/examples/empty/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/stdout/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/stdin/localTests/_correctSolution/test.yaml"
-    test = "../ex_master/examples/errorbar/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/errorbar/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/_ex_/2/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/_ex_/15/localTests/_correctSolution/test.yaml"
+    test = "../ex_master/examples/open/localTests/_correctSolution/test.yaml"
     indent = 2
 
     #catester-verbosity
