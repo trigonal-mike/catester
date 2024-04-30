@@ -158,6 +158,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                             """ Override/Disable certain methods """ 
                             mm.setattr(builtins, 'open', Mocker().mock_open)
                             mm.setattr(np, 'loadtxt', Mocker().mock_loadtxt)
+                            mm.setattr(np, 'genfromtxt', Mocker().mock_genfromtxt)
                             mm.setattr(plt, "show", lambda *x: None)
                             if len(input_answers) > 0:
                                 mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))

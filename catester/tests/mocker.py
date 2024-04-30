@@ -7,6 +7,7 @@ class Mocker:
     def __init__(self) -> None:
         self.open = open
         self.loadtxt = np.loadtxt
+        self.genfromtxt = np.genfromtxt
 
     def has_permission(self, filename):
         path_lib = get_python_lib()
@@ -23,3 +24,8 @@ class Mocker:
         if not self.has_permission(name):
             raise PermissionError(f"np.loadtxt not allowed: location: `{name}`")
         return self.loadtxt(name, **kwargs)  
+
+    def mock_genfromtxt(self, name, **kwargs):
+        if not self.has_permission(name):
+            raise PermissionError(f"np.genfromtxt not allowed: location: `{name}`")
+        return self.genfromtxt(name, **kwargs)  
