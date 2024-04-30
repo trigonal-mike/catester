@@ -159,7 +159,6 @@
         "duration": {
           "anyOf": [
             {
-              "minimum": 0.0,
               "type": "number"
             },
             {
@@ -172,7 +171,6 @@
         "executionDuration": {
           "anyOf": [
             {
-              "minimum": 0.0,
               "type": "number"
             },
             {
@@ -396,7 +394,6 @@
         "duration": {
           "anyOf": [
             {
-              "minimum": 0.0,
               "type": "number"
             },
             {
@@ -409,7 +406,6 @@
         "executionDuration": {
           "anyOf": [
             {
-              "minimum": 0.0,
               "type": "number"
             },
             {
@@ -671,7 +667,6 @@
     "duration": {
       "anyOf": [
         {
-          "minimum": 0.0,
           "type": "number"
         },
         {
@@ -684,7 +679,6 @@
     "executionDuration": {
       "anyOf": [
         {
-          "minimum": 0.0,
           "type": "number"
         },
         {

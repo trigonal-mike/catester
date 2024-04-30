@@ -482,6 +482,24 @@
           "default": null,
           "title": "File"
         },
+        "moduleBlacklist": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Moduleblacklist"
+        },
         "tests": {
           "items": {
             "$ref": "#/$defs/CodeAbilityTest"
