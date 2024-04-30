@@ -1,8 +1,6 @@
-import io
 import types
-from contextlib import redirect_stdout, redirect_stderr
-
 import platform
+
 if platform.system() == "Windows":
     #todo: check for UNIX based os, for using signal 
     from stopit import ThreadingTimeout as Timeout, threading_timeoutable as timeoutable
@@ -17,9 +15,8 @@ def execute_code_list(code_list, namespace):
         execute_code(code, "", namespace)
 
 @timeoutable()
-def execute_file(filename, namespace):
-    with open(filename, "r") as file:
-        execute_code(file.read(), filename, namespace)
+def execute_file(file, filename, namespace):
+    execute_code(file.read(), filename, namespace)
     return 0
 
 def get_imported_modules(namespace):

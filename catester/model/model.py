@@ -149,6 +149,7 @@ class CodeAbilityTestCollection(CodeAbilityBase, CodeAbilityTestCollectionCommon
     tearDownCode: Optional[str | List[str]] = Field(default=None)
     id: Optional[str] = Field(min_length=1, default=None)
     file: Optional[str] = Field(min_length=1, default=None)
+    moduleBlacklist: Optional[str | List[str]] = Field(default=None)
     tests: List[CodeAbilityTest]
 
 class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
@@ -218,7 +219,6 @@ class CodeAbilityReportSummary(CodeAbilityBase):
     skipped: int = Field(ge=0, default=0)
 
 class CodeAbilityReportProperties(CodeAbilityBase):
-    #todo: timestamp or timeStamp?
     timestamp: Optional[str] = Field(default=None)
     type: Optional[str] = Field(default=None)
     version: Optional[str] = Field(default=None)
@@ -232,8 +232,8 @@ class CodeAbilityReportProperties(CodeAbilityBase):
     details: Optional[str] = Field(default=None)
     setup: Optional[str] = Field(default=None)
     teardown: Optional[str] = Field(default=None)
-    duration: Optional[float] = Field(ge=0, default=None)
-    executionDuration: Optional[float] = Field(ge=0, default=None)
+    duration: Optional[float] = Field(default=None)
+    executionDuration: Optional[float] = Field(default=None)
     environment: Optional[dict] = Field(default=None)
     properties: Optional[dict] = Field(default=None)
     debug: Optional[dict] = Field(default=None)

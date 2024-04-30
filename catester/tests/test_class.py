@@ -22,7 +22,9 @@ from model.model import CodeAbilityReport
 from .conftest import report_key, Solution
 from .execution import execute_code_list, execute_file, get_imported_modules
 from .helper import get_property_as_list, get_abbr
+from .mocker import Mocker
 from contextlib import redirect_stdout, redirect_stderr
+import builtins
 
 def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     for idx_main, main in enumerate(testsuite.properties.tests):
@@ -67,6 +69,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         setup_code = get_property_as_list(main.setUpCode)
         teardown_code = get_property_as_list(main.tearDownCode)
         success_dependencies = get_property_as_list(main.successDependency)
+        module_blacklist = get_property_as_list(main.moduleBlacklist)
         setup_code_dependency = main.setUpCodeDependency
         store_graphics_artifacts = main.storeGraphicsArtifacts
         if specification.storeGraphicsArtifacts is not None:
@@ -138,36 +141,46 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         """ seed the random generator """
         random.seed(1)
         np.random.seed(1)
-
-        """ Override/Disable certain methods """ 
-        mm.setattr(plt, "show", lambda *x: None)
-        if len(input_answers) > 0:
-            stdin = "\n".join(input_answers)
-            mm.setattr('sys.stdin', io.StringIO(stdin))
-
+        
         def calculate_solution():
             nonlocal error, errormsg, status, exectime, tb, status, namespace
 
             if entry_point is not None and not error:
-                file = os.path.join(_dir, entry_point)
-                if not os.path.exists(file):
+                filename = os.path.join(_dir, entry_point)
+                if not os.path.exists(filename):
                     if where == Solution.student:
                         error = True
                         errormsg = f"entryPoint {entry_point} not found"
                         status = StatusEnum.failed
                 else:
                     try:
-                        start_time = time.time()
-                        result = execute_file(file, namespace, timeout=timeout)
-                        time.sleep(0.0001)
-                        exectime = time.time() - start_time
-                        if result is None:
-                            error = True
-                            errormsg = f"Maximum execution time of {timeout} seconds exceeded"
-                            status = StatusEnum.timedout
+                        with open(filename, "r") as file:
+                            """ Override/Disable certain methods """ 
+                            mm.setattr(builtins, 'open', Mocker().mock_open)
+                            mm.setattr(np, 'loadtxt', Mocker().mock_loadtxt)
+                            mm.setattr(plt, "show", lambda *x: None)
+                            if len(input_answers) > 0:
+                                mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))
+
+                            start_time = time.time()
+                            result = execute_file(file, filename, namespace, timeout=timeout)
+                            time.sleep(0.0001)
+                            exectime = time.time() - start_time
+                            if result is None:
+                                error = True
+                                errormsg = f"Maximum execution time of {timeout} seconds exceeded"
+                                status = StatusEnum.timedout
+                            if not error:
+                                modules = get_imported_modules(namespace)
+                                blacklisted = list(set(modules).intersection(module_blacklist))
+                                if len(blacklisted):
+                                    error = True
+                                    errormsg = f"Import not allowed for: {blacklisted}"
+                                    status = StatusEnum.failed
+
                     except Exception as e:
                         error = True
-                        errormsg = f"Execution of {file} failed"
+                        errormsg = f"Execution of {filename} failed, ERROR: {e}"
                         status = StatusEnum.crashed
                         tb1 = traceback.extract_tb(e.__traceback__)
                         tb2 = tb1[len(tb1)-1]
@@ -227,6 +240,9 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         else:
             calculate_solution()
 
+        """ undo monkeypatches """
+        mm.undo()
+
         """ close all open figures """
         plt.close("all")
 
@@ -240,14 +256,12 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         if not error:
             status = StatusEnum.completed
 
-        modules = get_imported_modules(namespace)
         _solution["exectime"] = exectime
         _solution["traceback"] = tb
         _solution["namespace"] = namespace
         _solution["status"] = status
         _solution["errormsg"] = errormsg
         _solution["std"] = std
-        _solution["modules"] = modules
     return solutions[id][where]
 
 class CodeabilityPythonTest:

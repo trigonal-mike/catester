@@ -105,4 +105,5 @@ VALID_PROPS_TESTCOLLECTION = [
     "tearDownCode",
     "id",
     "file",
+    "moduleBlacklist",
 ]
