@@ -23,9 +23,11 @@ from .conftest import report_key, Solution
 from .execution import execute_code_list, execute_file
 from .modules import get_imported_modules
 from .helper import get_property_as_list, get_abbr
-from .mocker import Mocker
 from contextlib import redirect_stdout, redirect_stderr
-import builtins
+
+def change_root(path: str):
+    if hasattr(os, "chroot"):
+        os.chroot(path)
 
 def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     for idx_main, main in enumerate(testsuite.properties.tests):
@@ -165,11 +167,6 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                             with open(filename, "r") as file:
                                 """ Override/Disable certain methods """ 
                                 #todo: eval, exec: patchen not working
-                                #mm.setattr(builtins, "eval", lambda *x: None)
-                                #mm.setattr(builtins, "exec", Mocker().mock_exec)
-                                mm.setattr(builtins, "open", Mocker().mock_open)
-                                mm.setattr(np, "loadtxt", Mocker().mock_loadtxt)
-                                mm.setattr(np, "genfromtxt", Mocker().mock_genfromtxt)
                                 mm.setattr(plt, "show", lambda *x: None)
                                 if len(input_answers) > 0:
                                     mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))
@@ -297,13 +294,14 @@ class CodeabilityPythonTest:
         occurance_type = sub.occuranceType
 
         try:
+            change_root(dir_student)
             _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
-        except Exception as e:
-            pytest.fail(f"getting student-solution failed, error: {e}")
-        try:
+            change_root(dir_reference)
             _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
         except Exception as e:
-            pytest.skip(f"getting reference-solution failed, error: {e}")
+            pytest.fail(f"getting solution failed, error: {e}")
+        finally:
+            change_root("/")
 
         if _solution_student["status"] == StatusEnum.skipped:
             pytest.skip(_solution_student["errormsg"])
