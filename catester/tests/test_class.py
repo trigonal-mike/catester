@@ -25,10 +25,6 @@ from .modules import get_imported_modules
 from .helper import get_property_as_list, get_abbr
 from contextlib import redirect_stdout, redirect_stderr
 
-def change_root(path: str):
-    if hasattr(os, "chroot"):
-        os.chroot(path)
-
 def main_idx_by_dependency(testsuite: CodeAbilityTestSuite, dependency):
     for idx_main, main in enumerate(testsuite.properties.tests):
         if main.id is not None and dependency == main.id:
@@ -144,6 +140,11 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
         """ seed the random generator """
         random.seed(1)
         np.random.seed(1)
+
+        """ Override/Disable certain methods """ 
+        mm.setattr(plt, "show", lambda *x: None)
+        if len(input_answers) > 0:
+            mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))
         
         def calculate_solution():
             nonlocal error, errormsg, status, exectime, tb, status, namespace
@@ -164,22 +165,14 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                         status = StatusEnum.failed
                     else:
                         try:
-                            with open(filename, "r") as file:
-                                """ Override/Disable certain methods """ 
-                                #todo: eval, exec: patchen not working
-                                mm.setattr(plt, "show", lambda *x: None)
-                                if len(input_answers) > 0:
-                                    mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))
-
-                                start_time = time.time()
-                                result = execute_file(file, filename, namespace, timeout=timeout)
-                                time.sleep(0.0001)
-                                exectime = time.time() - start_time
-                                if result is None:
-                                    error = True
-                                    errormsg = f"Maximum execution time of {timeout} seconds exceeded"
-                                    status = StatusEnum.timedout
-
+                            start_time = time.time()
+                            result = execute_file(_dir, entry_point, namespace, timeout)
+                            time.sleep(0.0001)
+                            exectime = time.time() - start_time
+                            if result is None:
+                                error = True
+                                errormsg = f"Maximum execution time of {timeout} seconds exceeded"
+                                status = StatusEnum.timedout
                         except Exception as e:
                             error = True
                             errormsg = f"Execution of {filename} failed, ERROR: {e}"
@@ -294,14 +287,10 @@ class CodeabilityPythonTest:
         occurance_type = sub.occuranceType
 
         try:
-            change_root(dir_student)
             _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
-            change_root(dir_reference)
             _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
         except Exception as e:
             pytest.fail(f"getting solution failed, error: {e}")
-        finally:
-            change_root("/")
 
         if _solution_student["status"] == StatusEnum.skipped:
             pytest.skip(_solution_student["errormsg"])

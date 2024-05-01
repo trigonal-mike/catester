@@ -1,3 +1,4 @@
+import os
 import platform
 
 if platform.system() == "Windows":
@@ -14,7 +15,24 @@ def execute_code_list(code_list, namespace):
         execute_code(code, "", namespace)
 
 @timeoutable()
-def execute_file(file, filename, namespace):
-    execute_code(file.read(), filename, namespace)
+def execute_timeoutable(code, filename, namespace):
+    execute_code(code, filename, namespace)
     return 0
 
+def execute_file(directory, entry_point, namespace, timeout):
+    isUnix = hasattr(os, "chroot")
+    if isUnix:
+        real_root = os.open("/", os.O_RDONLY)
+        os.chroot(directory)
+    try:
+        with open(entry_point, "r") as file:
+            result = execute_timeoutable(file.read(), entry_point, namespace, timeout=timeout)
+    finally:
+        if isUnix:
+            os.fchdir(real_root)
+            os.chroot(".")
+            os.close(real_root)
+
+    if result is None:
+        return None
+    return 0
