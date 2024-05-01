@@ -13,6 +13,11 @@ class Mocker:
         path_lib = get_python_lib()
         path_cwd = os.getcwd()
         p = PurePath(filename)
+        if not p.is_absolute():
+            # if filename is passed as a relative path (e.g. "./../../test.yaml")
+            # then join them with current working dir
+            filename = os.path.abspath(os.path.join(path_cwd, filename))
+            p = PurePath(filename)
         return p.is_relative_to(path_cwd) or p.is_relative_to(path_lib)
 
     def mock_open(self, name, mode, **kwargs):
