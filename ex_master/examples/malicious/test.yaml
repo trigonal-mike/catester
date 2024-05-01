@@ -19,5 +19,3 @@ properties:
     entryPoint: ex.py
     tests:
     - name: var1
-    - name: var2
-    - name: var3

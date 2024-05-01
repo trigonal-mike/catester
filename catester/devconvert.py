@@ -36,6 +36,8 @@ if __name__ == "__main__":
     #scandir = "../ex_master/examples/minimal"
     #scandir = "../ex_master/examples/full"
     scandir = "../ex_master/examples/open"
+    #scandir = "../ex_master/examples/malicious"
+    #scandir = "../ex_master/examples/blacklist"
     #scandir = "../../progphys-py.2023.basis1"
 
     metayaml = "../ex_master/example-init-meta.yaml"

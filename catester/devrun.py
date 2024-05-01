@@ -24,6 +24,8 @@ def start_tests():
     #test = "../ex_master/_ex_/2/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/_ex_/15/localTests/_correctSolution/test.yaml"
     test = "../ex_master/examples/open/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/malicious/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/blacklist/localTests/_correctSolution/test.yaml"
     indent = 2
 
     #catester-verbosity

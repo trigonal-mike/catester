@@ -17,7 +17,8 @@ properties:
   - type: variable
     name: variables test-1
     entryPoint: ex.py
+    moduleBlacklist:
+    - add
+    - os
     tests:
     - name: var1
-    - name: var2
-    - name: var3

@@ -1,4 +1,3 @@
-import types
 import platform
 
 if platform.system() == "Windows":
@@ -19,9 +18,3 @@ def execute_file(file, filename, namespace):
     execute_code(file.read(), filename, namespace)
     return 0
 
-def get_imported_modules(namespace):
-    mlist: list[str] = []
-    for name, val in namespace.items():
-        if isinstance(val, types.ModuleType):
-            mlist.append(val.__name__)
-    return mlist

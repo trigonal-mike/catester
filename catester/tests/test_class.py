@@ -20,7 +20,8 @@ from model.model import TypeEnum, QualificationEnum
 from model.model import StatusEnum, ResultEnum
 from model.model import CodeAbilityReport
 from .conftest import report_key, Solution
-from .execution import execute_code_list, execute_file, get_imported_modules
+from .execution import execute_code_list, execute_file
+from .modules import get_imported_modules
 from .helper import get_property_as_list, get_abbr
 from .mocker import Mocker
 from contextlib import redirect_stdout, redirect_stderr
@@ -153,46 +154,49 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                         errormsg = f"entryPoint {entry_point} not found"
                         status = StatusEnum.failed
                 else:
-                    try:
-                        with open(filename, "r") as file:
-                            """ Override/Disable certain methods """ 
-                            mm.setattr(builtins, 'open', Mocker().mock_open)
-                            mm.setattr(np, 'loadtxt', Mocker().mock_loadtxt)
-                            mm.setattr(np, 'genfromtxt', Mocker().mock_genfromtxt)
-                            mm.setattr(plt, "show", lambda *x: None)
-                            if len(input_answers) > 0:
-                                mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))
-
-                            start_time = time.time()
-                            result = execute_file(file, filename, namespace, timeout=timeout)
-                            time.sleep(0.0001)
-                            exectime = time.time() - start_time
-                            if result is None:
-                                error = True
-                                errormsg = f"Maximum execution time of {timeout} seconds exceeded"
-                                status = StatusEnum.timedout
-                            if not error:
-                                modules = get_imported_modules(namespace)
-                                blacklisted = list(set(modules).intersection(module_blacklist))
-                                if len(blacklisted):
-                                    error = True
-                                    errormsg = f"Import not allowed for: {blacklisted}"
-                                    status = StatusEnum.failed
-
-                    except Exception as e:
+                    modules = get_imported_modules(filename)
+                    blacklisted = list(set(modules).intersection(module_blacklist))
+                    if len(blacklisted):
                         error = True
-                        errormsg = f"Execution of {filename} failed, ERROR: {e}"
-                        status = StatusEnum.crashed
-                        tb1 = traceback.extract_tb(e.__traceback__)
-                        tb2 = tb1[len(tb1)-1]
-                        tb = {
-                            "name": tb2.name,
-                            "filename": tb2.filename,
-                            "lineno": tb2.lineno,
-                            "line": tb2.line,
-                            "locals": tb2.locals,
-                            "errormsg": e,
-                        }
+                        errormsg = f"Import not allowed for: {blacklisted}"
+                        status = StatusEnum.failed
+                    else:
+                        try:
+                            with open(filename, "r") as file:
+                                """ Override/Disable certain methods """ 
+                                #todo: eval, exec: patchen not working
+                                #mm.setattr(builtins, "eval", lambda *x: None)
+                                #mm.setattr(builtins, "exec", Mocker().mock_exec)
+                                mm.setattr(builtins, "open", Mocker().mock_open)
+                                mm.setattr(np, "loadtxt", Mocker().mock_loadtxt)
+                                mm.setattr(np, "genfromtxt", Mocker().mock_genfromtxt)
+                                mm.setattr(plt, "show", lambda *x: None)
+                                if len(input_answers) > 0:
+                                    mm.setattr('sys.stdin', io.StringIO("\n".join(input_answers)))
+
+                                start_time = time.time()
+                                result = execute_file(file, filename, namespace, timeout=timeout)
+                                time.sleep(0.0001)
+                                exectime = time.time() - start_time
+                                if result is None:
+                                    error = True
+                                    errormsg = f"Maximum execution time of {timeout} seconds exceeded"
+                                    status = StatusEnum.timedout
+
+                        except Exception as e:
+                            error = True
+                            errormsg = f"Execution of {filename} failed, ERROR: {e}"
+                            status = StatusEnum.crashed
+                            tb1 = traceback.extract_tb(e.__traceback__)
+                            tb2 = tb1[len(tb1)-1]
+                            tb = {
+                                "name": tb2.name,
+                                "filename": tb2.filename,
+                                "lineno": tb2.lineno,
+                                "line": tb2.line,
+                                "locals": tb2.locals,
+                                "errormsg": e,
+                            }
                     if not error and main.type == "graphics":
                         if store_graphics_artifacts:
                             fignums = plt.get_fignums()
@@ -292,8 +296,15 @@ class CodeabilityPythonTest:
         allowed_occurance_range = sub.allowedOccuranceRange
         occurance_type = sub.occuranceType
 
-        _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
-        _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
+        try:
+            _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
+        except Exception as e:
+            pytest.fail(f"getting student-solution failed, error: {e}")
+        try:
+            _solution_reference = get_solution(monkeymodule, pytestconfig, idx_main, Solution.reference)
+        except Exception as e:
+            pytest.skip(f"getting reference-solution failed, error: {e}")
+
         if _solution_student["status"] == StatusEnum.skipped:
             pytest.skip(_solution_student["errormsg"])
         elif _solution_student["status"] != StatusEnum.completed:
