@@ -20,7 +20,7 @@ def execute_timeoutable(code, filename, namespace):
     return 0
 
 def execute_file(directory, entry_point, namespace, timeout):
-    isUnix = hasattr(os, "chroot")
+    isUnix = False#hasattr(os, "chroot")
     if isUnix:
         real_root = os.open("/", os.O_RDONLY)
         os.chroot(directory)
