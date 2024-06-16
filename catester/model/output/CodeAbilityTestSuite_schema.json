@@ -96,6 +96,30 @@
           "default": null,
           "title": "Occurancetype"
         },
+        "typeCheck": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Typecheck"
+        },
+        "shapeCheck": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shapecheck"
+        },
         "verbosity": {
           "anyOf": [
             {
@@ -266,6 +290,30 @@
           ],
           "default": null,
           "title": "Occurancetype"
+        },
+        "typeCheck": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Typecheck"
+        },
+        "shapeCheck": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shapecheck"
         },
         "verbosity": {
           "anyOf": [
@@ -614,6 +662,30 @@
           "default": "NAME",
           "title": "Occurancetype"
         },
+        "typeCheck": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": true,
+          "title": "Typecheck"
+        },
+        "shapeCheck": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": true,
+          "title": "Shapecheck"
+        },
         "verbosity": {
           "anyOf": [
             {
@@ -778,6 +850,8 @@
           0
         ],
         "occuranceType": "NAME",
+        "typeCheck": true,
+        "shapeCheck": true,
         "verbosity": null,
         "storeGraphicsArtifacts": null,
         "competency": null,

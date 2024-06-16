@@ -74,6 +74,8 @@ VALID_PROPS_TEST_COMMON = [
     "absoluteTolerance",
     "allowedOccuranceRange",
     "occuranceType",
+    "typeCheck",
+    "shapeCheck",
     "verbosity",
 ]
 

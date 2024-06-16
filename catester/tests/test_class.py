@@ -285,6 +285,8 @@ class CodeabilityPythonTest:
         absolute_tolerance = sub.absoluteTolerance
         allowed_occurance_range = sub.allowedOccuranceRange
         occurance_type = sub.occuranceType
+        typeCheck = sub.typeCheck
+        shapeCheck = sub.shapeCheck
 
         try:
             _solution_student = get_solution(monkeymodule, pytestconfig, idx_main, Solution.student)
@@ -348,23 +350,25 @@ class CodeabilityPythonTest:
                         except Exception as e:
                             pytest.skip(f"Variable `{name}` not found in reference namespace")
                 
-                """ assert variable-type """
-                type_student = type(val_student)
-                type_reference = type(val_reference)
-                assert type_student == type_reference, f"Variable `{name}` has incorrect type, expected: {type_reference}, obtained {type_student}"
+                if typeCheck:
+                    """ assert variable-type """
+                    type_student = type(val_student)
+                    type_reference = type(val_reference)
+                    assert type_student == type_reference, f"Variable `{name}` has incorrect type, expected: {type_reference}, obtained {type_student}"
 
-                """ assert variable-shape, of supported types, dont look for int,float,complex,bool,NoneType """
-                if isinstance(val_student, (str, list, tuple, range, dict, set, frozenset, bytes, bytearray, memoryview)):
-                    len_student = len(val_student)
-                    len_reference = len(val_reference)
-                    assert len_student == len_reference, f"Variable `{name}` has incorrect len, expected: {len_reference}, obtained {len_student}"
-                elif isinstance(val_student, np.ndarray):
-                    shape_student = val_student.shape
-                    shape_reference = val_reference.shape
-                    assert shape_student == shape_reference, f"Variable `{name}` has incorrect shape, expected: {shape_reference}, obtained {shape_student}"
-                else:
-                    #todo: which types support something like len, shape, dimensions, etc...?
-                    pass
+                if shapeCheck:
+                    """ assert variable-shape, of supported types, dont look for int,float,complex,bool,NoneType """
+                    if isinstance(val_student, (str, list, tuple, range, dict, set, frozenset, bytes, bytearray, memoryview)):
+                        len_student = len(val_student)
+                        len_reference = len(val_reference)
+                        assert len_student == len_reference, f"Variable `{name}` has incorrect len, expected: {len_reference}, obtained {len_student}"
+                    elif isinstance(val_student, np.ndarray):
+                        shape_student = val_student.shape
+                        shape_reference = val_reference.shape
+                        assert shape_student == shape_reference, f"Variable `{name}` has incorrect shape, expected: {shape_reference}, obtained {shape_student}"
+                    else:
+                        #todo: which types support something like len, shape, dimensions, etc...?
+                        pass
 
                 """ assert variable-value """
                 #todo: support for more types

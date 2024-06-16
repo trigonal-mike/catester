@@ -299,6 +299,21 @@
       "default": [],
       "title": "Keywords"
     },
+    "testDependencies": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Testdependencies"
+    },
     "properties": {
       "anyOf": [
         {

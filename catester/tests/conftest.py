@@ -104,6 +104,8 @@ def pytest_configure(config: pytest.Config) -> None:
         "absoluteTolerance",
         "allowedOccuranceRange",
         "occuranceType",
+        "typeCheck",
+        "shapeCheck",
         "verbosity",
     ]
     mainfields = subfields.copy();

@@ -89,6 +89,8 @@ DEFAULTS = {
         "timeout": 180.0,
         "allowedOccuranceRange": [0, 0],
         "occuranceType": "NAME",
+        "typeCheck": True,
+        "shapeCheck": True,
     },
     "meta": {
         "version": "1.0",
@@ -123,6 +125,8 @@ class CodeAbilityTestCommon(BaseModel):
     absoluteTolerance: Optional[float] = Field(ge=0, default=None)
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=None)
     occuranceType: Optional[str] = Field(min_length=1, default=None)
+    typeCheck: Optional[bool] = Field(default=None)
+    shapeCheck: Optional[bool] = Field(default=None)
     verbosity: Optional[int] = Field(ge=0, le=3, default=None)
 
 class CodeAbilityTestCollectionCommon(CodeAbilityTestCommon):
@@ -160,6 +164,8 @@ class CodeAbilityTestProperty(CodeAbilityBase, CodeAbilityTestCollectionCommon):
     absoluteTolerance: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["absoluteTolerance"])
     allowedOccuranceRange: Optional[List[int]] = Field(min_length=2, max_length=2, default=DEFAULTS["properties"]["allowedOccuranceRange"])
     occuranceType: Optional[str] = Field(min_length=1, default=DEFAULTS["properties"]["occuranceType"])
+    typeCheck: Optional[bool] = Field(default=DEFAULTS["properties"]["typeCheck"])
+    shapeCheck: Optional[bool] = Field(default=DEFAULTS["properties"]["shapeCheck"])
     timeout: Optional[float] = Field(ge=0, default=DEFAULTS["properties"]["timeout"])
     tests: List[CodeAbilityTestCollection] = Field(default=[])
 
