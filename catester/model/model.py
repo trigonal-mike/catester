@@ -210,6 +210,7 @@ class CodeAbilityMeta(CodeAbilityBase):
     links: Optional[List[CodeAbilityLink]] = Field(default=[])
     supportingMaterial: Optional[List[CodeAbilityLink]] = Field(default=[])
     keywords: Optional[List[str]] = Field(default=[])
+    testDependencies: Optional[List[str]] = Field(default=[])
     properties: Optional[CodeAbilityMetaProperty] = Field(default=CodeAbilityMetaProperty())
 
 class CodeAbilityReportSummary(CodeAbilityBase):

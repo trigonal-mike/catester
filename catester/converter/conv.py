@@ -14,21 +14,17 @@ from model.model import CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbili
 from .settings import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTCOLLECTION_COMMON, VALID_PROPS_TESTCOLLECTION, VALID_PROPS_TEST
 from .settings import TokenEnum, ARGUMENT_VALUE_TOKENS, TEST_MAPPING, LOCAL_TEST_DIRECTORIES
 
-LOCAL_TEST_SPECIFICATION = CodeAbilitySpecification(
-    referenceDirectory="../_reference",
-    isLocalUsage=True
-)
-
 class Converter:
-    def __init__(self, scandir, action, verbosity, pytestflags, metatemplate, formatter, testdirs):
+    def __init__(self, scandir, testrunnerdir, assignmentsdir, action, verbosity, pytestflags, metatemplate, formatter):
         self.ready = False
         self.scandir = scandir
+        self.testrunnerdir = testrunnerdir
+        self.assignmentsdir = assignmentsdir
         self.action = action
         self.verbosity = verbosity
         self.pytestflags = pytestflags
         self.metatemplate = metatemplate
         self.formatter = formatter
-        self.testdirs = testdirs
         try:
             self.init()
             self.ready = True
@@ -37,15 +33,6 @@ class Converter:
             print(f"{Fore.RED}ERROR Initialization failed{Style.RESET_ALL}")
 
     def init(self):
-        self.local_test_directories = []
-        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
-            if directory == LOCAL_TEST_DIRECTORIES._correctSolution:
-                if self.testdirs == "none" or self.testdirs == "empty":
-                    continue
-            if directory == LOCAL_TEST_DIRECTORIES._emptySolution:
-                if self.testdirs == "none" or self.testdirs == "correct":
-                    continue
-            self.local_test_directories.append(directory)
         if self.scandir is None:
             self.scandir = os.getcwd()
         if not os.path.exists(self.scandir):
@@ -66,7 +53,6 @@ class Converter:
         self.meta_yaml = os.path.join(self.scandir, "meta.yaml")
         self.test_yaml = os.path.join(self.scandir, "test.yaml")
         self.localTestdir = os.path.join(self.scandir, "localTests")
-        self.spec_file = os.path.join(self.localTestdir, "specification.yaml")
 
     def start(self):
         self.errors = 0
@@ -84,6 +70,11 @@ class Converter:
             print(e)
             print(f"{Fore.RED}ERROR occurred{Style.RESET_ALL}")
 
+    def _remove_directory(self, path):
+        if os.path.exists(path):
+            print(f"{Fore.MAGENTA}Removed directory: {path}{Style.RESET_ALL}")
+            shutil.rmtree(path)
+
     def _remove_file(self, path):
         if os.path.exists(path):
             os.remove(path)
@@ -94,15 +85,11 @@ class Converter:
         self._remove_file(self.py_file)
         self._remove_file(self.meta_yaml)
         self._remove_file(self.test_yaml)
-        self._remove_file(self.spec_file)
-        for directory in self.local_test_directories:
+        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
             dir = os.path.join(self.localTestdir, directory)
-            if os.path.exists(dir):
-                shutil.rmtree(dir)
-                print(f"{Fore.MAGENTA}Removed directory: {dir}{Style.RESET_ALL}")
+            self._remove_directory(dir)
         if os.path.exists(self.localTestdir) and not os.listdir(self.localTestdir):
-            shutil.rmtree(self.localTestdir)
-            print(f"{Fore.MAGENTA}Removed empty directory: {self.localTestdir}{Style.RESET_ALL}")
+            self._remove_directory(self.localTestdir)
         print(f"Cleanup ended")
 
     def convert(self):
@@ -115,11 +102,7 @@ class Converter:
             self._write_yaml("Meta", self.meta_yaml, self.metaconfig, parse_meta_file)
             self._create_reference()
             self._format_all_files()
-            if self.testdirs == "none":
-                print(f"SKIPPED: Preparing Local Test Directory: {self.localTestdir}")
-            else:
-                self._prepare_local_test_directories()
-                self._write_yaml("Specification", self.spec_file, LOCAL_TEST_SPECIFICATION, parse_spec_file)
+            self._prepare_local_test_directories()
         except Exception as e:
             print(f"{Fore.RED}ERROR Conversion failed{Style.RESET_ALL}")
             raise
@@ -222,7 +205,6 @@ class Converter:
 
     def list_scandir(self):
         excluded = [
-            os.path.basename(self.spec_file),
             os.path.basename(self.meta_yaml),
             os.path.basename(self.test_yaml),
             os.path.basename(self.localTestdir),
@@ -262,7 +244,7 @@ class Converter:
             elif argument in ("authors", "maintainers"):
                 value = CodeAbilityPerson(**value)
                 is_list = True
-            elif argument in ("successDependency", "inputAnswers", "setUpCode", "tearDownCode", "keywords"):
+            elif argument in ("successDependency", "inputAnswers", "setUpCode", "tearDownCode", "keywords", "testDependencies"):
                 is_list = True
             if is_list:
                 v = getattr(obj, argument) or []
@@ -360,28 +342,15 @@ class Converter:
         if not os.path.exists(self.test_yaml):
             print(f"test.yaml does not exist in directory: {self.scandir}")
             return
-        for directory in self.local_test_directories:
-            self._init_local_test_dir(directory)
-
-    def _init_local_test_dir(self, directory: str):
-        isref = directory == LOCAL_TEST_DIRECTORIES._reference
-        isempty = directory == LOCAL_TEST_DIRECTORIES._emptySolution
-        directory = os.path.join(self.localTestdir, directory)
-        student_directory = os.path.join(directory, "student")
-        if os.path.exists(directory):
-            print(f"{Fore.MAGENTA}Removing directory: {directory}{Style.RESET_ALL}")
-            shutil.rmtree(directory)
-        print(f"Creating directory: {directory}")
-        os.makedirs(directory)
-        if not isref:
-            shutil.copy(self.test_yaml, directory)
-            shutil.copy(self.meta_yaml, directory)
-            directory = student_directory
-            os.makedirs(directory)
-        self._copy_files(directory, self.metaconfig.properties.additionalFiles)
-        self._copy_files(directory, self.metaconfig.properties.studentTemplates)
-        if not isempty:
-            self._copy_files(directory, self.metaconfig.properties.studentSubmissionFiles)
+        for directory in LOCAL_TEST_DIRECTORIES._member_names_:
+            test_directory = os.path.join(self.localTestdir, directory)
+            self._remove_directory(test_directory)
+            print(f"Creating directory: {test_directory}")
+            os.makedirs(test_directory)
+            if not directory == LOCAL_TEST_DIRECTORIES._emptySolution:
+                self._copy_files(test_directory, self.metaconfig.properties.additionalFiles)
+                self._copy_files(test_directory, self.metaconfig.properties.studentTemplates)
+                self._copy_files(test_directory, self.metaconfig.properties.studentSubmissionFiles)
 
     def _copy_files(self, directory: str, files: list[str]):
         for file in files:
@@ -397,21 +366,72 @@ class Converter:
                 shutil.copy(file, dest)
 
     def run_local_tests(self):
-        if self.testdirs == "none":
-            print(f"SKIPPED: run_local_tests")
-            return
         if not os.path.exists(self.localTestdir):
             raise Exception(f"Directory not found: {self.localTestdir}")
         directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
         print(f"Running {len(directories)} local tests: {self.localTestdir}")
-        for idx, directory in enumerate(directories):
+        self._remove_directory(self.testrunnerdir)
+        os.makedirs(self.testrunnerdir)
+        for idx, test_directory in enumerate(directories):
+            nr = idx + 1
             print()
-            print(f"{Back.MAGENTA}Running local test #{idx+1}{Style.RESET_ALL}")
-            print(f"{Back.MAGENTA}Directory: {directory}{Style.RESET_ALL}")
-            self._run_local_test(directory)
+            print(f"{Back.MAGENTA}Running local test #{nr}{Style.RESET_ALL}")
+            print(f"{Back.MAGENTA}Directory: {test_directory}{Style.RESET_ALL}")
+            testdir_name = os.path.basename(os.path.normpath(test_directory))
+            runner_directory = os.path.join(self.testrunnerdir, f"test{nr}-{testdir_name}")
+            os.makedirs(runner_directory)
+            self._run_local_test(test_directory, runner_directory)
 
-    def _run_local_test(self, directory):
-        os.chdir(directory)
+    def _get_assignment_rel_path(self, directory: str):
+        yyy = os.path.relpath(directory, self.assignmentsdir)
+        zzz = yyy.split(os.sep)
+        p = os.curdir
+        for part in zzz:
+            if part == "localTests":
+                break
+            p = os.path.join(p, part)
+        return p
+
+    def _run_local_test(self, test_directory: str, runner_directory: str):
+        assignment_path = self._get_assignment_rel_path(test_directory)
+        studentDir = os.path.join("student", assignment_path)
+        referenceDir = os.path.join("reference", assignment_path)
+        sdir = os.path.join(runner_directory, studentDir)
+        rdir = os.path.join(runner_directory, referenceDir)
+        os.makedirs(sdir)
+        os.makedirs(rdir)
+        refdir = os.path.join(self.localTestdir, LOCAL_TEST_DIRECTORIES._reference)
+        shutil.copytree(test_directory, sdir, dirs_exist_ok=True)
+        shutil.copytree(refdir, rdir, dirs_exist_ok=True)
+
+        for x in self.metaconfig.testDependencies:
+            xx = os.path.join(self.scandir, x)
+            xx = os.path.abspath(xx)
+            rdir1 = os.path.join(rdir, x)
+            sdir1 = os.path.join(sdir, x)
+            if os.path.isdir(xx):
+                shutil.copytree(xx, rdir1, dirs_exist_ok=True)
+                shutil.copytree(xx, sdir1, dirs_exist_ok=True)
+            else:
+                dir1 = os.path.dirname(rdir1)
+                dir2 = os.path.dirname(sdir1)
+                os.makedirs(dir1, exist_ok=True)
+                os.makedirs(dir2, exist_ok=True)
+                shutil.copy(xx, rdir1)
+                shutil.copy(xx, sdir1)
+
+        local_test_specification = CodeAbilitySpecification(
+            referenceDirectory=referenceDir,
+            studentDirectory=studentDir,
+            isLocalUsage=True
+        )
+        self.spec_file = os.path.join(runner_directory, "specification.yaml")
+        self._write_yaml("Specification", self.spec_file, local_test_specification, parse_spec_file)
+        shutil.copy(self.test_yaml, runner_directory)
+        shutil.copy(self.meta_yaml, runner_directory)
+
+        #return
+        os.chdir(runner_directory)
         dir = os.path.dirname(__file__)
         run_tests_py = os.path.join(dir, "../run_tests.py")
         run_tests_py = os.path.abspath(run_tests_py)

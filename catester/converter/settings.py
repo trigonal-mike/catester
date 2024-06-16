@@ -51,6 +51,7 @@ VALID_PROPS_META = [
     "language",
     "keywords",
     "license",
+    "testDependencies",
     #in properties
     "studentSubmissionFiles",
     "additionalFiles",
