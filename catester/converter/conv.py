@@ -368,6 +368,7 @@ class Converter:
     def run_local_tests(self):
         if not os.path.exists(self.localTestdir):
             raise Exception(f"Directory not found: {self.localTestdir}")
+        self.metaconfig = parse_meta_file(self.meta_yaml)
         directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
         print(f"Running {len(directories)} local tests: {self.localTestdir}")
         self._remove_directory(self.testrunnerdir)

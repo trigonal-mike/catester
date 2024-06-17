@@ -17,18 +17,6 @@ if __name__ == "__main__":
     #pytestflags = "-rA"
     #pytestflags = "-ra,--tb=no,--no-header,-q"
 
-    #scandir = "../ex_master/_ex_/1"
-    #scandir = "../ex_master/_ex_/2"
-    #scandir = "../ex_master/_ex_/3"
-    #scandir = "../ex_master/_ex_/4"
-    #scandir = "../ex_master/_ex_/5"
-    #scandir = "../ex_master/_ex_/15"
-    #scandir = "../ex_master/_ex_/14"
-    #scandir = "../ex_master/_ex_/17"
-    #scandir = "../ex_master/_ex_/ue33"
-    scandir = "../ex_master/_ex_/Week03/Unit01"
-    scandir = "../ex_master/_ex_/Week03/Unit02"
-
     #scandir = "../ex_master/examples/docstring"
     #scandir = "../ex_master/examples/errorbar"
     #scandir = "../ex_master/examples/stdin"
@@ -42,7 +30,9 @@ if __name__ == "__main__":
     #scandir = "../ex_master/examples/open"
     #scandir = "../ex_master/examples/malicious"
     #scandir = "../ex_master/examples/blacklist"
-    #scandir = "../../progphys-py.2023.basis1"
+    #scandir = "../ex_master/examples/Week03/Unit01"
+    #scandir = "../ex_master/examples/Week03/Unit02"
+    scandir = "../ex_master/examples/typecheck"
 
     metayaml = "../ex_master/example-init-meta.yaml"
 
@@ -55,7 +45,7 @@ if __name__ == "__main__":
 
     testrunnerdir = "../testrunner"
     testrunnerdir = os.path.abspath(os.path.join(dir, testrunnerdir))
-    assignmentsdir = "../ex_master/_ex_"
+    assignmentsdir = "../ex_master/examples"
     assignmentsdir = os.path.abspath(os.path.join(dir, assignmentsdir))
 
     convert_master(scandir, testrunnerdir, assignmentsdir, action, verbosity, pytestflags, metayaml, formatter)
