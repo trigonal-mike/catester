@@ -18,7 +18,7 @@ def start_tests():
     #test = "../examples/ex2/test_linting.yaml"
     #test = "../examples/ex2/test_structural.yaml"
 
-    specification = "../ex_master/examples/graphics/localTests/specification.yaml"
+    #specification = "../ex_master/examples/graphics/localTests/specification.yaml"
     #test = "../ex_master/examples/graphics/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/full/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/full/localTests/_emptySolution/test.yaml"
@@ -27,11 +27,11 @@ def start_tests():
     #test = "../ex_master/examples/stdout/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/stdin/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/errorbar/localTests/_correctSolution/test.yaml"
-    #test = "../ex_master/_ex_/2/localTests/_correctSolution/test.yaml"
-    #test = "../ex_master/_ex_/15/localTests/_correctSolution/test.yaml"
-    test = "../ex_master/examples/open/localTests/_correctSolution/test.yaml"
+    #test = "../ex_master/examples/open/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/malicious/localTests/_correctSolution/test.yaml"
     #test = "../ex_master/examples/blacklist/localTests/_correctSolution/test.yaml"
+    specification = "../testrunner/test1-_correctSolution/specification.yaml"
+    test = "../testrunner/test1-_correctSolution/test.yaml"
 
     # construct pytest flags:
     pytestflags = get_pytest_flags(
@@ -47,7 +47,7 @@ def start_tests():
         verbosity = -1
     )
     # or use default flags:
-    #pytestflags = DEFAULT_PYTESTFLAGS
+    pytestflags = DEFAULT_PYTESTFLAGS
 
     dir = os.path.abspath(os.path.dirname(__file__))
     if specification is not None:

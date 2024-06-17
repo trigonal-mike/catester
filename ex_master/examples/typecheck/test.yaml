@@ -21,6 +21,8 @@ properties:
     entryPoint: typecheck.py
     tests:
     - name: x
+      value: 4.0
     - typeCheck: false
       shapeCheck: false
       name: y
+      value: 4.0
