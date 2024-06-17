@@ -129,12 +129,15 @@ class Converter:
             for file in self.metaconfig.properties.studentTemplates:
                 self._format_path(file)
 
+    def _replace_backslashes(self, path: str):
+        return path.replace('\\', '/')
+
     def _init_meta_yaml(self):
         if self.metatemplate is not None and not os.path.isabs(self.metatemplate):
             self.metatemplate = os.path.join(self.scandir, self.metatemplate)
             self.metatemplate = os.path.abspath(self.metatemplate)
         self.metaconfig = parse_meta_file(self.metatemplate)
-        self.metaconfig.properties.studentSubmissionFiles.append(self.py_file.replace(self.scandir, "."))
+        self.metaconfig.properties.studentSubmissionFiles.append(self._replace_backslashes(self.py_file.replace(self.scandir, ".")))
 
     def _write_yaml(self, title, filename, obj, parsing_fct):
         print(f"Creating {title}: {filename}")
@@ -314,7 +317,7 @@ class Converter:
                                 if f == ".":
                                     self._error(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
                                 else:
-                                    v.append(f)
+                                    v.append(self._replace_backslashes(f))
                             else:
                                 self._error(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
                     else:
@@ -399,8 +402,8 @@ class Converter:
         referenceDir = os.path.join("reference", assignment_path)
         sdir = os.path.join(runner_directory, studentDir)
         rdir = os.path.join(runner_directory, referenceDir)
-        os.makedirs(sdir)
-        os.makedirs(rdir)
+        #os.makedirs(sdir)
+        #os.makedirs(rdir)
         refdir = os.path.join(self.localTestdir, LOCAL_TEST_DIRECTORIES._reference)
         shutil.copytree(test_directory, sdir, dirs_exist_ok=True)
         shutil.copytree(refdir, rdir, dirs_exist_ok=True)
