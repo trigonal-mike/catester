@@ -1,8 +1,0 @@
-properties:
-  tests:
-    - name: Test timeout
-      entryPoint: "timeout.py"
-      timeout: 0.5
-      tests:
-        - name: "var1"
-          value: 1

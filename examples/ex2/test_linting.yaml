@@ -1,8 +1,0 @@
-properties:
-  tests:
-    - name: linting
-      type: linting
-      file: .
-      tests:
-        - name: var1
-          pattern: W,E2,E3
