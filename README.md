@@ -1,31 +1,40 @@
 # catester
 Python Testing Engine
 
+NOTE: all the examples are put in an extra repository named "catester-examples",
+and for development purposes best being placed next to this repository "catester"
+
 ## project folder structure
 ```
-└── catester
+├── catester                    ... this repository
     ├── catester
+        ├── converter
+            ├── __init__.py     ... for exporting the Converter
+            ├── conv.py         ... the actual Converter class
+            └── settings.py     ... all possible settings for the Converter
+        ├── metayaml            ... directory with default/template meta yaml
         ├── model
             ├── output          ... generated json schemas by model.py
+            ├── __init__.py     ... empty file
             └── model.py        ... model definitions
         ├── tests
-            ├── conftest.py     ... test setup, report generation, ...
+            ├── __init__.py     ... empty file
+            ├── conftest.py     ... pytest setup, report generation, ...
             ├── execution.py    ... timeoutable execution helper
-            ├── test_class.py   ... this class gets tested by pytest
-        ├── devrun.py           ... for development purposes
+            ├── helper.py       ... helper functions
+            ├── modules.py      ... for imported modules inspection
+            └── test_class.py   ... contains the test entrypoint for pytest
+        ├── convert.py          ... ---ENTRY FOR STARTING THE CONVERTER---
+        ├── devconvert.py       ... for development purposes (convert/run tests)
+        ├── devflags.py         ... helper for pytestflags used by devrun.py
+        ├── devrun.py           ... for development purposes (run tests)
         ├── pytest.ini          ... pytest settings
-        └── run_tests.py        ... ---MAIN ENTRY---
-    ├── examples                ... test examples
-        ├── ex1
-            ├── student         ... student files
-            ├── reference       ... reference files
-            ├── output          ... JSON-Report output
-            ├── artifacts       ... generated images/data/etc
-            ├── testprograms    ... additional test programs
-            └── test.yaml       ... file containing testsuite
-        ├── ex2
-        ├── ...
-        └── specification.yaml  ... file containing specification
+        └── run_tests.py        ... ---MAIN ENTRY FOR STARTING PYTEST---
+└── catester-examples           ... extra repository
+    └── ex_master
+        ├── _ex_                ... various development examples
+        ├── examples            ... named test examples
+        └── initial-meta.yaml   ... file containing initial meta specification
 ```
 
 ## command line arguments for run_tests.py

@@ -57,17 +57,17 @@ if __name__ == "__main__":
     #scandir = "../../catester-examples/ex_master/examples/pi_int"
     #scandir = "../../catester-examples/ex_master/examples/python_types"
     #scandir = "../../catester-examples/ex_master/examples/random"
-    #scandir = "../../catester-examples/ex_master/examples/stdin"
-    #scandir = "../../catester-examples/ex_master/examples/stdout"
+    scandir = "../../catester-examples/ex_master/examples/stdin"
+    scandir = "../../catester-examples/ex_master/examples/stdout"
     #scandir = "../../catester-examples/ex_master/examples/strings"
     #scandir = "../../catester-examples/ex_master/examples/structural"
     #scandir = "../../catester-examples/ex_master/examples/timeout"
     #scandir = "../../catester-examples/ex_master/examples/typecheck"
     #scandir = "../../catester-examples/ex_master/examples/vector_random"
     #scandir = "../../catester-examples/ex_master/examples/Week03/Unit01"
-    scandir = "../../catester-examples/ex_master/examples/Week03/Unit02"
+    #scandir = "../../catester-examples/ex_master/examples/Week03/Unit02"
 
-    metayaml = "../../catester-examples/ex_master/example-init-meta.yaml"
+    metayaml = "../../catester-examples/ex_master/initial-meta.yaml"
 
     dir = os.path.dirname(__file__)
     scandir = os.path.abspath(os.path.join(dir, scandir))

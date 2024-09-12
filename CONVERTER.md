@@ -9,7 +9,6 @@ For the first start, **ex1_master.py** is the only file needed, all other files 
 
 - **meta.yaml** is the created meta file
 - **test.yaml** is the created test file
-- **specification.yaml** is needed for the reference-solution path
 - **localTests** contains directories which are getting tested,
 directories starting with "_" are automatically created every time a test is run,
 and should not be altered.
@@ -24,7 +23,7 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 
 ## example folder structure
 ```
-└── ex_master
+└── examples
     ├── ex1
         ├── ex1_master.py
         ├── ex1.py
@@ -35,30 +34,10 @@ the best way is to copy the contents of **_correctSolution** directory into an n
             ├── _reference
                 └── ex1.py
             ├── _correctSolution
-                ├── meta.yaml
-                ├── test.yaml
-                ├── student
-                    └── ex1.py
-                ├── output
-                    └── report.json
-                ├── ...
+                └── ex1.py
             ├── _emptySolution
-                ├── meta.yaml
-                ├── test.yaml
-                ├── student
-                ├── output
-                    └── report.json
-                ├── ...
             ├── userSolution1
-                ├── meta.yaml
-                ├── test.yaml
-                ├── student
-                    └── ex1.py
-                ├── output
-                    └── report.json
-                ├── ...
-            ├── userSolution2
-            ├── userSolution3
+                └── ex1.py
             └── ...
     ├── ex2
     ├── ...
@@ -69,12 +48,13 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 | Argument | Default | Description |
 | --- | --- | --- |
 | --scandir | none | if not set, current working directory is used |
+| --testrunnerdir | none | directory where the actual test is run |
+| --assignmentsdir | none | common parent directory of the assignments |
 | --action | all | 'all', 'cleanup', 'test' or 'convert' |
 | --verbosity | 0 | 0, 1, 2 or 3 |
 | --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
 | --metayaml | none | abs/rel path to initial meta.yaml |
 | --formatter | true | use black as formatter |
-| --testdirs | all | 'all', 'none', 'correct' or 'empty', local test directories to include for action |
 
 if `--metayaml` is set, that file will be the initial configuration for the created meta.yaml file
 
