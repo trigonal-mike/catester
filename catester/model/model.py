@@ -37,8 +37,8 @@ class LanguageEnum(str, Enum):
     de = "de"
     en = "en"
 
-class MetaTypeEnum(str, Enum):
-    ProblemSet = "ProblemSet"
+class KindEnum(str, Enum):
+    Assignment = "assignment"
 
 class StatusEnum(str, Enum):
     scheduled = "SCHEDULED"
@@ -85,7 +85,7 @@ DEFAULTS = {
         "failureMessage": "Some or all tests failed",
         "successMessage": "Congratulations! All tests passed",
         "relativeTolerance": 1.0e-12,
-        "absoluteTolerance": 0.0,
+        "absoluteTolerance": 0.0001,
         "timeout": 180.0,
         "allowedOccuranceRange": [0, 0],
         "occuranceType": "NAME",
@@ -94,7 +94,8 @@ DEFAULTS = {
     },
     "meta": {
         "version": "1.0",
-        "type": MetaTypeEnum.ProblemSet,
+        "kind": KindEnum.Assignment,
+        "type": "",
         "title": "TITLE",
         "description": "DESCRIPTION",
         "language": LanguageEnum.en,
@@ -203,10 +204,12 @@ class CodeAbilityMetaProperty(CodeAbilityBase):
     additionalFiles: Optional[List[str]] = Field(default=[])
     testFiles: Optional[List[str]] = Field(default=[])
     studentTemplates: Optional[List[str]] = Field(default=[])
+    executionBackendSlug: Optional[str] = Field(default="python-itp")
 
 class CodeAbilityMeta(CodeAbilityBase):
     version: Optional[str] = Field(pattern=VERSION_REGEX, default=DEFAULTS["meta"]["version"])
-    type: Optional[MetaTypeEnum] = Field(default=DEFAULTS["meta"]["type"], validate_default=True)
+    kind: Optional[KindEnum] = Field(default=DEFAULTS["meta"]["kind"], validate_default=True)
+    type: Optional[str] = Field(default=DEFAULTS["meta"]["type"])
     title: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["title"])
     description: Optional[str] = Field(min_length=1, default=DEFAULTS["meta"]["description"])
     language: Optional[LanguageEnum] = Field(default=DEFAULTS["meta"]["language"], validate_default=True)

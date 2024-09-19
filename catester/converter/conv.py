@@ -7,7 +7,7 @@ import subprocess
 import yaml
 from colorama import Fore, Back, Style
 from pydantic import ValidationError
-from model.model import TypeEnum, QualificationEnum, LanguageEnum, MetaTypeEnum
+from model.model import TypeEnum, QualificationEnum, LanguageEnum, KindEnum
 from model.model import parse_meta_file, parse_spec_file, parse_test_file
 from model.model import CodeAbilityLink, CodeAbilityPerson, CodeAbilitySpecification
 from model.model import CodeAbilityTestSuite, CodeAbilityTestProperty, CodeAbilityTestCollection, CodeAbilityTest 
@@ -198,10 +198,10 @@ class Converter:
         if argument == "type":
             if token == TokenEnum.PROPERTY:
                 self._check_value(value, TypeEnum._member_names_)
-            elif token == TokenEnum.META:
-                self._check_value(value, MetaTypeEnum._member_names_)
+        if argument == "kind":
+            self._check_value(value, KindEnum._member_names_)
         return token, argument, value
-    
+
     def _check_value(self, value, valid_values):
         if value not in valid_values:
             raise Exception(f"value invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}\nchoose from: {valid_values}")

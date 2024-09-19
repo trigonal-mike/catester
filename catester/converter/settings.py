@@ -41,6 +41,7 @@ class LOCAL_TEST_DIRECTORIES(str, Enum):
 
 VALID_PROPS_META = [
     "version",
+    "kind",
     "type",
     "title",
     "description",
@@ -57,6 +58,7 @@ VALID_PROPS_META = [
     "additionalFiles",
     "testFiles",
     "studentTemplates",
+    "executionBackendSlug",
 ]
 
 VALID_PROPS_TESTSUITE = [

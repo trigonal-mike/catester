@@ -15,7 +15,7 @@ if __name__ == "__main__":
     #https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
     pytestflags = DEFAULT_PYTESTFLAGS
     #pytestflags = "-rA"
-    #pytestflags = "-ra,--tb=no,--no-header,-q"
+    pytestflags = "-ra,--tb=no,--no-header,--no-summary,-q"
 
     #ex_master/_ex_:
     #scandir = "../../catester-examples/ex_master/_ex_/1"
@@ -57,8 +57,8 @@ if __name__ == "__main__":
     #scandir = "../../catester-examples/ex_master/examples/pi_int"
     #scandir = "../../catester-examples/ex_master/examples/python_types"
     #scandir = "../../catester-examples/ex_master/examples/random"
-    scandir = "../../catester-examples/ex_master/examples/stdin"
-    scandir = "../../catester-examples/ex_master/examples/stdout"
+    #scandir = "../../catester-examples/ex_master/examples/stdin"
+    #scandir = "../../catester-examples/ex_master/examples/stdout"
     #scandir = "../../catester-examples/ex_master/examples/strings"
     #scandir = "../../catester-examples/ex_master/examples/structural"
     #scandir = "../../catester-examples/ex_master/examples/timeout"
@@ -67,16 +67,22 @@ if __name__ == "__main__":
     #scandir = "../../catester-examples/ex_master/examples/Week03/Unit01"
     #scandir = "../../catester-examples/ex_master/examples/Week03/Unit02"
 
-    metayaml = "../../catester-examples/ex_master/initial-meta.yaml"
+    #assignments:
+    scandir = "../../assignments/Week01/01_math_constants"
+    #scandir = "../../assignments/Week06/06_quadgltest"
+
+    metayaml = "../../assignments/initial-meta.yaml"
 
     dir = os.path.dirname(__file__)
     scandir = os.path.abspath(os.path.join(dir, scandir))
     metayaml = os.path.abspath(os.path.join(dir, metayaml))
 
-    testrunnerdir = "../testrunner"
+    """ put testrunner directory outside of catester """
+    testrunnerdir = "../../testrunner"
     testrunnerdir = os.path.abspath(os.path.join(dir, testrunnerdir))
     #assignmentsdir = "../../catester-examples/ex_master/_ex_"
-    assignmentsdir = "../../catester-examples/ex_master/examples"
+    #assignmentsdir = "../../catester-examples/ex_master/examples"
+    assignmentsdir = "../../assignments"
     assignmentsdir = os.path.abspath(os.path.join(dir, assignmentsdir))
 
     formatter = True #or false (if formatting of files is not required)

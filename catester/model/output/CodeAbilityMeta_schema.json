@@ -83,6 +83,18 @@
           ],
           "default": [],
           "title": "Studenttemplates"
+        },
+        "executionBackendSlug": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": "python-itp",
+          "title": "Executionbackendslug"
         }
       },
       "title": "CodeAbilityMetaProperty",
@@ -134,17 +146,17 @@
       "title": "CodeAbilityPerson",
       "type": "object"
     },
+    "KindEnum": {
+      "const": "assignment",
+      "title": "KindEnum",
+      "type": "string"
+    },
     "LanguageEnum": {
       "enum": [
         "de",
         "en"
       ],
       "title": "LanguageEnum",
-      "type": "string"
-    },
-    "MetaTypeEnum": {
-      "const": "ProblemSet",
-      "title": "MetaTypeEnum",
       "type": "string"
     }
   },
@@ -163,16 +175,28 @@
       "default": "1.0",
       "title": "Version"
     },
-    "type": {
+    "kind": {
       "anyOf": [
         {
-          "$ref": "#/$defs/MetaTypeEnum"
+          "$ref": "#/$defs/KindEnum"
         },
         {
           "type": "null"
         }
       ],
-      "default": "ProblemSet"
+      "default": "assignment"
+    },
+    "type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": "",
+      "title": "Type"
     },
     "title": {
       "anyOf": [
@@ -327,7 +351,8 @@
         "studentSubmissionFiles": [],
         "additionalFiles": [],
         "testFiles": [],
-        "studentTemplates": []
+        "studentTemplates": [],
+        "executionBackendSlug": "python-itp"
       }
     }
   },
