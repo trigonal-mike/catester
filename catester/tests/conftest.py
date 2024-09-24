@@ -413,7 +413,7 @@ def pytest_report_header(config):
 def pytest_terminal_summary(terminalreporter: TerminalReporter, exitstatus: pytest.ExitCode, config: pytest.Config):
     _report = config.stash[report_key]
     catverbosity = _report["catverbosity"]
-    if catverbosity > 2:
+    if catverbosity > 0:
         report: CodeAbilityReport = _report["report"]
         testsuite: CodeAbilityTestSuite = _report["testsuite"]
 

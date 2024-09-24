@@ -16,7 +16,7 @@ and should not be altered.
 
 ## tokens
 token format: `#$TOKENNAME ARGUMENT VALUE`
-valid token names see [here](catester/converter/settings.py#L4)
+valid token names see [here](../catester/converter/settings.py#L4)
 
 ## providing more solutions
 the best way is to copy the contents of **_correctSolution** directory into an new directory under **localTests** and modify some variables in the copied **ex1.py** file
@@ -58,7 +58,7 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 
 if `--metayaml` is set, that file will be the initial configuration for the created meta.yaml file
 
-if `--metayaml` is not set, the default configuration will be used, see [here](catester/metayaml/_meta-default.yaml)
+if `--metayaml` is not set, the default configuration will be used, see [here](../catester/metayaml/_meta-default.yaml)
 
 ## starting pytest with convert.py
 python /abs/path/to/convert.py

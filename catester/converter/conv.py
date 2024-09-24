@@ -129,15 +129,22 @@ class Converter:
             for file in self.metaconfig.properties.studentTemplates:
                 self._format_path(file)
 
-    def _replace_backslashes(self, path: str):
-        return path.replace('\\', '/')
+    def _normalize_path(self, path: str):
+        #replace backslashes
+        newpath = path.replace('\\', '/')
+        #replace relative path "./" => ""
+        if newpath.startswith('./'):
+            #todo: uncomment follwing line, for removing trailing "./"
+            #newpath = newpath[2:]
+            pass
+        return newpath
 
     def _init_meta_yaml(self):
         if self.metatemplate is not None and not os.path.isabs(self.metatemplate):
             self.metatemplate = os.path.join(self.scandir, self.metatemplate)
             self.metatemplate = os.path.abspath(self.metatemplate)
         self.metaconfig = parse_meta_file(self.metatemplate)
-        self.metaconfig.properties.studentSubmissionFiles.append(self._replace_backslashes(self.py_file.replace(self.scandir, ".")))
+        self.metaconfig.properties.studentSubmissionFiles.append(self._normalize_path(self.py_file.replace(self.scandir, ".")))
 
     def _write_yaml(self, title, filename, obj, parsing_fct):
         print(f"Creating {title}: {filename}")
@@ -317,7 +324,7 @@ class Converter:
                                 if f == ".":
                                     self._error(f"{Fore.RED}ERROR: choose files/folders from inside scandir: {self.list_scandir()}{Style.RESET_ALL}")
                                 else:
-                                    v.append(self._replace_backslashes(f))
+                                    v.append(self._normalize_path(f))
                             else:
                                 self._error(f"{Fore.RED}ERROR: Additional file/folder does not exist: {f}{Style.RESET_ALL}")
                     else:
