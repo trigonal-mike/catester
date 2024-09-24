@@ -2,10 +2,9 @@ import os
 from run_tests import run_tests, DEFAULT_PYTESTFLAGS
 from devflags import get_pytest_flags
 
-""" this file is for development purposes only,
-facilitates starting local test-examples,
-can be used for debugging the testing, because breakpoints can be set,
-with devconvert.py breakpoints cannot be set """
+""" this file is for development purposes only, facilitates starting local test-examples,
+it can be used for debugging the testing, because breakpoints can be set for example
+in ./tests/conftest.py or ./tests/test_class.py """ 
 
 # CATESTER_VERBOSITY: verbosity level for catester
 # 0 ... no additional output
@@ -15,13 +14,11 @@ CATESTER_VERBOSITY = 0
 # REPORT_INDENT: indentation of the generated json report file
 REPORT_INDENT = 2
 
-# SPECIFICATION: yaml file containing test specification
+# SOLUTION_DIRECTORY: directory containing test.yaml and specification.yaml
 # MUST be relative to this file (devrun.py)
-SPECIFICATION_YAML = "../../testrunner/test1-_correctSolution/specification.yaml"
-
-# TEST_YAML: yaml file containing test instructions
-# MUST be relative to this file (devrun.py)
-TEST_YAML = "../../testrunner/test1-_correctSolution/test.yaml"
+SOLUTION_DIRECTORY = "../../testrunner/_Week01_01_math_constants/_correctSolution"
+#SOLUTION_DIRECTORY = "../../testrunner/_Week01_01_math_constants/_emptySolution"
+#SOLUTION_DIRECTORY = "../../testrunner/_Week01_01_math_constants/studentSolution"
 
 # PYTEST_FLAGS: test flags for pytest
 # https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
@@ -43,11 +40,12 @@ PYTEST_FLAGS = DEFAULT_PYTESTFLAGS
 
 if __name__ == "__main__":
     # get directory of this file 
-    dir = os.path.abspath(os.path.dirname(__file__))
+    thisdir = os.path.dirname(__file__)
 
     # construct absulute paths for the tester
-    specification = os.path.join(dir, SPECIFICATION_YAML)
-    test = os.path.join(dir, TEST_YAML)
+    solution_dir = os.path.abspath(os.path.join(thisdir, SOLUTION_DIRECTORY))
+    specification = os.path.abspath(os.path.join(solution_dir, "specification.yaml"))
+    test = os.path.abspath(os.path.join(solution_dir, "test.yaml"))
 
     # run the tester
     run_tests(specification, test, REPORT_INDENT, CATESTER_VERBOSITY, PYTEST_FLAGS)

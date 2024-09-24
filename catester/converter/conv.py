@@ -5,6 +5,8 @@ import time
 import shutil
 import subprocess
 import yaml
+import re
+import datetime
 from colorama import Fore, Back, Style
 from pydantic import ValidationError
 from model.model import TypeEnum, QualificationEnum, LanguageEnum, KindEnum
@@ -375,22 +377,34 @@ class Converter:
                 os.makedirs(dir, exist_ok=True)
                 shutil.copy(file, dest)
 
+    def _get_meta_tile(self):
+        # construct title out of scandir
+        title = self.scandir.replace(self.assignmentsdir, "")
+        # title is always given, minimum length of 1
+        #if len(title) == 0:
+        #    timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+        #    title = f"Unknown_{timestamp}"
+        title = re.sub(r'[^\w_.-]', '_', title)
+        return title
+
     def run_local_tests(self):
         if not os.path.exists(self.localTestdir):
             raise Exception(f"Directory not found: {self.localTestdir}")
         self.metaconfig = parse_meta_file(self.meta_yaml)
         directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
         print(f"Running {len(directories)} local tests: {self.localTestdir}")
-        self._remove_directory(self.testrunnerdir)
-        os.makedirs(self.testrunnerdir)
+        test_title = self._get_meta_tile()
+        parent_runner_directory = os.path.join(self.testrunnerdir, test_title)
+        self._remove_directory(parent_runner_directory)
         for idx, test_directory in enumerate(directories):
             nr = idx + 1
             print()
             print(f"{Back.MAGENTA}Running local test #{nr}{Style.RESET_ALL}")
             print(f"{Back.MAGENTA}Directory: {test_directory}{Style.RESET_ALL}")
             testdir_name = os.path.basename(os.path.normpath(test_directory))
-            runner_directory = os.path.join(self.testrunnerdir, f"test{nr}-{testdir_name}")
-            os.makedirs(runner_directory)
+            #runner_directory = os.path.join(parent_runner_directory, f"test{nr}-{testdir_name}")
+            runner_directory = os.path.join(parent_runner_directory, testdir_name)
+            os.makedirs(runner_directory, exist_ok=True)
             self._run_local_test(test_directory, runner_directory)
 
     def _get_assignment_rel_path(self, directory: str):

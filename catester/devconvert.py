@@ -47,7 +47,7 @@ ASSIGNMENTS_DIR = "../../assignments"
 # SCAN_DIR: actual assignment to test
 # MUST be relative to ASSIGNMENTS_DIR
 # these following are from python assignments - repository
-#SCAN_DIR = "Week01/01_math_constants"
+SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "Week01/02_basis1"
 #SCAN_DIR = "Week01/03_basis2"
 #SCAN_DIR = "Week01/04_plot_docstr"
@@ -115,7 +115,7 @@ ASSIGNMENTS_DIR = "../../assignments"
 #SCAN_DIR = "Week11/05_pytest"
 #SCAN_DIR = "Week12/01_planets"
 #SCAN_DIR = "Week12/02_polynom"
-SCAN_DIR = "Week12/03_animals"
+#SCAN_DIR = "Week12/03_animals"
 
 # these following are from catester-examples - repository (ex_master/_ex_)
 #SCAN_DIR = "1"
