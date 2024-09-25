@@ -40,7 +40,7 @@ if __name__ == "__main__":
     print(f"{count} Master Files found")
     print(f"starting conversion")
 
-    assignmentsdir = SEARCH_DIR
+    assignmentsdir = searchdir
 
     for index, scandir in enumerate(masterlist):
         print(f"#{index+1}: converting {scandir}")
