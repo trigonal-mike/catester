@@ -136,8 +136,7 @@ class Converter:
         newpath = path.replace('\\', '/')
         #replace relative path "./" => ""
         if newpath.startswith('./'):
-            #todo: uncomment follwing line, for removing trailing "./"
-            #newpath = newpath[2:]
+            newpath = newpath[2:]
             pass
         return newpath
 
