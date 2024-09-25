@@ -17,7 +17,7 @@ from .settings import VALID_PROPS_META, VALID_PROPS_TESTSUITE, VALID_PROPS_TESTC
 from .settings import TokenEnum, ARGUMENT_VALUE_TOKENS, TEST_MAPPING, LOCAL_TEST_DIRECTORIES
 
 class Converter:
-    def __init__(self, scandir, testrunnerdir, assignmentsdir, action, verbosity, pytestflags, metatemplate, formatter):
+    def __init__(self, scandir, testrunnerdir, assignmentsdir, action, verbosity, pytestflags, metatemplate, formatter, suppressoutput):
         self.ready = False
         self.scandir = scandir
         self.testrunnerdir = testrunnerdir
@@ -27,12 +27,13 @@ class Converter:
         self.pytestflags = pytestflags
         self.metatemplate = metatemplate
         self.formatter = formatter
+        self.suppressoutput = suppressoutput
         try:
             self.init()
             self.ready = True
         except Exception as e:
-            print(e)
-            print(f"{Fore.RED}ERROR Initialization failed{Style.RESET_ALL}")
+            self._print(e)
+            self._print(f"{Fore.RED}ERROR Initialization failed{Style.RESET_ALL}")
 
     def init(self):
         if self.scandir is None:
@@ -69,21 +70,25 @@ class Converter:
             if self.action in [None, "all", "test"]:
                 self.run_local_tests()
         except Exception as e:
-            print(e)
-            print(f"{Fore.RED}ERROR occurred{Style.RESET_ALL}")
+            self._print(e)
+            self._print(f"{Fore.RED}ERROR occurred{Style.RESET_ALL}")
+
+    def _print(self, msg = None):
+        if not self.suppressoutput:
+            print(msg)
 
     def _remove_directory(self, path):
         if os.path.exists(path):
-            print(f"{Fore.MAGENTA}Removed directory: {path}{Style.RESET_ALL}")
+            self._print(f"{Fore.MAGENTA}Removed directory: {path}{Style.RESET_ALL}")
             shutil.rmtree(path)
 
     def _remove_file(self, path):
         if os.path.exists(path):
             os.remove(path)
-            print(f"{Fore.MAGENTA}Removed file: {path}{Style.RESET_ALL}")
+            self._print(f"{Fore.MAGENTA}Removed file: {path}{Style.RESET_ALL}")
 
     def cleanup(self):
-        print(f"Cleanup started: {self.scandir}")
+        self._print(f"Cleanup started: {self.scandir}")
         self._remove_file(self.py_file)
         self._remove_file(self.meta_yaml)
         self._remove_file(self.test_yaml)
@@ -92,7 +97,7 @@ class Converter:
             self._remove_directory(dir)
         if os.path.exists(self.localTestdir) and not os.listdir(self.localTestdir):
             self._remove_directory(self.localTestdir)
-        print(f"Cleanup ended")
+        self._print(f"Cleanup ended")
 
     def convert(self):
         start = time.time()
@@ -106,21 +111,22 @@ class Converter:
             self._format_all_files()
             self._prepare_local_test_directories()
         except Exception as e:
-            print(f"{Fore.RED}ERROR Conversion failed{Style.RESET_ALL}")
+            self._print(f"{Fore.RED}ERROR Conversion failed{Style.RESET_ALL}")
             raise
         end = round(time.time() - start, 3)
-        print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
+        self._print(f"{Fore.GREEN}Conversion successful, duration {end} seconds{Style.RESET_ALL}")
 
     def _create_reference(self):
-        print(f"Creating Reference-File: {self.py_file}")
+        self._print(f"Creating Reference-File: {self.py_file}")
         with open(self.py_file, "w") as file:
             file.write("".join(self.lines))
-        print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
+        self._print(f"{Fore.GREEN}Reference-File created{Style.RESET_ALL}")
 
     def _format_path(self, path):
-        print(f"Formatting File/Folder: {path}")
-        retcode = subprocess.run(f"python -m black {path}", shell=True)
-        print(f"{Fore.GREEN}File/Folder formatted{Style.RESET_ALL}")
+        self._print(f"Formatting File/Folder: {path}")
+        silence = "-q" if self.suppressoutput else ""
+        retcode = subprocess.run(f"python -m black {silence} {path}", shell=True)
+        self._print(f"{Fore.GREEN}File/Folder formatted{Style.RESET_ALL}")
 
     def _format_all_files(self):
         #todo: only format .py files?
@@ -148,21 +154,21 @@ class Converter:
         self.metaconfig.properties.studentSubmissionFiles.append(self._normalize_path(self.py_file.replace(self.scandir, ".")))
 
     def _write_yaml(self, title, filename, obj, parsing_fct):
-        print(f"Creating {title}: {filename}")
+        self._print(f"Creating {title}: {filename}")
         with open(filename, "w") as file:
             yaml.dump(obj.model_dump(exclude_none=True), file, sort_keys=False, indent=2, allow_unicode=True)
-        print(f"{Fore.GREEN}{title} created{Style.RESET_ALL}")
-        print(f"Validating {title}")
+        self._print(f"{Fore.GREEN}{title} created{Style.RESET_ALL}")
+        self._print(f"Validating {title}")
         try:
             _test = parsing_fct(filename)
         except ValidationError as e:
-            print(e)
-            print(f"{Fore.RED}{title} could not be validated{Style.RESET_ALL}")
+            self._print(e)
+            self._print(f"{Fore.RED}{title} could not be validated{Style.RESET_ALL}")
             raise
-        print(f"{Fore.GREEN}{title} validated{Style.RESET_ALL}")
+        self._print(f"{Fore.GREEN}{title} validated{Style.RESET_ALL}")
 
     def _analyze_tokens(self):
-        print(f"Analyzing Tokens: {self.masterfile}")
+        self._print(f"Analyzing Tokens: {self.masterfile}")
         with open(self.masterfile, "r") as file:
             masterlines = file.readlines()
         #lines = [l for l in lines if l.startswith("#$")]
@@ -179,9 +185,9 @@ class Converter:
             elif not line.startswith("##"):
                 self.lines.append(line)
         if self.errors > 0:
-            print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Analyzing Tokens failed{Style.RESET_ALL}")
+            self._print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Analyzing Tokens failed{Style.RESET_ALL}")
             raise
-        print(f"{Fore.GREEN}All Tokens valid{Style.RESET_ALL}")
+        self._print(f"{Fore.GREEN}All Tokens valid{Style.RESET_ALL}")
 
     def _extract_from_line(self, line: str):
         if len(line) == 0:
@@ -228,11 +234,11 @@ class Converter:
     
     def _error(self, msg):
         self.errors += 1
-        print(msg)
+        self._print(msg)
 
     def _warning(self, msg):
         self.warnings += 1
-        print(msg)
+        self._print(msg)
 
     def _find_argument(self, token, valid_props):
         token, argument, value, idx, line = token
@@ -270,7 +276,7 @@ class Converter:
             self._error(f"{e}\n{Fore.RED}ERROR in Line {idx+1}{Style.RESET_ALL}: {line}\nvalue invalid: {Fore.MAGENTA}{value}{Style.RESET_ALL}")
 
     def _convert_tokens(self):
-        print(f"Converting {len(self.tokens)} Tokens")
+        self._print(f"Converting {len(self.tokens)} Tokens")
         testsuite = CodeAbilityTestSuite(
             properties = CodeAbilityTestProperty(
                 tests = []
@@ -336,27 +342,27 @@ class Converter:
             if len(test.tests) == 0:
                 self._error(f"{Fore.RED}ERROR at testcollection #{idx+1} '{test.name}' no tests specified{Style.RESET_ALL}")
         if self.warnings > 0:
-            print(f"{Fore.YELLOW}{self.warnings} warning{'s' if self.warnings>1 else ''} occurred{Style.RESET_ALL}")
+            self._print(f"{Fore.YELLOW}{self.warnings} warning{'s' if self.warnings>1 else ''} occurred{Style.RESET_ALL}")
         if self.errors > 0:
-            print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Converting Tokens failed{Style.RESET_ALL}")
+            self._print(f"{Fore.RED}{self.errors} error{'s' if self.errors>1 else ''} occurred, Converting Tokens failed{Style.RESET_ALL}")
             raise
-        print(f"{Fore.GREEN}All Tokens converted{Style.RESET_ALL}")
+        self._print(f"{Fore.GREEN}All Tokens converted{Style.RESET_ALL}")
         self.testsuite = testsuite
 
     def _prepare_local_test_directories(self):
-        print(f"Preparing Local Test Directory: {self.localTestdir}")
+        self._print(f"Preparing Local Test Directory: {self.localTestdir}")
         if not os.path.exists(self.localTestdir):
             os.makedirs(self.localTestdir)
-            print(f"Creating directory: {self.localTestdir}")
+            self._print(f"Creating directory: {self.localTestdir}")
         else:
-            print(f"{Fore.CYAN}Directory already exists:{Style.RESET_ALL} {self.localTestdir}")
+            self._print(f"{Fore.CYAN}Directory already exists:{Style.RESET_ALL} {self.localTestdir}")
         if not os.path.exists(self.test_yaml):
-            print(f"test.yaml does not exist in directory: {self.scandir}")
+            self._print(f"test.yaml does not exist in directory: {self.scandir}")
             return
         for directory in LOCAL_TEST_DIRECTORIES._member_names_:
             test_directory = os.path.join(self.localTestdir, directory)
             self._remove_directory(test_directory)
-            print(f"Creating directory: {test_directory}")
+            self._print(f"Creating directory: {test_directory}")
             os.makedirs(test_directory)
             if not directory == LOCAL_TEST_DIRECTORIES._emptySolution:
                 self._copy_files(test_directory, self.metaconfig.properties.additionalFiles)
@@ -391,15 +397,15 @@ class Converter:
             raise Exception(f"Directory not found: {self.localTestdir}")
         self.metaconfig = parse_meta_file(self.meta_yaml)
         directories = [ f.path for f in os.scandir(self.localTestdir) if f.is_dir() and not f.path.endswith("_reference") ]
-        print(f"Running {len(directories)} local tests: {self.localTestdir}")
+        self._print(f"Running {len(directories)} local tests: {self.localTestdir}")
         test_title = self._get_meta_tile()
         parent_runner_directory = os.path.join(self.testrunnerdir, test_title)
         self._remove_directory(parent_runner_directory)
         for idx, test_directory in enumerate(directories):
             nr = idx + 1
-            print()
-            print(f"{Back.MAGENTA}Running local test #{nr}{Style.RESET_ALL}")
-            print(f"{Back.MAGENTA}Directory: {test_directory}{Style.RESET_ALL}")
+            self._print()
+            self._print(f"{Back.MAGENTA}Running local test #{nr}{Style.RESET_ALL}")
+            self._print(f"{Back.MAGENTA}Directory: {test_directory}{Style.RESET_ALL}")
             testdir_name = os.path.basename(os.path.normpath(test_directory))
             #runner_directory = os.path.join(parent_runner_directory, f"test{nr}-{testdir_name}")
             runner_directory = os.path.join(parent_runner_directory, testdir_name)
@@ -461,4 +467,4 @@ class Converter:
         run_tests_py = os.path.abspath(run_tests_py)
         retcode = subprocess.run(f"python {run_tests_py} --specification={self.spec_file} --verbosity={self.verbosity} --pytestflags={self.pytestflags}", shell=True)
         if int(self.verbosity) > 0:
-            print(retcode)
+            self._print(retcode)

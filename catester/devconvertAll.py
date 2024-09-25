@@ -7,6 +7,7 @@ from convert import convert_master
 TESTRUNNER_DIR = "../../testrunner"
 INITIAL_META = "../../assignments/initial-meta.yaml"
 USE_FORMATTER = True
+SUPPRESS_OUTPUT = True
 #CONVERTER_ACTION = 'cleanup'
 #CONVERTER_ACTION = 'convert'
 #CONVERTER_ACTION = 'test'
@@ -44,4 +45,6 @@ if __name__ == "__main__":
 
     for index, scandir in enumerate(masterlist):
         print(f"#{index+1}: converting {scandir}")
-        convert_master(scandir, testrunnerdir, assignmentsdir, CONVERTER_ACTION, CATESTER_VERBOSITY, PYTEST_FLAGS, metayaml, USE_FORMATTER)
+        convert_master(scandir, testrunnerdir, assignmentsdir, CONVERTER_ACTION, CATESTER_VERBOSITY, PYTEST_FLAGS, metayaml, USE_FORMATTER, SUPPRESS_OUTPUT)
+
+    print(f"conversion finished")

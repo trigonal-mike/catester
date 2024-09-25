@@ -18,6 +18,10 @@ INITIAL_META = "../../assignments/initial-meta.yaml"
 USE_FORMATTER = True
 #USE_FORMATTER = False
 
+# SUPPRESS_OUTPUT: suppress converter output or not
+#SUPPRESS_OUTPUT = True
+SUPPRESS_OUTPUT = False
+
 # CONVERTER_ACTION: action for the converter
 # None      ... run all (DEFAULT)
 # "convert" ... just convert
@@ -178,4 +182,4 @@ if __name__ == "__main__":
     metayaml = None if INITIAL_META is None else os.path.abspath(os.path.join(thisdir, INITIAL_META))
 
     # run the converter
-    convert_master(scandir, testrunnerdir, assignmentsdir, CONVERTER_ACTION, CATESTER_VERBOSITY, PYTEST_FLAGS, metayaml, USE_FORMATTER)
+    convert_master(scandir, testrunnerdir, assignmentsdir, CONVERTER_ACTION, CATESTER_VERBOSITY, PYTEST_FLAGS, metayaml, USE_FORMATTER, SUPPRESS_OUTPUT)

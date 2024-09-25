@@ -55,6 +55,7 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 | --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
 | --metayaml | none | abs/rel path to initial meta.yaml |
 | --formatter | true | use black as formatter |
+| --suppressoutput | false | suppress converter output |
 
 if `--metayaml` is set, that file will be the initial configuration for the created meta.yaml file
 
