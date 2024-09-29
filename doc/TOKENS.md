@@ -1,9 +1,12 @@
 # TOKENS
-- to specify test information, test tokens can be set in the masterfile **[some-name]_master.py**
+- to specify meta information, meta tokens can be set in the masterfile **_master.py**
+- to specify test information, test tokens can be set in the masterfile **_master.py**
 - a valid master file contains at least one test (e.g. VARIABLETEST)
 - a valid test contains at least one TESTVAR
 - see catester/model/model.py for default values:
 [default values](../catester/model/model.py#L64)
+- see also: [EXAMPLES-META.md](EXAMPLES-META.md)
+- see also: [EXAMPLES-TEST.md](EXAMPLES-TEST.md)
 
 test.yaml (defaults):
 ```yaml

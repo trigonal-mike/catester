@@ -1,5 +1,4 @@
 # EXAMPLES-META
-to specify meta information, meta tokens can be set in the masterfile **[some-name]_master.py**
 
 several examples can be found here:
 
