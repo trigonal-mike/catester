@@ -1,9 +1,9 @@
-# examples
-Masterfile-Examples for Python Testing Converter
-
+# META-TOKENS
+to specify meta information, meta tokens can be set
 A Masterfile is a file named "*_master.py", e.g.: "example_master.py"
 
-## META-TOKENS
+several examples canbe found here:
+
 #### Basic Settings
 ```python
 #$META version 1.3.4.5
@@ -49,4 +49,7 @@ A Masterfile is a file named "*_master.py", e.g.: "example_master.py"
 #$META additionalFiles ./data-dir2/only-this.dat
 #$META testFiles ./test
 #$META studentTemplates ./templates
+#$META studentTemplates ./studentTemplates/file1.py
+#$META studentTemplates ./studentTemplates/file2.py
+#$META studentTemplates studentTemplates/file1.py
 ```

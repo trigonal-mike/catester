@@ -5,7 +5,7 @@ run devconvert.py for automatically creating associated files/folders and runnin
 you have to provide a folder with a containing **[some-file-name]_master.py** file
 
 # associated files/folders
-associated files are created following the instructions (pragmas) set in a **_master.py** file
+associated files are created following the instructions (pragmas, tokens) set in a **_master.py** file
 
 assume a folder containing **ex1_master.py**
 

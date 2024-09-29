@@ -3,8 +3,8 @@ Python Testing Engine
 
 ## documents
 - [CONVERTER.md](doc/CONVERTER.md)
-- [EXAMPLES.md](doc/EXAMPLES.md)
-- [TODOS.md](doc/TODOS.md)
+- [META-TOKENS.md](doc/META-TOKENS.md)
+- [TEST-TOKENS.md](doc/TEST-TOKENS.md)
 
 ## catester examples
 https://github.com/trigonal-mike/catester-examples
