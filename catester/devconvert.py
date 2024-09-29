@@ -6,7 +6,7 @@ from run_tests import DEFAULT_PYTESTFLAGS
 
 # TESTRUNNER_DIR: name of directory where the tests should run
 # best being placed next to repository "catester"
-# this directory MUST exist and MUST be relative to this file (devconvert.py)
+# this directory MUST be relative to this file (devconvert.py)
 TESTRUNNER_DIR = "../../testrunner"
 
 # INITIAL_META: yaml-file containing initial values for the generated meta.yaml file
@@ -163,6 +163,7 @@ SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "random"
 #SCAN_DIR = "stdin"
 #SCAN_DIR = "stdout"
+#SCAN_DIR = "stdin_stdout"
 #SCAN_DIR = "strings"
 #SCAN_DIR = "structural"
 #SCAN_DIR = "timeout"
