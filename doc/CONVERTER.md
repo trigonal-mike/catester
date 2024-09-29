@@ -1,5 +1,5 @@
 # converter
-Python Testing Converter
+Python Testing Converter, the purpose of the converter is to facilitate the development of exercises.
 
 ## master file naming
 the master filename has to end with **_master.py**
