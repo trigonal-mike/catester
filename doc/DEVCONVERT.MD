@@ -10,13 +10,13 @@ associated files are created following the instructions (pragmas) set in a **_ma
 assume a folder containing **ex1_master.py**
 
 the created files/folders are:
-- **meta.yaml**, the file containing test meta-information
-- **test.yaml**, the file containing actual tests, which sould be performed, when the tests are run
-- **ex1.py**, the reference solution
-- **localTests**, folder containing local tests
-- **localTests/_reference**, folder containing the reference Solution
-- **localTests/_correctSolution**, folder containing the correct Solution (i.e. the reference Solution)
-- **localTests/_emptySolution**, folder containing the empty Solution (no files)
+- **meta.yaml** - file containing test meta-information
+- **test.yaml** - file containing actual tests, which sould be performed, when the tests are run
+- **ex1.py** - file with reference solution
+- **localTests** - folder containing local tests
+- **localTests/_reference** - folder containing the reference Solution
+- **localTests/_correctSolution** - folder containing the correct Solution (i.e. the reference Solution)
+- **localTests/_emptySolution** - folder containing the empty Solution (no files)
 
 # settings for devconvert.py
 all important settings for devconvert.py are explained here
@@ -48,10 +48,10 @@ e.g.: SUPPRESS_OUTPUT = False
 
 ## CONVERTER_ACTION
 action for the converter
-- **None**, run all (cleanup => convert => test)
-- **"convert"**, just convert, i.e. create associated files and test folders
-- **"test"**, just run the tests
-- **"cleanup"**, just run the cleanup, i.e. delete associated files and test folders
+- **None** - run all (cleanup => convert => test)
+- **"convert"** - just convert, i.e. create associated files and test folders
+- **"test"** - just run the tests
+- **"cleanup"** - just run the cleanup, i.e. delete associated files and test folders
 
 e.g.: CONVERTER_ACTION = None
 
@@ -71,7 +71,7 @@ examples:
 - PYTEST_FLAGS = "-rA"
 - PYTEST_FLAGS = "-ra,--tb=no,--no-header,--no-summary,-q"
 
-these flags can also be created with the helper function in devflags.py:
+these flags can also be created with a helper function from devflags.py:
 ```
 PYTEST_FLAGS = get_pytest_flags(
     reportPassed = False,
