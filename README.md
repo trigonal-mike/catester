@@ -44,10 +44,9 @@ for easy testing, developing of the codeability assignments, this repository sho
         ├── pytest.ini          ... pytest settings
         └── run_tests.py        ... ---MAIN ENTRY FOR STARTING PYTEST---
 ├── catester-examples           ... extra repository (catester-examples)
-    └── ex_master
-        ├── _ex_                ... various development examples
-        ├── examples            ... named test examples
-        └── initial-meta.yaml   ... file containing initial meta specification
+    ├── dev_examples            ... various development examples
+    ├── examples                ... named test examples
+    └── initial-meta.yaml       ... file containing initial meta specification
 ├── assignments                 ... extra repository (codeability-assignments)
     ├── Week01
         ├── 01_math_constants   ... various development examples

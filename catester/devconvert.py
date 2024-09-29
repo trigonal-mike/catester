@@ -12,6 +12,7 @@ TESTRUNNER_DIR = "../../testrunner"
 # INITIAL_META: yaml-file containing initial values for the generated meta.yaml file
 # or None if initial values are not provided
 INITIAL_META = "../../assignments/initial-meta.yaml"
+#INITIAL_META = "../../catester-examples/initial-meta.yaml"
 #INITIAL_META = None
 
 # USE_FORMATTER: if files should be formatted or not
@@ -45,11 +46,12 @@ PYTEST_FLAGS = DEFAULT_PYTESTFLAGS
 
 # ASSIGNMENTS_DIR: name of directory containing the assignments or examples
 ASSIGNMENTS_DIR = "../../assignments"
-#ASSIGNMENTS_DIR = "../../catester-examples/ex_master/_ex_"
-#ASSIGNMENTS_DIR = "../../catester-examples/ex_master/examples"
+#ASSIGNMENTS_DIR = "../../catester-examples/dev_examples"
+#ASSIGNMENTS_DIR = "../../catester-examples/examples"
 
 # SCAN_DIR: actual assignment to test
 # MUST be relative to ASSIGNMENTS_DIR
+
 # these following are from python assignments - repository
 SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "Week01/02_basis1"
@@ -121,26 +123,26 @@ SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "Week12/02_polynom"
 #SCAN_DIR = "Week12/03_animals"
 
-# these following are from catester-examples - repository (ex_master/_ex_)
-#SCAN_DIR = "1"
-#SCAN_DIR = "2"
-#SCAN_DIR = "3"
-#SCAN_DIR = "4"
-#SCAN_DIR = "5"
-#SCAN_DIR = "6"
-#SCAN_DIR = "7"
-#SCAN_DIR = "8"
-#SCAN_DIR = "9"
-#SCAN_DIR = "10"
-#SCAN_DIR = "11"
-#SCAN_DIR = "12"
-#SCAN_DIR = "13"
-#SCAN_DIR = "14"
-#SCAN_DIR = "15"
-#SCAN_DIR = "16"
-#SCAN_DIR = "17"
+# these following are from catester-examples - repository (dev_examples)
+#SCAN_DIR = "1_pskript"
+#SCAN_DIR = "2_basis3"
+#SCAN_DIR = "3_additional"
+#SCAN_DIR = "4_pskript"
+#SCAN_DIR = "5_seed"
+#SCAN_DIR = "6_oster"
+#SCAN_DIR = "7_setupcode"
+#SCAN_DIR = "8_matplot"
+#SCAN_DIR = "9_regexp"
+#SCAN_DIR = "10_password"
+#SCAN_DIR = "11_setupcode"
+#SCAN_DIR = "12_animation"
+#SCAN_DIR = "13_scipy"
+#SCAN_DIR = "14_malicious"
+#SCAN_DIR = "15_regexp"
+#SCAN_DIR = "16_stdin"
+#SCAN_DIR = "17_planets"
 
-# these following are from catester-examples - repository (ex_master/examples)
+# these following are from catester-examples - repository (examples)
 #SCAN_DIR = "aaa/bbb/ccc"
 #SCAN_DIR = "basic"
 #SCAN_DIR = "blacklist"
@@ -169,8 +171,9 @@ SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "timeout"
 #SCAN_DIR = "typecheck"
 #SCAN_DIR = "vector_random"
-#SCAN_DIR = "Week03/Unit01"
-#SCAN_DIR = "Week03/Unit02"
+#SCAN_DIR = "Week03_test_dependencies/Unit01"
+#SCAN_DIR = "Week03_test_dependencies/Unit02"
+#SCAN_DIR = "Week03_test_dependencies/Unit03"
 
 if __name__ == "__main__":
     # get directory of this file 
