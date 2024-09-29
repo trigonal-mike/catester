@@ -51,7 +51,7 @@ the best way is to copy the contents of **_correctSolution** directory into an n
 | --testrunnerdir | none | directory where the actual test is run |
 | --assignmentsdir | none | common parent directory of the assignments |
 | --action | all | 'all', 'cleanup', 'test' or 'convert' |
-| --verbosity | 0 | 0, 1, 2 or 3 |
+| --verbosity | 0 | catester-verbosity level 0 or 1 |
 | --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
 | --metayaml | none | abs/rel path to initial meta.yaml |
 | --formatter | true | use black as formatter |

@@ -15,7 +15,7 @@ and for development purposes best being placed next to this repository "catester
 ## codeability assignments
 https://gitlab.tugraz.at/codeability/itpcp/progphys/2024/python/assignments
 
-for easy testing, deveolping of the codeability assignments, this repository should also be placed next to catester
+for easy testing, developing of the codeability assignments, this repository should also be placed next to catester
 
 ## project folder structure
 ```
@@ -73,7 +73,7 @@ run_tests.py uses following command line arguments:
 | --specification | specification.yaml | abs/rel path to specification file |
 | --test | test.yaml | abs/rel path to testsuite file |
 | --indent | 2 | indentation for the generated report |
-| --verbosity | 0 | catester-verbosity level [0,1,2,3] |
+| --verbosity | 0 | catester-verbosity level 0 or 1 |
 | --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
 
 ## pytestflags

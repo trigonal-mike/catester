@@ -62,7 +62,7 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--specification", default=DEFAULT_SPECIFICATION, help="specification yaml input file")
     parser.add_argument("-t", "--test", default=DEFAULT_TEST, help="test yaml input file")
     parser.add_argument("-i", "--indent", default=DEFAULT_INDENT, help="json report output indentation in spaces")
-    parser.add_argument("-v", "--verbosity", default=DEFAULT_VERBOSITY, help="catester-verbosity level 0, 1, 2 or 3")
+    parser.add_argument("-v", "--verbosity", default=DEFAULT_VERBOSITY, help="catester-verbosity level 0 or 1")
     parser.add_argument("-p", "--pytestflags", default=DEFAULT_PYTESTFLAGS, help="comma-separated flags, for configuring pytest")
 
     args = parser.parse_args()
