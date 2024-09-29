@@ -1,10 +1,9 @@
-# META-TOKENS
-to specify meta information, meta tokens can be set
-A Masterfile is a file named "*_master.py", e.g.: "example_master.py"
+# TOKENS-META
+to specify meta information, meta tokens can be set in the masterfile **[some-name]_master.py**
 
-several examples canbe found here:
+several examples can be found here:
 
-#### Basic Settings
+## Basic Settings
 ```python
 #$META version 1.3.4.5
 #$META kind assignment
@@ -16,13 +15,13 @@ several examples canbe found here:
 #$META language de
 #$META license MIT
 ```
-#### Author, Maintainer
+## Author, Maintainer
 ```python
 #$META authors {"name":"Author #1", "email":"email@tugraz.at", "affiliation":"TU Graz"}
 #$META maintainers {"name":"Maintainer #1", "email":"email@tugraz.at", "affiliation":"TU Graz"}
 #$META maintainers {"name":"Maintainer #2", "email":"email@tugraz.at", "affiliation":"TU Graz"}
 ```
-#### Links, Supporting Material
+## Links, Supporting Material
 ```python
 #$META links {"description":"Description of Link-1", "url":"https://www.python.org/"}
 #$META links {"description":"Description of Link-2", "url":"https://www.python.org/"}
@@ -30,18 +29,18 @@ several examples canbe found here:
 #$META supportingMaterial {"description":"Description", "url":"supporturl"}
 #$META supportingMaterial {"description":"Description", "url":"supporturl"}
 ```
-#### Keywords
+## Keywords
 ```python
 #$META keywords ["one keyword", "another keyword"]
 #$META keywords "intermediate"
 #$META keywords "testing"
 ```
-#### Test Dependencies
+## Test Dependencies
 ```python
 #$META testDependencies ../04_quadgl/quadgl.py
 #$META testDependencies ../Unit01/unit1.py
 ```
-#### Files, Folders
+## Files, Folders
 ```python
 #$META studentSubmissionFiles ./add1.py:add2.py
 #$META studentSubmissionFiles add3.py
