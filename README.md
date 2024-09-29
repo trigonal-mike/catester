@@ -62,7 +62,7 @@ for easy testing, developing of the codeability assignments, this repository sho
         └── ... more assignments
     ├── ... more folders
     └── initial-meta.yaml       ... file containing initial meta specification
-└── testrunner                  ... directory where actual test are copied to and run
+└── testrunner                  ... directory where actual tests are copied to and run
 ```
 
 ## command line arguments for run_tests.py
