@@ -7,7 +7,10 @@ A Masterfile is a file named "*_master.py", e.g.: "example_master.py"
 #### Basic Settings
 ```python
 #$META version 1.3.4.5
-#$META type ProblemSet
+#$META kind assignment
+#$META type standard
+#$META type extra
+#$META type mandatory
 #$META title "Title of the problemset"
 #$META description Description of the problemset
 #$META language de
@@ -32,6 +35,11 @@ A Masterfile is a file named "*_master.py", e.g.: "example_master.py"
 #$META keywords ["one keyword", "another keyword"]
 #$META keywords "intermediate"
 #$META keywords "testing"
+```
+#### Test Dependencies
+```python
+#$META testDependencies ../04_quadgl/quadgl.py
+#$META testDependencies ../Unit01/unit1.py
 ```
 #### Files, Folders
 ```python
