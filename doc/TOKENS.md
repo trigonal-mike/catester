@@ -31,19 +31,19 @@ properties:
 
 [valid tokennames](../catester/converter/settings.py#L4)
 
-### tokenname: META
+## tokenname: META
 [valid properties](../catester/converter/settings.py#L42)
 ```python
 #$META title "Title of the problemset"
 ```
 
-### tokenname: TESTSUITE
+## tokenname: TESTSUITE
 [valid properties](../catester/converter/settings.py#L64)
 ```python
 #$TESTSUITE name "Title of the testsuite"
 ```
 
-### tokenname: PROPERTY
+## tokenname: PROPERTY
 - properties are inherited from the parent, if defined there, if not default values are used.
 - properties can be set at different "levels"
   - testsuite-level, i.e. before any testcollection is specified
@@ -61,7 +61,7 @@ properties:
 #$PROPERTY relativeTolerance 1.0E-06
 ```
 
-### tokenname: TESTVAR
+## tokenname: TESTVAR
 when specifying a test variable, only the field [value] is needed, i.e. the name of the variable
 
 ```python
@@ -70,7 +70,7 @@ when specifying a test variable, only the field [value] is needed, i.e. the name
 #$TESTVAR some_other_variable
 ```
 
-### specifying tests
+## specifying tests
 when specifying a test, only the field [value] is needed, which is the name of the test
 
 following tests can be set:

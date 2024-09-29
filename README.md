@@ -99,6 +99,8 @@ python ../../rel/path/to/run_tests.py --specification=../specification.yaml
 https://pypi.org/project/pytest-metadata/
 - this plugin provides environment data (platform, python version, plugins)
 
+# todo
+
 ## sandboxing:
 - Wie kann das sinnvoll umgesetzt werden?
 - Wie wird das in matlab gemacht?
@@ -108,7 +110,7 @@ https://pypi.org/project/pytest-metadata/
 
 ## Erweiterungen/Todos:
 - Was soll geändert/hinzugefügt werden?
-- verbosity ist zzt (noch) nicht ideal einstellbar
+- verbosity ist (noch) nicht ideal einstellbar
 
 ## Allowed/Disallowed Modules:
 - moduleBlacklist ist umgesetzt
