@@ -1,5 +1,5 @@
 # EXAMPLES-META
-several examples can be found here:
+several examples using META-tokens can be found here:
 
 ## Basic Settings
 ```python

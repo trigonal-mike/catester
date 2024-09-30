@@ -1,5 +1,5 @@
 # settings for devconvert.py
-- Python Testing Converter, the purpose of the converter is to facilitate the development of exercises.
+- Python Testing Converter, the purpose of the converter is to facilitate the development of exercises
 - run devconvert.py for automatically creating associated files/folders and running local tests of an example
 - all important settings for devconvert.py are explained herein
 - see [EXAMPLES.md](doc/EXAMPLES.md) for how examples are structured, master-file naming, etc.

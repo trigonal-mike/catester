@@ -1,5 +1,4 @@
 # EXAMPLES-TEST
-
 various examples of how to implement tokens can be found here
 
 ## Variable Test (reference - solution)
