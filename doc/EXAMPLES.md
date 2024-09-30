@@ -44,7 +44,7 @@ the created files/folders are:
 - **test.yaml** - file containing the actual tests which should be performed
 - **ex1.py** - is the created reference solution (i.e. ex1_master.py without double-comments '##' and without tokens '#$TOKENNAME')
 - **localTests** - contains directories which are getting tested at a later stage,
-directories starting with "_" are automatically created and should not be altered.
+directories starting with "_" are automatically created and should not be altered
 - **localTests/_reference** - folder containing the reference solution
 - **localTests/_correctSolution** - folder containing the correct solution (i.e. the reference Solution)
 - **localTests/_emptySolution** - folder containing the empty solution (i.e. no files)
@@ -53,7 +53,7 @@ directories starting with "_" are automatically created and should not be altere
 the best way is to copy the whole content of **_correctSolution** directory into a new directory under **localTests** and modify files/variables therein
 
 ## double-comments
-comments straing with ## will stay in the master-file only
+comments starting with ## will stay in the master-file only
 ```python
 ## this comment stays in the master-file only
 # this comment will be transferred to the created reference file
