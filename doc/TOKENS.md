@@ -123,7 +123,6 @@ following testcollections can be set:
 ```
 
 ## tokenname: PROPERTY
-- some properties are inherited from the parent, if defined there, if not default values are used. See next section "inherited PROPERTIES"
 - properties can be set at different "levels"
   - testsuite-level, i.e. before any testcollection is specified
   - testcollection-level, i.e. after a testcollection is specified and before a variable is specified
@@ -176,11 +175,10 @@ all properties:
 ```
 
 ## inherited PROPERTIES
-- see here: [where properties are inherited](../catester/tests/conftest.py#L123)
+properties are inherited from "testsuite-level" to "testcollection-level" to "variable-level", see here [where properties are inherited](../catester/tests/conftest.py#L123)
 
-properties are inherited from "testsuite-level" to "testcollection-level" to "variable-level"
-
-- inherited properties are
+inherited properties:
+- testsuite => testcollection => variable-level
   - qualification
   - relativeTolerance
   - absoluteTolerance
@@ -189,9 +187,10 @@ properties are inherited from "testsuite-level" to "testcollection-level" to "va
   - typeCheck
   - shapeCheck
   - verbosity
-  - storeGraphicsArtifacts, (testcollection-level only)
-  - competency, (testcollection-level only)
-  - timeout, (testcollection-level only)
+- testsuite => testcollection
+  - storeGraphicsArtifacts
+  - competency
+  - timeout
 
 e.g.
 ```python
@@ -238,7 +237,7 @@ if not specified different in the masterfile.
 #$TESTVAR variable_which_should_be_tested
 ```
 
-## special cases:
+## special cases for testcollections:
 EXISTANCETEST, LINTINGTEST, STRUCTURALTEST:
 - "#$PROPERTY file [filename].py" must be set
 
