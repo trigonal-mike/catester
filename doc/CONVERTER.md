@@ -15,8 +15,9 @@ and should not be altered.
 - **ex1.py** is the created reference solution (= ex1_master.py without double-comments '##' and without tokens '#$TOKENNAME')
 
 ## tokens
-token format: `#$TOKENNAME ARGUMENT VALUE`
-valid token names see [here](../catester/converter/settings.py#L4)
+- token format: `#$TOKENNAME PROPERTY VALUE`
+- valid token names, [see here](../catester/converter/settings.py#L4)
+- detailed description, [see here](TOKENS.md)
 
 ## providing more solutions
 the best way is to copy the contents of **_correctSolution** directory into an new directory under **localTests** and modify some variables in the copied **ex1.py** file

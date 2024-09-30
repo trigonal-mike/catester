@@ -42,7 +42,7 @@ properties:
 ```
 
 ## token syntax rules
-#$[tokenname] [property] [value]
+`#$[tokenname] [property] [value]`
 
 [valid tokennames](../catester/converter/settings.py#L4)
 - META
