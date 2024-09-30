@@ -29,7 +29,6 @@ the best way is to copy the contents of **_correctSolution** directory into an n
         ├── ex1.py
         ├── meta.yaml
         ├── test.yaml
-        ├── specification.yaml
         ├── localTests
             ├── _reference
                 └── ex1.py

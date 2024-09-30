@@ -72,7 +72,7 @@ examples:
 - PYTEST_FLAGS = "-ra,--tb=no,--no-header,--no-summary,-q"
 
 these flags can also be created with a helper function from devflags.py:
-```
+```python
 PYTEST_FLAGS = get_pytest_flags(
     reportPassed = False,
     withHeader = False,
