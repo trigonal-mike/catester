@@ -5,10 +5,10 @@
 - a valid test contains at least one TESTVAR
 - see catester/model/model.py for default values:
 [default values](../catester/model/model.py#L64)
-- see also: [EXAMPLES-META.md](EXAMPLES-META.md)
-- see also: [EXAMPLES-TEST.md](EXAMPLES-TEST.md)
+- see also: [TOKENS-META.md](TOKENS-META.md)
+- see also: [TOKENS-TEST.md](TOKENS-TEST.md)
 
-# serching in vscode for #$tokenname
+## searching in vscode for #$tokenname
 to find examples using certain tokens, use the search in vscode, e.g. search for:
 - #$META studentTemplates
 - #$META additionalFiles

@@ -1,29 +1,11 @@
-# devconvert.py
-
-run devconvert.py for automatically creating associated files/folders and running local tests of an example
-
-you have to provide a folder with a containing **[some-file-name]_master.py** file
-
-# associated files/folders
-associated files are created following the instructions (pragmas, tokens) set in a **_master.py** file
-
-assume a folder containing **ex1_master.py**
-
-the created files/folders are:
-- **meta.yaml** - file containing test meta-information
-- **test.yaml** - file containing actual tests, which sould be performed, when the tests are run
-- **ex1.py** - file with reference solution
-- **localTests** - folder containing local tests
-- **localTests/_reference** - folder containing the reference Solution
-- **localTests/_correctSolution** - folder containing the correct Solution (i.e. the reference Solution)
-- **localTests/_emptySolution** - folder containing the empty Solution (no files)
-
 # settings for devconvert.py
-all important settings for devconvert.py are explained here
+- Python Testing Converter, the purpose of the converter is to facilitate the development of exercises.
+- run devconvert.py for automatically creating associated files/folders and running local tests of an example
+- all important settings for devconvert.py are explained herein
+- see [EXAMPLES.md](doc/EXAMPLES.md) for how examples are structured, master-file naming, etc.
 
 ## TESTRUNNER_DIR
-
-this sould point to the directory where the tests should run, best being placed next to repository "catester", this directory MUST be relative to devconvert.py
+this should point to the directory where the tests are run, best being placed next to repository "catester", this directory MUST be relative to devconvert.py
 
 e.g.: TESTRUNNER_DIR = "../../testrunner"
 
@@ -34,7 +16,7 @@ points to the file containing initial values for the generated meta.yaml file
 
 e.g.: INITIAL_META = "../../assignments/initial-meta.yaml"
 
-can be **NONE** if initial values are not provided
+can be **None** if initial values are not provided
 
 ## USE_FORMATTER
 **True** if files should be formatted or **False** if not
@@ -112,3 +94,7 @@ examples for (catester-examples/examples):
 - SCAN_DIR = "basic"
 - SCAN_DIR = "blacklist"
 - SCAN_DIR = "datetime"
+
+# devconvert_all.py
+- devconvert_all.py uses the same settings as devconvert.py, except **ASSIGNMENTS_DIR** and **SCAN_DIR**
+- instead it uses **SEARCH_DIR**, which is the directory where _master-files are being searched for recursively, and the converter is run for all directories containing a master-file

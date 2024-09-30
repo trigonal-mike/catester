@@ -2,11 +2,11 @@
 Python Testing Engine
 
 ## documents
-- [CONVERTER.md](doc/CONVERTER.md)
 - [DEVCONVERT.md](doc/DEVCONVERT.md)
+- [EXAMPLES.md](doc/EXAMPLES.md)
 - [TOKENS.md](doc/TOKENS.md)
-- [EXAMPLES-META.md](doc/EXAMPLES-META.md)
-- [EXAMPLES-TEST.md](doc/EXAMPLES-TEST.md)
+- [TOKENS-META.md](doc/TOKENS-META.md)
+- [TOKENS-TEST.md](doc/TOKENS-TEST.md)
 
 ## catester examples
 https://github.com/trigonal-mike/catester-examples
@@ -86,13 +86,45 @@ e.g. set verbosity of pytest with --pytestflags
 
 DEFAULT-Setting: report all but PASSED, no traceback
 
-
 ## starting pytest with run_tests.py
 python ./run_tests.py
 
 python /abs/path/to/run_tests.py
 
 python ../../rel/path/to/run_tests.py --specification=../specification.yaml
+
+## command line arguments for convert.py
+
+| Argument | Default | Description |
+| --- | --- | --- |
+| --scandir | none | if not set, current working directory is used |
+| --testrunnerdir | none | directory where the actual test is run |
+| --assignmentsdir | none | common parent directory of the assignments |
+| --action | all | 'all', 'cleanup', 'test' or 'convert' |
+| --verbosity | 0 | catester-verbosity level 0 or 1 |
+| --pytestflags | -ra,--tb=no | comma-separated flags, for configuring pytest |
+| --metayaml | none | abs/rel path to initial meta.yaml |
+| --formatter | true | use black as formatter |
+| --suppressoutput | false | suppress converter output |
+
+if `--metayaml` is set, that file will be the initial configuration for the created meta.yaml file
+
+if `--metayaml` is not set, the default configuration will be used, see [here](../catester/metayaml/_meta-default.yaml)
+
+## starting pytest with convert.py
+python /abs/path/to/convert.py
+
+python ../../rel/path/to/convert.py
+
+## flake8 linter options
+https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore
+
+## code formatter
+https://pypi.org/project/black/
+
+## structural test
+occuranceType (default=NAME):
+https://github.com/python/cpython/blob/3.12/Lib/token.py
 
 # Plugins used
 
