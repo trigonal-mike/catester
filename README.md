@@ -109,7 +109,7 @@ python ../../rel/path/to/run_tests.py --specification=../specification.yaml
 
 if `--metayaml` is set, that file will be the initial configuration for the created meta.yaml file
 
-if `--metayaml` is not set, the default configuration will be used, see [here](../catester/metayaml/_meta-default.yaml)
+if `--metayaml` is not set, the default configuration will be used, see [here](catester/metayaml/_meta-default.yaml)
 
 ## starting pytest with convert.py
 python /abs/path/to/convert.py
