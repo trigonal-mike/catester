@@ -426,5 +426,61 @@ print("abc")
 #$PROPERTY pattern "abcde"
 ```
 
+### Graphics Test 1
+- [catester-examples/tokens-test/graphics-1/ex_master.py](../../catester-examples/tokens-test/graphics-1/ex_master.py)
+- basic graphics test
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 20, 1000)
+y = np.sin(x)
+plt.plot(x, y, "-b", label="sine")
+plt.show()
+
+#$GRAPHICSTEST graphics-1
+#$TESTVAR figure(1).axes[0].lines[0].get_linestyle()
+```
+
+### Graphics Test 2 (storeGraphicsArtifacts)
+- [catester-examples/tokens-test/graphics-2/ex_master.py](../../catester-examples/tokens-test/graphics-2/ex_master.py)
+- basic graphics test
+- storeGraphicsArtifacts defaults to False
+- here, storeGraphicsArtifacts is set to True, graphics get stored into "artifacts"-directory, see testrunner-directory
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 20, 1000)
+y = np.sin(x)
+plt.plot(x, y, "-b", label="sine")
+plt.show()
+
+#$GRAPHICSTEST graphics-1
+#$TESTVAR figure(1).axes[0].lines[0].get_linestyle()
+```
+
+### Structural Test 1
+- [catester-examples/tokens-test/structural-1/ex_master.py](../../catester-examples/tokens-test/structural-1/ex_master.py)
+```python
+```
+
+### Linting Test 1
+- [catester-examples/tokens-test/linting-1/ex_master.py](../../catester-examples/tokens-test/linting-1/ex_master.py)
+```python
+```
+
+### TestDependency Test 1
+- [catester-examples/tokens-test/testDependency1/ex_master.py](../../catester-examples/tokens-test/testDependency1/ex_master.py)
+```python
+```
+
+### TestDependency Test 2
+- [catester-examples/tokens-test/testDependency2/ex_master.py](../../catester-examples/tokens-test/testDependency2/ex_master.py)
+```python
+```
+
+
+
 
 
