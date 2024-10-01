@@ -81,12 +81,76 @@ var1 = "abcde"
 #$PROPERTY value "abcdef"
 ```
 
+### Variable Test 6 (relativeTolerance, absoluteTolerance)
+- [catester-examples/tokens-test/variable-6/ex_master.py](../../catester-examples/tokens-test/variable-6/ex_master.py)
+- default values are:
+    - relativeTolerance: 1.0e-12
+    - absoluteTolerance: 0.0001
+- see also [pytest approx](https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest-approx) on how pytest handles absolute and relative tolerances
+- a test is passed if either tolerance is met
+- here, tests 1 and 2 will pass, test 3 fill fail beacause both tolerances are not met
+```python
+var1 = 1 + 1e-13
+#$VARIABLETEST variable-6
+#$TESTVAR var1
+#$PROPERTY relativeTolerance 1e-99
+#$PROPERTY value 1.0
 
+#$TESTVAR var1
+#$PROPERTY absoluteTolerance 0
+#$PROPERTY value 1.0
 
+#$TESTVAR var1
+#$PROPERTY relativeTolerance 1e-14
+#$PROPERTY absoluteTolerance 0
+#$PROPERTY value 1.0
+```
 
+### String Test 1 (matches, contains, startsWith, endsWith, count, regexp)
+- [catester-examples/tokens-test/string-1/ex_master.py](../../catester-examples/tokens-test/string-1/ex_master.py)
+- for string comparisons PROPERTY "pattern" is mandatory
+- PROPERTY "qualification" must be set to:
+    - matches
+    - contains
+    - startsWith
+    - endsWith
+    - count
+    - regexp
+- if qualification = count, then PROPERTY "countRequirement" is also needed
+- nice regex reference, see here: [regexr.com](https://regexr.com/)
+- these tests does not use the reference solution, is checks the variable against the specified pattern
+```python
+var1 = "_abcdefgh_"
+#$VARIABLETEST string-1
+#$TESTVAR var1
+#$PROPERTY qualification matches
+#$PROPERTY pattern "_abcdefgh_"
 
+#$TESTVAR var1
+#$PROPERTY qualification contains
+#$PROPERTY pattern "cde"
 
+#$TESTVAR var1
+#$PROPERTY qualification startsWith
+#$PROPERTY pattern "_a"
 
+#$TESTVAR var1
+#$PROPERTY qualification endsWith
+#$PROPERTY pattern "gh_"
+
+#$TESTVAR var1
+#$PROPERTY qualification count
+#$PROPERTY countRequirement 2
+#$PROPERTY pattern "_"
+
+#$TESTVAR var1
+#$PROPERTY qualification regexp
+#$PROPERTY pattern "^_[a-h]+_$"
+
+#$TESTVAR var1
+#$PROPERTY qualification regexp
+#$PROPERTY pattern "^\\w+$"
+```
 
 ## Existance Tests
 - an existance test checks if a file or folder exists
