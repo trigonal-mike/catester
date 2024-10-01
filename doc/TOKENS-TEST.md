@@ -526,8 +526,3 @@ var1 = 1
 - [catester-examples/tokens-test/testDependency2/ex_master.py](../../catester-examples/tokens-test/testDependency2/ex_master.py)
 ```python
 ```
-
-
-
-
-

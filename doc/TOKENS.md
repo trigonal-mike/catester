@@ -239,10 +239,10 @@ if not specified different in the masterfile.
 
 ## special cases for testcollections:
 EXISTANCETEST, LINTINGTEST, STRUCTURALTEST:
-- "#$PROPERTY file [filename].py" must be set
+- "#$PROPERTY file [some-filename].py" must be set
 
 EXISTANCETEST, LINTINGTEST:
-- #$TESTVAR must be set to anything, a variable with that name does not need to exist in code
+- #$TESTVAR is needed, but does not point to any "variable", can be any string
 
 ```python
 #$EXISTANCETEST existance
