@@ -303,11 +303,31 @@ var1 = 1
 #$TESTVAR var1
 ```
 
+### Testcollection Test 6 (inputAnswers)
+- [catester-examples/tokens-test/testcollection-6/ex_master.py](../../catester-examples/tokens-test/testcollection-6/ex_master.py)
+- the PROPERTY "inputAnswers" is MANDATORY, if there is an input prompt in the code
+- inputAnswers is either a string or a list of strings
+- the count of inputAnswers MUST match the count of input-prompts
+- here, two answers are needed (for each test)
+- test-2 uses a mixture of inputAnswers and STDOUTTEST
+```python
+var1 = input("Please input a number from 1 to 100: ")
+var2 = input("Please input a number from 1 to 100: ")
+var3 = int(var1) + int(var2)
+print(f"the sum of {var1} and {var2} is {var3}")
 
+#$VARIABLETEST test-1
+#$PROPERTY inputAnswers 7
+#$PROPERTY inputAnswers 8
+#$TESTVAR var3
+#$PROPERTY value 15
 
-
-
-
+#$STDOUTTEST test-2
+#$PROPERTY inputAnswers ["1", "2"]
+#$TESTVAR -
+#$PROPERTY qualification endsWith
+#$PROPERTY pattern "the sum of 1 and 2 is 3\n"
+```
 
 ## Existance Tests
 - an existance test checks if a file or folder exists
@@ -343,10 +363,24 @@ var1 = 1
 #$TESTVAR -
 ```
 
+### Stdout Test 1
+- [catester-examples/tokens-test/stdout-1/ex_master.py](../../catester-examples/tokens-test/stdout-1/ex_master.py)
+- the token TESTVAR is needed, but does not point to any "variable", can be any string
+- test-1 compares against the reference solution
+- test-2 compares against a given pattern
+- test-3 obviously fails
+```python
+print("abc")
+#$STDOUTTEST test-1
+#$TESTVAR -
 
+#$STDOUTTEST test-2
+#$TESTVAR -
+#$PROPERTY qualification startsWith
+#$PROPERTY pattern "ab"
 
-
-
-wenn input imfile => inputAnswers erforderlich!!!
-
-
+#$STDOUTTEST test-3
+#$TESTVAR -
+#$PROPERTY qualification matches
+#$PROPERTY pattern "abcde"
+```
