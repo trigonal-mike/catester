@@ -146,9 +146,9 @@ https://pypi.org/project/pytest-metadata/
 - verbosity ist (noch) nicht ideal einstellbar
 
 ## Allowed/Disallowed Modules:
-- moduleBlacklist ist umgesetzt
 - eine whiteList ist nicht praktisch, weil zb. numpy insg. 176, und matplotlib insg. 338 weitere Module benötigt/importiert
+- moduleBlacklist funktioniert, es werden aber keine indirekten imports überprüft, d.h. imports die in importierten files stehen werden (noch) nicht überprüft
 
 ## tearDownCode:
-- as of now, tearDownCode is executed right after setUpCode is executed, that is not really useful ;-)
+- currently, tearDownCode is executed right after setUpCode is executed, that is not really useful ;-)
 - see [catester/tests/test_class.py#L225](catester/tests/test_class.py#L225)

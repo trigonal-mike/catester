@@ -329,6 +329,36 @@ print(f"the sum of {var1} and {var2} is {var3}")
 #$PROPERTY pattern "the sum of 1 and 2 is 3\n"
 ```
 
+### Testcollection Test 7 (moduleBlacklist)
+- [catester-examples/tokens-test/testcollection-7/ex_master.py](../../catester-examples/tokens-test/testcollection-7/ex_master.py)
+- moduleBlacklist is either a string or a list of strings
+- currently, moduleBlacklist only works for direct imports
+- moduleBlacklist does not work for indirect imports, see test-2
+- test-1 fails, because it imports "additional"
+- test-2 passes, because additional.py imports "numpy", <span style="background-color: red; color: black">TODO, this test should fail</span>
+- test-3 fails, because it imports "additional" and "math"
+```python
+#$META studentSubmissionFiles ./additional.py
+
+from additional import get_pi_from_numpy
+import math
+
+var1 = get_pi_from_numpy()
+var2 = var1 * math.pi
+
+#$VARIABLETEST variables test-1
+#$PROPERTY moduleBlacklist ["additional"]
+#$TESTVAR var2
+
+#$VARIABLETEST variables test-2
+#$PROPERTY moduleBlacklist ["numpy"]
+#$TESTVAR var2
+
+#$VARIABLETEST variables test-3
+#$PROPERTY moduleBlacklist ["additional", "numpy", "math"]
+#$TESTVAR var2
+```
+
 ## Existance Tests
 - an existance test checks if a file or folder exists
 - the token TESTVAR is needed, but does not point to any "variable", can be any string
@@ -367,7 +397,7 @@ print(f"the sum of {var1} and {var2} is {var3}")
 - [catester-examples/tokens-test/stdout-1/ex_master.py](../../catester-examples/tokens-test/stdout-1/ex_master.py)
 - the token TESTVAR is needed, but does not point to any "variable", can be any string
 - test-1 compares against the reference solution
-- test-2 compares against a given pattern
+- test-2 and test-3 compare against a given pattern
 - test-3 obviously fails
 ```python
 print("abc")
@@ -384,3 +414,6 @@ print("abc")
 #$PROPERTY qualification matches
 #$PROPERTY pattern "abcde"
 ```
+
+
+
