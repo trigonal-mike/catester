@@ -1,4 +1,4 @@
-# EXAMPLES-TEST
+# TOKENS-TEST
 - various basic examples of how to implement tokens can be found here
 - these examples also exist in the repo [catester-examples/tokens-test](../../catester-examples/tokens-test)
 - for these examples the master-file is always named **ex_master.py**

@@ -1,4 +1,4 @@
-# EXAMPLES-META
+# TOKENS-META
 several examples using META-tokens can be found here:
 
 ## Basic Settings
