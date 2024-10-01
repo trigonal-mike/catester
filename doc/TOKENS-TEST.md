@@ -106,6 +106,17 @@ var1 = 1 + 1e-13
 #$PROPERTY value 1.0
 ```
 
+### Variable Test 7 (\_\_doc\_\_)
+- [catester-examples/tokens-test/variable-7/ex_master.py](../../catester-examples/tokens-test/variable-7/ex_master.py)
+- this test checks the doc-string from a python file against a given pattern
+```python
+"""this is the doc-string, which gets stored into __doc__"""
+#$VARIABLETEST variable-7
+#$TESTVAR __doc__
+#$PROPERTY qualification startsWith
+#$PROPERTY pattern "this is the"
+```
+
 ### String Test 1 (matches, contains, startsWith, endsWith, count, regexp)
 - [catester-examples/tokens-test/string-1/ex_master.py](../../catester-examples/tokens-test/string-1/ex_master.py)
 - for string comparisons PROPERTY "pattern" is mandatory
