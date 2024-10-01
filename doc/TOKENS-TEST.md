@@ -462,12 +462,59 @@ plt.show()
 
 ### Structural Test 1
 - [catester-examples/tokens-test/structural-1/ex_master.py](../../catester-examples/tokens-test/structural-1/ex_master.py)
+- STRUCTURALTEST uses the [tokenizer](https://github.com/python/cpython/blob/3.12/Lib/token.py) from python
+- occuranceType defaults to "NAME"
+- occuranceType "STRING" is supported as well
+- allowedOccuranceRange defaults to [0, 0], (i.e. [min, max]-required)
 ```python
+import numpy
+var1 = numpy.pi
+var2 = "None"
+var3 = None
+var4 = None
+var5 = "def"
+def add(a, b):
+    return a + b
+#$STRUCTURALTEST structural-1
+#$PROPERTY file "ex.py"
+#$TESTVAR import
+#$PROPERTY allowedOccuranceRange [1, 1]
+#$TESTVAR def
+#$PROPERTY allowedOccuranceRange [0, 2]
+#$TESTVAR None
+#$PROPERTY allowedOccuranceRange [2, 2]
+#$TESTVAR "None"
+#$PROPERTY occuranceType STRING
+#$PROPERTY allowedOccuranceRange [1, 1]
+#$TESTVAR numpy
+#$PROPERTY allowedOccuranceRange [2, 2]
+#$TESTVAR scipy
+#$PROPERTY allowedOccuranceRange [0, 0]
 ```
 
 ### Linting Test 1
 - [catester-examples/tokens-test/linting-1/ex_master.py](../../catester-examples/tokens-test/linting-1/ex_master.py)
+- flake8 is used as linter: [see here](https://flake8.pycqa.org/)
+- ignore-flag: https://flake8.pycqa.org/en/latest/user/options.html#cmdoption-flake8-ignore
+- for the LINTINGTEST, the property "pattern" is used as the ignore-flag for the linter
+- pattern is a comma-separated list of error-codes which should be ignored
+- flake8 error codes: https://flake8.pycqa.org/en/latest/user/error-codes.html
+- pycodestyle error codes: https://pycodestyle.pycqa.org/en/latest/intro.html#error-codes
+- here, a folder userSolution1 exists under localTests, containing some linting-errors, check the testrunner/output...
+- test-1 ignores every error-code starting with "E2" (i.e. whitespace - errors)
+- test-1 ignores every error-code starting with "E3" (i.e. blank line - errors)
+- test-1 ignores every error-code starting with "W" (i.e. warnings)
+- test-2 reports everything
 ```python
+var1 = 1
+#$LINTINGTEST test-1
+#$PROPERTY file "ex.py"
+#$TESTVAR -
+#$PROPERTY pattern W,E2,E3
+
+#$LINTINGTEST test-2
+#$PROPERTY file "ex.py"
+#$TESTVAR -
 ```
 
 ### TestDependency Test 1
