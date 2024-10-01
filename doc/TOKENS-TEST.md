@@ -173,7 +173,7 @@ var1 = 1
 - [catester-examples/tokens-test/testcollection-1/ex_master.py](../../catester-examples/tokens-test/testcollection-1/ex_master.py)
 - successDependency can be a string or integer, or a list of strings/integers
 - if a testcollection has the PROPERTY id (a string), then this id can be used as the successDependency
-- successDependency can be an integer, then it means the 1-based index of testcollections (e.g. 1 = the first testcollection, and so on...)
+- if successDependency is an integer, then it means the 1-based index of testcollections (e.g. 1 = the first testcollection, and so on...)
 - test-1 passes
 - test-2 fails
 - test-3 passes
@@ -248,6 +248,61 @@ var1 = 1
 #$PROPERTY entryPoint additional-file.py
 #$TESTVAR var2
 ```
+
+### Testcollection Test 4 (setUpCode)
+- [catester-examples/tokens-test/testcollection-4/ex_master.py](../../catester-examples/tokens-test/testcollection-4/ex_master.py)
+- setUpCode can be a string or a list of string which will be executed
+- setUpCode is executed after the entryPoint is executed into the namespace
+- test-1, test-2 and test-3 are all the same
+```python
+var1 = 1
+#$VARIABLETEST test-1
+#$PROPERTY setUpCode "var2 = var1\ndel var1"
+#$TESTVAR var1
+#$TESTVAR var2
+
+#$VARIABLETEST test-2
+#$PROPERTY setUpCode ["var2 = var1", "del var1"]
+#$TESTVAR var1
+#$TESTVAR var2
+
+#$VARIABLETEST test-3
+#$PROPERTY setUpCode "var2 = var1"
+#$PROPERTY setUpCode "del var1"
+#$TESTVAR var1
+#$TESTVAR var2
+```
+
+### Testcollection Test 5 (setUpCodeDependency)
+- [catester-examples/tokens-test/testcollection-5/ex_master.py](../../catester-examples/tokens-test/testcollection-5/ex_master.py)
+- if setUpCodeDependency is set it uses the namespace of the corresponding testcollection as its initial values
+- setUpCodeDependency can be a string or integer
+- if a testcollection has the PROPERTY id (a string), then this id can be used as the setUpCodeDependency
+- if setUpCodeDependency is an integer, then it means the 1-based index of testcollections (e.g. 1 = the first testcollection, and so on...)
+- test-1 passes, because var1 is defined in additional-file.py
+- test-2 passes, because it uses the namespace of test-1 (as initial)
+- test-3 passes, because it uses the namespace of test-2 (as initial)
+- test-4 fails, because var1 is not found
+```python
+#$META studentSubmissionFiles additional-file.py
+
+#$VARIABLETEST test-1
+#$PROPERTY id "test1"
+#$PROPERTY entryPoint additional-file.py
+#$TESTVAR var1
+
+#$VARIABLETEST test-2
+#$PROPERTY setUpCodeDependency "test1"
+#$TESTVAR var1
+
+#$VARIABLETEST test-3
+#$PROPERTY setUpCodeDependency 2
+#$TESTVAR var1
+
+#$VARIABLETEST test-4
+#$TESTVAR var1
+```
+
 
 
 

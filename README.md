@@ -148,3 +148,7 @@ https://pypi.org/project/pytest-metadata/
 ## Allowed/Disallowed Modules:
 - moduleBlacklist ist umgesetzt
 - eine whiteList ist nicht praktisch, weil zb. numpy insg. 176, und matplotlib insg. 338 weitere Module benötigt/importiert
+
+## tearDownCode:
+- as of now, tearDownCode is executed right after setUpCode is executed, that is not really useful ;-)
+- see [catester/tests/test_class.py#L225](catester/tests/test_class.py#L225)

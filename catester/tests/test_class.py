@@ -218,6 +218,7 @@ def get_solution(mm, pytestconfig, idx_main, where: Solution):
                     errormsg = f"setupCode {setup_code} could not be executed"
                     status = StatusEnum.failed
 
+            # todo: tearDownCode is not really useful here :-)
             if not error:
                 try:
                     """ run teardown-code """
