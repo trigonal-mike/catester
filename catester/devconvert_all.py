@@ -1,28 +1,27 @@
 import glob
 import os
 from convert import convert_master
+from run_tests import DEFAULT_PYTESTFLAGS
 
-""" this file is for running the converter for ALL assignments (*_master.py files) found in SEARCH_DIR recursively """
+""" settings are explained here: doc/DEVCONVERT.md """
 
 TESTRUNNER_DIR = "../../testrunner"
 INITIAL_META = "../../assignments/initial-meta.yaml"
 USE_FORMATTER = True
 SUPPRESS_OUTPUT = True
+CONVERTER_ACTION = None
 #CONVERTER_ACTION = 'cleanup'
 #CONVERTER_ACTION = 'convert'
 #CONVERTER_ACTION = 'test'
-CONVERTER_ACTION = None
 CATESTER_VERBOSITY = 0
+PYTEST_FLAGS = DEFAULT_PYTESTFLAGS
 PYTEST_FLAGS = "-ra,--tb=no,--no-header,--no-summary,-q"
 
-# search all:
-SEARCH_DIR = "../../assignments"
-
-# or just search in Week01:
-#SEARCH_DIR = "../../assignments/Week01"
-
+#SEARCH_DIR = "../../assignments"
+SEARCH_DIR = "../../assignments/Week01"
 #SEARCH_DIR = "../../catester-examples/ex_master/_ex_"
 #SEARCH_DIR = "../../catester-examples/ex_master/examples"
+#SEARCH_DIR = "../../catester-examples/tokens-test"
 
 if __name__ == "__main__":
     thisdir = os.path.dirname(__file__)

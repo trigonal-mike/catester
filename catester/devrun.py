@@ -19,6 +19,7 @@ REPORT_INDENT = 2
 SOLUTION_DIRECTORY = "../../testrunner/_Week01_01_math_constants/_correctSolution"
 #SOLUTION_DIRECTORY = "../../testrunner/_Week01_01_math_constants/_emptySolution"
 #SOLUTION_DIRECTORY = "../../testrunner/_Week01_01_math_constants/studentSolution"
+#SOLUTION_DIRECTORY = "../../testrunner/_variable-7/_correctSolution"
 
 # PYTEST_FLAGS: test flags for pytest
 # https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags

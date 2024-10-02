@@ -2,57 +2,30 @@ import os
 from convert import convert_master
 from run_tests import DEFAULT_PYTESTFLAGS
 
-""" please see doc/CONVERTER.md for detailed instructions """
+""" settings are explained here: doc/DEVCONVERT.md """
 
-# TESTRUNNER_DIR: name of directory where the tests should run
-# best being placed next to repository "catester"
-# this directory MUST be relative to this file (devconvert.py)
 TESTRUNNER_DIR = "../../testrunner"
-
-# INITIAL_META: yaml-file containing initial values for the generated meta.yaml file
-# or None if initial values are not provided
 INITIAL_META = "../../assignments/initial-meta.yaml"
-#INITIAL_META = "../../catester-examples/initial-meta.yaml"
-#INITIAL_META = None
-
-# USE_FORMATTER: if files should be formatted or not
 USE_FORMATTER = True
-#USE_FORMATTER = False
-
-# SUPPRESS_OUTPUT: suppress converter output or not
-#SUPPRESS_OUTPUT = True
 SUPPRESS_OUTPUT = False
-
-# CONVERTER_ACTION: action for the converter
-# None      ... run all (DEFAULT)
-# "convert" ... just convert
-# "test"    ... just run the tests
-# "cleanup" ... just run cleanup
 CONVERTER_ACTION = None
 #CONVERTER_ACTION = "convert"
 #CONVERTER_ACTION = "test"
 #CONVERTER_ACTION = "cleanup"
-
-# CATESTER_VERBOSITY: verbosity level for catester
-# 0 ... no additional output
-# 1 ... show exit-code (and additional output, ONLY if PYTEST_FLAGS are without "--no-summary" flag)
 CATESTER_VERBOSITY = 0
-
-# PYTEST_FLAGS: test flags for pytest
-# https://docs.pytest.org/en/stable/reference/reference.html#command-line-flags
 PYTEST_FLAGS = DEFAULT_PYTESTFLAGS
 #PYTEST_FLAGS = "-rA"
 #PYTEST_FLAGS = "-ra,--tb=no,--no-header,--no-summary,-q"
 
-# ASSIGNMENTS_DIR: name of directory containing the assignments or examples
 ASSIGNMENTS_DIR = "../../assignments"
 #ASSIGNMENTS_DIR = "../../catester-examples/dev_examples"
 #ASSIGNMENTS_DIR = "../../catester-examples/examples"
+#ASSIGNMENTS_DIR = "../../catester-examples/tokens-test"
 
 # SCAN_DIR: actual assignment to test
 # MUST be relative to ASSIGNMENTS_DIR
 
-# these following are from python assignments - repository
+# python assignments - repository
 SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "Week01/02_basis1"
 #SCAN_DIR = "Week01/03_basis2"
@@ -123,7 +96,7 @@ SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "Week12/02_polynom"
 #SCAN_DIR = "Week12/03_animals"
 
-# these following are from catester-examples - repository (dev_examples)
+# catester-examples - repository (dev_examples)
 #SCAN_DIR = "1_pskript"
 #SCAN_DIR = "2_basis3"
 #SCAN_DIR = "3_additional"
@@ -142,7 +115,7 @@ SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "16_stdin"
 #SCAN_DIR = "17_planets"
 
-# these following are from catester-examples - repository (examples)
+# catester-examples - repository (examples)
 #SCAN_DIR = "aaa/bbb/ccc"
 #SCAN_DIR = "basic"
 #SCAN_DIR = "blacklist"
@@ -174,6 +147,33 @@ SCAN_DIR = "Week01/01_math_constants"
 #SCAN_DIR = "Week03_test_dependencies/Unit01"
 #SCAN_DIR = "Week03_test_dependencies/Unit02"
 #SCAN_DIR = "Week03_test_dependencies/Unit03"
+
+# catester-examples - repository (tokens-test)
+#SCAN_DIR = "variable-1"
+#SCAN_DIR = "variable-2"
+#SCAN_DIR = "variable-3"
+#SCAN_DIR = "variable-4"
+#SCAN_DIR = "variable-5"
+#SCAN_DIR = "variable-6"
+#SCAN_DIR = "variable-7"
+#SCAN_DIR = "string-1"
+#SCAN_DIR = "testcollection-1"
+#SCAN_DIR = "testcollection-2"
+#SCAN_DIR = "testcollection-3"
+#SCAN_DIR = "testcollection-4"
+#SCAN_DIR = "testcollection-5"
+#SCAN_DIR = "testcollection-6"
+#SCAN_DIR = "testcollection-7"
+#SCAN_DIR = "existance-1"
+#SCAN_DIR = "existance-2"
+#SCAN_DIR = "existance-3"
+#SCAN_DIR = "stdout-1"
+#SCAN_DIR = "graphics-1"
+#SCAN_DIR = "graphics-2"
+#SCAN_DIR = "structural-1"
+#SCAN_DIR = "linting-1"
+#SCAN_DIR = "testDependency1"
+#SCAN_DIR = "testDependency2"
 
 if __name__ == "__main__":
     # get directory of this file 

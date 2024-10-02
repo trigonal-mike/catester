@@ -3,6 +3,7 @@
 - run devconvert.py for automatically creating associated files/folders and running local tests of an example
 - all important settings for devconvert.py are explained herein
 - see [EXAMPLES.md](doc/EXAMPLES.md) for how examples are structured, master-file naming, etc.
+- instructions for **devconvert_all.py** at end of this page
 
 ## TESTRUNNER_DIR
 this should point to the directory where the tests are run, best being placed next to repository "catester", this directory MUST be relative to devconvert.py
@@ -12,7 +13,7 @@ e.g.: TESTRUNNER_DIR = "../../testrunner"
 this directory will be created by devconvert, if it does not exist
 
 ## INITIAL_META
-points to the file containing initial values for the generated meta.yaml file
+points to the yaml-file containing initial values for the generated meta.yaml file
 
 e.g.: INITIAL_META = "../../assignments/initial-meta.yaml"
 
@@ -96,5 +97,6 @@ examples for (catester-examples/examples):
 - SCAN_DIR = "datetime"
 
 # devconvert_all.py
+- this file is for running the converter for ALL assignments (*_master.py files) found in SEARCH_DIR recursively
 - devconvert_all.py uses the same settings as devconvert.py, except **ASSIGNMENTS_DIR** and **SCAN_DIR**
 - instead it uses **SEARCH_DIR**, which is the directory where _master-files are being searched for recursively, and the converter is run for all directories containing a master-file
