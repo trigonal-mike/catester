@@ -147,14 +147,14 @@ all properties:
   - competency
   - timeout
 - variable-level only:
-  - name, (just used via "#$TESTVAR ...")
+  - name, (only used via "#$TESTVAR ...", DONT set directly)
   - value
   - evalString
   - pattern
   - countRequirement
 - testcollection-level only:
-  - name, (just used via e.g. "#$VARIABLETEST ...")
-  - type, (just used via e.g. "#$VARIABLETEST ...")
+  - name, (only used via e.g. "#$VARIABLETEST ...", DONT set directly)
+  - type, (only used via e.g. "#$VARIABLETEST ...", DONT set directly)
   - description
   - successDependency
   - setUpCodeDependency

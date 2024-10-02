@@ -519,10 +519,26 @@ var1 = 1
 
 ### TestDependency Test 1
 - [catester-examples/tokens-test/testDependency1/ex_master.py](../../catester-examples/tokens-test/testDependency1/ex_master.py)
+- here, the function "add" is defined
 ```python
+def add(a, b):
+    return a + b
+x = add(1, 2)
+#$VARIABLETEST test-1
+#$TESTVAR x
 ```
 
-### TestDependency Test 2
+### TestDependency Test 2 (META testDependencies)
 - [catester-examples/tokens-test/testDependency2/ex_master.py](../../catester-examples/tokens-test/testDependency2/ex_master.py)
+- here, the function "add" is imported
+- the specified testDependencies get copied to the respective directories in testrunner
 ```python
+#$META testDependencies ../testDependency1/ex.py
+import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from testDependency1.ex import add
+x = add(1, 2)
+#$VARIABLETEST test-unit2
+#$TESTVAR x
 ```
